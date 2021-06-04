@@ -2,9 +2,11 @@
 
 こちらは Keyball46 のビルドガイドになります。
 
-![01](https://github.com/Yowkees/keyball/tree/main/keyball46/doc/rev1/images/yw001.jpg)
+![01](images/yw001.jpg)
 
 ## 部品
+
+キットが届きましたらキット同梱品がすべて入っていたかご確認ください。
 
 ### キット同梱品
 
@@ -61,7 +63,6 @@
 ## 事前準備
 
 ファームウェアを自分でビルドする場合は環境を整備するのに時間がかかるので、事前に取り掛かっておくことをおすすめします。\
-詳しくは <https://github.com/foostan/crkbd/blob/master/doc/firmware_jp.md> をご参照ください。
 
 ## 実装
 
