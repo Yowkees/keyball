@@ -53,9 +53,10 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #define RGB_DI_PIN D3
 
+// RGB Light settings for Keyball46 hardware
 #ifdef RGBLIGHT_ENABLE
-#define RGBLED_NUM 7    // Number of LEDs
-#define RGBLIGHT_SPLIT
+#    define RGBLED_NUM 14    // Number of LEDs
+#    define RGBLED_SPLIT { 7, 7 }
 #endif
 
 /*
