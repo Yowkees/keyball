@@ -33,9 +33,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define SOFT_SERIAL_PIN D2
 
 #ifdef RGBLIGHT_ENABLE
-    #undef RGBLED_NUM
 //    #define RGBLIGHT_ANIMATIONS
-    #define RGBLED_NUM 7
     #define RGBLIGHT_LIMIT_VAL 120
     #define RGBLIGHT_HUE_STEP 10
     #define RGBLIGHT_SAT_STEP 17
@@ -43,4 +41,3 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #endif
 
 #define OLED_FONT_H "keyboards/keyball/lib/glcdfont.c"
-
