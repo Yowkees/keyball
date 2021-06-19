@@ -18,6 +18,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #pragma once
 
+#ifndef TRACKBALL_DRIVER_DISABLE
+
 #include <stdint.h>
 
 // trackball_process_delta_user will be callbacked when trackball detects some
@@ -31,3 +33,5 @@ bool trackball_get_scroll_mode(void);
 // trackball_set_scroll_mode enables/disables scroll mode of trackball.
 // When scroll mode enabled, rotating trackball reports scrolling events.
 void trackball_set_scroll_mode(bool mode);
+
+#endif // TRACKBALL_DRIVER_DISABLE

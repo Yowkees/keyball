@@ -65,4 +65,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
     #define RGBLIGHT_VAL_STEP 17
 #endif
 
+// disable Keyball's default trackball driver.
+#define TRACKBALL_DRIVER_DISABLE
+
 #define OLED_FONT_H "keyboards/claw44/lib/glcdfont.c"

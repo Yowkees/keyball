@@ -16,6 +16,8 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
+#ifndef TRACKBALL_DRIVER_DISABLE
+
 #include "quantum.h"
 #include "pointing_device.h"
 
@@ -101,3 +103,5 @@ bool trackball_get_scroll_mode(void) {
 void trackball_set_scroll_mode(bool mode) {
     is_scroll_mode = mode;
 }
+
+#endif // TRACKBALL_DRIVER_DISABLE
