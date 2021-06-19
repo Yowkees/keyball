@@ -18,9 +18,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include QMK_KEYBOARD_H
 
 #include "pointing_device.h"
-#include "../optical_sensor/optical_sensor.h"
-
-extern keymap_config_t keymap_config;
+#include "trackball.h"
 
 bool isScrollMode;
 
@@ -169,66 +167,18 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     return true;
 }*/
 
-
-
-#define CLAMP_HID(value) value < -127 ? -127 : value > 127 ? 127 : value
-
-void pointing_device_init(void) {
-	if (is_keyboard_master()){
-		optical_sensor_init();
-	}
-}
-
 void keyboard_post_init_user() {
     debug_enable = true;
     debug_mouse = true;
 }
 
-void pointing_device_task(void) {
-    if (!is_keyboard_master())
-        return;
-    static int  cnt;
-	static int16_t avg_x, avg_y;
-
-    report_mouse_t mouse_rep = pointing_device_get_report();
-	report_optical_sensor_t sensor_report = optical_sensor_get_report();
-
-	int16_t raw_x = - sensor_report.x;
-	int16_t raw_y = - sensor_report.y;
-	
-	if (cnt++ % 10 == 0) {
-		avg_x = avg_x / 10;
-		avg_y = avg_y / 10;
-//		if(avg_x*avg_x >= 225) avg_x*=2;
-//		if(avg_y*avg_y >= 225) avg_y*=2;
-		int8_t clamped_x = CLAMP_HID(avg_x);
-		int8_t clamped_y = CLAMP_HID(avg_y);
-		
-		if (isScrollMode) {
-			mouse_rep.h = -clamped_x/10;
-			mouse_rep.v = -clamped_y/10;
-		} else {
-			mouse_rep.x = -clamped_x;
-			mouse_rep.y = clamped_y;
-		}
-	}else{
-		avg_x += raw_x;
-		avg_y += raw_y;
-	}
-    	
-
-	if (mouse_rep.x!=0 || mouse_rep.y!=0 || mouse_rep.v!=0 || mouse_rep.h!=0) {
-		pointing_device_set_report(mouse_rep);
-    }
-}
-
 layer_state_t layer_state_set_user(layer_state_t state) {
     switch (get_highest_layer(state)) {
     case _BALL:
-        isScrollMode = true;
+        trackball_set_scroll_mode(true);
         break;
     default:
-        isScrollMode = false;
+        trackball_set_scroll_mode(false);
         break;
     }
   return state;
