@@ -38,20 +38,23 @@ Keyballに付属のデフォルトのトラックボールドライバーを無�
 各キーマップの config.h で設定できます。デフォルトは `10` で `0` 以下の値を設定
 するとコンパイルエラーになります。
 
-### `trackball_process_delta_user()`
+### `trackball_process_user()`
 
-`trackball_process_delta_user()` 関数を定義するとトラックボールの移動量をどのよ
-うに扱うかをユーザーがカスタマイズできます。`trackball_process_delta_user()` は
+`trackball_process_user()` 関数を定義するとトラックボールの移動量をどのよ
+うに扱うかをユーザーがカスタマイズできます。`trackball_process_user()` は
 ドライバーがトラックボールの移動を検知した際に、その移動量を引数にして呼び出し
 ます。ユーザーはポインティングデバイスとしてレポートを送っても良いですし、それ
 以外のことをしてもかまいません。
+
+スクロールモードが有効な場合、渡される移動量は `TRACKBALL_SCROLL_DIVIDER` を考
+慮した値になります。
 
 各キーマップの keymap.c で定義できます。
 
 定義例: マウスカーソルに上下反転させて適用する
 
 ```c
-void trackball_process_delta_user(int8_t dx, int8_t dy) {
+void trackball_process_user(int8_t dx, int8_t dy) {
     report_mouse_t r = pointing_device_get_report();
     r.x = -dx;
     r.y = -dy;

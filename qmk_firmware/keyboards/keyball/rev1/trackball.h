@@ -22,10 +22,10 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #include <stdint.h>
 
-// trackball_process_delta_user will be callbacked when trackball detects some
+// trackball_process_user will be callbacked when trackball detects some
 // rotation. User can override default behavior of trackball by defining this
 // function.
-void trackball_process_delta_user(int8_t dx, int8_t dy);
+void trackball_process_user(int8_t dx, int8_t dy);
 
 // trackball_get_scroll_mode returns current scroll ode of trackball.
 bool trackball_get_scroll_mode(void);
