@@ -19,3 +19,4 @@ OLED_DRIVER_ENABLE = no     # Add OLED displays support
 SPLIT_KEYBOARD = yes
 
 SRC += trackball.c
+SRC += oledkit.c
