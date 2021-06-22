@@ -72,3 +72,5 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define OLEDKIT_DISABLE
 
 #define OLED_FONT_H "keyboards/claw44/lib/glcdfont.c"
+
+#define LAYER_STATE_16BIT
