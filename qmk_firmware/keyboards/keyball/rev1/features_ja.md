@@ -35,12 +35,19 @@ Keyballに付属のデフォルトのトラックボールドライバーを無�
 
 ### `TRACKBALL_SCROLL_DIVIDER`
 
-スクロールモードが有効な場合、トラックボールはトラックボールの移動量をマウスカーソルではなくスクロール量として送信しますが、送る時に移動量が小さくなるように割っており、 `TRACKBALL_SCROLL_DIVIDER` はその分母を指定する設定項目です。
+スクロールモードが有効な場合、トラックボールはトラックボールの移動量をマウス
+カーソルではなくスクロール量として送信しますが、送る時に移動量が小さくなるよう
+に割っており、 `TRACKBALL_SCROLL_DIVIDER` はその分母を指定する設定項目です。
 
 各キーマップの config.h で設定できます。デフォルトは `10` で `0` 以下の値を設定
 するとコンパイルエラーになります。
 
-### `trackball_process_user()`
+### `TRACKBALL_DELTA_DIMENSION` 定数
+
+トラックボールの移動量の次元です。現在はXとYを表す `2` です。
+`trackball_latest_delta()` で移動量を受け取る際のバッファサイズとして使います。
+
+### `trackball_process_user()` オーバーライド可能関数
 
 `trackball_process_user()` 関数を定義するとトラックボールの移動量をどのよ
 うに扱うかをユーザーがカスタマイズできます。`trackball_process_user()` は
@@ -64,6 +71,11 @@ void trackball_process_user(int8_t dx, int8_t dy) {
 }
 ```
 
+### `trackball_process_secondary_user()` オーバーライド可能関数
+
+セカンダリのトラックボールの移動量の取り扱いをカスタマイズできます。
+基本的な使い方は `trackball_process_user()` を参照してください。
+
 ### `bool trackball_get_scroll_mode(void)` API
 
 トラックボールの現在のスクロールモードを取得します。
@@ -71,6 +83,17 @@ void trackball_process_user(int8_t dx, int8_t dy) {
 ### `void trackball_set_scroll_mode(bool mode)` API
 
 トラックボールのスクロールモードを変更します。
+
+### `void trackball_latest_delta()` API
+
+最近の非ゼロなトラックボール移動量を取得します。
+
+使用例:
+
+```c
+int8_t delta[TRACKBALL_DELTA_DIMENSION];
+trackball_latest_delta(delta);
+```
 
 ## OLED Kit
 

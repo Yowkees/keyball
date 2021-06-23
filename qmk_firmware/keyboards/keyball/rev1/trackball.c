@@ -38,7 +38,17 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #    error "TRACKBALL_SCROLL_DIVIDER should be larger than zero"
 #endif
 
-static bool trackball_has(void) {
+static bool is_primary = false;
+static bool is_scroll_mode = false;
+
+static int16_t accum_count = 0;
+static int16_t accum_x = 0;
+static int16_t accum_y = 0;
+
+static int8_t delta_x = 0;
+static int8_t delta_y = 0;
+
+__attribute__((weak)) bool trackball_has(void) {
     // FIXME: support for secondary.
     return is_keyboard_master();
 }
@@ -46,14 +56,9 @@ static bool trackball_has(void) {
 __attribute__((weak)) void pointing_device_init(void) {
     if (trackball_has()){
         optical_sensor_init();
+        is_primary = is_keyboard_master();
     }
 }
-
-static bool is_scroll_mode = false;
-
-static int16_t accum_count = 0;
-static int16_t accum_x = 0;
-static int16_t accum_y = 0;
 
 // clip2int8 clips an integer fit into int8_t.
 static inline int8_t clip2int8(int16_t v) {
@@ -88,18 +93,20 @@ __attribute__((weak)) void pointing_device_task(void) {
 
     if (accum_count >= TRACKBALL_SAMPLE_COUNT) {
         // divice to calculate mean value and clip it to fit into int8_t.
-        int16_t div = is_scroll_mode ? TRACKBALL_SAMPLE_COUNT * TRACKBALL_SCROLL_DIVIDER : TRACKBALL_SAMPLE_COUNT;
-        int8_t dx = clip2int8(accum_x / div);
-        int8_t dy = clip2int8(accum_y / div);
-        // process delta.
-        if (dx != 0 || dy != 0) {
-            // FIXME: transport the event to primary if I am secondary.
-            trackball_process_user(dx, dy);
-        }
+        int16_t div = (is_scroll_mode || !is_primary) ? TRACKBALL_SAMPLE_COUNT * TRACKBALL_SCROLL_DIVIDER : TRACKBALL_SAMPLE_COUNT;
+        delta_x = clip2int8(accum_x / div);
+        delta_y = clip2int8(accum_y / div);
         // clear accumulators with considering surplus.
         accum_x %= div;
         accum_y %= div;
         accum_count = 0;
+        // process delta.
+        if (is_primary && (delta_x != 0 || delta_y != 0)) {
+            trackball_process_user(delta_x, delta_y);
+        }
+    } else {
+        delta_x = 0;
+        delta_y = 0;
     }
 
     pointing_device_send();
@@ -117,6 +124,14 @@ __attribute__((weak)) void trackball_process_user(int8_t dx, int8_t dy) {
     pointing_device_set_report(r);
 }
 
+__attribute__((weak)) void trackball_process_secondary_user(int8_t dx, int8_t dy) {
+    // treat events as scroll always on secondary trackball.
+    report_mouse_t r = pointing_device_get_report();
+    r.h = dx;
+    r.v = -dy;
+    pointing_device_set_report(r);
+}
+
 bool trackball_get_scroll_mode(void) {
     return is_scroll_mode;
 }
@@ -129,6 +144,11 @@ void trackball_set_scroll_mode(bool mode) {
         accum_x = 0;
         accum_y = 0;
     }
+}
+
+void trackball_latest_delta(int8_t* delta) {
+    delta[0] = delta_x;
+    delta[1] = delta_y;
 }
 
 #endif // TRACKBALL_DRIVER_DISABLE
