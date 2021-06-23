@@ -1,3 +1,9 @@
+# MCU name
+MCU = atmega32u4
+
+# Bootloader selection
+BOOTLOADER = caterina
+
 # Build Options
 BOOTMAGIC_ENABLE = no       # Virtual DIP switch configuration
 MOUSEKEY_ENABLE = no        # Mouse keys
@@ -9,14 +15,21 @@ BACKLIGHT_ENABLE = no       # Enable keyboard backlight functionality
 AUDIO_ENABLE = no           # Audio output on port C6
 UNICODE_ENABLE = no         # Unicode
 BLUETOOTH_ENABLE = no       # Enable Bluetooth with the Adafruit EZ-Key HID
-RGBLIGHT_ENABLE = no       # Enable WS2812 RGB underlight.
+RGBLIGHT_ENABLE = no        # Enable WS2812 RGB underlight.
 SWAP_HANDS_ENABLE = no      # Enable one-hand typing
 
 # Do not enable SLEEP_LED_ENABLE. it uses the same timer as BACKLIGHT_ENABLE
-SLEEP_LED_ENABLE = no    # Breathing sleep LED during USB suspend
+SLEEP_LED_ENABLE = no       # Breathing sleep LED during USB suspend
 
-OLED_DRIVER_ENABLE = no     # Add OLED displays support
+# Keyball46 rev.1 is split keyboard.
 SPLIT_KEYBOARD = yes
 
+# To support trackball.
+POINTING_DEVICE_ENABLE = yes
+SRC += spi_master.c
+SRC += pmw/pmw.c
 SRC += trackball.c
+
+# To support OLED
+OLED_DRIVER_ENABLE = no     # Please Enable this in each keymaps.
 SRC += oledkit.c
