@@ -69,7 +69,7 @@ static int8_t ball2_x = 0, ball2_y = 0;
 void trackball_process_user(int8_t dx, int8_t dy) {
     ball1_x = dx;
     ball1_y = dy;
-    // treat events as scroll always on primary trackball.
+    // apply events to pointer always on primary trackball.
     report_mouse_t r = pointing_device_get_report();
     r.x = dx;
     r.y = dy;
@@ -79,7 +79,7 @@ void trackball_process_user(int8_t dx, int8_t dy) {
 void trackball_process_secondary_user(int8_t dx, int8_t dy) {
     ball2_x = dx;
     ball2_y = dy;
-    // treat events as scroll always on secondary trackball.
+    // aplly events to scroll always on secondary trackball.
     report_mouse_t r = pointing_device_get_report();
     r.h = dx;
     r.v = -dy;

@@ -1,9 +1,6 @@
 # To support trackball.
 POINTING_DEVICE_ENABLE = yes
 
-# To support OLED
-OLED_DRIVER_ENABLE = yes
-
 # Use custom/modified transport driver for split to negotiate trackball.
 SPLIT_TRANSPORT = custom
 SRC += transport.c

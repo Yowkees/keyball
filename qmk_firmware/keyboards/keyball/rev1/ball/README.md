@@ -3,7 +3,7 @@
 To build "ball" firmware:
 
 ```console
-$ make keyboard/keyball/rev1/ball:test
+$ make keyball/rev1/ball:test
 ```
 
 You can try double trackballs with this firmware.
