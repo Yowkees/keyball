@@ -20,17 +20,15 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #pragma once
 
-/* Select hand configuration */
-//#define MASTER_LEFT
-#define MASTER_RIGHT
+#define LAYER_STATE_8BIT
 
 #ifdef RGBLIGHT_ENABLE
-    #define RGBLIGHT_LIMIT_VAL 120
-    #define RGBLIGHT_HUE_STEP 10
-    #define RGBLIGHT_SAT_STEP 17
-    #define RGBLIGHT_VAL_STEP 17
+#    define RGBLIGHT_LIMIT_VAL 120
+#    define RGBLIGHT_HUE_STEP 10
+#    define RGBLIGHT_SAT_STEP 17
+#    define RGBLIGHT_VAL_STEP 17
 
-    #define RGBLIGHT_EFFECT_RGB_TEST
+#    define RGBLIGHT_EFFECT_RGB_TEST
 #endif
 
 #define OLED_FONT_H "keyboards/keyball/lib/glcdfont.c"
