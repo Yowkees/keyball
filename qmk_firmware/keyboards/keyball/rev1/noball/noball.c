@@ -18,22 +18,25 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #include QMK_KEYBOARD_H
 
+#include "pointing_device.h"
+#include "trackball.h"
+
 // TODO: modify matrix_mask by secondary board type (has ball or no balls)
 matrix_row_t matrix_mask[MATRIX_ROWS] = {
     0b0111111,
     0b0111111,
-    0b0111111,
     0b0011111,
+    0b0111111,
 
     0b0111111,
     0b0111111,
-    0b0111111,
     0b0011111,
+    0b0111111,
 };
 
 bool trackball_has(void) {
     // rev1/ball has a trackball always.
-    return true;
+    return false;
 }
 
 void trackball_secondary_availablity(bool available) {

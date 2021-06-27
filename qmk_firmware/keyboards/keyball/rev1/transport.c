@@ -248,7 +248,8 @@ typedef struct _Serial_s2m_buffer_t {
 #    endif
 
 #ifdef KEYBALL46_TRACKBALL
-    int8_t trackball_delta[TRACKBALL_DELTA_DIMENSION];
+    bool trackball_has;
+    trackball_delta_t trackball_delta;
 #endif
 
 } Serial_s2m_buffer_t;
@@ -387,9 +388,19 @@ bool transport_master(matrix_row_t master_matrix[], matrix_row_t slave_matrix[])
 #    endif
 
 #    ifdef KEYBALL46_TRACKBALL
-    if (serial_s2m_buffer.trackball_delta[0] != 0 || serial_s2m_buffer.trackball_delta[1] != 0) {
-        trackball_process_secondary_user(serial_s2m_buffer.trackball_delta[0], serial_s2m_buffer.trackball_delta[1]);
+    trackball_secondary_availablity(serial_s2m_buffer.trackball_has);
+    // apply trackball's sensor delta on primary board.
+    trackball_delta_t *tb0p = NULL, tb0 = {0};
+    if (trackball_fetch_sensor(&tb0)) {
+        tb0p = &tb0;
     }
+    trackball_apply_delta(0, tb0p);
+    // apply trackball's delta on secondary board.
+    trackball_delta_t *tb1p = NULL;
+    if (serial_s2m_buffer.trackball_has) {
+        tb1p = (trackball_delta_t *)&serial_s2m_buffer.trackball_delta;
+    }
+    trackball_apply_delta(1, tb1p);
 #    endif
 
 #    ifdef WPM_ENABLE
@@ -442,7 +453,8 @@ void transport_slave(matrix_row_t master_matrix[], matrix_row_t slave_matrix[]) 
 #    endif
 
 #    ifdef KEYBALL46_TRACKBALL
-    trackball_latest_delta((int8_t *)serial_s2m_buffer.trackball_delta);
+    // fetch trackball sensor delta and prepare to send it primary.
+    serial_s2m_buffer.trackball_has = trackball_fetch_sensor((trackball_delta_t *)&serial_s2m_buffer.trackball_delta);
 #    endif
 
 #    ifdef WPM_ENABLE

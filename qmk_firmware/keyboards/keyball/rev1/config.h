@@ -38,6 +38,10 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define DIODE_DIRECTION COL2ROW
 #define SOFT_SERIAL_PIN D2
 
+// Detect master/slave configuration by USB instead of VBUS.
+#define SPLIT_USB_DETECT
+#define SPLIT_USB_TIMEOUT 500
+
 #define NO_I2C // no need to compile i2c_slave.c
 
 /* define if matrix has ghost */

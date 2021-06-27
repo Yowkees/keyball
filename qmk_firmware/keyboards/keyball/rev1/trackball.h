@@ -24,30 +24,27 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #define TRACKBALL_DELTA_DIMENSION 2
 
+// trackball_init initializes trackball related resources.
+void trackball_init(void);
+
+void trackball_secondary_availablity(bool available);
+
 // trackball_has should returns status of trackball availability.  it delegates
 // is_keyboard_master() as default, but it can be overridden by keyboards or
 // keymaps.
 bool trackball_has(void);
 
-// trackball_process_user will be callbacked when trackball detects some
-// rotation. User can override default behavior of trackball by defining this
-// function.
-void trackball_process_user(int8_t dx, int8_t dy);
+typedef struct {
+    int16_t x;
+    int16_t y;
+} trackball_delta_t;
 
-// trackball_process_secondary_user will be callbacked when a trackball on
-// secondary board detects some rotation. User can override default behavior of
-// trackball by defining this function.
-void trackball_process_secondary_user(int8_t dx, int8_t dy);
+bool trackball_fetch_sensor(trackball_delta_t *p);
 
-// trackball_get_scroll_mode returns current scroll ode of trackball.
-bool trackball_get_scroll_mode(void);
+void trackball_apply_delta(int num, const trackball_delta_t *delta);
 
-// trackball_set_scroll_mode enables/disables scroll mode of trackball.
-// When scroll mode enabled, rotating trackball reports scrolling events.
-void trackball_set_scroll_mode(bool mode);
+void trackball_reset_delta(int num);
 
-// trackball_latest_delta gets latest detected rotation amount with stabilized.
-// delta's size should be 2 or longer.
-void trackball_latest_delta(int8_t* delta);
+bool trackball_consume_delta(int num, int16_t div, trackball_delta_t* out);
 
 #endif // TRACKBALL_DRIVER_DISABLE
