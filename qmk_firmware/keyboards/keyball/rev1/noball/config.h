@@ -1,6 +1,4 @@
 /*
-This is the c configuration file for the keymap
-
 Copyright 2021 @Yowkees
 Copyright 2021 MURAOKA Taro (aka KoRoN, @kaoriya)
 
@@ -20,15 +18,10 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #pragma once
 
-#define LAYER_STATE_8BIT
+// Detect handiness configuration by matrix. When this intersection is shorted,
+// it is considered left for Keyball46.
+#define SPLIT_HAND_MATRIX_GRID F6, B5
+// To ignore SPLIT_HAND_MATRIX_GRID as matrix.
+#define MATRIX_MASKED
 
-#ifdef RGBLIGHT_ENABLE
-#    define RGBLIGHT_LIMIT_VAL 120
-#    define RGBLIGHT_HUE_STEP 10
-#    define RGBLIGHT_SAT_STEP 17
-#    define RGBLIGHT_VAL_STEP 17
-
-#    define RGBLIGHT_EFFECT_RGB_TEST
-#endif
-
-#define OLED_FONT_H "keyboards/keyball/lib/glcdfont.c"
+//#define OPTICAL_SENSOR_DISABLE

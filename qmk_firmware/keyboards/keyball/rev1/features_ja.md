@@ -1,28 +1,70 @@
 # Keyball のカスタマイズ可能な機能
 
+## キーマップで利用可能な Keyball の機能
+
+### `bool keyball_get_scroll_mode(void)` API
+
+トラックボールの現在のスクロールモードを取得します。
+
+### `void keyball_set_scroll_mode(bool mode)` API
+
+トラックボールのスクロールモードを変更します。
+
+### `void keyball_process_trackball_default()` API
+
+トラックボールイベントのデフォルトハンドラです。1つ目のトラックボールはマウスポ
+インタに、2つ目のトラックボールはスクロール量に反映されます。
+
+### `void keyball_process_trackball_user()` オーバーライド可能な関数
+
+トラックボールの移動量方法を独自に定義できます。トラックボールの移動量をOLEDに
+表示したい時などに`keyball_process_trackball_default` と合わせて利用できます。
+
+例: `keymaps/test/keymap.c` から抜粋
+
+```c
+#ifdef OLED_DRIVER_ENABLE
+
+static trackball_delta_t ball1, ball2;
+
+void keyball_process_trackball_user(
+        const trackball_delta_t *primary,
+        const trackball_delta_t *secondary) {
+    ball1 = *primary;
+    ball2 = *secondary;
+    keyball_process_trackball_default(primary, secondary);
+}
+
+void oledkit_render_info_user(void) {
+    static char buf[22] = {0};
+
+    // primary trackball's status
+    oled_write_P(PSTR("Ball#1: "), false);
+    snprintf(buf, sizeof(buf), "%d, %d", ball1.x, ball1.y);
+    oled_write_ln(buf, false);
+
+    // secondary trackball's status
+    oled_write_P(PSTR("Ball#2: "), false);
+    snprintf(buf, sizeof(buf), "%d, %d", ball2.x, ball2.y);
+    oled_write_ln(buf, false);
+}
+
+#endif
+```
+
 ## トラックボールドライバ
 
 Keyballに搭載されているトラックボールのドライバーです。
 
-### `TRACKBALL_DRIVER_DISABLE`
+### `TRACKBALL_MAX_NUMBER` 定数
 
-Keyballに付属のデフォルトのトラックボールドライバーを無効化する設定項目です。
-各キーマップで独自のドライバーを用意する場合に設定することで、デフォルトドライ
-バーが省略されその分ファームウェアが小さくなります。
-
-各キーマップの config.h で設定できます。
-
-設定例:
-
-```c
-#define TRACKBALL_DRIVER_DISABLE
-```
+サポート可能な最大のトラックボール数で現在は `2` です。
 
 ### `TRACKBALL_SAMPLE_COUNT`
 
 トラックボールでは光学センサから数回に渡って読み取った平均値をポインティングデ
-バイスの移動量として送信しており、 `TRACKBALL_SAMPLE_COUNT` はその回数を指定す
-る設定項目です。
+バイスの移動量として送信しており `TRACKBALL_SAMPLE_COUNT` はその回数を指定する
+設定項目です。
 
 各キーマップの config.h で設定できます。デフォルトは `10` で `0` 以下の値を設定
 するとコンパイルエラーになります。
@@ -35,65 +77,11 @@ Keyballに付属のデフォルトのトラックボールドライバーを無�
 
 ### `TRACKBALL_SCROLL_DIVIDER`
 
-スクロールモードが有効な場合、トラックボールはトラックボールの移動量をマウス
-カーソルではなくスクロール量として送信しますが、送る時に移動量が小さくなるよう
-に割っており、 `TRACKBALL_SCROLL_DIVIDER` はその分母を指定する設定項目です。
+スクロールモードにおいてトラックボールの移動をスクロール量として送る際に
+`TRACKBALL_SCROLL_DIVIDER` で割ることで程よいスクロール量に調整しています。
 
 各キーマップの config.h で設定できます。デフォルトは `10` で `0` 以下の値を設定
 するとコンパイルエラーになります。
-
-### `TRACKBALL_DELTA_DIMENSION` 定数
-
-トラックボールの移動量の次元です。現在はXとYを表す `2` です。
-`trackball_latest_delta()` で移動量を受け取る際のバッファサイズとして使います。
-
-### `trackball_process_user()` オーバーライド可能関数
-
-`trackball_process_user()` 関数を定義するとトラックボールの移動量をどのよ
-うに扱うかをユーザーがカスタマイズできます。`trackball_process_user()` は
-ドライバーがトラックボールの移動を検知した際に、その移動量を引数にして呼び出し
-ます。ユーザーはポインティングデバイスとしてレポートを送っても良いですし、それ
-以外のことをしてもかまいません。
-
-スクロールモードが有効な場合、渡される移動量は `TRACKBALL_SCROLL_DIVIDER` を考
-慮した値になります。
-
-各キーマップの keymap.c で定義できます。
-
-定義例: マウスカーソルに上下反転させて適用する
-
-```c
-void trackball_process_user(int8_t dx, int8_t dy) {
-    report_mouse_t r = pointing_device_get_report();
-    r.x = -dx;
-    r.y = -dy;
-    pointing_device_set_report(r);
-}
-```
-
-### `trackball_process_secondary_user()` オーバーライド可能関数
-
-セカンダリのトラックボールの移動量の取り扱いをカスタマイズできます。
-基本的な使い方は `trackball_process_user()` を参照してください。
-
-### `bool trackball_get_scroll_mode(void)` API
-
-トラックボールの現在のスクロールモードを取得します。
-
-### `void trackball_set_scroll_mode(bool mode)` API
-
-トラックボールのスクロールモードを変更します。
-
-### `void trackball_latest_delta()` API
-
-最近の非ゼロなトラックボール移動量を取得します。
-
-使用例:
-
-```c
-int8_t delta[TRACKBALL_DELTA_DIMENSION];
-trackball_latest_delta(delta);
-```
 
 ## OLED Kit
 

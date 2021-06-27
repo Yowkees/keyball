@@ -18,49 +18,38 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include QMK_KEYBOARD_H
 
 #include "pointing_device.h"
-#include "trackball.h"
 #include "oledkit.h"
 
-bool isScrollMode;
-
 enum keymap_layers {
-  _QWERTY,
-  _LOWER,
-  _RAISE,
-  _BALL,
+    _QWERTY,
+    _LOWER,
+    _RAISE,
+    _BALL,
 };
 
 enum custom_keycodes {
-  QWERTY = SAFE_RANGE,
-  LOWER,
-  RAISE,
-  KC_MBTN1,
-  KC_MBTN2,
-  KC_MBTN3
+    QWERTY = SAFE_RANGE,
+    LOWER,
+    RAISE,
+    KC_MBTN1,
+    KC_MBTN2,
+    KC_MBTN3
 };
 
-// common
-#define KC_ KC_TRNS
-#define KC_XXXX KC_NO
-#define KC_RST RESET
-#define KC_VD KC__VOLDOWN
-#define KC_VU KC__VOLUP
-
 // layer
-#define KC_L_SPC LT(_LOWER, KC_SPC)
-#define KC_R_ENT LT(_RAISE, KC_ENT)
+#define KC_L_SPC    LT(_LOWER, KC_SPC)
+#define KC_R_ENT    LT(_RAISE, KC_ENT)
 
 // shift_t
-#define KC_S_EN LSFT_T(KC_LANG2)
+#define KC_S_EN     LSFT_T(KC_LANG2)
 
 // original
-#define KC_A_JA LT(_BALL, KC_LANG1)   // cmd or adjust 
-#define KC_AL_CP MT(MOD_LALT, KC_CAPS)  // alt or caps lock
-#define KC_G_BS MT(MOD_LGUI, KC_BSPC)   // command or back space
-#define KC_G_DEL MT(MOD_LGUI, KC_DEL)   // command or delete
-#define KC_A_BS LT(_BALL, KC_BSPC)    // adjust or back space
-#define KC_A_DEL LT(_BALL, KC_DEL)    // adjust or delete
-
+#define KC_A_JA     LT(_BALL, KC_LANG1)     // cmd or adjust
+#define KC_AL_CP    MT(MOD_LALT, KC_CAPS)   // alt or caps lock
+#define KC_G_BS     MT(MOD_LGUI, KC_BSPC)   // command or back space
+#define KC_G_DEL    MT(MOD_LGUI, KC_DEL)    // command or delete
+#define KC_A_BS     LT(_BALL, KC_BSPC)      // adjust or back space
+#define KC_A_DEL    LT(_BALL, KC_DEL)       // adjust or delete
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
@@ -114,77 +103,57 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 };
 
-
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-  report_mouse_t currentReport = {};
+    report_mouse_t currentReport = {};
 
-  switch (keycode) {
-    case KC_MBTN1:
-      currentReport = pointing_device_get_report();
-      if (record->event.pressed) {
-        currentReport.buttons |= MOUSE_BTN1;
-      }
-      else {
-        currentReport.buttons &= ~MOUSE_BTN1;
-      }
-      pointing_device_set_report(currentReport);
-      return false;
-    case KC_MBTN2:
-      currentReport = pointing_device_get_report();
-      if (record->event.pressed) {
-        currentReport.buttons |= MOUSE_BTN2;
-      }
-      else {
-        currentReport.buttons &= ~MOUSE_BTN2;
-      }
-      pointing_device_set_report(currentReport);
-      return false;
-    case KC_MBTN3:
-      currentReport = pointing_device_get_report();
-      if (record->event.pressed) {
-        currentReport.buttons |= MOUSE_BTN3;
-      }
-      else {
-        currentReport.buttons &= ~MOUSE_BTN3;
-      }
-      pointing_device_set_report(currentReport);
-      return false;
-  }
-  return true;
-}
-	
-/*#ifndef MOUSEKEY_ENABLE
-    if (IS_MOUSEKEY_BUTTON(keycode)) {
-        report_mouse_t currentReport = pointing_device_get_report();
-        if (record->event.pressed) {
-            currentReport.buttons |= 1 << (keycode - KC_MS_BTN1);
-        } else {
-            currentReport.buttons &= ~(1 << (keycode - KC_MS_BTN1));
-        }
-        pointing_device_set_report(currentReport);
-        pointing_device_send();
+    switch (keycode) {
+        case KC_MBTN1:
+            currentReport = pointing_device_get_report();
+            if (record->event.pressed) {
+                currentReport.buttons |= MOUSE_BTN1;
+            }
+            else {
+                currentReport.buttons &= ~MOUSE_BTN1;
+            }
+            pointing_device_set_report(currentReport);
+            return false;
+
+        case KC_MBTN2:
+            currentReport = pointing_device_get_report();
+            if (record->event.pressed) {
+                currentReport.buttons |= MOUSE_BTN2;
+            }
+            else {
+                currentReport.buttons &= ~MOUSE_BTN2;
+            }
+            pointing_device_set_report(currentReport);
+            return false;
+
+        case KC_MBTN3:
+            currentReport = pointing_device_get_report();
+            if (record->event.pressed) {
+                currentReport.buttons |= MOUSE_BTN3;
+            }
+            else {
+                currentReport.buttons &= ~MOUSE_BTN3;
+            }
+            pointing_device_set_report(currentReport);
+            return false;
     }
-#endif
     return true;
-}*/
-
-void keyboard_post_init_user() {
-    debug_enable = true;
-    debug_mouse = true;
 }
 
 layer_state_t layer_state_set_user(layer_state_t state) {
     switch (get_highest_layer(state)) {
-    case _BALL:
-        trackball_set_scroll_mode(true);
-        break;
-    default:
-        trackball_set_scroll_mode(false);
-        break;
+        case _BALL:
+            keyball_set_scroll_mode(true);
+            break;
+        default:
+            keyball_set_scroll_mode(false);
+            break;
     }
-  return state;
+    return state;
 }
-
 
 #ifdef OLED_DRIVER_ENABLE
 
