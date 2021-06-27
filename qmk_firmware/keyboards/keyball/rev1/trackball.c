@@ -16,8 +16,6 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#ifndef TRACKBALL_DRIVER_DISABLE
-
 #include <string.h>
 
 #include "quantum.h"
@@ -137,5 +135,3 @@ bool trackball_consume_delta(int num, int16_t div, trackball_delta_t* out) {
 
     return true;
 }
-
-#endif // TRACKBALL_DRIVER_DISABLE
