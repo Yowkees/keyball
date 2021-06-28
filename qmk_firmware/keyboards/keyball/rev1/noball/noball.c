@@ -44,6 +44,7 @@ void trackball_secondary_availablity(bool available) {
     if (available) {
         matrix_mask[base + 2] = 0b0111111;
         matrix_mask[base + 3] = 0b0011111;
+        keyball_adjust_trackball_handness();
     } else {
         matrix_mask[base + 2] = 0b0011111;
         matrix_mask[base + 3] = 0b0111111;

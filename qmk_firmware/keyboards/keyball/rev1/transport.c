@@ -359,6 +359,15 @@ void transport_rgblight_slave(void) {
 #    endif
 
 bool transport_master(matrix_row_t master_matrix[], matrix_row_t slave_matrix[]) {
+#    ifdef KEYBALL46_TRACKBALL
+    // scan trackball's sensor on primary board at first.
+    trackball_delta_t *tb0p = NULL, tb0 = {0};
+    if (trackball_fetch_sensor(&tb0)) {
+        tb0p = &tb0;
+    }
+    trackball_apply_delta(0, tb0p);
+#    endif
+
 #    ifndef SERIAL_USE_MULTI_TRANSACTION
     if (soft_serial_transaction() != TRANSACTION_END) {
         return false;
@@ -388,14 +397,8 @@ bool transport_master(matrix_row_t master_matrix[], matrix_row_t slave_matrix[])
 #    endif
 
 #    ifdef KEYBALL46_TRACKBALL
+    // scan and apply trackball's delta on secondary board.
     trackball_secondary_availablity(serial_s2m_buffer.trackball_has);
-    // apply trackball's sensor delta on primary board.
-    trackball_delta_t *tb0p = NULL, tb0 = {0};
-    if (trackball_fetch_sensor(&tb0)) {
-        tb0p = &tb0;
-    }
-    trackball_apply_delta(0, tb0p);
-    // apply trackball's delta on secondary board.
     trackball_delta_t *tb1p = NULL;
     if (serial_s2m_buffer.trackball_has) {
         tb1p = (trackball_delta_t *)&serial_s2m_buffer.trackball_delta;

@@ -178,6 +178,9 @@ void oledkit_render_info_user(void) {
     }
     oled_write_P(PSTR("Layer: "), false);
     oled_write_ln_P(n, false);
+
+    keyball_oled_render_ballinfo();
+    keyball_oled_render_keyinfo();
 }
 
 #endif
