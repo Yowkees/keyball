@@ -31,7 +31,4 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #    define RGBLIGHT_EFFECT_RGB_TEST
 #endif
 
-#undef PRODUCT_ID
-#define PRODUCT_ID 0x0002
-
 #define OLED_FONT_H "keyboards/keyball/lib/glcdfont.c"

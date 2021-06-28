@@ -95,3 +95,15 @@ void keyball_process_trackball_default(
 void keyball_process_trackball_user(
         const trackball_delta_t *primary,
         const trackball_delta_t *secondary);
+
+// keyball_adjust_trackball_handness adjusts role of trackball on secondary
+// board.
+void keyball_adjust_trackball_handness(void);
+
+// keyball_oled_render_ballinfo renders ball information to OLED.
+// It uses just 21 columns to show the info.
+void keyball_oled_render_ballinfo(void);
+
+// keyball_oled_render_keyinfo renders last processed key information to OLED.
+// It shows column, row, key code, and key name (if available).
+void keyball_oled_render_keyinfo(void);

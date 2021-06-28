@@ -5,21 +5,26 @@
 
 #include "trackball.h"
 
+#ifndef KEYBALL_SCROLL_DIVIDER
+#    define KEYBALL_SCROLL_DIVIDER 10
+#endif
+#if KEYBALL_SCROLL_DIVIDER <= 0
+#    error "KEYBALL_SCROLL_DIVIDER should be larger than zero"
+#endif
+
+#ifndef KEYBALL_POINTER_DIVIDER
+#    define KEYBALL_POINTER_DIVIDER 1
+#endif
+#if KEYBALL_POINTER_DIVIDER <= 0
+#    error "KEYBALL_POINTER_DIVIDER should be larger than zero"
+#endif
+
 static int primary = 0;
 static int secondary = 1;
 static bool is_scroll_mode = false;
 
-static bool should_swap_primary_trackball(void) {
-    // TODO: support trackball handness.
-    return !trackball_has() || is_keyboard_left();
-}
-
 __attribute__((weak)) void pointing_device_init(void) {
     trackball_init();
-    if (should_swap_primary_trackball()) {
-        primary = 1;
-        secondary = 0;
-    }
 }
 
 // clip2int8 clips an integer fit into int8_t.
@@ -27,14 +32,65 @@ static inline int8_t clip2int8(int16_t v) {
     return (v) < -127 ? -127 : (v) > 127 ? 127 : (int8_t)v;
 }
 
+static trackball_delta_t ball1, ball2;
+
 __attribute__((weak)) void pointing_device_task(void) {
     trackball_delta_t d0 = {0}, d1 = {0};
-    bool c0 = trackball_consume_delta(primary, is_scroll_mode ? 10 : 1, &d0);
-    bool c1 = trackball_consume_delta(secondary, 10, &d1);
+    bool c0 = trackball_consume_delta(primary, is_scroll_mode ? KEYBALL_SCROLL_DIVIDER : KEYBALL_POINTER_DIVIDER, &d0);
+    bool c1 = trackball_consume_delta(secondary, KEYBALL_SCROLL_DIVIDER, &d1);
     if (c0 || c1) {
+        ball1 = d0;
+        ball2 = d1;
         keyball_process_trackball_user(&d0, &d1);
     }
 }
+
+static uint16_t last_keycode;
+static uint8_t last_row;
+static uint8_t last_col;
+
+bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
+    last_keycode = keycode;
+    last_row = record->event.key.row;
+    last_col = record->event.key.col;
+    return process_record_user(keycode, record);
+}
+
+#ifdef OLED_DRIVER_ENABLE
+
+static const char * format_4d(int8_t d) {
+    static char buf[5] = {0}; // max width (4) + NUL (1)
+    char lead = ' ';
+    if (d < 0) {
+        d = -d;
+        lead = '-';
+    }
+    buf[3] = (d % 10) + '0';
+    d /= 10;
+    if (d == 0) {
+        buf[2] = lead;
+        lead = ' ';
+    } else {
+        buf[2] = (d % 10) + '0';
+        d /= 10;
+    }
+    if (d == 0) {
+        buf[1] = lead;
+        lead = ' ';
+    } else {
+        buf[1] = (d % 10) + '0';
+        d /= 10;
+    }
+    buf[0] = lead;
+    return buf;
+}
+
+static char to_1x(uint8_t x) {
+    x &= 0x0f;
+    return x < 10 ? x + '0' : x + 'a' - 10;
+}
+
+#endif
 
 //////////////////////////////////////////////////////////////////////////////
 // Keyball API
@@ -55,15 +111,19 @@ void keyball_process_trackball_default(
         const trackball_delta_t *secondary)
 {
     report_mouse_t r = pointing_device_get_report();
-    if (!is_scroll_mode) {
-        r.x += clip2int8(primary->x);
-        r.y += clip2int8(primary->y);
-    } else {
-        r.h += clip2int8(primary->x);
-        r.v -= clip2int8(primary->y);
+    if (primary) {
+        if (!is_scroll_mode) {
+            r.x += clip2int8(primary->x);
+            r.y += clip2int8(primary->y);
+        } else {
+            r.h += clip2int8(primary->x);
+            r.v -= clip2int8(primary->y);
+        }
     }
-    r.h += clip2int8(secondary->x);
-    r.v -= clip2int8(secondary->y);
+    if (secondary) {
+        r.h += clip2int8(secondary->x);
+        r.v -= clip2int8(secondary->y);
+    }
     pointing_device_set_report(r);
     pointing_device_send();
 }
@@ -72,4 +132,77 @@ __attribute__((weak)) void keyball_process_trackball_user(
         const trackball_delta_t *primary,
         const trackball_delta_t *secondary) {
     keyball_process_trackball_default(primary, secondary);
+}
+
+static bool should_swap_primary_trackball(void) {
+    // TODO: support trackball handness.
+    return !trackball_has() || is_keyboard_left();
+}
+
+void keyball_adjust_trackball_handness(void) {
+    if (should_swap_primary_trackball()) {
+        primary = 1;
+        secondary = 0;
+    }
+}
+
+void keyball_oled_render_ballinfo(void) {
+#ifdef OLED_DRIVER_ENABLE
+    // Format: `Ball:{ball#1 x}{ball#1 y}{ball#2 x}{ball#2 y}
+    //
+    // Output example:
+    //
+    //     Ball: -12  34   0   0
+    //
+    oled_write_P(PSTR("Ball:"), false);
+    oled_write(format_4d(ball1.x), false);
+    oled_write(format_4d(ball1.y), false);
+    oled_write(format_4d(ball2.x), false);
+    oled_write(format_4d(ball2.y), false);
+#endif
+}
+
+const char PROGMEM code_to_name[] = {
+    'a', 'b', 'c', 'd', 'e', 'f',  'g', 'h', 'i',  'j',
+    'k', 'l', 'm', 'n', 'o', 'p',  'q', 'r', 's',  't',
+    'u', 'v', 'w', 'x', 'y', 'z',  '1', '2', '3',  '4',
+    '5', '6', '7', '8', '9', '0',  'R', 'E', 'B',  'T',
+    '_', '-', '=', '[', ']', '\\', '#', ';', '\'', '`',
+    ',', '.', '/',
+};
+
+void keyball_oled_render_keyinfo(void) {
+#ifdef OLED_DRIVER_ENABLE
+    // Format: `Key:   R{row}  C{col} K{kc}  '{name}`
+    //
+    // Where `kc` is lower 8 bit of keycode.
+    // Where `name` is readable label for `kc`, valid between 4 and 56.
+    //
+    // It is aligned to fit with output of keyball_oled_render_ballinfo().
+    // For example:
+    //
+    //     Ball:   0   0   0   0
+    //     Key:   R2  C3 K06  'c
+    //
+    char name = '\0';
+    uint8_t keycode = last_keycode;
+    if (keycode >= 4 && keycode < 53) {
+        name = pgm_read_byte(code_to_name + keycode - 4);
+    }
+
+    oled_write_P(PSTR("Key:   R"), false);
+    oled_write_char(to_1x(last_row), false);
+    oled_write_P(PSTR("  C"), false);
+    oled_write_char(to_1x(last_col), false);
+    if (keycode) {
+        oled_write_P(PSTR(" K"), false);
+        oled_write_char(to_1x(keycode >> 4), false);
+        oled_write_char(to_1x(keycode), false);
+        //oled_write(format_02x((uint8_t)keycode), false);
+    }
+    if (name) {
+        oled_write_P(PSTR("  '"), false);
+        oled_write_char(name, false);
+    }
+#endif
 }

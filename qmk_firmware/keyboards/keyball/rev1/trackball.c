@@ -95,7 +95,7 @@ typedef struct {
 
 static tb_state_t state[TRACKBALL_MAX_NUMBER];
 
-void trackball_apply_delta(int num, const trackball_delta_t *delta) {
+void trackball_apply_delta(int8_t num, const trackball_delta_t *delta) {
     if (num < 0 || num > TRACKBALL_MAX_NUMBER) {
         return;
     }
@@ -107,14 +107,14 @@ void trackball_apply_delta(int num, const trackball_delta_t *delta) {
     state[num].count++;
 }
 
-void trackball_reset_delta(int num) {
+void trackball_reset_delta(int8_t num) {
     if (num < 0 || num > TRACKBALL_MAX_NUMBER) {
         return;
     }
     memset(&state[num], 0, sizeof(state[num]));
 }
 
-bool trackball_consume_delta(int num, int16_t div, trackball_delta_t* out) {
+bool trackball_consume_delta(int8_t num, int16_t div, trackball_delta_t* out) {
     if (num < 0 || num > TRACKBALL_MAX_NUMBER || state[num].count < TRACKBALL_SAMPLE_COUNT) {
         return false;
     }

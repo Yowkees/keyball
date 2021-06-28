@@ -39,8 +39,8 @@ typedef struct {
 
 bool trackball_fetch_sensor(trackball_delta_t *p);
 
-void trackball_apply_delta(int num, const trackball_delta_t *delta);
+void trackball_apply_delta(int8_t num, const trackball_delta_t *delta);
 
-void trackball_reset_delta(int num);
+void trackball_reset_delta(int8_t num);
 
-bool trackball_consume_delta(int num, int16_t div, trackball_delta_t* out);
+bool trackball_consume_delta(int8_t num, int16_t div, trackball_delta_t* out);
