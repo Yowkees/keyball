@@ -577,7 +577,7 @@ zipファイルを解凍すると中には２つのhexファイルが入って�
 
 書き込みはQMK Toolboxを使用して書き込んでください。  
 
-    - ご自身でファームウェアをビルドする場合  
+　■ご自身でファームウェアをビルドする場合  
 Keyball46の最新ファームウェアは[Githubのリポジトリ](https://github.com/Yowkees/keyball/tree/main/qmk_firmware/keyboards/keyball)にて公開しています。このkeyballフォルダをお手持ちのQMK_Firmware/keyboardsへコピーして自由にキーマップ等を編集してmakeしてください。
 
 ―あとがき―  
