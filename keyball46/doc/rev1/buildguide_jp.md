@@ -289,8 +289,8 @@ ProMicroは下記写真のコンスルーピンを使用してはんだ付けす
   
 
 Keyball46のファームウェアは、トラックボールを右手と左手のどちらに載せたかで種類が分かれます。下記の適切な方のリンクからzipファイルをダウンロードして解凍し、QMK_ToolBoxで書き込んでください。  
-   - トラックボールを右手側につけた方はこちらの[keyball_test_1.0.0-rc.1.zip](https://github.com/Yowkees/keyball/files/6721520/keyball_test_1.0.0-rc.1.zip)をダウンロード
-   - トラックボールを左手側につけた方はこちらの[keyball_test_Left_1.0.0-rc.1.zip](https://github.com/Yowkees/keyball/files/6721580/keyball_test_Left_1.0.0-rc.1.zip)をダウンロード
+   - トラックボールを右手側につけた方はこちらの[keyball_test_1.0.0-rc.2.zip](https://github.com/Yowkees/keyball/files/6727241/keyball_test_1.0.0-rc.2.zip)をダウンロード
+   - トラックボールを左手側につけた方はこちらの[keyball_test_Left_1.0.0-rc.2.zip](https://github.com/Yowkees/keyball/files/6727243/keyball_test_Left_1.0.0-rc.2.zip)をダウンロード
 
 zipファイルを解凍すると中には２つのhexファイルが入っています。Keyball46では左右に別々のファームウェアを書き込みます。
    - keyball_rev1_ball_test.hex　←この"ball"が名前に含まれている方はトラックボールありの基板に書き込みます
@@ -568,17 +568,20 @@ M1.7のトルクスねじをつけます。キットにはねじ頭が【小さ�
 それでは最後に正規のファームウェアをProMicroに書き込みましょう。Keyball46は[Remap](https://remap-keys.app/configure)に対応していますのでビルド環境がなくてもキーマップの変更が可能です。Remapの使用方法については[自キ温泉ガイドのサリチル酸](https://salicylic-acid3.hatenablog.com/entry/remap-manual)の記事に詳しく掲載されています。  
 
 テストファームウェア書き込みの章にも書きましたが、Keyball46のファームウェアは、トラックボールを右手と左手のどちらに載せたかで種類が分かれます。下記の適切な方のリンクからzipファイルをダウンロードしてください。
-   - トラックボールを右手側につけた方はこちらの[keyball_via_1.0.0-rc.1.zip](https://github.com/Yowkees/keyball/files/6721521/keyball_via_1.0.0-rc.1.zip)をダウンロード
-   - トラックボールを左手側につけた方はこちらの[keyball_via_Left_1.0.0-rc.1b.zip](https://github.com/Yowkees/keyball/files/6721553/keyball_via_Left_1.0.0-rc.1b.zip)をダウンロード
+   - トラックボールを右手側につけた方はこちらの[keyball_via_1.0.0-rc.2.zip](https://github.com/Yowkees/keyball/files/6727237/keyball_via_1.0.0-rc.2.zip)をダウンロード
+   - トラックボールを左手側につけた方はこちらの[keyball_via_Left_1.0.0-rc.2.zip](https://github.com/Yowkees/keyball/files/6727239/keyball_via_Left_1.0.0-rc.2.zip)をダウンロード
 
 zipファイルを解凍すると中には２つのhexファイルが入っています。Keyball46では左右に別々のファームウェアを書き込みます。
    - keyball_rev1_ball_via.hex　←この"ball"が名前に含まれている方はトラックボールありの基板に書き込みます
    - keyball_rev1_noball_via.hex　←この"noball"が名前に含まれている方はトラックボール無しの基板に書き込みます
 
-書き込みはQMK Toolboxを使用して書き込んでください。  
+書き込みはQMK Toolboxを使用して書き込んでください。
 
-　■ご自身でファームウェアをビルドする場合  
-Keyball46の最新ファームウェアは[Githubのリポジトリ](https://github.com/Yowkees/keyball/tree/main/qmk_firmware/keyboards/keyball)にて公開しています。このkeyballフォルダをお手持ちのQMK_Firmware/keyboardsへコピーして自由にキーマップ等を編集してmakeしてください。
+■ご自身でファームウェアをビルドする場合  
+Keyball46の最新ファームウェアは[Githubのリポジトリ](https://github.com/Yowkees/keyball/tree/main/qmk_firmware/keyboards/keyball)にて公開しています。このkeyballフォルダをお手持ちのQMK_Firmware/keyboardsへコピーして自由にキーマップ等を編集してmakeしてください。  
+
+以上でKeyball46のビルドガイドは終了です。
+Keyball46についてのご質問や不具合等についてはGithubのリポジトリ、[Yowkees/keyballのDiscussions](https://github.com/Yowkees/keyball/discussions)へご投稿ください。なるべく早くご回答させていただきます。
 
 ―あとがき―  
 Keyball46の回路設計者は、トラックボール付きキーボード！に加えてRGB LEDにOLED、VIAにも対応したいし、今後タッチパッドや1Uトラックボールを拡張できるようにしたいと、実に盛りだくさんなキーボードキットを設計してしまいました。ProMicroの容量制限やトラックボール動作等に不安があったファームウェアを、KoRoN@香り屋様をはじめ多くの方のご協力により大幅に改善・安定化できました。また左右自動判別機能やトラックボール情報の左右間通信等、将来的にできたらという技術まで確立できたことで、左右両方にトラックボールを搭載することも可能となってきました。この場をお借りしてお礼申し上げます。本当にありがとうございました　@Yowkees
