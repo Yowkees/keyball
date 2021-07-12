@@ -38,6 +38,7 @@
     - [8-3.トラックボールケース装着](#8-3トラックボールケース装着)
   - [９．総仕上げ](#９総仕上げ)
   - [１０．正規ファームウェアの書き込み](#１０正規ファームウェアの書き込み)
+  - [１１．Keyballの使い方♪](#１１Keyballの使い方)
 
 <a id="anchor1"></a>
 ## １．部品確認
@@ -579,6 +580,13 @@ zipファイルを解凍すると中には２つのhexファイルが入って�
 
 ■ご自身でファームウェアをビルドする場合  
 Keyball46の最新ファームウェアは[Githubのリポジトリ](https://github.com/Yowkees/keyball/tree/main/qmk_firmware/keyboards/keyball)にて公開しています。このkeyballフォルダをお手持ちのQMK_Firmware/keyboardsへコピーして自由にキーマップ等を編集してmakeしてください。  
+
+<a id="anchor11"></a>
+## １１．Keyballの使い方♪ 
+   - トラックボールはレイヤー３に切り替わっている間は上下左右スクロールに変わります
+   - [Remap](https://remap-keys.app/)に対応していますので、簡単にキーマップの確認・変更・書込みが可能です。
+   - USBケーブルは左右どちらに差しても使用できます。ただしキーマップはUSBケーブルを差した側のProMicroへ書き込まれるため、初めて差し替えた場合にはキーマップを見直してください。
+
 
 以上でKeyball46のビルドガイドは終了です。
 Keyball46についてのご質問や不具合等についてはGithubのリポジトリ、[Yowkees/keyballのDiscussions](https://github.com/Yowkees/keyball/discussions)へご投稿ください。なるべく早くご回答させていただきます。
