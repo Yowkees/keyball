@@ -53,7 +53,23 @@ bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
     last_keycode = keycode;
     last_row = record->event.key.row;
     last_col = record->event.key.col;
-    return process_record_user(keycode, record);
+    if (!process_record_user(keycode, record)) {
+        return false;
+    }
+
+    // translate KC_BTN? event to mouse report
+    if (IS_MOUSEKEY_BUTTON(keycode)) {
+        report_mouse_t r = {};
+        r = pointing_device_get_report();
+        if (record->event.pressed) {
+            r.buttons |= 1 << (keycode - KC_MS_BTN1);
+        } else {
+            r.buttons &= ~(1 << (keycode - KC_MS_BTN1));
+        }
+        pointing_device_set_report(r);
+        return false;
+    }
+    return true;
 }
 
 #ifdef OLED_DRIVER_ENABLE

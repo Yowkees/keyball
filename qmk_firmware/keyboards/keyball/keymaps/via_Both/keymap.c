@@ -27,15 +27,6 @@ enum keymap_layers {
     _BALL,
 };
 
-enum custom_keycodes {
-    QWERTY = SAFE_RANGE,
-    LOWER,
-    RAISE,
-    KC_MBTN1,
-    KC_MBTN2,
-    KC_MBTN3
-};
-
 // layer
 #define KC_L_SPC    LT(_LOWER, KC_SPC)
 #define KC_R_ENT    LT(_RAISE, KC_ENT)
@@ -81,7 +72,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   //,-----------------------------------------------------.                    ,-----------------------------------------------------.
        KC_TAB,   KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,                        KC_F6,   KC_F7,   KC_F8,   KC_F9,  KC_F10,  KC_F11,
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
-      KC_LCTL, _______, KC_LEFT,   KC_UP, KC_RGHT, _______,                      _______,KC_MBTN1, KC_PGUP,KC_MBTN2,KC_MBTN3,  KC_F12,
+      KC_LCTL, _______, KC_LEFT,   KC_UP, KC_RGHT, _______,                      _______, KC_BTN1, KC_PGUP, KC_BTN2, KC_BTN3,  KC_F12,
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
       KC_LSFT, _______, _______, KC_DOWN, _______, _______,                      _______, _______, KC_PGDN, _______, _______, KC_RSFT,
   //|--------+--------+--------+--------+--------+--------'                    `--------+--------+--------+--------+--------+--------|
@@ -102,46 +93,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   ),
 
 };
-
-bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-    report_mouse_t currentReport = {};
-
-    switch (keycode) {
-        case KC_MBTN1:
-            currentReport = pointing_device_get_report();
-            if (record->event.pressed) {
-                currentReport.buttons |= MOUSE_BTN1;
-            }
-            else {
-                currentReport.buttons &= ~MOUSE_BTN1;
-            }
-            pointing_device_set_report(currentReport);
-            return false;
-
-        case KC_MBTN2:
-            currentReport = pointing_device_get_report();
-            if (record->event.pressed) {
-                currentReport.buttons |= MOUSE_BTN2;
-            }
-            else {
-                currentReport.buttons &= ~MOUSE_BTN2;
-            }
-            pointing_device_set_report(currentReport);
-            return false;
-
-        case KC_MBTN3:
-            currentReport = pointing_device_get_report();
-            if (record->event.pressed) {
-                currentReport.buttons |= MOUSE_BTN3;
-            }
-            else {
-                currentReport.buttons &= ~MOUSE_BTN3;
-            }
-            pointing_device_set_report(currentReport);
-            return false;
-    }
-    return true;
-}
 
 layer_state_t layer_state_set_user(layer_state_t state) {
     switch (get_highest_layer(state)) {
