@@ -290,8 +290,8 @@ ProMicroは下記写真のコンスルーピンを使用してはんだ付けす
   
 
 Keyball46のファームウェアは、トラックボールを右手と左手のどちらに載せたかで種類が分かれます。下記の適切な方のリンクからzipファイルをダウンロードして解凍し、QMK_ToolBoxで書き込んでください。  
-   - トラックボールを右手側につけた方はこちらの[keyball_test_1.0.0-rc.2.zip](https://github.com/Yowkees/keyball/files/6727241/keyball_test_1.0.0-rc.2.zip)をダウンロード
-   - トラックボールを左手側につけた方はこちらの[keyball_test_Left_1.0.0-rc.2.zip](https://github.com/Yowkees/keyball/files/6727243/keyball_test_Left_1.0.0-rc.2.zip)をダウンロード
+   - トラックボールを右手側につけた方はこちらの[keyball_test_1.0.0.zip](https://github.com/Yowkees/keyball/files/6809109/keyball_test_1.0.0.zip)をダウンロード
+   - トラックボールを左手側につけた方はこちらの[keyball_test_Left_1.0.0.zip](https://github.com/Yowkees/keyball/files/6809113/keyball_test_Left_1.0.0.zip)をダウンロード
 
 zipファイルを解凍すると中には２つのhexファイルが入っています。Keyball46では左右に別々のファームウェアを書き込みます。
    - keyball_rev1_ball_test.hex　←この"ball"が名前に含まれている方はトラックボールありの基板に書き込みます
@@ -569,8 +569,8 @@ M1.7のトルクスねじをつけます。キットにはねじ頭が【小さ�
 それでは最後に正規のファームウェアをProMicroに書き込みましょう。Keyball46は[Remap](https://remap-keys.app/configure)に対応していますのでビルド環境がなくてもキーマップの変更が可能です。Remapの使用方法については[自キ温泉ガイドのサリチル酸](https://salicylic-acid3.hatenablog.com/entry/remap-manual)の記事に詳しく掲載されています。  
 
 テストファームウェア書き込みの章にも書きましたが、Keyball46のファームウェアは、トラックボールを右手と左手のどちらに載せたかで種類が分かれます。下記の適切な方のリンクからzipファイルをダウンロードしてください。
-   - トラックボールを右手側につけた方はこちらの[keyball_via_1.0.0-rc.2.zip](https://github.com/Yowkees/keyball/files/6727237/keyball_via_1.0.0-rc.2.zip)をダウンロード
-   - トラックボールを左手側につけた方はこちらの[keyball_via_Left_1.0.0-rc.2.zip](https://github.com/Yowkees/keyball/files/6727239/keyball_via_Left_1.0.0-rc.2.zip)をダウンロード
+   - トラックボールを右手側につけた方はこちらの[keyball_via_1.0.0.zip](https://github.com/Yowkees/keyball/files/6809101/keyball_via_1.0.0.zip)をダウンロード
+   - トラックボールを左手側につけた方はこちらの[keyball_via_Left_1.0.0.zip](https://github.com/Yowkees/keyball/files/6809107/keyball_via_Left_1.0.0.zip)をダウンロード
 
 zipファイルを解凍すると中には２つのhexファイルが入っています。Keyball46では左右に別々のファームウェアを書き込みます。
    - keyball_rev1_ball_via.hex　←この"ball"が名前に含まれている方はトラックボールありの基板に書き込みます
