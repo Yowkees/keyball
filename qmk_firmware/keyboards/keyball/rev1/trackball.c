@@ -48,7 +48,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 //////////////////////////////////////////////////////////////////////////////
 
 void trackball_init(void) {
-    if (trackball_has()){
+    if (trackball_has()) {
         optical_sensor_init();
     }
 }
@@ -89,7 +89,7 @@ bool trackball_fetch_sensor(trackball_delta_t *p) {
 }
 
 typedef struct {
-    int16_t count;
+    int16_t           count;
     trackball_delta_t accum;
 } tb_state_t;
 
@@ -114,7 +114,7 @@ void trackball_reset_delta(int8_t num) {
     memset(&state[num], 0, sizeof(state[num]));
 }
 
-bool trackball_consume_delta(int8_t num, int16_t div, trackball_delta_t* out) {
+bool trackball_consume_delta(int8_t num, int16_t div, trackball_delta_t *out) {
     if (num < 0 || num > TRACKBALL_MAX_NUMBER || state[num].count < TRACKBALL_SAMPLE_COUNT) {
         return false;
     }

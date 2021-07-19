@@ -20,7 +20,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #pragma once
 
 /* USB Device descriptor parameter */
-#define VENDOR_ID 0x5957 // "YW" = Yowkees
+#define VENDOR_ID 0x5957  // "YW" = Yowkees
 #define PRODUCT_ID 0x0001
 #define DEVICE_VER 0x0001
 #define MANUFACTURER Yowkees
@@ -32,8 +32,10 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 /* key matrix size */
 #define MATRIX_ROWS 8
 #define MATRIX_COLS 6
-#define MATRIX_ROW_PINS { F4, F5, F6, F7 }
-#define MATRIX_COL_PINS { D4, C6, D7, E6, B4, B5 }
+#define MATRIX_ROW_PINS \
+    { F4, F5, F6, F7 }
+#define MATRIX_COL_PINS \
+    { D4, C6, D7, E6, B4, B5 }
 #define UNUSED_PINS
 #define DIODE_DIRECTION COL2ROW
 #define SOFT_SERIAL_PIN D2
@@ -42,7 +44,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define SPLIT_USB_DETECT
 #define SPLIT_USB_TIMEOUT 500
 
-#define NO_I2C // no need to compile i2c_slave.c
+#define NO_I2C  // no need to compile i2c_slave.c
 
 /* define if matrix has ghost */
 //#define MATRIX_HAS_GHOST
@@ -64,8 +66,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 // RGB Light settings for Keyball46 hardware
 #ifdef RGBLIGHT_ENABLE
-#    define RGBLED_NUM 14    // Number of LEDs
-#    define RGBLED_SPLIT { 7, 7 }
+#    define RGBLED_NUM 14  // Number of LEDs
+#    define RGBLED_SPLIT \
+        { 7, 7 }
 #endif
 
 /*
