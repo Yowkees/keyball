@@ -2,6 +2,8 @@
 
 #include "quantum.h"
 
+// clang-format off
+
 #define LAYOUT_right_ball( \
     L00, L01, L02, L03, L04, L05,           R00, R01, R02, R03, R04, R05, \
     L10, L11, L12, L13, L14, L15,           R10, R11, R12, R13, R14, R15, \
@@ -70,6 +72,8 @@
         { R35, R34, R33, R32, R31, R30 } \
     }
 
+// clang-format on
+
 #define LAYOUT LAYOUT_right_ball
 
 #include "trackball.h"
@@ -83,18 +87,14 @@ void keyball_set_scroll_mode(bool mode);
 
 // keyball_process_trackball_default apply rotations of trackball as default
 // behavior of Keyball46.
-void keyball_process_trackball_default(
-        const trackball_delta_t *primary,
-        const trackball_delta_t *secondary);
+void keyball_process_trackball_default(const trackball_delta_t *primary, const trackball_delta_t *secondary);
 
 // keyball_process_trackball_user will be callbacked when keyball detects some
 // rotation on trackballs. User can override default behavior of trackball by
 // defining this function.
 //
 // As default, it calls keyball_process_trackball_default().
-void keyball_process_trackball_user(
-        const trackball_delta_t *primary,
-        const trackball_delta_t *secondary);
+void keyball_process_trackball_user(const trackball_delta_t *primary, const trackball_delta_t *secondary);
 
 // keyball_adjust_trackball_handness adjusts role of trackball on secondary
 // board.

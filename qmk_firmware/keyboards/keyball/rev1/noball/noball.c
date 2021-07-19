@@ -21,7 +21,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "pointing_device.h"
 #include "trackball.h"
 
-// TODO: modify matrix_mask by secondary board type (has ball or no balls)
+// clang-format off
 matrix_row_t matrix_mask[MATRIX_ROWS] = {
     0b0111111,
     0b0111111,
@@ -33,6 +33,7 @@ matrix_row_t matrix_mask[MATRIX_ROWS] = {
     0b0011111,
     0b0111111,
 };
+// clang-format on
 
 bool trackball_has(void) {
     // rev1/ball has a trackball always.
@@ -40,6 +41,7 @@ bool trackball_has(void) {
 }
 
 void trackball_secondary_availablity(bool available) {
+    // modify matrix_mask by secondary board type (has ball or no balls)
     int base = is_keyboard_left() ? 4 : 0;
     if (available) {
         matrix_mask[base + 2] = 0b0111111;

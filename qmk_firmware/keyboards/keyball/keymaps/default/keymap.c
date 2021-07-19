@@ -27,6 +27,11 @@ enum keymap_layers {
     _BALL,
 };
 
+/////////////////////////////////////////////////////////////////////////////
+// Special key codes for shorthand
+
+// clang-format off
+
 // layer
 #define KC_L_SPC    LT(_LOWER, KC_SPC)
 #define KC_R_ENT    LT(_RAISE, KC_ENT)
@@ -41,7 +46,9 @@ enum keymap_layers {
 #define KC_G_DEL    MT(MOD_LGUI, KC_DEL)    // command or delete
 #define KC_A_BS     LT(_BALL, KC_BSPC)      // adjust or back space
 #define KC_A_DEL    LT(_BALL, KC_DEL)       // adjust or delete
+// clang-format on
 
+// clang-format off
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
   [_QWERTY] = LAYOUT_right_ball(
@@ -93,6 +100,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   ),
 
 };
+// clang-format on
 
 layer_state_t layer_state_set_user(layer_state_t state) {
     switch (get_highest_layer(state)) {
