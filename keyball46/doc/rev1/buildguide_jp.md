@@ -2,11 +2,13 @@
 
 こちらは Keyball46 のビルドガイドになります。
 
+ - [English Build Guide is here](https://github.com/Yowkees/keyball/blob/main/keyball46/doc/rev1/buildguide_en.md)
+  
+
 ![01](images/yw001.jpg)
 
 ## 【目次】
-- [Build Guide for Keyball46](#build-guide-for-keyball46)
-  - [【目次】](#目次)
+
   - [１．部品確認](#１部品確認)
     - [1-1．キット同梱品](#1-1キット同梱品)
     - [1-2．組立前にお客様自身で準備いただく部品](#1-2組立前にお客様自身で準備いただく部品)
@@ -38,7 +40,7 @@
     - [8-3.トラックボールケース装着](#8-3トラックボールケース装着)
   - [９．総仕上げ](#９総仕上げ)
   - [１０．正規ファームウェアの書き込み](#１０正規ファームウェアの書き込み)
-  - [１１．Keyballの使い方♪](#１１Keyballの使い方)
+  - [１１．Keyballの使い方♪](#１１keyballの使い方)
 
 <a id="anchor1"></a>
 ## １．部品確認
