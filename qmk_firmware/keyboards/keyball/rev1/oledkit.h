@@ -18,7 +18,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #pragma once
 
-#if defined(OLED_DRIVER_ENABLE) && !defined(OLEDKIT_DISABLE)
+#if defined(OLED_ENABLE) && !defined(OLEDKIT_DISABLE)
 
 // oledkit_render_info_user renders keyboard's internal state information to
 // primary board. A keymap can override this by defining a function with same
@@ -31,4 +31,4 @@ void oledkit_render_info_user(void);
 // A keymap can override this by defining a function with same signature.
 void oledkit_render_logo_user(void);
 
-#endif  // OLED_DRIVER_ENABLE
+#endif  // OLED_ENABLE

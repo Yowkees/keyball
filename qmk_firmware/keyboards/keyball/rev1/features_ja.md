@@ -72,7 +72,7 @@ Keyballに搭載されているトラックボールのドライバーです。
 ## OLED Kit
 
 OLED KitはKeyballのキーマップがOLEDにロゴなどの各種情報を表示するのを容易にする
-ためのライブラリです。キーマップの rules.mk に `OLED_DRIVER_ENABLE = yes` を追
+ためのライブラリです。キーマップの rules.mk に `OLED_ENABLE = yes` を追
 加すれば自動的に利用されますが、キーマップで表示内容をカスタマイズすることもで
 きます。
 
@@ -88,7 +88,7 @@ OLED KitはKeyballのキーマップがOLEDにロゴなどの各種情報を表�
 例: keymaps/default/keymap.c より抜粋
 
 ```c
-#ifdef OLED_DRIVER_ENABLE
+#ifdef OLED_ENABLE
 
 void oledkit_render_info_user(void) {
     const char *n;

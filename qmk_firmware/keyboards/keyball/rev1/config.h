@@ -44,6 +44,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define SPLIT_USB_DETECT
 #define SPLIT_USB_TIMEOUT 500
 
+#define SPLIT_TRANSACTION_IDS_KB GET_TRACKBALL_DATA
+
 #define NO_I2C  // no need to compile i2c_slave.c
 
 /* define if matrix has ghost */

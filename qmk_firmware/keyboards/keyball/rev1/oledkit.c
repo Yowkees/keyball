@@ -18,7 +18,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #include "quantum.h"
 
-#if defined(OLED_DRIVER_ENABLE) && !defined(OLEDKIT_DISABLE)
+#if defined(OLED_ENABLE) && !defined(OLEDKIT_DISABLE)
 
 // clang-format off
 static const char PROGMEM logo[] = {
@@ -42,4 +42,4 @@ __attribute__((weak)) void oled_task_user(void) {
 
 __attribute__((weak)) oled_rotation_t oled_init_user(oled_rotation_t rotation) { return !is_keyboard_master() ? OLED_ROTATION_180 : rotation; }
 
-#endif  // OLED_DRIVER_ENABLE
+#endif  // OLED_ENABLE

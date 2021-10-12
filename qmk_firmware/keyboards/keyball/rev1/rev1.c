@@ -1,7 +1,10 @@
 #include "rev1.h"
 
+#include <string.h>
+
 #include "quantum.h"
 #include "pointing_device.h"
+#include "transactions.h"
 
 #include "trackball.h"
 
@@ -68,7 +71,7 @@ bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
     return true;
 }
 
-#ifdef OLED_DRIVER_ENABLE
+#ifdef OLED_ENABLE
 
 static const char *format_4d(int8_t d) {
     static char buf[5] = {0};  // max width (4) + NUL (1)
@@ -103,6 +106,63 @@ static char to_1x(uint8_t x) {
 }
 
 #endif
+
+//////////////////////////////////////////////////////////////////////////////
+// tasks for secondary trackball
+
+typedef struct {
+    bool              has;
+    trackball_delta_t delta;
+} trackball_data_t;
+
+trackball_data_t secondary_trackball = {.has = false};
+
+static void get_trackball_data_secondary_handler(uint8_t in_buflen, const void *in_data, uint8_t out_buflen, void *out_data) {
+    trackball_data_t *data = (trackball_data_t *)out_data;
+    *data                  = secondary_trackball;
+}
+
+void matrix_scan_kb(void) {
+    // fetch trackball sensor on primary, and apply it.
+    trackball_delta_t delta;
+    bool              has = trackball_fetch_sensor(&delta);
+    trackball_apply_delta(0, has ? &delta : NULL);
+    // apply secondary trackball sensor.
+    trackball_secondary_availablity(secondary_trackball.has);
+    trackball_apply_delta(1, secondary_trackball.has ? &secondary_trackball.delta : NULL);
+    // delegate to user function.
+    matrix_scan_user();
+}
+
+void matrix_slave_scan_kb(void) {
+    // fetch trackball sensor on secondary.
+    trackball_delta_t delta;
+    bool              has = trackball_fetch_sensor(&delta);
+    // prepare to send data to primary.
+    if (has) {
+        secondary_trackball.has   = true;
+        secondary_trackball.delta = delta;
+    }
+    // delegate to user function.
+    matrix_slave_scan_user();
+}
+
+void housekeeping_task_kb(void) {
+    // receive secondary trackball data .
+    if (is_keyboard_master()) {
+        trackball_data_t data;
+        if (transaction_rpc_recv(GET_TRACKBALL_DATA, sizeof(data), &data)) {
+            secondary_trackball = data;
+        }
+    }
+}
+
+void keyboard_post_init_kb(void) {
+    // register transaction to get trackball data.
+    transaction_register_rpc(GET_TRACKBALL_DATA, get_trackball_data_secondary_handler);
+    // delegate to user function.
+    keyboard_post_init_user();
+}
 
 //////////////////////////////////////////////////////////////////////////////
 // Keyball API
@@ -150,7 +210,7 @@ void keyball_adjust_trackball_handness(void) {
 }
 
 void keyball_oled_render_ballinfo(void) {
-#ifdef OLED_DRIVER_ENABLE
+#ifdef OLED_ENABLE
     // Format: `Ball:{ball#1 x}{ball#1 y}{ball#2 x}{ball#2 y}
     //
     // Output example:
@@ -177,7 +237,7 @@ const char PROGMEM code_to_name[] = {
 // clang-format on
 
 void keyball_oled_render_keyinfo(void) {
-#ifdef OLED_DRIVER_ENABLE
+#ifdef OLED_ENABLE
     // Format: `Key:   R{row}  C{col} K{kc}  '{name}`
     //
     // Where `kc` is lower 8 bit of keycode.
