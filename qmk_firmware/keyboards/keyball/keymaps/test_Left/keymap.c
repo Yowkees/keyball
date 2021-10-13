@@ -49,7 +49,7 @@ void keyboard_post_init_user() {
 #endif
 }
 
-#ifdef OLED_DRIVER_ENABLE
+#ifdef OLED_ENABLE
 
 void oledkit_render_info_user(void) {
     keyball_oled_render_ballinfo();

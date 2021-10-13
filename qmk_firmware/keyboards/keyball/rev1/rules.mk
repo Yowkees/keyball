@@ -26,13 +26,13 @@ SPLIT_KEYBOARD = yes
 
 # To support trackball.
 POINTING_DEVICE_ENABLE = yes
-SRC += trackball.c
-SRC += spi_master.c
-SRC += pmw/pmw.c
+SRC += trackball.c              # Trackball application interface
+SRC += pmw/pmw.c                # Optical sensor firmware and driver
+QUANTUM_LIB_SRC += spi_master.c # Optical sensor use SPI to communicate
 
 # To support OLED
-OLED_DRIVER_ENABLE = no     # Please Enable this in each keymaps.
-SRC += oledkit.c
+OLED_ENABLE = no        # Please Enable this in each keymaps.
+SRC += oledkit.c        # OLED utility for Keyball46
 
 # Link Time Optimization required for size.
 LTO_ENABLE = yes
