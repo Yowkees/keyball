@@ -41,11 +41,11 @@ void trackball_secondary_availablity(bool available) {
     // modify matrix_mask by secondary board type (has ball or no balls)
     int base = is_keyboard_left() ? 4 : 0;
     if (available) {
-        matrix_mask[base + 2] = 0b0111111;
-        matrix_mask[base + 3] = 0b0011111;
-        keyball_adjust_trackball_handness();
-    } else {
         matrix_mask[base + 2] = 0b0011111;
         matrix_mask[base + 3] = 0b0111111;
+        keyball_adjust_trackball_handness();
+    } else {
+        matrix_mask[base + 2] = 0b0111111;
+        matrix_mask[base + 3] = 0b0011111;
     }
 }
