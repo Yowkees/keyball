@@ -1,0 +1,49 @@
+name: Build Keyball46 firmwares
+
+on: push
+
+jobs:
+
+  build:
+    name: Build firmwares with QMK
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout source
+      uses: actions/checkout@v2
+
+    - name: Checkout qmk_firmware
+      uses: actions/checkout@v2
+      with:
+        path: __qmk__
+        repository: qmk/qmk_firmware
+        submodules: recursive
+        ref: '0.14.32'
+
+    - name: Install a link to own source
+      run: ln -s /home/runner/work/keyball/keyball/qmk_firmware/keyboards/keyball __qmk__/keyboards/keyball
+
+    - name: Install git and pip
+      run: sudo apt-get install -y git python3-pip
+
+    - name: Install QMK CLI
+      run: python3 -m pip install --user qmk
+
+    - name: Setup QMK
+      run: qmk setup --home __qmk__ --yes
+
+    - name: Build and archive Keyball46 firmwares
+      run: |
+        set +e
+        for km in test via test_Left via_Left test_Both via_Both default ; do
+          qmk compile -j 4 -kb keyball/rev1/ball -km ${km}
+          qmk compile -j 4 -kb keyball/rev1/noball -km ${km}
+        done
+        set -e
+      continue-on-error: true
+
+    - name: Archive firmwares
+      uses: actions/upload-artifact@v2
+      with:
+        name: keyball46-firmwares
+        path: __qmk__/*.hex
