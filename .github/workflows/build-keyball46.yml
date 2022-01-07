@@ -1,11 +1,11 @@
-name: Build Keyball46 firmwares
+name: Build Keyball46
 
 on: push
 
 jobs:
 
-  build:
-    name: Build firmwares with QMK
+  build-keyball46-firmwares:
+    name: Build Keyball46 firmwares
     runs-on: ubuntu-latest
 
     steps:
