@@ -1,4 +1,4 @@
-# Build Guide for Keyball46
+# Build Guide for Keyball61
 
 こちらは Keyball61 のビルドガイドになります。
   
