@@ -18,7 +18,7 @@ jobs:
         path: __qmk__
         repository: qmk/qmk_firmware
         submodules: recursive
-        ref: '0.14.32'
+        ref: '0.15.13'
 
     - name: Install a link to own source
       run: ln -s /home/runner/work/keyball/keyball/qmk_firmware/keyboards/keyball __qmk__/keyboards/keyball
