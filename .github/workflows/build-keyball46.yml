@@ -1,10 +1,16 @@
 name: Build Keyball46
 
-on: push
+on:
+  push:
+    branches:
+      - '*'
+    tags:
+      - 'keyball46/v[0-9]+.[0-9]+.[0-9]+*'
+  pull_request:
 
 jobs:
 
-  build-keyball46-firmwares:
+  build:
     name: Build Keyball46 firmwares
     runs-on: ubuntu-latest
 
@@ -40,3 +46,27 @@ jobs:
       with:
         name: keyball46-firmwares
         path: __qmk__/*.hex
+
+  release:
+    name: Release Keyball46 firmwares
+    runs-on: ubuntu-latest
+    needs: [ build ]
+    if: github.ref_type == 'tag' && startsWith(github.ref_name, 'keyball46/v')
+
+    steps:
+    - name: Download built firmwares
+      uses: actions/download-artifact@v2
+      with:
+        name: keyball46-firmwares
+    - name: List assets
+      run: ls -l *.hex
+    - name: Release
+      uses: softprops/action-gh-release@v1
+      with:
+        draft: true
+        prerelease: ${{ contains(github.ref_name, '-alpha.') || contains(github.ref_name, '-beta.') }}
+        files: |
+          *.hex
+        fail_on_unmatched_files: true
+        generate_release_notes: true
+        append_body: true
