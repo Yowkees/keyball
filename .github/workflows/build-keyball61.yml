@@ -1,11 +1,11 @@
-name: Build Keyball46
+name: Build Keyball61
 
 on: push
 
 jobs:
 
-  build-keyball46-firmwares:
-    name: Build Keyball46 firmwares
+  build-keyball61-firmwares:
+    name: Build Keyball61 firmwares
     runs-on: ubuntu-latest
 
     steps:
@@ -32,25 +32,17 @@ jobs:
     - name: Setup QMK
       run: qmk setup --home __qmk__ --yes
 
-    - run: qmk compile -j 4 -kb keyball/keyball46 -km default
+    - run: qmk compile -j 4 -kb keyball/keyball61 -km default
       continue-on-error: true
 
-    - run: qmk compile -j 4 -kb keyball/keyball46 -km test
-      continue-on-error: true
-    - run: qmk compile -j 4 -kb keyball/keyball46 -km test_Left
-      continue-on-error: true
-    - run: qmk compile -j 4 -kb keyball/keyball46 -km test_Both
+    - run: qmk compile -j 4 -kb keyball/keyball61 -km test
       continue-on-error: true
 
-    - run: qmk compile -j 4 -kb keyball/keyball46 -km via
-      continue-on-error: true
-    - run: qmk compile -j 4 -kb keyball/keyball46 -km via_Left
-      continue-on-error: true
-    - run: qmk compile -j 4 -kb keyball/keyball46 -km via_Both
+    - run: qmk compile -j 4 -kb keyball/keyball61 -km via
       continue-on-error: true
 
     - name: Archive firmwares
       uses: actions/upload-artifact@v2
       with:
-        name: keyball46-firmwares
+        name: keyball61-firmwares
         path: __qmk__/*.hex
