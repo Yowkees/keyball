@@ -16,7 +16,7 @@ jobs:
       uses: ./.github/actions/setup-qmk
 
     - name: Install a link to own source
-      run: ln -s /home/runner/work/keyball/keyball/qmk_firmware/keyboards/keyball __qmk__/keyboards/keyball
+      run: ln -s $(pwd)/qmk_firmware/keyboards/keyball __qmk__/keyboards/keyball
 
     - run: qmk compile -j 4 -kb keyball/keyball61 -km default
       continue-on-error: true
