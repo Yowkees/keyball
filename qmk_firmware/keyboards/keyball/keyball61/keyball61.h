@@ -110,8 +110,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 //////////////////////////////////////////////////////////////////////////////
 
 enum keyball_keycodes {
-    CPI_RST = SAFE_RANGE,   // CPI reset to default
-    CPI_SAVE,               // CPI save to EEPROM
+    KBC_RST = SAFE_RANGE,   // Keyball configuration: reset to default
+    KBC_SAVE,               // Keyball configuration: save to EEPROM
+
     CPI_I100,               // CPI +100 CPI
     CPI_D100,               // CPI -100 CPI
     CPI_I1K,                // CPI +1000 CPI
@@ -121,6 +122,8 @@ enum keyball_keycodes {
     // wheel.
     SCRL_TO,                // Toggle scroll mode
     SCRL_MO,                // Momentary scroll mode
+    SCRL_DVI,               // Increment scroll divider
+    SCRL_DVD,               // Decrement scroll divider
 };
 
 //////////////////////////////////////////////////////////////////////////////

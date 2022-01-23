@@ -50,10 +50,10 @@ bool pmw3360_motion_read(pmw3360_motion_t *d);
 bool pmw3360_motion_burst(pmw3360_motion_t *d);
 
 // TODO: document
-uint16_t pmw3360_cpi_get(void);
+uint8_t pmw3360_cpi_get(void);
 
 // TODO: document
-void pmw3360_cpi_set(uint16_t cpi);
+void pmw3360_cpi_set(uint8_t cpi);
 
 //////////////////////////////////////////////////////////////////////////////
 // Register operations
@@ -117,8 +117,7 @@ typedef enum {
 } pmw3360_reg_t;
 
 enum {
-    pmw3360_MINCPI = 100,
-    pmw3360_MAXCPI = 12000,
+    pmw3360_MAXCPI = 0x77,  // = 119: 12000 CPI
 };
 
 //////////////////////////////////////////////////////////////////////////////

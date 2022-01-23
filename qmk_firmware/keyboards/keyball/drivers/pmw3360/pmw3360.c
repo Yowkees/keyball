@@ -42,18 +42,13 @@ void pmw3360_reg_write(uint8_t addr, uint8_t data) {
     wait_us(180);
 }
 
-uint16_t pmw3360_cpi_get(void) {
-    uint8_t cpi8 = pmw3360_reg_read(pmw3360_Config1);
-    return ((uint16_t)cpi8 + 1) * 100;
-}
+uint8_t pmw3360_cpi_get(void) { return pmw3360_reg_read(pmw3360_Config1); }
 
-void pmw3360_cpi_set(uint16_t cpi) {
-    if (cpi < pmw3360_MINCPI) {
-        cpi = pmw3360_MINCPI;
-    } else if (cpi > pmw3360_MAXCPI) {
+void pmw3360_cpi_set(uint8_t cpi) {
+    if (cpi > pmw3360_MAXCPI) {
         cpi = pmw3360_MAXCPI;
     }
-    pmw3360_reg_write(pmw3360_Config1, (uint8_t)((cpi / 100) - 1));
+    pmw3360_reg_write(pmw3360_Config1, cpi);
 }
 
 bool pmw3360_motion_read(pmw3360_motion_t *d) {
@@ -77,7 +72,7 @@ bool pmw3360_motion_burst(pmw3360_motion_t *d) {
         spi_stop();
         return false;
     }
-    spi_read(); // skip Observation
+    spi_read();  // skip Observation
     d->x = spi_read();
     d->x |= spi_read() << 8;
     d->y = spi_read();
