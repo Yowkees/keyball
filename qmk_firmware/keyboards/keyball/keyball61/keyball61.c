@@ -340,6 +340,12 @@ static void keyball_set_cpi_invoke(void) {
 
 //////////////////////////////////////////////////////////////////////////////
 
+bool keyball_get_scroll_mode(void) { return scroll_mode; }
+
+void keyball_set_scroll_mode(bool mode) {
+    scroll_mode = mode;
+}
+
 #ifdef OLED_ENABLE
 
 static const char *format_4d(int8_t d) {
