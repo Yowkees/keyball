@@ -22,7 +22,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 // USB Device descriptor parameters
 #define VENDOR_ID           0x5957     // "YW" = Yowkees
-#define PRODUCT_ID          0x0100     // dummy ID
+#define PRODUCT_ID          0x0100
 #define DEVICE_VER          0x0001
 #define MANUFACTURER        Yowkees
 #define PRODUCT             Keyball61
