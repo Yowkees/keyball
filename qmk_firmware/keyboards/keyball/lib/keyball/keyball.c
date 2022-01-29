@@ -120,12 +120,19 @@ uint16_t pointing_device_driver_get_cpi(void) { return keyball_get_cpi(); }
 void pointing_device_driver_set_cpi(uint16_t cpi) { keyball_set_cpi(cpi); }
 
 static void motion_to_mouse_move(keyball_motion_t *m, report_mouse_t *r, bool is_left) {
+#if KEYBALL_MODEL == 61
     r->x = clip2int8(m->y);
     r->y = clip2int8(m->x);
     if (is_left) {
         r->x = -r->x;
         r->y = -r->y;
     }
+#elif KEYBALL_MODEL == 46
+    r->x = clip2int8(m->x);
+    r->y = -clip2int8(m->y);
+#else
+#    error("unknown Keyball model")
+#endif
     // clear motion
     m->x = 0;
     m->y = 0;
@@ -137,12 +144,19 @@ static void motion_to_mouse_scroll(keyball_motion_t *m, report_mouse_t *r, bool 
     m->x -= x << div;
     int16_t y = m->y >> div;
     m->y -= y << div;
+#if KEYBALL_MODEL == 61
     r->h = clip2int8(y);
     r->v = clip2int8(x);
     if (!is_left) {
         r->h = -r->h;
         r->v = -r->v;
     }
+#elif KEYBALL_MODEL == 46
+    r->h = clip2int8(x);
+    r->v = clip2int8(y);
+#else
+#    error("unknown Keyball model")
+#endif
 }
 
 static void motion_to_mouse(keyball_motion_t *m, report_mouse_t *r, bool is_left, bool as_scroll) {
@@ -166,6 +180,16 @@ report_mouse_t pointing_device_driver_get_report(report_mouse_t rep) {
     }
     // report mouse event, if keyboard is primary.
     if (is_keyboard_master()) {
+#if defined(KEYBALL_REPORTMOUSE_INTERVAL) && KEYBALL_REPORTMOUSE_INTERVAL > 0
+        // throttling mouse report rate.
+        static uint32_t last_report = 0;
+        uint32_t        now         = timer_read32();
+        if (TIMER_DIFF_32(now, last_report) < KEYBALL_REPORTMOUSE_INTERVAL) {
+            return rep;
+        }
+        last_report = now;
+#endif
+        // modify mouse report by PMW3360 motion.
         if (keyball.this_have_ball) {
             motion_to_mouse(&keyball.this_motion, &rep, is_keyboard_left(), keyball.scroll_mode);
         }
@@ -198,10 +222,11 @@ static void rpc_get_info_invoke(void) {
     static bool     negotiated = false;
     static uint32_t last_sync  = 0;
     static int      round      = 0;
-    if (negotiated || timer_elapsed32(last_sync) < KEYBALL_TX_GETINFO_INTERVAL) {
+    uint32_t        now        = timer_read32();
+    if (negotiated || TIMER_DIFF_32(now, last_sync) < KEYBALL_TX_GETINFO_INTERVAL) {
         return;
     }
-    last_sync = timer_read32();
+    last_sync = now;
     round++;
     keyball_info_t req = {
         .vid     = VENDOR_ID,
@@ -248,7 +273,8 @@ static void rpc_get_motion_handler(uint8_t in_buflen, const void *in_data, uint8
 
 static void rpc_get_motion_invoke(void) {
     static uint32_t last_sync = 0;
-    if (!keyball.that_have_ball || timer_elapsed32(last_sync) < KEYBALL_TX_GETMOTION_INTERVAL) {
+    uint32_t        now       = timer_read32();
+    if (!keyball.that_have_ball || TIMER_DIFF_32(now, last_sync) < KEYBALL_TX_GETMOTION_INTERVAL) {
         return;
     }
     keyball_motion_id_t req  = 0;
@@ -258,10 +284,8 @@ static void rpc_get_motion_invoke(void) {
             keyball.that_motion.x = add16(keyball.that_motion.x, recv.x);
             keyball.that_motion.y = add16(keyball.that_motion.y, recv.y);
         }
-    } else {
-        dprintf("keyball:rpc_get_motion_invoke: failed");
     }
-    last_sync = timer_read32();
+    last_sync = now;
     return;
 }
 

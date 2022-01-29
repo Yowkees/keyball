@@ -27,11 +27,21 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #    define KEYBALL_SCROLL_DIV_DEFAULT 4  // 4: 1/8 (1/2^(n-1))
 #endif
 
+#ifndef KEYBALL_REPORTMOUSE_INTERVAL
+#    define KEYBALL_REPORTMOUSE_INTERVAL 8  // mouse report rate: 125Hz
+#endif
+
 //////////////////////////////////////////////////////////////////////////////
 
 #define KEYBALL_TX_GETINFO_INTERVAL 500
 #define KEYBALL_TX_GETINFO_MAXTRY 10
-#define KEYBALL_TX_GETMOTION_INTERVAL 5
+#define KEYBALL_TX_GETMOTION_INTERVAL 4
+
+#if (PRODUCT_ID & 0xff00) == 0x0000
+#    define KEYBALL_MODEL 46
+#elif (PRODUCT_ID & 0xff00) == 0x0100
+#    define KEYBALL_MODEL 61
+#endif
 
 //////////////////////////////////////////////////////////////////////////////
 

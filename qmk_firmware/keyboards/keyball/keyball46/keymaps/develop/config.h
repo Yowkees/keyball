@@ -1,7 +1,6 @@
 /*
 This is the c configuration file for the keymap
 
-Copyright 2021 @Yowkees
 Copyright 2022 MURAOKA Taro (aka KoRoN, @kaoriya)
 
 This program is free software: you can redistribute it and/or modify
@@ -33,5 +32,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #    define RGBLIGHT_EFFECT_TWINKLE
 #endif
 
-#undef PRODUCT_ID
-#define PRODUCT_ID 0x0005
+// PMW3360 performance counter. Require CONSOLE_ENABLE too.
+//#define DEBUG_PMW3360_SCAN_RATE
+
+// Disable mouse report rate throttling.
+//#define KEYBALL_REPORTMOUSE_INTERVAL 0

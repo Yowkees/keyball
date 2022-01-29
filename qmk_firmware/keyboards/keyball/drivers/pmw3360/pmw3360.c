@@ -51,7 +51,29 @@ void pmw3360_cpi_set(uint8_t cpi) {
     pmw3360_reg_write(pmw3360_Config1, cpi);
 }
 
+static uint32_t pmw3360_timer      = 0;
+static uint32_t pmw3360_scan_count = 0;
+static uint32_t pmw3360_last_count = 0;
+
+void pmw3360_scan_perf_task(void) {
+    pmw3360_scan_count++;
+    uint32_t now = timer_read32();
+    if (TIMER_DIFF_32(now, pmw3360_timer) > 1000) {
+#if defined(CONSOLE_ENABLE)
+        dprintf("pmw3360 scan frequency: %lu\n", pmw3360_scan_count);
+#endif
+        pmw3360_last_count = pmw3360_scan_count;
+        pmw3360_scan_count = 0;
+        pmw3360_timer      = now;
+    }
+}
+
+uint32_t pmw3360_scan_rate_get(void) { return pmw3360_last_count; }
+
 bool pmw3360_motion_read(pmw3360_motion_t *d) {
+#ifdef DEBUG_PMW3360_SCAN_RATE
+    pmw3360_scan_perf_task();
+#endif
     uint8_t mot = pmw3360_reg_read(pmw3360_Motion);
     if ((mot & 0x88) != 0x80) {
         return false;
@@ -64,6 +86,9 @@ bool pmw3360_motion_read(pmw3360_motion_t *d) {
 }
 
 bool pmw3360_motion_burst(pmw3360_motion_t *d) {
+#ifdef DEBUG_PMW3360_SCAN_RATE
+    pmw3360_scan_perf_task();
+#endif
     pmw3360_spi_start();
     spi_write(pmw3360_Motion_Burst);
     wait_us(35);
