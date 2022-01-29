@@ -27,6 +27,12 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #    define PMW3360_NCS_PIN B6
 #endif
 
+/// DEBUG_PMW3360_SCAN_RATE enables scan performance counter.
+/// It records scan count in a last second and enables pmw3360_scan_rate_get().
+/// Additionally, it will be logged automatically when defined CONSOLE_ENABLE
+/// and `debug_enable = true`.
+//#define DEBUG_PMW3360_SCAN_RATE
+
 //////////////////////////////////////////////////////////////////////////////
 // Top level API
 
@@ -48,6 +54,10 @@ bool pmw3360_motion_read(pmw3360_motion_t *d);
 /// This requires to write a dummy data to pmw3360_Motion_Burst register
 /// just before.
 bool pmw3360_motion_burst(pmw3360_motion_t *d);
+
+/// pmw3360_scan_rate_get gets count of scan in a last second.
+/// This works only when DEBUG_PMW3360_SCAN_RATE is defined.
+uint32_t pmw3360_scan_rate_get(void);
 
 // TODO: document
 uint8_t pmw3360_cpi_get(void);

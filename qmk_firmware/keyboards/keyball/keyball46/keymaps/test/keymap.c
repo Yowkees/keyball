@@ -20,11 +20,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #include <stdio.h>
 
-#include "lib/oledkit/oledkit.h"
-
 // clang-format off
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
-
   [0] = LAYOUT_right_ball(
   //,-----------------------------------------------------.                    ,-----------------------------------------------------.
          KC_Q,    KC_W,    KC_E,    KC_R,    KC_T, KC_LBRC,                         KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,  KC_ESC,
@@ -36,13 +33,12 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
       KC_LCTL, KC_LALT,    KC_BSPC,     KC_SPC,   KC_LGUI,  KC_ESC,                 KC_ENT,  KC_DEL,        KC_EXLM,  KC_TAB, KC_RSFT
   //`--------+--------'  `--------'  `--------' `--------+--------'              `--------+--------'      `--------+--------+--------'
   ),
-
 };
 // clang-format on
 
 void keyboard_post_init_user() {
 #ifdef RGBLIGHT_ENABLE
-    // Force RGB lights to show test animation without writing toi EEPROM.
+    // Force RGB lights to show test animation without writing EEPROM.
     rgblight_enable_noeeprom();
     rgblight_mode_noeeprom(RGBLIGHT_MODE_RGB_TEST);
 #endif
@@ -50,9 +46,10 @@ void keyboard_post_init_user() {
 
 #ifdef OLED_ENABLE
 
-void oledkit_render_info_user(void) {
-    keyball_oled_render_ballinfo();
-    keyball_oled_render_keyinfo();
-}
+#    include "lib/oledkit/oledkit.h"
 
+void oledkit_render_info_user(void) {
+    keyball_oled_render_keyinfo();
+    keyball_oled_render_ballinfo();
+}
 #endif
