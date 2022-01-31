@@ -111,20 +111,3 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 // clang-format on
 
 #define LAYOUT LAYOUT_right_ball
-
-#if 0
-// keyball_process_trackball_default apply rotations of trackball as default
-// behavior of Keyball46.
-void keyball_process_trackball_default(const trackball_delta_t *primary, const trackball_delta_t *secondary);
-
-// keyball_process_trackball_user will be callbacked when keyball detects some
-// rotation on trackballs. User can override default behavior of trackball by
-// defining this function.
-//
-// As default, it calls keyball_process_trackball_default().
-void keyball_process_trackball_user(const trackball_delta_t *primary, const trackball_delta_t *secondary);
-
-// keyball_adjust_trackball_handness adjusts role of trackball on secondary
-// board.
-void keyball_adjust_trackball_handness(void);
-#endif
