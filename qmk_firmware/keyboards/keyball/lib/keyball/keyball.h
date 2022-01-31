@@ -18,6 +18,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #pragma once
 
 //////////////////////////////////////////////////////////////////////////////
+// Configurations
 
 #ifndef KEYBALL_CPI_DEFAULT
 #    define KEYBALL_CPI_DEFAULT 500
@@ -32,6 +33,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #endif
 
 //////////////////////////////////////////////////////////////////////////////
+// Constants
 
 #define KEYBALL_TX_GETINFO_INTERVAL 500
 #define KEYBALL_TX_GETINFO_MAXTRY 10
@@ -41,9 +43,12 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #    define KEYBALL_MODEL 46
 #elif (PRODUCT_ID & 0xff00) == 0x0100
 #    define KEYBALL_MODEL 61
+#elif (PRODUCT_ID & 0xff00) == 0x0200
+#    define KEYBALL_MODEL 39
 #endif
 
 //////////////////////////////////////////////////////////////////////////////
+// Types
 
 enum keyball_keycodes {
     KBC_RST = SAFE_RANGE,  // Keyball configuration: reset to default
@@ -113,23 +118,25 @@ typedef enum {
 } keyball_adjust_t;
 
 //////////////////////////////////////////////////////////////////////////////
+// Exported values (touch carefully)
 
 extern keyball_t keyball;
 
 //////////////////////////////////////////////////////////////////////////////
+// Public API functions
 
-// keyball_oled_render_ballinfo renders ball information to OLED.
-// It uses just 21 columns to show the info.
+/// keyball_oled_render_ballinfo renders ball information to OLED.
+/// It uses just 21 columns to show the info.
 void keyball_oled_render_ballinfo(void);
 
-// keyball_oled_render_keyinfo renders last processed key information to OLED.
-// It shows column, row, key code, and key name (if available).
+/// keyball_oled_render_keyinfo renders last processed key information to OLED.
+/// It shows column, row, key code, and key name (if available).
 void keyball_oled_render_keyinfo(void);
 
-// TODO: document
+/// keyball_get_scroll_mode gets current scroll mode.
 bool keyball_get_scroll_mode(void);
 
-// TODO: document
+/// keyball_set_scroll_mode modify scroll mode.
 void keyball_set_scroll_mode(bool mode);
 
 // TODO: document
