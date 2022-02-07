@@ -32,6 +32,10 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #    define KEYBALL_REPORTMOUSE_INTERVAL 8  // mouse report rate: 125Hz
 #endif
 
+#ifndef KEYBALL_SCROLLBALL_INHIVITOR
+#    define KEYBALL_SCROLLBALL_INHIVITOR 50
+#endif
+
 //////////////////////////////////////////////////////////////////////////////
 // Constants
 
@@ -103,8 +107,9 @@ typedef struct {
     uint8_t cpi_value;
     bool    cpi_changed;
 
-    bool    scroll_mode;
-    uint8_t scroll_div;
+    bool     scroll_mode;
+    uint8_t  scroll_div;
+    uint32_t scroll_changed;
 
     uint16_t       last_kc;
     keypos_t       last_pos;

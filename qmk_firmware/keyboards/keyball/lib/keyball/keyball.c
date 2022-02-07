@@ -167,11 +167,33 @@ static void motion_to_mouse(keyball_motion_t *m, report_mouse_t *r, bool is_left
     }
 }
 
+static inline bool should_add_motion(uint32_t now) {
+#if defined(KEYBALL_SCROLLBALL_INHIVITOR) && KEYBALL_SCROLLBALL_INHIVITOR > 0
+    if (TIMER_DIFF_32(now, keyball.scroll_changed) < KEYBALL_SCROLLBALL_INHIVITOR) {
+        return false;
+    }
+#endif
+    return true;
+}
+
+static inline bool should_report(uint32_t now) {
+#if defined(KEYBALL_REPORTMOUSE_INTERVAL) && KEYBALL_REPORTMOUSE_INTERVAL > 0
+    // throttling mouse report rate.
+    static uint32_t last = 0;
+    if (TIMER_DIFF_32(now, last) < KEYBALL_REPORTMOUSE_INTERVAL) {
+        return false;
+    }
+    last = now;
+#endif
+    return true;
+}
+
 report_mouse_t pointing_device_driver_get_report(report_mouse_t rep) {
+    uint32_t now = timer_read32();
     // fetch from optical sensor.
     if (keyball.this_have_ball) {
         pmw3360_motion_t d = {0};
-        if (pmw3360_motion_burst(&d)) {
+        if (pmw3360_motion_burst(&d) && should_add_motion(now)) {
             ATOMIC_BLOCK_FORCEON {
                 keyball.this_motion.x = add16(keyball.this_motion.x, d.x);
                 keyball.this_motion.y = add16(keyball.this_motion.y, d.y);
@@ -179,16 +201,7 @@ report_mouse_t pointing_device_driver_get_report(report_mouse_t rep) {
         }
     }
     // report mouse event, if keyboard is primary.
-    if (is_keyboard_master()) {
-#if defined(KEYBALL_REPORTMOUSE_INTERVAL) && KEYBALL_REPORTMOUSE_INTERVAL > 0
-        // throttling mouse report rate.
-        static uint32_t last_report = 0;
-        uint32_t        now         = timer_read32();
-        if (TIMER_DIFF_32(now, last_report) < KEYBALL_REPORTMOUSE_INTERVAL) {
-            return rep;
-        }
-        last_report = now;
-#endif
+    if (is_keyboard_master() && should_report(now)) {
         // modify mouse report by PMW3360 motion.
         if (keyball.this_have_ball) {
             motion_to_mouse(&keyball.this_motion, &rep, is_keyboard_left(), keyball.scroll_mode);
@@ -388,7 +401,16 @@ void keyball_oled_render_keyinfo(void) {
 
 bool keyball_get_scroll_mode(void) { return keyball.scroll_mode; }
 
-void keyball_set_scroll_mode(bool mode) { keyball.scroll_mode = mode; }
+void keyball_set_scroll_mode(bool mode) {
+    if (mode != keyball.scroll_mode) {
+        keyball.scroll_changed = timer_read32();
+        keyball.this_motion.x  = 0;
+        keyball.this_motion.y  = 0;
+        keyball.that_motion.x  = 0;
+        keyball.that_motion.y  = 0;
+    }
+    keyball.scroll_mode = mode;
+}
 
 uint8_t keyball_get_scroll_div(void) { return keyball.scroll_div == 0 ? KEYBALL_SCROLL_DIV_DEFAULT : keyball.scroll_div; }
 
@@ -499,11 +521,11 @@ bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
 
         case SCRL_TO:
             if (record->event.pressed) {
-                keyball.scroll_mode = !keyball.scroll_mode;
+                keyball_set_scroll_mode(!keyball.scroll_mode);
             }
             break;
         case SCRL_MO:
-            keyball.scroll_mode = record->event.pressed;
+            keyball_set_scroll_mode(record->event.pressed);
             break;
         case SCRL_DVI:
             if (record->event.pressed) {
