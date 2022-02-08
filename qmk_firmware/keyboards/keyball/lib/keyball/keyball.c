@@ -290,7 +290,7 @@ static void rpc_get_motion_handler(uint8_t in_buflen, const void *in_data, uint8
 static void rpc_get_motion_invoke(void) {
     static uint32_t last_sync = 0;
     uint32_t        now       = timer_read32();
-    if (!keyball.that_have_ball || TIMER_DIFF_32(now, last_sync) < KEYBALL_TX_GETMOTION_INTERVAL) {
+    if (TIMER_DIFF_32(now, last_sync) < KEYBALL_TX_GETMOTION_INTERVAL) {
         return;
     }
     keyball_motion_id_t req  = 0;
@@ -312,7 +312,7 @@ static void rpc_set_cpi_handler(uint8_t in_buflen, const void *in_data, uint8_t 
 }
 
 static void rpc_set_cpi_invoke(void) {
-    if (!keyball.that_have_ball || !keyball.cpi_changed) {
+    if (!keyball.cpi_changed) {
         return;
     }
     keyball_cpi_t req = keyball.cpi_value;
@@ -444,9 +444,7 @@ void keyboard_post_init_kb(void) {
     // read keyball configuration from EEPROM
     if (eeconfig_is_enabled()) {
         keyball_config_t c = {.raw = eeconfig_read_kb()};
-        if (c.cpi != 0) {
-            keyball_set_cpi(c.cpi);
-        }
+        keyball_set_cpi(c.cpi);
         keyball_set_scroll_div(c.sdiv);
     }
 
@@ -457,8 +455,10 @@ void keyboard_post_init_kb(void) {
 void housekeeping_task_kb(void) {
     if (is_keyboard_master()) {
         rpc_get_info_invoke();
-        rpc_get_motion_invoke();
-        rpc_set_cpi_invoke();
+        if (keyball.that_have_ball) {
+            rpc_get_motion_invoke();
+            rpc_set_cpi_invoke();
+        }
     }
 }
 
@@ -472,24 +472,30 @@ bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
     }
 
     switch (keycode) {
+#ifndef MOUSEKEY_ENABLE
         // process KC_MS_BTN1~8 by myself
         // See process_action() in quantum/action.c for details.
-#ifndef MOUSEKEY_ENABLE
         case KC_MS_BTN1 ... KC_MS_BTN8: {
             extern void register_button(bool, enum mouse_buttons);
             register_button(record->event.pressed, MOUSE_BTN_MASK(keycode - KC_MS_BTN1));
-            break;
-        }
+            return false;
 #endif
 
+        case SCRL_MO:
+            keyball_set_scroll_mode(record->event.pressed);
+            return false;
+        }
+    }
+
+    // process events which works on pressed only.
+    if (record->event.pressed) {
+        switch (keycode) {
         case KBC_RST:
-            if (record->event.pressed) {
-                keyball_set_cpi(0);
-                keyball_set_scroll_div(0);
-            }
+            keyball_set_cpi(0);
+            keyball_set_scroll_div(0);
             break;
         case KBC_SAVE:
-            if (record->event.pressed) {
+            {
                 keyball_config_t c = {
                     .cpi  = keyball.cpi_value,
                     .sdiv = keyball.scroll_div,
@@ -499,47 +505,32 @@ bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
             break;
 
         case CPI_I100:
-            if (record->event.pressed) {
-                add_cpi(1);
-            }
+            add_cpi(1);
             break;
         case CPI_D100:
-            if (record->event.pressed) {
-                add_cpi(-1);
-            }
+            add_cpi(-1);
             break;
         case CPI_I1K:
-            if (record->event.pressed) {
-                add_cpi(10);
-            }
+            add_cpi(10);
             break;
         case CPI_D1K:
-            if (record->event.pressed) {
-                add_cpi(-10);
-            }
+            add_cpi(-10);
             break;
 
         case SCRL_TO:
-            if (record->event.pressed) {
-                keyball_set_scroll_mode(!keyball.scroll_mode);
-            }
-            break;
-        case SCRL_MO:
-            keyball_set_scroll_mode(record->event.pressed);
+            keyball_set_scroll_mode(!keyball.scroll_mode);
             break;
         case SCRL_DVI:
-            if (record->event.pressed) {
-                add_scroll_div(1);
-            }
+            add_scroll_div(1);
             break;
         case SCRL_DVD:
-            if (record->event.pressed) {
-                add_scroll_div(-1);
-            }
+            add_scroll_div(-1);
             break;
 
         default:
             return true;
+        }
     }
+
     return false;
 }
