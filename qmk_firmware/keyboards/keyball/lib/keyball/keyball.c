@@ -530,7 +530,8 @@ bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
         default:
             return true;
         }
+        return false;
     }
 
-    return false;
+    return true;
 }
