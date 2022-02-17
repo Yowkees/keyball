@@ -299,7 +299,7 @@ Keyball46のファームウェアは、トラックボールを右手と左手�
 
    - トラックボールを右手側につけた方はこちらの[keyball_keyball46_test.hex](https://github.com/Yowkees/keyball/blob/main/qmk_firmware/.build/keyball_keyball46_test.hex)を書き込みます
    - トラックボールを左手側につけた方はこちらの[keyball_keyball46_test_Left.hex](https://github.com/Yowkees/keyball/blob/main/qmk_firmware/.build/keyball_keyball46_test_Left.hex)を書き込みます
-   - Keyball46関連の全hexファイルを一括でダウンロードするためには、[こちら](https://github.com/Yowkees/keyball/blob/main/qmk_firmware/.build/keyball46_hex.zip)をダウンロード後に解凍し、該当するhexファイルをご使用ください
+   - Keyball46関連の全hexファイルを一括でダウンロードするためには、[こちら](https://github.com/Yowkees/keyball/blob/3b9bf7075e106cc0b7585083bf783b6239d41588/qmk_firmware/.build/Keyball46_hex.zip)をダウンロード後に解凍し、該当するhexファイルをご使用ください
 
 
 Pro Microへの書き込みが完了したら下写真のようにキースイッチのパッドをピンセットでショートして動作確認します。  
@@ -574,7 +574,7 @@ M1.7のトルクスねじをつけます。キットにはねじ頭が【小さ�
 テストファームウェア書き込みの章にも書きましたが、Keyball46のファームウェアは、トラックボールを右手と左手のどちらに載せたかで種類が分かれます。下記の適切な方のリンクからzipファイルをダウンロードしてください。
    - トラックボールを右手側につけた方はこちらの[keyball_keyball46_via.hex](https://github.com/Yowkees/keyball/blob/main/qmk_firmware/.build/keyball_keyball46_via.hex)を書き込みます
    - トラックボールを左手側につけた方はこちらの[keyball_keyball46_via_Left.hex](https://github.com/Yowkees/keyball/blob/main/qmk_firmware/.build/keyball_keyball46_via_Left.hex)を書き込みます
-   - Keyball46関連の全hexファイルを一括でダウンロードするためには、[こちら](https://github.com/Yowkees/keyball/blob/main/qmk_firmware/.build/keyball46_hex.zip)をダウンロード後に解凍し、該当するhexファイルをご使用ください
+   - Keyball46関連の全hexファイルを一括でダウンロードするためには、[こちら](https://github.com/Yowkees/keyball/blob/3b9bf7075e106cc0b7585083bf783b6239d41588/qmk_firmware/.build/Keyball46_hex.zip)をダウンロード後に解凍し、該当するhexファイルをご使用ください
 
 
 書き込みは[3-6章](#3-6promicoの書き込みと動作確認)でも書いた通り、QMK Toolboxを使用して書き込んでください。
