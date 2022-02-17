@@ -57,7 +57,7 @@
 | ボトムアクリルプレート(左右) | １組 | |
 | ProMicro保護プレート(左右) | １組 | |
 | トラックボール保持ケース白(上下) | １組 | |
-| Φ2 セラミックボール | ５個 | （予備２個） |
+| Φ2 セラミックボール | １個 | （予備用） |
 | トラックボール読取り基板 | １枚 | |
 | L字コンスルーピン(7ピン) | １個 | |
 | トラックボール読取りIC | １個 | |
@@ -68,10 +68,11 @@
 | タクトスイッチ | ２個 | |
 | ダイオード（チップタイプ） | ５２個＋ | リードタイプにも対応(オプション) |
 | Kailh PCBソケット | ５０個 | |
-| OLEDモジュール | １枚 | |
+| OLEDモジュール | ２枚 | |
 | 4連ピンヘッダ  | ２つ | |
 | 4連ピンソケット | ２つ | |
-| スペーサー M2 7mm | １５本 | |
+| スペーサー M2 7mm | １５本 |Keyball46 Cherry MX版のみ |
+| スペーサー M2 4mm | １５本 |Keyball46 chocロープロファイル版のみ |
 | スペーサー M2 9mm | ５本 | |
 | ネジ M2 3.5mm | ３８本＋ | |
 | クッションゴム | ８個 | |
@@ -88,6 +89,7 @@
 | 直径34mmトラックボール | １個 | 動作確認で使用します |
 | TRS(3極)ケーブル | １本 | TRRS(4極)ケーブルでも可 |
 | Micro USBケーブル | １本 | ご購入いただいたProMicroに対応するもの |
+| スペーサー M2 長さ4mm（オプション） | ４本 | 親指キーのみをロープロファイルにする場合にご準備ください（Keyball46ロープロファイルキットをご購入の場合はキットに含まれます） |
 
 ![03](images/yw003.jpg)
 
@@ -247,7 +249,7 @@ OLEDモジュールとトラックボールセンサを動作させるために�
 
 <a id="anchor3-5"></a>
 ### 3-5．ProMicroのはんだ付け
-ProMicroは下記写真のコンスルーピンを使用してはんだ付けすることで、交換が可能になります。コンスルーピンには取付け方向がありますので写真をよく見て作業してください。
+ProMicroは下記写真のコンスルーピンを使用してはんだ付けすることで、交換が可能になります（ProMicroに同梱されている12Pピンヘッダは使用しません）。コンスルーピンには取付け方向がありますので写真をよく見て作業してください。
 
 ![60](images/yw060.jpg)
 
@@ -268,7 +270,7 @@ ProMicroは下記写真のコンスルーピンを使用してはんだ付けす
 
 ![65](images/yw065.jpg)
 
-左手基板には標準でOLEDが搭載できます。  
+左右両方の基板に標準でOLEDが搭載できます（OLEDモジュールの袋に同梱されている4Pピンヘッダは使用しませんので破棄してください）。  
 4連ピンソケットに4連ピンヘッダを挿入してOLEDモジュールを載せます。
 
 ![70](images/yw070.jpg)
@@ -279,7 +281,7 @@ ProMicroは下記写真のコンスルーピンを使用してはんだ付けす
 
 ![71](images/yw071.jpg)
 
-位置が決まったら残り3ピンをはんだ付けします。
+位置が決まったら残り3ピンをはんだ付けします。左右共同様に半田付けします。
 
 ![72](images/yw072.jpg)
 
@@ -291,17 +293,16 @@ ProMicroは下記写真のコンスルーピンを使用してはんだ付けす
 今回はLEDはんだ付けを見送っている場合など、テスト用ファームウェアが必要無いと思われる方は[１０章](#１０正規ファームウェアの書き込み)の正規のファームウェアをここで書き込んでも構いません。  
   
 
-Keyball46のファームウェアは、トラックボールを右手と左手のどちらに載せたかで種類が分かれます。下記の適切な方のリンクからzipファイルをダウンロードして解凍し、QMK_ToolBoxで書き込んでください。  
-   - トラックボールを右手側につけた方はこちらの[keyball_test_1.0.0.zip](https://github.com/Yowkees/keyball/files/6809109/keyball_test_1.0.0.zip)をダウンロード
-   - トラックボールを左手側につけた方はこちらの[keyball_test_Left_1.0.0.zip](https://github.com/Yowkees/keyball/files/6809113/keyball_test_Left_1.0.0.zip)をダウンロード
+Keyball46のファームウェアは、トラックボールを右手と左手のどちらに載せたかで種類が分かれます。下記の適切な方のリンクからhexファイルもしくはzipファイルをダウンロードして、QMK Toolboxを使用して書き込んでください。QMK Toolboxについては [Corneのファームウェア](https://github.com/foostan/crkbd/blob/master/doc/firmware_jp.md) の記事を参照してください。
 
-zipファイルを解凍すると中には２つのhexファイルが入っています。Keyball46では左右に別々のファームウェアを書き込みます。
-   - keyball_rev1_ball_test.hex　←この"ball"が名前に含まれている方はトラックボールありの基板に書き込みます
-   - keyball_rev1_noball_test.hex　←この"noball"が名前に含まれている方はトラックボール無しの基板に書き込みます
+※必ず左右両方のPro Microに同じhexファイルを書き込んでください。
 
-書き込みはQMK Toolboxを使用して書き込んでください。QMK Toolboxについては [Corneのファームウェア](https://github.com/foostan/crkbd/blob/master/doc/firmware_jp.md) の記事を参照してください。  
+   - トラックボールを右手側につけた方はこちらの[keyball_keyball46_test.hex](https://github.com/Yowkees/keyball/blob/main/qmk_firmware/.build/keyball_keyball46_test.hex)を書き込みます
+   - トラックボールを左手側につけた方はこちらの[keyball_keyball46_test_Left.hex](https://github.com/Yowkees/keyball/blob/main/qmk_firmware/.build/keyball_keyball46_test_Left.hex)を書き込みます
+   - Keyball46関連の全hexファイルを一括でダウンロードするためには、[こちら](https://github.com/Yowkees/keyball/blob/main/qmk_firmware/.build/keyball46_hex.zip)をダウンロード後に解凍し、該当するhexファイルをご使用ください
 
-書き込みが完了したら下写真のようにキースイッチのパッドをピンセットでショートして動作確認します。  
+
+Pro Microへの書き込みが完了したら下写真のようにキースイッチのパッドをピンセットでショートして動作確認します。  
 早い段階で動作確認をすることで問題の切り分けが楽になります。
 
 ![75](images/yw075.jpg)
@@ -354,11 +355,11 @@ LEDは直列に配線されているので、途中までしか点灯しない�
 
 ![87](images/yw087.jpg)
 
-ロープロファイルソケット（kailh choc）を使用する場合は下写真のようになります。
+すべてのキー、もしくは親指キーのみをロープロファイル仕様（kailh choc）にて組み立てる場合、ロープロファイルパターン側にchoc用ソケットを半田付けして下さい。このロープロソケットにも向きがあります。 下記写真にて方向を確認してください。黒い樹脂部分が八角形に近くなっている端子がスイッチの真ん中付近にくる方向が正解です。ロープロファイルソケット（kailh choc）を使用する場合は下写真のようになります。
 
-![88](images/yw088.jpg)
+![88](images/kb61_077.jpg)
 
-左右合わせて46個はんだ付けして完了です。
+左右合わせて46個のソケットをはんだ付けして完了です。
 
 ![89](images/yw089.jpg)
 
@@ -385,14 +386,14 @@ ICを裏から見るとこのような方向です。部品が実装されてい
 
 ![93](images/yw093.jpg)
 
-シールをはがした面にセンサーレンズを取付けます。
-
-![94](images/yw094.jpg)
-
-レンズには方向があります。  
+次にセンサーレンズを取り付けます。レンズには方向があります。方向が違うとレンズの細いピン2本が折れてしまう恐れがあるため方向をしっかりとご確認ください。  
 レンズ手前に下写真矢印のような突起があり、これが上側にくるように取り付けます。
 
 ![95](images/yw095.jpg)
+
+レンズとICの方向が合えば、レンズのピン2本がICに無理なく差し込めるはずです。ゆっくりと差し込んでください。
+
+![94](images/yw094.jpg)
 
 <a id="anchor4-2"></a>
 ### 4-2．L字コンスルーのはんだ付け
@@ -571,14 +572,12 @@ M1.7のトルクスねじをつけます。キットにはねじ頭が【小さ�
 それでは最後に正規のファームウェアをProMicroに書き込みましょう。Keyball46は[Remap](https://remap-keys.app/configure)に対応していますのでビルド環境がなくてもキーマップの変更が可能です。Remapの使用方法については[自キ温泉ガイドのサリチル酸](https://salicylic-acid3.hatenablog.com/entry/remap-manual)の記事に詳しく掲載されています。  
 
 テストファームウェア書き込みの章にも書きましたが、Keyball46のファームウェアは、トラックボールを右手と左手のどちらに載せたかで種類が分かれます。下記の適切な方のリンクからzipファイルをダウンロードしてください。
-   - トラックボールを右手側につけた方はこちらの[keyball_via_1.0.0.zip](https://github.com/Yowkees/keyball/files/6809101/keyball_via_1.0.0.zip)をダウンロード
-   - トラックボールを左手側につけた方はこちらの[keyball_via_Left_1.0.0.zip](https://github.com/Yowkees/keyball/files/6809107/keyball_via_Left_1.0.0.zip)をダウンロード
+   - トラックボールを右手側につけた方はこちらの[keyball_keyball46_via.hex](https://github.com/Yowkees/keyball/blob/main/qmk_firmware/.build/keyball_keyball46_via.hex)を書き込みます
+   - トラックボールを左手側につけた方はこちらの[keyball_keyball46_via_Left.hex](https://github.com/Yowkees/keyball/blob/main/qmk_firmware/.build/keyball_keyball46_via_Left.hex)を書き込みます
+   - Keyball46関連の全hexファイルを一括でダウンロードするためには、[こちら](https://github.com/Yowkees/keyball/blob/main/qmk_firmware/.build/keyball46_hex.zip)をダウンロード後に解凍し、該当するhexファイルをご使用ください
 
-zipファイルを解凍すると中には２つのhexファイルが入っています。Keyball46では左右に別々のファームウェアを書き込みます。
-   - keyball_rev1_ball_via.hex　←この"ball"が名前に含まれている方はトラックボールありの基板に書き込みます
-   - keyball_rev1_noball_via.hex　←この"noball"が名前に含まれている方はトラックボール無しの基板に書き込みます
 
-書き込みはQMK Toolboxを使用して書き込んでください。
+書き込みは[3-6章](#3-6promicoの書き込みと動作確認)でも書いた通り、QMK Toolboxを使用して書き込んでください。
 
 ■ご自身でファームウェアをビルドする場合  
 Keyball46の最新ファームウェアは[Githubのリポジトリ](https://github.com/Yowkees/keyball/tree/main/qmk_firmware/keyboards/keyball)にて公開しています。このkeyballフォルダをお手持ちのQMK_Firmware/keyboardsへコピーして自由にキーマップ等を編集してmakeしてください。  
