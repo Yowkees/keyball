@@ -107,8 +107,17 @@ static void add_scroll_div(int8_t delta) {
 //////////////////////////////////////////////////////////////////////////////
 // Pointing device driver
 
-void pointing_device_driver_init(void) {
+#if KEYBALL_MODEL == 46
+void keyboard_pre_init_kb(void) {
     keyball.this_have_ball = pmw3360_init();
+    keyboard_pre_init_user();
+}
+#endif
+
+void pointing_device_driver_init(void) {
+#if KEYBALL_MODEL != 46
+    keyball.this_have_ball = pmw3360_init();
+#endif
     if (keyball.this_have_ball) {
         pmw3360_cpi_set(CPI_DEFAULT - 1);
         pmw3360_reg_write(pmw3360_Motion_Burst, 0);
