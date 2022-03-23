@@ -11,7 +11,7 @@ Keyball61 is a 60% split keyboard with integrated 100% useful thumb trackball.
 ## [Contents of Buid Guide for Keyball61]
 
   - [1. Parts Check](#1)
-    - [1-1. Kit Bundled Items](#1-1)
+    - [1-1. Items included in the kit](#1-1)
     - [1-2. Parts to be prepared by the customer before assembly](#1-2)
     - [1-3. Parts and options that can be installed after assembly](#1-3)
   - [2. Preparation](#2)
@@ -42,12 +42,12 @@ Keyball61 is a 60% split keyboard with integrated 100% useful thumb trackball.
   - [10. Write the official firmware](#10)
   - [11. How to use Keyball](#11)
 
-<a id="anchor1"></a>
-## 1. Check the parts
+<a id="1"></a>
+## 1. Parts Check
 
 When you receive your kit, please make sure whether all the items included in the kit.
 
-<a id="anchor1-1"></a>
+<a id="1-1"></a>
 ### 1-1. Items included in the kit
 
 The Keyball61 Standard set has one Trackball that can be attached on Right or Left side.
@@ -90,7 +90,7 @@ Included parts in the Keyball61 Standard Kit are the following
 
 ![02](images/kb61_007.jpg)
 
-<a id="anchor1-2"></a>
+<a id="1-2"></a>
 ### 1-2. Parts to be prepared by customers themselves before assembly
 
 The following are the parts you need to prepare before assembly.
@@ -106,7 +106,7 @@ The following are the parts you need to prepare before assembly.
 
 ![03](images/kb61_003.jpg)
 
-<a id="anchor1-3"></a>
+<a id="1-3"></a>
 ### 1-3. Parts and options that can be installed even after assembled.
 
 | Name | Number | Note |
@@ -117,10 +117,10 @@ The following are the parts you need to prepare before assembly.
 
 ![04](images/kb61_004.jpg)
 
-<a id="anchor2"></a>
+<a id="2"></a>
 ## 2. Preparation
 
-<a id="anchor2-1"></a>
+<a id="2-1"></a>
 ### 2-1. Required tools
 
 You will need the following tools to assemble the Keyball61.
@@ -136,7 +136,7 @@ You will need the following tools to assemble the Keyball61.
 
 ![05](images/kb61_005.jpg)
 
-<a id="anchor4"></a>
+<a id="3"></a>
 ## 3. Mounting parts
 
 Now it's time to start the soldering process.  
@@ -157,13 +157,13 @@ I wanted to write "TOP FACE" on masking tape.
 
 ![22](images/kb61_013.jpg)
 
-<a id="anchor3-1"></a>
+<a id="3-1"></a>
 ### 3-1．はんだ付けの前に
 The tip of the soldering iron should be shaped like a bamboo spear, so that you can put solder on a flat surface and scoop out excess solder.
 
 ![27](images/kb61_027.jpg)
 
-<a id="anchor3-2"></a>
+<a id="3-2"></a>
 ### 3-2. Soldering the diodes
 Now let's solder the diodes one by one.  
 All the diodes should be soldered on 【BACK SIDE ONLY】.
@@ -196,7 +196,7 @@ Finally, touch both legs with a soldering tip, and if the diode does not fall ou
 Install a total of 63 diodes on the left and right sides.
 
 ![37](images/kb61_030.jpg)
-<a id="anchor3-3"></a>
+<a id="3-3"></a>
 ### 3-3．Soldering the key socket
 The key socket is soldered on the 【BACK SIDE】 as diodes.
 
@@ -227,7 +227,7 @@ The PCB socket for the thumb keys can be just either a CherryMX compatible socke
 
 ![89](images/kb61_081.jpg)
 
-<a id="anchor3-4"></a>
+<a id="3-4"></a>
 ### 3-4．Soldering the jumpers
 You need to short the jumpers to control the OLED module and trackball sensor.
 
@@ -245,7 +245,7 @@ If successfully bridged, it will look like the photo below.
 
 You may find a few more jumpers, but these will be explained later.
 
-<a id="anchor3-5"></a>
+<a id="3-5"></a>
 ### 3-5．4-pin Socket, TRRS Socket, Tact Switch
 Solder the components shown in the photo below.  
 Mount all of them on the __【TOP SURFACE】__.  
@@ -261,7 +261,7 @@ When all are installed, it will look like the photo below.
 ![53](images/kb61_042.jpg)
 
 
-<a id="anchor3-6"></a>
+<a id="3-6"></a>
 ### 3-6．Soldering the ProMicro
 The ProMicro can be replaced by soldering with the spring-loaded (Conthrough) pin headers pins shown in the photo below. The spring-loaded pin headers pins have mounting directions, so please look at the photo carefully.
 
@@ -295,7 +295,7 @@ Once the position is set, solder the remaining 3 pins.
 
 ![72](images/kb61_064.jpg)
 
-<a id="anchor3-7"></a>
+<a id="3-7"></a>
 ### 3-7．ProMicoの書き込みと動作確認
 OK, let's write the test firmware to the ProMicro.
 
@@ -320,7 +320,7 @@ The earlier you check the operation, the easier it will be to isolate the proble
 
 ![75](images/kb61_067.jpg)
 
-<a id="anchor3-8"></a>
+<a id="3-8"></a>
 ### 3-8．Soldering the LEDs (optional)
 
 Please note that all LEDs are soldered on the 【BACK SIDE】!!
@@ -350,14 +350,14 @@ Repeat the lighting check and soldering correction to ensure that all LEDs are l
 
 ![82](images/kb61_073.jpg)
 
-<a id="anchor4"></a>
+<a id="4"></a>
 ## ４．Assemble the ball-reading board
 Prepare the board shown in the photo below (hereinafter referred to as the "ball board") and the sensor.
 In some cases, you may receive a pre-soldered board to check the quality of the sensor and board. If this case, please skip this step and proceed to Chapter 4-2, Soldering the L-shaped 7pin Conthrough header.
 
 ![90](images/kb61_090.jpg)  
 
-<a id="anchor4-1"></a>
+<a id="4-1"></a>
 ## 4-1．Soldering the optical sensor  
 
 Insert the sensor IC from the __【BACK SIDE】__ of the ball board where no electric components are mounted.
@@ -383,7 +383,7 @@ If the direction of the lens and IC match, the two pins of the lens should be ab
 
 ![94](images/kb61_094.jpg)
 
-<a id="anchor4-2"></a>
+<a id="4-2"></a>
 ### 4-2．Soldering the L-shaped conthrough pin header
 Next, attach the L-shaped spring-loaded pin headers to the right-hand board __【TOP FACE】__.  
 The L-shaped spring-loaded pin headers also have a direction, and should be installed in the same way as in the picture below.  
@@ -400,7 +400,7 @@ There is a jumper near the conthrough pin header you just soldered, so solder it
 
 ![97](images/kb61_085.jpg)
 
-<a id="anchor5"></a>
+<a id="5"></a>
 ## ５．Solder the left/right decision jumper on the left hand side
 
 The standard firmware of the Keyball61 has an automatic left/right detection function. To activate this, solder a jumper on the __【Left hand board only】__. 
@@ -421,7 +421,7 @@ As a side note, before de-energizing the soldering iron, put plenty of solder on
 
 ![100](images/kb61_096.jpg)
 
-<a id="anchor6"></a>
+<a id="6"></a>
 ## 6. Cutting of top plate  
 
 Keyball61 must be assembled by cutting away the perforations in the thumb key area of the top plate.
@@ -433,10 +433,10 @@ The detached cross section should be prepared with about 150-grit sandpaper.
 
 ![102](images/kb61_102.jpg)
 
-<a id="anchor7"></a>
+<a id="7"></a>
 ## 7. Assembly 
 
-<a id="anchor7-1"></a>
+<a id="7-1"></a>
 ###7-1. Mounting the Protection Plates
 
 Attach the ProMicro protection plates to the middle board.
@@ -450,7 +450,7 @@ The shapes of the protective plates are same for right and left side. Also, ther
 
 ![111](images/kb61_105.jpg)  
 
-<a id="anchor7-2"></a>
+<a id="7-2"></a>
 ### 7-2. Assembling the top plates  
 
 Screw the 7mm spacers to the 【BACK SIDE】 of the top plate.
@@ -473,7 +473,7 @@ Next, the soldered middle board is also stacked, making sure that the screw hole
 
 ![114](images/kb61_112.jpg)
 
-<a id="anchor7-3"></a>
+<a id="7-3"></a>
 ### 7-3. Assembling the bottom plates and Acrylic Spacers 
 
 Use the round acrylic spacers included in the kit. There are three types of acrylic spacers: one with a diameter of 8 mm, one with a diameter of 7 mm, and one with a C-shape.
@@ -487,10 +487,10 @@ Insert these into the metal spacer section as shown in the photo below. Basicall
 Once the acrylic spacers are inserted all the way through, overlap the acrylic bottom plate from the back side and screw it in place.
 Next, attach the cushion rubberes to the four corners of the keyboard.
 
-<a id="anchor8"></a>
+<a id="8"></a>
 ## 8. Trackball installation 
 
-<a id="anchor8-1"></a>
+<a id="8-1"></a>
 ### 8-1. Insert the trackball reading board
 
 Insert the assembled trackball reader board into the 7-pin conthrough pin header. The board should be inserted vertically.
@@ -501,7 +501,7 @@ The ball board is now standing vertically.
 
 ![121](images/kb61_115.jpg)
 
-<a id="anchor8-2"></a>
+<a id="8-2"></a>
 ### 8-2. Assemble the trackball case  
 
 3 ceramic balls are fixed to the trackball case in advance. If the ceramic balls have fallen off, please fix by spare ceramic ball with a suitable bond.  
@@ -524,7 +524,7 @@ Screw in these two locations as seen from the back of the case. Be careful not t
 
 ![125](images/kb61_125.jpg)
 
-<a id="anchor8-3"></a>
+<a id="8-3"></a>
 ### 8-3. Trackball case installation  
 
 Attach the completed ball case to the main unit. The ball board is placed in the sensor compartment on the back side of the case.  
@@ -547,7 +547,7 @@ Tighten the two M1.7 Torx screws with __【wide flat heads】__ from the back of
 
 ![130](images/kb61_132.jpg)
 
-<a id="anchor9"></a>
+<a id="9"></a>
 ## 9. Total finish 
 
 We are nearing completion! Fit the key switches of your choice.
@@ -557,7 +557,7 @@ Thank you for your hard working.
 
 ![132](images/kb61_135.jpg)
 
-<a id="anchor10"></a>
+<a id="10"></a>
 ## 10. Write the regular firmware
 
 Finally, let's write the firmware to ProMicro.
@@ -577,7 +577,7 @@ If the keyboard is not recognized even though the USB cable is connected, press 
 The latest firmware for Keyball61 is available at [Github repository](https://github.com/Yowkees/keyball/tree/main/qmk_firmware/keyboards/keyball). Copy this keyball folder to your QMK_Firmware/keyboards and edit the keymap etc. freely and build.  
 
 
-<a id="anchor11"></a>
+<a id="11"></a>
 ## 11. How to use Keyball
    - The trackball motion will change to scroll up, down, left and right while switching to layer 3.
    - Keyball supports [REMAP](https://remap-keys.app/configure), so you can check, change and write keymap easily.
