@@ -1,7 +1,9 @@
 # Build Guide for Keyball61
 
 こちらは Keyball61 のビルドガイドになります。
-  
+
+ - [English Build Guide is here](https://github.com/Yowkees/keyball/blob/main/keyball61/doc/rev1/buildguide_en.md)
+
 
 ![01](images/kb61_002.jpg)
 
@@ -487,6 +489,7 @@ Keyball61はトッププレートの親指キー部分のミシン目を切り�
 ![114](images/kb61_113.jpg)
 
 アクリルスペーサを一通り挿入できたら、裏面からアクリルボトムプレートを重ねてねじ止めします。
+次にキーボード裏の四隅にクッションゴムを張り付けてください。
 
 <a id="anchor8"></a>
 ## ８．トラックボール取り付け 
