@@ -51,7 +51,7 @@ static uint8_t peek_matrix_intersection(pin_t out_pin, pin_t in_pin) {
 }
 
 bool is_keyboard_left(void) {
-    return !peek_matrix_intersection(keyball.this_have_ball ? F7: F6, B5);
+    return !peek_matrix_intersection(keyball.this_have_ball ? F7 : F6, B5);
 }
 
 //////////////////////////////////////////////////////////////////////////////
@@ -59,7 +59,7 @@ bool is_keyboard_left(void) {
 void keyball_on_adjust_layout(keyball_adjust_t v) {
     if (v == KEYBALL_ADJUST_PRIMARY) {
         // adjust matrix mask
-        bool is_left = is_keyboard_left();
+        bool is_left                                                      = is_keyboard_left();
         matrix_mask[(is_left ? 2 : 6) + (keyball.this_have_ball ? 0 : 1)] = 0b0111111;
         matrix_mask[(is_left ? 6 : 2) + (keyball.that_have_ball ? 0 : 1)] = 0b0111111;
     }

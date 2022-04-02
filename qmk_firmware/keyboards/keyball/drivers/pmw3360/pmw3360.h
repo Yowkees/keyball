@@ -127,7 +127,7 @@ typedef enum {
 } pmw3360_reg_t;
 
 enum {
-    pmw3360_MAXCPI = 0x77,  // = 119: 12000 CPI
+    pmw3360_MAXCPI = 0x77, // = 119: 12000 CPI
 };
 
 //////////////////////////////////////////////////////////////////////////////
@@ -135,8 +135,14 @@ enum {
 
 bool pmw3360_spi_start(void);
 
-void inline pmw3360_spi_stop(void) { spi_stop(); }
+void inline pmw3360_spi_stop(void) {
+    spi_stop();
+}
 
-spi_status_t inline pmw3360_spi_write(uint8_t data) { return spi_write(data); }
+spi_status_t inline pmw3360_spi_write(uint8_t data) {
+    return spi_write(data);
+}
 
-spi_status_t inline pmw3360_spi_read(void) { return spi_read(); }
+spi_status_t inline pmw3360_spi_read(void) {
+    return spi_read();
+}

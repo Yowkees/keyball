@@ -41,7 +41,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 #ifdef OLED_ENABLE
 
-#include "lib/oledkit/oledkit.h"
+#    include "lib/oledkit/oledkit.h"
 
 void oledkit_render_info_user(void) {
     keyball_oled_render_keyinfo();

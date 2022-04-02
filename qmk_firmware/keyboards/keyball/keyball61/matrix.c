@@ -22,11 +22,11 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "split_common/split_util.h"
 #include "split_common/transactions.h"
 
-#define PINNUM_ROW  (MATRIX_ROWS / 2)
-#define PINNUM_COL  (MATRIX_COLS / 2)
+#define PINNUM_ROW (MATRIX_ROWS / 2)
+#define PINNUM_COL (MATRIX_COLS / 2)
 
-#define ROWS_PER_HAND           (MATRIX_ROWS / 2)
-#define MATRIXSIZE_PER_HAND     (ROWS_PER_HAND * sizeof(matrix_row_t))
+#define ROWS_PER_HAND (MATRIX_ROWS / 2)
+#define MATRIXSIZE_PER_HAND (ROWS_PER_HAND * sizeof(matrix_row_t))
 
 static pin_t row_pins[PINNUM_ROW] = MATRIX_ROW_PINS;
 static pin_t col_pins[PINNUM_COL] = MATRIX_COL_PINS;
@@ -61,7 +61,7 @@ static bool duplex_scan(matrix_row_t current_matrix[]) {
         for (uint8_t col = 0; col < PINNUM_COL; col++) {
             bool on = !get_pin(col_pins[col]);
             if (on) {
-                next |= 1 << col; 
+                next |= 1 << col;
             } else {
                 next &= ~(1 << col);
             }
@@ -70,7 +70,7 @@ static bool duplex_scan(matrix_row_t current_matrix[]) {
         matrix_output_unselect_delay(row, next != 0);
         if (current_matrix[row] != next) {
             current_matrix[row] = next;
-            changed = true;
+            changed             = true;
         }
     }
 
@@ -81,7 +81,7 @@ static bool duplex_scan(matrix_row_t current_matrix[]) {
         matrix_output_select_delay();
         matrix_row_t shifter = ((matrix_row_t)1) << (col + PINNUM_COL);
         for (uint8_t row = 0; row < PINNUM_ROW; row++) {
-            bool on = !get_pin(row_pins[row]);
+            bool         on   = !get_pin(row_pins[row]);
             matrix_row_t prev = current_matrix[row];
             if (on) {
                 current_matrix[row] |= shifter;
@@ -115,7 +115,9 @@ void matrix_init_custom(void) {
 }
 
 // user-defined overridable functions
-__attribute__((weak)) void matrix_slave_scan_kb(void) { matrix_slave_scan_user(); }
+__attribute__((weak)) void matrix_slave_scan_kb(void) {
+    matrix_slave_scan_user();
+}
 __attribute__((weak)) void matrix_slave_scan_user(void) {}
 
 // override quantum/matrix_common.c
@@ -135,8 +137,8 @@ uint8_t matrix_scan(void) {
     }
 
     // receive from secondary.
-    static bool last_connected = false;
-    matrix_row_t *that_raw = raw_matrix + ROWS_PER_HAND;
+    static bool   last_connected = false;
+    matrix_row_t* that_raw       = raw_matrix + ROWS_PER_HAND;
     memset(that_raw, 0, MATRIXSIZE_PER_HAND);
     if (transport_master_if_connected(matrix + thisHand, that_raw)) {
         last_connected = true;
