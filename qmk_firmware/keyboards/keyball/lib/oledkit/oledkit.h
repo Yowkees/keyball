@@ -31,4 +31,4 @@ void oledkit_render_info_user(void);
 // A keymap can override this by defining a function with same signature.
 void oledkit_render_logo_user(void);
 
-#endif  // OLED_ENABLE
+#endif // OLED_ENABLE

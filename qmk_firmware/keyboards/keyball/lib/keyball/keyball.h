@@ -25,15 +25,27 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #endif
 
 #ifndef KEYBALL_SCROLL_DIV_DEFAULT
-#    define KEYBALL_SCROLL_DIV_DEFAULT 4  // 4: 1/8 (1/2^(n-1))
+#    define KEYBALL_SCROLL_DIV_DEFAULT 4 // 4: 1/8 (1/2^(n-1))
 #endif
 
 #ifndef KEYBALL_REPORTMOUSE_INTERVAL
-#    define KEYBALL_REPORTMOUSE_INTERVAL 8  // mouse report rate: 125Hz
+#    define KEYBALL_REPORTMOUSE_INTERVAL 8 // mouse report rate: 125Hz
 #endif
 
 #ifndef KEYBALL_SCROLLBALL_INHIVITOR
 #    define KEYBALL_SCROLLBALL_INHIVITOR 50
+#endif
+
+#ifndef KEYBALL_SCROLLSNAP_ENABLE
+#    define KEYBALL_SCROLLSNAP_ENABLE 1
+#endif
+
+#ifndef KEYBALL_SCROLLSNAP_RESET_TIMER
+#    define KEYBALL_SCROLLSNAP_RESET_TIMER 100
+#endif
+
+#ifndef KEYBALL_SCROLLSNAP_TENSION_THRESHOLD
+#    define KEYBALL_SCROLLSNAP_TENSION_THRESHOLD 8
 #endif
 
 //////////////////////////////////////////////////////////////////////////////
@@ -55,20 +67,20 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 // Types
 
 enum keyball_keycodes {
-    KBC_RST = SAFE_RANGE,  // Keyball configuration: reset to default
-    KBC_SAVE,              // Keyball configuration: save to EEPROM
+    KBC_RST = SAFE_RANGE, // Keyball configuration: reset to default
+    KBC_SAVE,             // Keyball configuration: save to EEPROM
 
-    CPI_I100,  // CPI +100 CPI
-    CPI_D100,  // CPI -100 CPI
-    CPI_I1K,   // CPI +1000 CPI
-    CPI_D1K,   // CPI -1000 CPI
+    CPI_I100, // CPI +100 CPI
+    CPI_D100, // CPI -100 CPI
+    CPI_I1K,  // CPI +1000 CPI
+    CPI_D1K,  // CPI -1000 CPI
 
     // In scroll mode, motion from primary trackball is treated as scroll
     // wheel.
-    SCRL_TO,   // Toggle scroll mode
-    SCRL_MO,   // Momentary scroll mode
-    SCRL_DVI,  // Increment scroll divider
-    SCRL_DVD,  // Decrement scroll divider
+    SCRL_TO,  // Toggle scroll mode
+    SCRL_MO,  // Momentary scroll mode
+    SCRL_DVI, // Increment scroll divider
+    SCRL_DVD, // Decrement scroll divider
 
     KEYBALL_SAFE_RANGE,
 };
@@ -77,12 +89,12 @@ typedef union {
     uint32_t raw;
     struct {
         uint8_t cpi : 7;
-        uint8_t sdiv : 3;  // scroll divider
+        uint8_t sdiv : 3; // scroll divider
     };
 } keyball_config_t;
 
 typedef struct {
-    uint8_t ballcnt;  // count of balls: support only 0 or 1, for now
+    uint8_t ballcnt; // count of balls: support only 0 or 1, for now
 } keyball_info_t;
 
 typedef struct {
@@ -104,8 +116,11 @@ typedef struct {
     bool    cpi_changed;
 
     bool     scroll_mode;
+    uint32_t scroll_mode_changed;
     uint8_t  scroll_div;
-    uint32_t scroll_changed;
+
+    uint32_t         scroll_snap_last;
+    keyball_motion_t scroll_snap_tension;
 
     uint16_t       last_kc;
     keypos_t       last_pos;

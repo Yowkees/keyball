@@ -22,7 +22,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define PMW3360_SPI_DIVISOR (F_CPU / PMW3360_CLOCKS)
 #define PMW3360_CLOCKS 70000000
 
-bool pmw3360_spi_start(void) { return spi_start(PMW3360_NCS_PIN, false, PMW3360_SPI_MODE, PMW3360_SPI_DIVISOR); }
+bool pmw3360_spi_start(void) {
+    return spi_start(PMW3360_NCS_PIN, false, PMW3360_SPI_MODE, PMW3360_SPI_DIVISOR);
+}
 
 uint8_t pmw3360_reg_read(uint8_t addr) {
     pmw3360_spi_start();
@@ -42,7 +44,9 @@ void pmw3360_reg_write(uint8_t addr, uint8_t data) {
     wait_us(180);
 }
 
-uint8_t pmw3360_cpi_get(void) { return pmw3360_reg_read(pmw3360_Config1); }
+uint8_t pmw3360_cpi_get(void) {
+    return pmw3360_reg_read(pmw3360_Config1);
+}
 
 void pmw3360_cpi_set(uint8_t cpi) {
     if (cpi > pmw3360_MAXCPI) {
@@ -68,7 +72,9 @@ void pmw3360_scan_perf_task(void) {
     }
 }
 
-uint32_t pmw3360_scan_rate_get(void) { return pmw3360_last_count; }
+uint32_t pmw3360_scan_rate_get(void) {
+    return pmw3360_last_count;
+}
 
 bool pmw3360_motion_read(pmw3360_motion_t *d) {
 #ifdef DEBUG_PMW3360_SCAN_RATE
@@ -97,7 +103,7 @@ bool pmw3360_motion_burst(pmw3360_motion_t *d) {
         spi_stop();
         return false;
     }
-    spi_read();  // skip Observation
+    spi_read(); // skip Observation
     d->x = spi_read();
     d->x |= spi_read() << 8;
     d->y = spi_read();
