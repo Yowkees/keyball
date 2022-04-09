@@ -45,7 +45,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #endif
 
 #ifndef KEYBALL_SCROLLSNAP_TENSION_THRESHOLD
-#    define KEYBALL_SCROLLSNAP_TENSION_THRESHOLD 8
+#    define KEYBALL_SCROLLSNAP_TENSION_THRESHOLD 12
 #endif
 
 //////////////////////////////////////////////////////////////////////////////
@@ -119,8 +119,8 @@ typedef struct {
     uint32_t scroll_mode_changed;
     uint8_t  scroll_div;
 
-    uint32_t         scroll_snap_last;
-    keyball_motion_t scroll_snap_tension;
+    uint32_t scroll_snap_last;
+    int8_t   scroll_snap_tension_h;
 
     uint16_t       last_kc;
     keypos_t       last_pos;
