@@ -20,7 +20,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #define PMW3360_SPI_MODE 3
 #define PMW3360_SPI_DIVISOR (F_CPU / PMW3360_CLOCKS)
-#define PMW3360_CLOCKS 70000000
+#define PMW3360_CLOCKS 2000000
 
 bool pmw3360_spi_start(void) {
     return spi_start(PMW3360_NCS_PIN, false, PMW3360_SPI_MODE, PMW3360_SPI_DIVISOR);
