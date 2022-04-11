@@ -4,7 +4,7 @@ This is the build guide for Keyball39.
 
 Keyball39 is a 40% split keyboard with integrated 100% useful thumb trackball.
 
-●[日本語のビルドガイドはこちら](https://github.com/Yowkees/keyball/blob/main/keyball39/doc/rev1/buildguide_en.md)です。
+●[日本語のビルドガイドはこちら](https://github.com/Yowkees/keyball/blob/main/keyball39/doc/rev1/buildguide_jp.md)です。
   
 
 ![01](images/kb39_001.jpg)
