@@ -158,7 +158,7 @@ I wanted to write "TOP FACE" on masking tape.
 ![22](images/kb61_013.jpg)
 
 <a id="3-1"></a>
-### 3-1．はんだ付けの前に
+### 3-1．Before soldering
 The tip of the soldering iron should be shaped like a bamboo spear, so that you can put solder on a flat surface and scoop out excess solder.
 
 ![27](images/kb61_027.jpg)
@@ -222,7 +222,7 @@ In my experience, this method is the least likely to result in a poor connection
 
 Rotate the board 180 degrees and solder the terminals on the other side in the same way.
 
-61 of these are soldered on the left and right sides together, This task is finished.
+63 of these are soldered on the left and right sides together, This task is finished.
 The PCB socket for the thumb keys can be just either a CherryMX compatible socket or a low-pro socket. In the photo, both are attached.
 
 ![89](images/kb61_081.jpg)
@@ -296,14 +296,14 @@ Once the position is set, solder the remaining 3 pins.
 ![72](images/kb61_064.jpg)
 
 <a id="3-7"></a>
-### 3-7．ProMicoの書き込みと動作確認
+### 3-7．Writing firmware to ProMicro and Electric checking
 OK, let's write the test firmware to the ProMicro.
 
 The test firmware has a concise keymap for easy operation checks, and the RGB LEDs light red, green, and blue in that order, making it easy to detect solder defects.
 If you think you do not need the test firmware, for example, if you are forgoing LED soldering this time, you can use the regular firmware in [Chapter 10](#10 Writing Regular Firmware) You may write it here.
 
 The firmware for the Keyball61 is the same whether the trackball is placed in the right or left hand.
-Please write (FLASH) [Keyball_test.hex](https://remap-keys.app/catalog/RZSU1CrvEW4lns0ww5BM/firmware) that is registered in REMAP.
+Please write (FLASH) [Keyball61_test.hex](https://remap-keys.app/catalog/RZSU1CrvEW4lns0ww5BM/firmware) that is registered in REMAP.
 Press the FLASH button in the above link to see the instructions on how to write.
 
 If the keyboard is not recognized even though the USB cable is connected, it will be recognized when the soldered RESET switch is pressed twice quickly.
@@ -351,7 +351,7 @@ Repeat the lighting check and soldering correction to ensure that all LEDs are l
 ![82](images/kb61_073.jpg)
 
 <a id="4"></a>
-## ４．Assemble the ball-reading board
+## 4. Assemble the ball-reading board
 Prepare the board shown in the photo below (hereinafter referred to as the "ball board") and the sensor.
 In some cases, you may receive a pre-soldered board to check the quality of the sensor and board. If this case, please skip this step and proceed to Chapter 4-2, Soldering the L-shaped 7pin Conthrough header.
 
@@ -401,7 +401,7 @@ There is a jumper near the conthrough pin header you just soldered, so solder it
 ![97](images/kb61_085.jpg)
 
 <a id="5"></a>
-## ５．Solder the left/right decision jumper on the left hand side
+## 5．Solder the left/right decision jumper on the left hand side
 
 The standard firmware of the Keyball61 has an automatic left/right detection function. To activate this, solder a jumper on the __【Left hand board only】__. 
 
