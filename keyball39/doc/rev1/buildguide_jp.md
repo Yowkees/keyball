@@ -1,6 +1,8 @@
 # Build Guide for Keyball39
 
 こちらは Keyball39 のビルドガイドになります。
+
+English build guide for Keyball39 is [here](https://github.com/Yowkees/keyball/blob/main/keyball39/doc/rev1/buildguide_en.md).
   
 
 ![01](images/kb39_001.jpg)
