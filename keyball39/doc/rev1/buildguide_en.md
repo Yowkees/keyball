@@ -576,7 +576,7 @@ The latest firmware for Keyball39 is available at [Github repository](https://gi
 
 <a id="11"></a>
 ## 11. How to use Keyball
-   - The trackball motion will change to scroll up, down, left and right while switching to layer 3.
+   - The trackball motion will change to scroll up and down while switching to layer 3.
    - Keyball supports [REMAP](https://remap-keys.app/configure), so you can check, change and write keymap easily.
    - The USB cable can be plugged in either left or right. However, since the keymap is written to the ProMicro on the side where the USB cable is plugged in, please review the keymap when replacing the cable for the first time.
 
