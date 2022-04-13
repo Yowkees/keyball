@@ -19,7 +19,7 @@ See the [build environment setup](https://docs.qmk.fm/#/getting_started_build_to
 
 ## Special keycodes
 
-Keycode  | Name       |Description
+Value    | Keycode    |Description
 ---------|------------|------------------------------------------------------------------
 `0x5DA5` | `KBC_RST`  |Reset Keyball configuration
 `0x5DA6` | `KBC_SAVE` |Persist Keyball configuration to EEPROM
@@ -31,6 +31,8 @@ Keycode  | Name       |Description
 `0x5DAC` | `SCRL_MO`  |Enable scroll mode when pressing
 `0x5DAD` | `SCRL_DVI` |Increase scroll divider (max 7 = 1/128)
 `0x5DAE` | `SCRL_DVD` |Decrease scroll divider (min 0 = 1/1)
+
+*NOTE*: The values are for VIA/Remap
 
 ## Changes
 
