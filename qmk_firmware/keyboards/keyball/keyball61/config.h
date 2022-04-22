@@ -34,6 +34,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define MATRIX_COL_PINS     { F4, F5, F6, F7 }
 #define MATRIX_MASKED
 #define DEBOUNCE            5
+#define MATRIX_IO_DELAY     95
 
 // Split parameters
 #define SOFT_SERIAL_PIN         D2
