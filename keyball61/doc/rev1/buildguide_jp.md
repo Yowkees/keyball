@@ -594,16 +594,18 @@ Keyball61の最新ファームウェアは[Githubのリポジトリ](https://git
 
 | キーコード | Remap上での表記 | 説明 |
 |:-|:-|:-|
-| KBC_RST | 0x5DA5 | Keyball設定のリセット |
-| KBC_SAVE | 0x5DA6 | 現在のKeyball設定をEEPROMに保存します |
-| CPI_I100 | 0x5DA7 | CPIを100増加させます(最大:12000) |
-| CPI_D100 | 0x5DA8 | CPIを100減少させます(最小:100) |
-| CPI_I1K | 0x5DA9 | CPIを1000増加させます(最大:12000) |
-| CPI_D1K | 0x5DAA | CPIを1000減少させます(最小:100) |
-| SCRL_TO | 0x5DAB | タップごとにスクロールモードのON/OFFを切り替えます |
-| SCRL_MO | 0x5DAC | キーを押している間、スクロールモードになります |
-| SCRL_DVI | 0x5DAD | スクロール除数を１つ上げます(max 7 = 1/128)←最もスクロール遅い |
-| SCRL_DVD | 0x5DAE | スクロール除数を１つ下げます(min 0 = 1/1)←最もスクロール速い |
+| `KBC_RST` | `0x5DA5` | Keyball設定のリセット |
+| `KBC_SAVE` | `0x5DA6` | 現在のKeyball設定をEEPROMに保存します |
+| `CPI_I100` | `0x5DA7` | CPIを100増加させます(最大:12000) |
+| `CPI_D100` | `0x5DA8` | CPIを100減少させます(最小:100) |
+| `CPI_I1K` | `0x5DA9` | CPIを1000増加させます(最大:12000) |
+| `CPI_D1K` | `0x5DAA` | CPIを1000減少させます(最小:100) |
+| `SCRL_TO` | `0x5DAB` | タップごとにスクロールモードのON/OFFを切り替えます |
+| `SCRL_MO` | `0x5DAC` | キーを押している間、スクロールモードになります |
+| `SCRL_DVI` | `0x5DAD` | スクロール除数を１つ上げます(max D7 = 1/128)←最もスクロール遅い |
+| `SCRL_DVD` | `0x5DAE` | スクロール除数を１つ下げます(min D0 = 1/1)←最もスクロール速い |
+
+
 
 以上でKeyball61のビルドガイドは終了です。
 Keyball61についてのご質問や不具合等についてはGithubのリポジトリ、[Yowkees/keyballのDiscussions](https://github.com/Yowkees/keyball/discussions)へご投稿ください。なるべく早くご回答させていただきます。
