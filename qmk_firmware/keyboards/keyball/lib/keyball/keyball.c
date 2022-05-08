@@ -16,7 +16,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
 #include "quantum.h"
-#include "transactions.h"
+#ifdef SPLIT_KEYBOARD
+#    include "transactions.h"
+#endif
 
 #include "keyball.h"
 #include "drivers/pmw3360/pmw3360.h"
@@ -135,7 +137,7 @@ void pointing_device_driver_set_cpi(uint16_t cpi) {
 }
 
 static void motion_to_mouse_move(keyball_motion_t *m, report_mouse_t *r, bool is_left) {
-#if KEYBALL_MODEL == 61 || KEYBALL_MODEL == 39
+#if KEYBALL_MODEL == 61 || KEYBALL_MODEL == 39 || KEYBALL_MODEL == 147
     r->x = clip2int8(m->y);
     r->y = clip2int8(m->x);
     if (is_left) {
@@ -162,7 +164,7 @@ static void motion_to_mouse_scroll(keyball_motion_t *m, report_mouse_t *r, bool 
     m->y -= y << div;
 
     // apply to mouse report.
-#if KEYBALL_MODEL == 61 || KEYBALL_MODEL == 39
+#if KEYBALL_MODEL == 61 || KEYBALL_MODEL == 39 || KEYBALL_MODEL == 147
     r->h = clip2int8(y);
     r->v = -clip2int8(x);
     if (is_left) {
@@ -245,6 +247,8 @@ report_mouse_t pointing_device_driver_get_report(report_mouse_t rep) {
 //////////////////////////////////////////////////////////////////////////////
 // Split RPC
 
+#ifdef SPLIT_KEYBOARD
+
 static void rpc_get_info_handler(uint8_t in_buflen, const void *in_data, uint8_t out_buflen, void *out_data) {
     keyball_info_t info = {
         .ballcnt = keyball.this_have_ball ? 1 : 0,
@@ -277,7 +281,7 @@ static void rpc_get_info_invoke(void) {
 
     // split keyboard negotiation completed.
 
-#ifdef VIA_ENABLE
+#    ifdef VIA_ENABLE
     // adjust VIA layout options according to current combination.
     uint8_t  layouts = (keyball.this_have_ball ? (is_keyboard_left() ? 0x02 : 0x01) : 0x00) | (keyball.that_have_ball ? (is_keyboard_left() ? 0x01 : 0x02) : 0x00);
     uint32_t curr    = via_get_layout_options();
@@ -285,7 +289,7 @@ static void rpc_get_info_invoke(void) {
     if (next != curr) {
         via_set_layout_options(next);
     }
-#endif
+#    endif
 
     keyball_on_adjust_layout(KEYBALL_ADJUST_PRIMARY);
 }
@@ -326,6 +330,8 @@ static void rpc_set_cpi_invoke(void) {
     }
     keyball.cpi_changed = false;
 }
+
+#endif
 
 //////////////////////////////////////////////////////////////////////////////
 // OLED utility
@@ -443,12 +449,14 @@ void keyball_set_cpi(uint8_t cpi) {
 // Keyboard hooks
 
 void keyboard_post_init_kb(void) {
+#ifdef SPLIT_KEYBOARD
     // register transaction handlers on secondary.
     if (!is_keyboard_master()) {
         transaction_register_rpc(KEYBALL_GET_INFO, rpc_get_info_handler);
         transaction_register_rpc(KEYBALL_GET_MOTION, rpc_get_motion_handler);
         transaction_register_rpc(KEYBALL_SET_CPI, rpc_set_cpi_handler);
     }
+#endif
 
     // read keyball configuration from EEPROM
     if (eeconfig_is_enabled()) {
@@ -461,6 +469,7 @@ void keyboard_post_init_kb(void) {
     keyboard_post_init_user();
 }
 
+#if SPLIT_KEYBOARD
 void housekeeping_task_kb(void) {
     if (is_keyboard_master()) {
         rpc_get_info_invoke();
@@ -470,6 +479,7 @@ void housekeeping_task_kb(void) {
         }
     }
 }
+#endif
 
 bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
     // store last keycode, row, and col for OLED
