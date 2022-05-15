@@ -312,7 +312,8 @@ It is easier to isolate the problem if you check the operation at an early stage
 
 ![75](images/yw075.jpg)
 
-Verify that text is entered into the text editor.  
+Verify that text is entered into the text editor.
+If "N" key or "B" key does not work, just ignore it. After Keyball46 is completely built, this problem will be fix.
 ※ ~~Once the Keyball46 is complete, the USB cable should be connected to the side with the trackball attached. If you do not, the trackball will not function.~~ With the latest firmware, the trackball will function with the USB cable connected to either the left or right side! 
 
 
