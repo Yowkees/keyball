@@ -33,7 +33,7 @@ Keyball61 is a 60% split keyboard with integrated 100% useful thumb trackball.
   - [7. Assembly](#7)
     - [7-1. Install the protection plate](#7-1)
     - [7-2. Assemble the Top Plate](#7-2)
-    - [7-3. Assemble the Acrylic spacers and Bottom Plate](#7-3)
+    - [7-3. Assemble the Bottom Plate](#7-3)
   - [8. Trackball Installation](#8)
     - [8-1. Insert ball reader board](#8-1)
     - [8-2. Assemble the trackball case](#8-2)
@@ -474,17 +474,9 @@ Next, the soldered middle board is also stacked, making sure that the screw hole
 ![114](images/kb61_112.jpg)
 
 <a id="7-3"></a>
-### 7-3. Assembling the bottom plates and Acrylic Spacers 
+### 7-3. Assembling the bottom plates 
 
-Use the round acrylic spacers included in the kit. There are three types of acrylic spacers: one with a diameter of 8 mm, one with a diameter of 7 mm, and one with a C-shape.
-
-![114](images/kb61_111.jpg)
-
-Insert these into the metal spacer section as shown in the photo below. Basically, use the largest spacer with a diameter of 8 mm, and use a smaller size or C-shaped spacer in areas where it will not fit due to interference with surrounding parts.
-
-![114](images/kb61_113.jpg)
-
-Once the acrylic spacers are inserted all the way through, overlap the acrylic bottom plate from the back side and screw it in place.
+Overlap the acrylic bottom plate from the back side and screw it in place.
 Next, attach the cushion rubberes to the four corners of the keyboard.
 
 <a id="8"></a>
