@@ -52,7 +52,7 @@
 
 Keyball61 標準キットの同梱品は下記になります。
 
-もしProMicro用ピンヘッダの代わりに12Pコンスルーが同梱されていた場合には、[こちら](https://github.com/Yowkees/keyball/blob/main/keyball61/doc/rev1/buildguide_jp_conth.md#1-1%E3%82%AD%E3%83%83%E3%83%88%E5%90%8C%E6%A2%B1%E5%93%81)のビルドガイドをご利用ください。
+もしProMicro用ピンヘッダの代わりに12Pコンスルーが同梱されていた場合には、[【こちら】](https://github.com/Yowkees/keyball/blob/main/keyball61/doc/rev1/buildguide_jp_conth.md#1-1%E3%82%AD%E3%83%83%E3%83%88%E5%90%8C%E6%A2%B1%E5%93%81)のビルドガイドをご利用ください。
 
 | 名前 | 数 | 備考 |
 |:-|:-|:-|
@@ -280,7 +280,7 @@ OLEDモジュールを動作させるためにジャンパをショートさせ�
 ### 3-6．ProMicroのはんだ付け
 ProMicroはProMicro用ピンソケットとピンヘッダを使用してはんだ付けすることで、ProMicroの故障時に交換が容易になります。
 
-もしProMicro用ピンヘッダの代わりに12Pコンスルーが同梱されていた場合には、[こちら](https://github.com/Yowkees/keyball/blob/main/keyball61/doc/rev1/buildguide_jp_conth.md#3-6promicro%E3%81%AE%E3%81%AF%E3%82%93%E3%81%A0%E4%BB%98%E3%81%91)のビルドガイドをご利用ください。
+もしProMicro用ピンヘッダの代わりに12Pコンスルーが同梱されていた場合には、[【こちら】](https://github.com/Yowkees/keyball/blob/main/keyball61/doc/rev1/buildguide_jp_conth.md#3-6promicro%E3%81%AE%E3%81%AF%E3%82%93%E3%81%A0%E4%BB%98%E3%81%91)のビルドガイドをご利用ください。
 
 まず12Pピンソケットを基板【表面】に差し込みます。
 
