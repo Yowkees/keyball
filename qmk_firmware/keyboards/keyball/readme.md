@@ -8,6 +8,7 @@ This directory includes source code of Keyball keyboard seriers:
 |[Keyball61](./keyball61)|A split keyboard with 61 vertically staggered keys and 34mm track ball.
 |[Keyball39](./keyball39)|A split keyboard with 39 vertically staggered keys and 34mm track ball.
 |[ONE47](./one47)|A keyboard with 47 vertically keys and 34mm trackball. It will support BLE Micro Pro.
+|[Keyball44](./keyball44)|A split keyboard with 44 vertically staggered keys and 34mm track ball.
 
 * Keyboard Designer: [@Yowkees](https://twitter.com/Yowkees)  
 * Hardware Supported: ProMicro like footprint
@@ -29,7 +30,7 @@ See each directories for each keyboards in a table above.
     $ git clone https://github.com/qmk/qmk_firmware.git --depth 1 --recurse-submodules --shallow-submodules -b 0.15.13 qmk
     ```
 
-    Currently Keyball firmwares are verified to compile with QMK 0.15.13
+    Currently Keyball firmwares are verified to compile with QMK 0.16.13
 
 3. Create a symbolic link to this `keyball/` directory from [qmk/qmk_firmware]'s `keyboards/` directory.
 
