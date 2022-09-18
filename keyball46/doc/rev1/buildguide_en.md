@@ -128,7 +128,7 @@ For more information about QMK Toolbox, please refer to [Corne's Firmware](https
 
 For more information on writing firmware, see [Chapter 3-6](#3-6) for writing test firmware, and [Chapter 10](#10) for writing production firmware.
 
-<a id="4"></A></a>
+<a id="3"></A></a>
 ## 3. Mounting
 
 Now it's time to start the soldering process.  
