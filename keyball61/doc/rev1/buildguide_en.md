@@ -8,7 +8,7 @@ Keyball61 is a 60% split keyboard with integrated 100% useful thumb trackball.
 
 ![01](images/kb61_002.jpg)
 
-## [Contents of Buid Guide for Keyball61]
+## [Contents of Build Guide for Keyball61]
 
   - [1. Parts Check](#1)
     - [1-1. Items included in the kit](#1-1)
@@ -23,7 +23,7 @@ Keyball61 is a 60% split keyboard with integrated 100% useful thumb trackball.
     - [3-4. Soldering Jumpers](#3-4)
     - [3-5. 4 pin sockets, TRRS socket, tact switch](#3-5)
     - [3-6. Soldering ProMicro](#3-6)
-    - [3-7. Writing and operation check of ProMico](#3-7)
+    - [3-7. Writing and operation check of ProMicro](#3-7)
     - [3-8. Soldering LEDs (option)](#3-8)
   - [4. Assemble the ball reader board](#4)
     - [4-1. Soldering the sensor](#4-1)
@@ -477,7 +477,7 @@ Next, the soldered middle board is also stacked, making sure that the screw hole
 ### 7-3. Assembling the bottom plates 
 
 Overlap the acrylic bottom plate from the back side and screw it in place.
-Next, attach the cushion rubberes to the four corners of the keyboard.
+Next, attach the cushion rubbers to the four corners of the keyboard.
 
 <a id="8"></a>
 ## 8. Trackball installation 
