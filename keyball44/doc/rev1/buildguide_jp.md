@@ -327,7 +327,7 @@ OLEDモジュールやトラックボール等を動作させるために合計�
 ### 3-7．ProMicroとOLEDのはんだ付け
 ProMicroはProMicro用ピンソケットとピンヘッダを使用してはんだ付けすることで、ProMicroの故障時に交換が容易になります。
 
-もしProMicro用ピンヘッダ＋ピンソケットの代わりに12Pコンスルーが同梱されていた場合には、[【こちら】](https://github.com/Yowkees/keyball/blob/main/keyball44/doc/rev1/buildguide_jp_conth.md#3-6promicro%E3%81%AE%E3%81%AF%E3%82%93%E3%81%A0%E4%BB%98%E3%81%91)のビルドガイドをご利用ください。
+もしProMicro用ピンヘッダ＋ピンソケットの代わりに12Pコンスルーが同梱されていた場合には、[【こちら】](https://github.com/Yowkees/keyball/blob/main/keyball44/doc/rev1/buildguide_jp_conth.md#3-7promicro%E3%81%A8OLED%E3%81%AE%E3%81%AF%E3%82%93%E3%81%A0%E4%BB%98%E3%81%91)のビルドガイドをご利用ください。
 
 まず12Pピンソケットを基板【表面】に差し込みます。
 
