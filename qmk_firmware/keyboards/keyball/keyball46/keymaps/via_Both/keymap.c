@@ -34,10 +34,10 @@ enum keymap_layers {
 #define KC_R_ENT    LT(_RAISE, KC_ENT)
 
 // shift_t
-#define KC_S_EN     LSFT_T(KC_LANG2)
+#define KC_S_EN     LSFT_T(KC_LNG2)
 
 // original
-#define KC_A_JA     LT(_BALL, KC_LANG1)     // cmd or adjust
+#define KC_A_JA     LT(_BALL, KC_LNG1)     // cmd or adjust
 #define KC_AL_CP    MT(MOD_LALT, KC_CAPS)   // alt or caps lock
 #define KC_G_BS     MT(MOD_LGUI, KC_BSPC)   // command or back space
 #define KC_G_DEL    MT(MOD_LGUI, KC_DEL)    // command or delete
@@ -68,7 +68,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
       KC_LSFT, KC_SLSH,    KC_1,    KC_2,    KC_3,  KC_EQL,                       KC_GRV,  KC_DQT, KC_QUOT, KC_CIRC, KC_TILD, KC_RSFT,
   //|--------+--------+--------+--------+--------+--------'                    `--------+--------+--------+--------+--------+--------|
-       KC_ESC,  KC_GRV,    KC_0,     KC_LANG2,KC_A_DEL,                              _______, _______,      KC_LPRN, KC_RPRN, KC_BSLS
+       KC_ESC,  KC_GRV,    KC_0,     KC_LNG2,KC_A_DEL,                              _______, _______,      KC_LPRN, KC_RPRN, KC_BSLS
   //`--------+--------+--------'    `--------+--------'                            `--------+--------'    `--------+--------+--------'
   ),
 
@@ -80,7 +80,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
       KC_LSFT, _______, _______, KC_DOWN, _______, _______,                      _______, _______, KC_PGDN, _______, _______, KC_RSFT,
   //|--------+--------+--------+--------+--------+--------'                    `--------+--------+--------+--------+--------+--------|
-       KC_ESC,  KC_GRV, KC_LALT,      _______, _______,                              KC_A_BS,KC_LANG1,      KC_LPRN, KC_RPRN, KC_BSLS
+       KC_ESC,  KC_GRV, KC_LALT,      _______, _______,                              KC_A_BS,KC_LNG1,      KC_LPRN, KC_RPRN, KC_BSLS
   //`--------+--------+--------'    `--------+--------'                            `--------+--------'    `--------+--------+--------'
   ),
 
@@ -92,7 +92,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
       RGB_MOD, RGB_HUD, RGB_SAD, RGB_VAD, _______, _______,                      _______, CPI_D1K,CPI_D100,CPI_I100, CPI_I1K,KBC_SAVE,
   //|--------+--------+--------+--------+--------+--------'                    `--------+--------+--------+--------+--------+--------|
-        RESET, EEP_RST, _______,      _______, _______,                              _______,SCRL_DVD,     SCRL_DVI, _______, KBC_RST
+        QK_BOOT, EE_CLR, _______,      _______, _______,                              _______,SCRL_DVD,     SCRL_DVI, _______, KBC_RST
   //`--------+--------+--------'    `--------+--------'                            `--------+--------'    `--------+--------+--------'
   ),
 
