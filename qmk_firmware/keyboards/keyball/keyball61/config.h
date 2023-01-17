@@ -20,13 +20,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #include "config_common.h"
 
-// USB Device descriptor parameters
-#define VENDOR_ID           0x5957     // "YW" = Yowkees
-#define PRODUCT_ID          0x0100
-#define DEVICE_VER          0x0001
-#define MANUFACTURER        Yowkees
-#define PRODUCT             Keyball61
-
 // Key matrix parameters (Keyball61 is duplex matrix)
 #define MATRIX_ROWS         (5 * 2)  // split keyboard
 #define MATRIX_COLS         (4 * 2)  // duplex matrix
