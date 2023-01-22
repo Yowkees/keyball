@@ -16,7 +16,7 @@ jobs:
 
     steps:
     - name: Checkout source
-      uses: actions/checkout@v2
+      uses: actions/checkout@v3
 
     - name: Setup QMK firmware
       uses: ./.github/actions/setup-qmk
@@ -35,7 +35,7 @@ jobs:
     - run: qmk compile -j 4 -kb keyball/keyball46 -km via_Both
 
     - name: Archive firmwares
-      uses: actions/upload-artifact@v2
+      uses: actions/upload-artifact@v3
       with:
         name: keyball46-firmwares
         path: __qmk__/*.hex
@@ -48,7 +48,7 @@ jobs:
 
     steps:
     - name: Download built firmwares
-      uses: actions/download-artifact@v2
+      uses: actions/download-artifact@v3
       with:
         name: keyball46-firmwares
     - name: List assets
