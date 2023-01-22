@@ -25,13 +25,10 @@ jobs:
       run: ln -s $(pwd)/qmk_firmware/keyboards/keyball __qmk__/keyboards/keyball
 
     - run: qmk compile -j 4 -kb keyball/keyball61 -km default
-      continue-on-error: true
 
     - run: qmk compile -j 4 -kb keyball/keyball61 -km test
-      continue-on-error: true
 
     - run: qmk compile -j 4 -kb keyball/keyball61 -km via
-      continue-on-error: true
 
     - name: Archive firmwares
       uses: actions/upload-artifact@v2
