@@ -61,9 +61,6 @@ uint16_t to_reset_time = 1000; // この秒数(千分の一秒)、CLICKABLE状�
 
 const uint16_t click_layer = 6; // マウス入力が可能になった際に有効になるレイヤー。Layers enabled when mouse input is enabled
 
-int16_t scroll_v_mouse_interval_counter; // 垂直スクロールの入力をカウントする。　Counting Vertical Scroll Inputs
-int16_t scroll_h_mouse_interval_counter; // 水平スクロールの入力をカウントする。  Counts horizontal scrolling inputs.
-
 int16_t scroll_v_threshold = 50; // この閾値を超える度に垂直スクロールが実行される。 Vertical scrolling is performed each time this threshold is exceeded.
 int16_t scroll_h_threshold = 50; // この閾値を超える度に水平スクロールが実行される。 Each time this threshold is exceeded, horizontal scrolling is performed.
 
@@ -78,7 +75,6 @@ void eeconfig_init_user(void)
   user_config.to_clickable_movement = 50; // user_config.to_clickable_time = 10;
   eeconfig_update_user(user_config.raw);
 }
-
 void keyboard_post_init_user(void)
 {
   user_config.raw = eeconfig_read_user();
@@ -97,8 +93,6 @@ void disable_click_layer(void)
 {
   state = NONE;
   layer_off(click_layer);
-  scroll_v_mouse_interval_counter = 0;
-  scroll_h_mouse_interval_counter = 0;
 }
 
 // 自前の絶対数を返す関数。 Functions that return absolute numbers.
