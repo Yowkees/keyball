@@ -234,6 +234,7 @@ report_mouse_t pointing_device_task_user(report_mouse_t mouse_report)
     switch (state)
     {
     case CLICKING:
+      break;
 
     case CLICKABLE:
       if (timer_elapsed(click_timer) > to_reset_time)
