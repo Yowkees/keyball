@@ -56,7 +56,6 @@ user_config_t user_config;
 enum click_state state; // 現在のクリック入力受付の状態 Current click input reception status
 uint16_t click_timer;   // タイマー。状態に応じて時間で判定する。 Timer. Time to determine the state of the system.
 
-// uint16_t to_clickable_time = 50;   // この秒数(千分の一秒)、WAITING状態ならクリックレイヤーが有効になる。  For this number of seconds (milliseconds), if in WAITING state, the click layer is activated.
 uint16_t to_reset_time = 1000; // この秒数(千分の一秒)、CLICKABLE状態ならクリックレイヤーが無効になる。 For this number of seconds (milliseconds), the click layer is disabled if in CLICKABLE state.
 
 const uint16_t click_layer = 6; // マウス入力が可能になった際に有効になるレイヤー。Layers enabled when mouse input is enabled
