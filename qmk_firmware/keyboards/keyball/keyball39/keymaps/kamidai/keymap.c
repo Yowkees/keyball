@@ -291,17 +291,17 @@ report_mouse_t pointing_device_task_user(report_mouse_t mouse_report)
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   // keymap for default
   [0] = LAYOUT_universal(
-    KC_ESC   , KC_W     , KC_E     , KC_R     , KC_T     ,                            KC_Y     , KC_U     , KC_I     , KC_O     , KC_P     ,
-    KC_A     , KC_S     , KC_D     , KC_F     , KC_G     ,                            KC_H     , KC_J     , KC_K     , KC_L     , KC_SCOLON,
+SFT_T(KC_TAB), KC_W     , KC_E     , KC_R     , KC_T     ,                            KC_Y     , KC_U     , KC_I     , KC_O     , SFT_T(KC_P),
+   LT(2,KC_A), KC_S     , KC_D     , KC_F     , KC_G     ,                            KC_H     , KC_J     , KC_K     , KC_L     , LT(2,KC_SCOLON),
     KC_Z     , KC_X     , KC_C     , KC_V     , KC_B     ,                            KC_N     , KC_M     , KC_COMM  , KC_DOT   , KC_SLSH  ,
-    _______  , KC_F5    , MO(1)    , KC_SPACE , KC_LCTRL , _______  ,      KC_BSPC  , KC_ENT   , _______  , _______  , _______  , LT(3,KC_ESC)
+    KC_LALT , KC_F5 , LT(1,KC_Q) , KC_SPACE ,CTL_T(KC_DEL), KC_ESC  ,      KC_BSPC  , KC_ENT   , _______  , _______  , _______  , LT(3,KC_ESC)
   ),
 
   [1] = LAYOUT_universal(
-    _______  , _______  , _______  , _______  , _______  ,                            G(KC_X)	 ,G(KC_LBRC),G(KC_RBRC), _______  , _______  ,
-    _______  ,C(KC_LEFT), KC_LEFT  , KC_RIGHT,C(KC_RIGHT),                            G(KC_C)  , KC_DOWN  , KC_UP    , G(KC_V)  , _______  ,
-    _______  , _______  , _______  , _______  , _______  ,                            G(KC_Z)  , G(KC_1)  , G(KC_2)  ,SGUI(KC_Z), _______  ,
-    _______  , _______  , _______  , _______  , _______  , _______  ,      KC_DEL   , _______  , _______  , _______  , _______  , _______
+    _______  , _______  , _______  , _______  , _______  ,                           G(KC_LBRC), _______  , G(KC_1)  , G(KC_2)  , _______  ,
+    _______  ,C(KC_LEFT), KC_LEFT  , KC_RIGHT,C(KC_RIGHT),                           G(KC_RBRC), KC_DOWN  , KC_UP    , G(KC_V)  , _______  ,
+    _______  , _______  , _______  , _______  , _______  ,                            G(KC_Z)  , G(KC_C)  , G(KC_A)  , G(KC_X)  ,SGUI(KC_Z),
+    _______  , _______  , _______  , _______  , _______  , _______  ,      _______  , _______  , _______  , _______  , _______  , _______
   ),
 
   [2] = LAYOUT_universal(
