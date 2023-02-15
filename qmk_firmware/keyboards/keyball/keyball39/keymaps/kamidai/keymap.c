@@ -29,7 +29,6 @@ enum custom_keycodes
   KC_MY_BTN1 = KEYBALL_SAFE_RANGE,
   KC_MY_BTN2,
   KC_MY_BTN3,
-  KC_MY_SCR,
   KC_TO_CLICKABLE_INC,
   KC_TO_CLICKABLE_DEC
 };
@@ -163,16 +162,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record)
     pointing_device_send();
     return false;
   }
-
-  case KC_MY_SCR:
-    if (record->event.pressed)
-    {
-    }
-    else
-    {
-      enable_click_layer(); // スクロールキーを離した時に再度クリックレイヤーを有効にする。 Enable click layer again when the scroll key is released.
-    }
-    return false;
 
   case KC_TO_CLICKABLE_INC:
     if (record->event.pressed)
