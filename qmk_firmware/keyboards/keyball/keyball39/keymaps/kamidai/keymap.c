@@ -31,9 +31,7 @@ enum custom_keycodes
 {
   KC_MY_BTN1 = KEYBALL_SAFE_RANGE,
   KC_MY_BTN2,
-  KC_MY_BTN3,
-  KC_TO_CLICKABLE_INC,
-  KC_TO_CLICKABLE_DEC
+  KC_MY_BTN3
 };
 
 enum click_state
@@ -59,9 +57,9 @@ enum click_state state; // 現在のクリック入力受付の状態 Current cl
 uint16_t click_timer;   // タイマー。状態に応じて時間で判定する。 Timer. Time to determine the state of the system.
 
 uint16_t to_reset_time = 800; // この秒数(千分の一秒)、CLICKABLE状態ならクリックレイヤーが無効になる。 For this number of seconds (milliseconds), the click layer is disabled if in CLICKABLE state.
-int16_t to_clickable_movement = 0;
 
-const uint16_t click_layer = 6; // マウス入力が可能になった際に有効になるレイヤー。Layers enabled when mouse input is enabled
+const int16_t to_clickable_movement = 0; // クリックレイヤーが有効になるしきい値
+const uint16_t click_layer = 6;          // マウス入力が可能になった際に有効になるレイヤー。Layers enabled when mouse input is enabled
 
 int16_t mouse_record_threshold = 30; // ポインターの動きを一時的に記録するフレーム数。 Number of frames in which the pointer movement is temporarily recorded.
 int16_t mouse_move_count_ratio = 5;  // ポインターの動きを再生する際の移動フレームの係数。 The coefficient of the moving frame when replaying the pointer movement.
@@ -154,33 +152,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record)
     pointing_device_send();
     return false;
   }
-
-  case KC_TO_CLICKABLE_INC:
-    if (record->event.pressed)
-    {
-      to_clickable_movement += 5; // user_config.to_clickable_time += 10;
-      eeconfig_update_user(user_config.raw);
-    }
-    return false;
-
-  case KC_TO_CLICKABLE_DEC:
-    if (record->event.pressed)
-    {
-
-      to_clickable_movement -= 5; // user_config.to_clickable_time -= 10;
-
-      if (to_clickable_movement < 5)
-      {
-        to_clickable_movement = 0;
-      }
-
-      // if (user_config.to_clickable_time < 10) {
-      //     user_config.to_clickable_time = 10;
-      // }
-
-      eeconfig_update_user(user_config.raw);
-    }
-    return false;
 
   default:
     if (record->event.pressed)
