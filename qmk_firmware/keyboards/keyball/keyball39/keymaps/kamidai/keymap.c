@@ -49,8 +49,7 @@ typedef union
   uint32_t raw;
   struct
   {
-    // int16_t to_clickable_time; // // この秒数(千分の一秒)、WAITING状態ならクリックレイヤーが有効になる。  For this number of seconds (milliseconds), if in WAITING state, the click layer is activated.
-    int16_t to_clickable_movement;
+    // int16_t to_clickable_movement;
   };
 } user_config_t;
 
@@ -60,6 +59,7 @@ enum click_state state; // 現在のクリック入力受付の状態 Current cl
 uint16_t click_timer;   // タイマー。状態に応じて時間で判定する。 Timer. Time to determine the state of the system.
 
 uint16_t to_reset_time = 800; // この秒数(千分の一秒)、CLICKABLE状態ならクリックレイヤーが無効になる。 For this number of seconds (milliseconds), the click layer is disabled if in CLICKABLE state.
+int16_t to_clickable_movement = 0;
 
 const uint16_t click_layer = 6; // マウス入力が可能になった際に有効になるレイヤー。Layers enabled when mouse input is enabled
 
@@ -71,7 +71,6 @@ int16_t mouse_movement;
 void eeconfig_init_user(void)
 {
   user_config.raw = 0;
-  user_config.to_clickable_movement = 50; // user_config.to_clickable_time = 10;
   eeconfig_update_user(user_config.raw);
 }
 void keyboard_post_init_user(void)
@@ -159,7 +158,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record)
   case KC_TO_CLICKABLE_INC:
     if (record->event.pressed)
     {
-      user_config.to_clickable_movement += 5; // user_config.to_clickable_time += 10;
+      to_clickable_movement += 5; // user_config.to_clickable_time += 10;
       eeconfig_update_user(user_config.raw);
     }
     return false;
@@ -168,11 +167,11 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record)
     if (record->event.pressed)
     {
 
-      user_config.to_clickable_movement -= 5; // user_config.to_clickable_time -= 10;
+      to_clickable_movement -= 5; // user_config.to_clickable_time -= 10;
 
-      if (user_config.to_clickable_movement < 5)
+      if (to_clickable_movement < 5)
       {
-        user_config.to_clickable_movement = 0;
+        to_clickable_movement = 0;
       }
 
       // if (user_config.to_clickable_time < 10) {
@@ -219,7 +218,7 @@ report_mouse_t pointing_device_task_user(report_mouse_t mouse_report)
 
       mouse_movement += my_abs(current_x) + my_abs(current_y);
 
-      if (mouse_movement >= user_config.to_clickable_movement)
+      if (mouse_movement >= to_clickable_movement)
       {
         mouse_movement = 0;
         enable_click_layer();
@@ -360,6 +359,6 @@ void oledkit_render_info_user(void)
   oled_write_P(PSTR(" MV:"), false);
   oled_write(get_u8_str(mouse_movement, ' '), false);
   oled_write_P(PSTR("/"), false);
-  oled_write(get_u8_str(user_config.to_clickable_movement, ' '), false);
+  oled_write(get_u8_str(to_clickable_movement, ' '), false);
 }
 #endif
