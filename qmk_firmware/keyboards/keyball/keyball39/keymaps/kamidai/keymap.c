@@ -19,21 +19,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include QMK_KEYBOARD_H
 #include "quantum.h"
 
-// enum layer_number
-// {
-//   _QWERTY = 0,
-//   _LOWER,
-//   _RAISE,
-// };
-
-const rgblight_segment_t PROGMEM ZERO_layer[] = RGBLIGHT_LAYER_SEGMENTS(
-    {0, 74, HSV_OFF});
-const rgblight_segment_t PROGMEM ONE_layer[] = RGBLIGHT_LAYER_SEGMENTS(
-    {0, 74, HSV_GREEN});
-
-const rgblight_segment_t *const PROGMEM my_rgb_layers[] = RGBLIGHT_LAYERS_LIST(
-    ZERO_layer, ONE_layer);
-
 ////////////////////////////////////
 /// 自動マウスレイヤーの実装 ここから ///
 ///////////////////////////////////
@@ -70,7 +55,7 @@ user_config_t user_config;
 enum click_state state; // 現在のクリック入力受付の状態 Current click input reception status
 uint16_t click_timer;   // タイマー。状態に応じて時間で判定する。 Timer. Time to determine the state of the system.
 
-uint16_t to_reset_time = 1000; // この秒数(千分の一秒)、CLICKABLE状態ならクリックレイヤーが無効になる。 For this number of seconds (milliseconds), the click layer is disabled if in CLICKABLE state.
+uint16_t to_reset_time = 300; // この秒数(千分の一秒)、CLICKABLE状態ならクリックレイヤーが無効になる。 For this number of seconds (milliseconds), the click layer is disabled if in CLICKABLE state.
 
 const uint16_t click_layer = 6; // マウス入力が可能になった際に有効になるレイヤー。Layers enabled when mouse input is enabled
 
@@ -82,13 +67,12 @@ int16_t mouse_movement;
 void eeconfig_init_user(void)
 {
   user_config.raw = 0;
-  user_config.to_clickable_movement = 0; // user_config.to_clickable_time = 10;
+  user_config.to_clickable_movement = 50; // user_config.to_clickable_time = 10;
   eeconfig_update_user(user_config.raw);
 }
 void keyboard_post_init_user(void)
 {
   user_config.raw = eeconfig_read_user();
-  rgblight_layers = my_rgb_layers;
 }
 
 // クリック用のレイヤーを有効にする。　Enable layers for clicks
@@ -329,7 +313,7 @@ SFT_T(KC_TAB), KC_W     , KC_E     , KC_R     , KC_T     ,                      
 
   [6] = LAYOUT_universal(
     _______  , _______  , _______  , _______  , _______  ,                            _______  , _______  , _______  , _______  , _______  ,
-    _______  , _______  , _______  , _______  , _______  ,                            _______  ,KC_MY_BTN1, _______  ,KC_MY_BTN2, _______  ,
+    _______  , _______  , _______  , _______  , KC_TO_CLICKABLE_DEC  ,                            _______  ,KC_MY_BTN1, _______  ,KC_MY_BTN2, _______  ,
     _______  , _______  , _______  , _______  , _______  ,                            _______  , _______  , _______  , _______  , _______  ,
     _______  , _______  , _______  , _______  , _______  , _______  ,      _______ ,  _______  , _______  , _______  , _______  , _______  
   )
@@ -338,11 +322,21 @@ SFT_T(KC_TAB), KC_W     , KC_E     , KC_R     , KC_T     ,                      
 
 layer_state_t layer_state_set_user(layer_state_t state)
 {
-  rgblight_set_layer_state(0, layer_state_cmp(state, 0));
-  rgblight_set_layer_state(0, layer_state_cmp(state, 1));
-
   // Auto enable scroll mode when the highest layer is 1 or 3
   keyball_set_scroll_mode(get_highest_layer(state) == 1 || get_highest_layer(state) == 3);
+
+  // レイヤーとLEDを連動させる
+  uint8_t layer = biton32(state);
+  switch (layer)
+  {
+  case 6:
+    rgblight_sethsv(HSV_WHITE);
+    break;
+
+  default:
+    rgblight_sethsv(HSV_OFF);
+  }
+
   return state;
 }
 

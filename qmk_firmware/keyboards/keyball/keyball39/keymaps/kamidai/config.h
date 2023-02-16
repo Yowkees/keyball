@@ -31,11 +31,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 // #define RGBLIGHT_EFFECT_RGB_TEST
 // #define RGBLIGHT_EFFECT_ALTERNATING
 // #define RGBLIGHT_EFFECT_TWINKLE
-
-#define RGBLIGHT_LAYERS // RGBLIGHT_LAYERSをONにするとレイヤによってLEDの色を分けることができるようになる
-#define RGBLIGHT_LAYERS_OVERRIDE_RGB_OFF
-
-// #define SPLIT_LAYER_STATE_ENABLE
 #endif
 
 #define TAP_CODE_DELAY 5
