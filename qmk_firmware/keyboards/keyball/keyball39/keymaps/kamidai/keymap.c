@@ -322,7 +322,7 @@ SFT_T(KC_TAB), KC_W     , KC_E     , KC_R     , KC_T     ,                      
 
 layer_state_t layer_state_set_user(layer_state_t state)
 {
-  // Auto enable scroll mode when the highest layer is 1 or 3
+  // レイヤーが1または3の場合、スクロールモードが有効になる
   keyball_set_scroll_mode(get_highest_layer(state) == 1 || get_highest_layer(state) == 3);
 
   // レイヤーとLEDを連動させる
