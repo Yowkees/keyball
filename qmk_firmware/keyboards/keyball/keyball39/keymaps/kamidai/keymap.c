@@ -42,17 +42,6 @@ enum click_state
   CLICKING,  // クリック中。 Clicking.
 };
 
-typedef union
-{
-  uint32_t raw;
-  struct
-  {
-    // int16_t to_clickable_movement;
-  };
-} user_config_t;
-
-user_config_t user_config;
-
 enum click_state state; // 現在のクリック入力受付の状態 Current click input reception status
 uint16_t click_timer;   // タイマー。状態に応じて時間で判定する。 Timer. Time to determine the state of the system.
 
@@ -65,16 +54,6 @@ int16_t mouse_record_threshold = 30; // ポインターの動きを一時的に�
 int16_t mouse_move_count_ratio = 5;  // ポインターの動きを再生する際の移動フレームの係数。 The coefficient of the moving frame when replaying the pointer movement.
 
 int16_t mouse_movement;
-
-void eeconfig_init_user(void)
-{
-  user_config.raw = 0;
-  eeconfig_update_user(user_config.raw);
-}
-void keyboard_post_init_user(void)
-{
-  user_config.raw = eeconfig_read_user();
-}
 
 // クリック用のレイヤーを有効にする。　Enable layers for clicks
 void enable_click_layer(void)
@@ -181,12 +160,6 @@ report_mouse_t pointing_device_task_user(report_mouse_t mouse_report)
       break;
 
     case WAITING:
-      /*
-      if (timer_elapsed(click_timer) > user_config.to_clickable_time) {
-          enable_click_layer();
-      }
-      */
-
       mouse_movement += my_abs(current_x) + my_abs(current_y);
 
       if (mouse_movement >= to_clickable_movement)
