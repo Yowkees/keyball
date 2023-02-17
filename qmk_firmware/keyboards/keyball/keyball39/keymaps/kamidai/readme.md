@@ -13,7 +13,7 @@ https://user-images.githubusercontent.com/34639637/219548230-d1c8ee17-b649-48c8-
 1. [Remap](https://remap-keys.app/configure) 対応
 2. レイヤー数は 7
 3. トラックボール検知で自動でクリックレイヤーへ（0.8 秒でレイヤー 0 に戻ります）
-4. ↑ の間だけ LED を点灯（RGB_TOG をオンの状態にしてください）
+4. ↑ の間だけ LED を点灯（RGB_TOG をオンの状態にしておいてください）
 5. スクロールは keyball 純正のものを使用可能
 
 ※レイヤー 1 と 3 でスクロールモードになります（別レイヤーに変えたい場合は keyball_set_scroll_mode の引数を変更してください）。
