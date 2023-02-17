@@ -10,22 +10,23 @@ https://user-images.githubusercontent.com/34639637/219548230-d1c8ee17-b649-48c8-
 
 ## 主な機能
 
-1. トラックボール検知で自動でクリックレイヤーへ（0.8 秒でレイヤー 0 に戻ります）
-2. ↑ の間だけ LED を点灯（RGB_TOG をオンの状態にしてください）
-3. スクロールは keyball 純正のものを使用可能
-4. [Remap](https://remap-keys.app/configure) 対応
-5. レイヤー数は 7
+1. [Remap](https://remap-keys.app/configure) 対応
+2. レイヤー数は 7
+3. トラックボール検知で自動でクリックレイヤーへ（0.8 秒でレイヤー 0 に戻ります）
+4. ↑ の間だけ LED を点灯（RGB_TOG をオンの状態にしてください）
+5. スクロールは keyball 純正のものを使用可能
 
-※レイヤー 1 と 3 でスクロールモードになります。（別レイヤーに変えたい場合は keyball_set_scroll_mode の引数を変更してください。）
+※レイヤー 1 と 3 でスクロールモードになります（別レイヤーに変えたい場合は keyball_set_scroll_mode の引数を変更してください）。
 
 ## ファームウェアの書き込み
 
 QMK のビルド環境がない方は以下の手順で使用してください。
 
-1. ファイルを[こちら※](https://github.com/kamiichi99/keyball/blob/main/builded-firmware/20230217/Scroll_mode_in_layer3_keyball_keyball39_kamidai.hex)からダウンロードする
+1. ファイルを[こちら](https://github.com/kamiichi99/keyball/blob/main/builded-firmware/20230217/Scroll_mode_in_layer3_keyball_keyball39_kamidai.hex)からダウンロードする
 2. [Pro Micro Web Updater](https://sekigon-gonnoc.github.io/promicro-web-updater/index.html)や[QMK Toolbox](https://kbd.dailycraft.jp/claw44/buildguide/10_firmware/toolbox/)でファームウェアを Pro Micro に書き込む
 
 ※配布版はスクロールモードをレイヤー 3 にしています。
+※USB ケーブルは左右どちらに差しても使用できます。ただしキーマップは USB ケーブルを差した側の ProMicro へ書き込まれるため、初めて差し替えた場合にはキーマップを見直してください。
 
 ## Remap でのマウスキーについて
 
@@ -38,8 +39,6 @@ QMK のビルド環境がない方は以下の手順で使用してください�
 | `KC_MY_BTN3` | `0x5DB1`         | OS や PC の設定に依存。                    |
 
 ## こちらの Keyball 公式キーも使用可能です
-
-USB ケーブルは左右どちらに差しても使用できます。ただしキーマップは USB ケーブルを差した側の ProMicro へ書き込まれるため、初めて差し替えた場合にはキーマップを見直してください。
 
 | キーコード | Remap 上での表記 | 説明                                                             |
 | :--------- | :--------------- | :--------------------------------------------------------------- |
