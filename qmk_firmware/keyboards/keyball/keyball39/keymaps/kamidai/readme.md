@@ -1,12 +1,10 @@
 # Keyball39 ファームウェア
 
-[@d_kamiichi](https://twitter.com/d_kamiichi)の開発した Keyball39 のファームウェアです。
+[@d_kamiichi](https://twitter.com/d_kamiichi)の開発した Keyball39 のファームウェアです。トラックボールを動かすとクリックレイヤーに自動で切り替わり、LED が点灯します（デフォルトでは 7 番目...index6 のレイヤーです）。
 
 https://user-images.githubusercontent.com/34639637/219548230-d1c8ee17-b649-48c8-97f4-8877bc62a3bd.mp4
 
 <br>
-
-トラックボールを動かすとクリックレイヤーに自動で切り替わり、LED が点灯します（デフォルトでは 7 番目...index6 のレイヤーです）。
 
 ## 主な機能
 
