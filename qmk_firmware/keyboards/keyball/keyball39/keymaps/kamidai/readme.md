@@ -26,6 +26,7 @@ QMK のビルド環境がない方は以下の手順で使用してください�
 2. [Pro Micro Web Updater](https://sekigon-gonnoc.github.io/promicro-web-updater/index.html)や[QMK Toolbox](https://kbd.dailycraft.jp/claw44/buildguide/10_firmware/toolbox/)でファームウェアを Pro Micro に書き込む
 
 ※配布版はスクロールモードをレイヤー 3 にしています。
+
 ※USB ケーブルは左右どちらに差しても使用できます。ただしキーマップは USB ケーブルを差した側の ProMicro へ書き込まれるため、初めて差し替えた場合にはキーマップを見直してください。
 
 ## Remap でのマウスキーについて
