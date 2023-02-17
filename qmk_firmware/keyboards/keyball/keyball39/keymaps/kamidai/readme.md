@@ -17,7 +17,6 @@ https://user-images.githubusercontent.com/34639637/219548230-d1c8ee17-b649-48c8-
 5. レイヤー数は 7
 
 ※レイヤー 1 でスクロールモードになります。（別レイヤーに変えたい場合は keyball_set_scroll_mode の引数を変更してください。）
-※自動クリックレイヤー部分のコードは takashicompany さんの[こちら](https://zenn.dev/takashicompany/articles/69b87160cda4b9)を参考にさせていただいております。
 
 ## ファームウェアの書き込み
 
@@ -55,9 +54,8 @@ USB ケーブルは左右どちらに差しても使用できます。ただし�
 | `SCRL_DVI` | `0x5DAD`         | スクロール除数を１つ上げます(max D7 = 1/128)← 最もスクロール遅い |
 | `SCRL_DVD` | `0x5DAE`         | スクロール除数を１つ下げます(min D0 = 1/1)← 最もスクロール速い   |
 
-※
-
 ## その他
 
 - 当ファームウェア、ソースコードを使用したことでの不利益や故障などは責任は負いかねます。
+- 自動クリックレイヤー部分のコードは takashicompany さんの[こちら](https://zenn.dev/takashicompany/articles/69b87160cda4b9)を参考にさせていただいております。
 - 質問や不具合等のご連絡は[Twitter](https://twitter.com/d_kamiichi)よりお願いします。
