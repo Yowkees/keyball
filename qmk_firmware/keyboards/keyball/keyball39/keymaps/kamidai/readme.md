@@ -16,7 +16,7 @@ https://user-images.githubusercontent.com/34639637/219548230-d1c8ee17-b649-48c8-
 4. [Remap](https://remap-keys.app/configure) 対応
 5. レイヤー数は 7
 
-※レイヤー 1 でスクロールモードになります。（別レイヤーに変えたい場合は keyball_set_scroll_mode の引数を変更してください。）
+※レイヤー 1 と 3 でスクロールモードになります。（別レイヤーに変えたい場合は keyball_set_scroll_mode の引数を変更してください。）
 
 ## ファームウェアの書き込み
 
