@@ -29,9 +29,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 enum custom_keycodes
 {
-  KC_MY_BTN1 = KEYBALL_SAFE_RANGE,
-  KC_MY_BTN2,
-  KC_MY_BTN3
+  KC_MY_BTN1 = KEYBALL_SAFE_RANGE, // Remap上では 5DAF
+  KC_MY_BTN2,                      // Remap上では 5DB0
+  KC_MY_BTN3                       // Remap上では 5DB1
 };
 
 enum click_state
@@ -272,6 +272,7 @@ SFT_T(KC_TAB), KC_W     , KC_E     , KC_R     , KC_T     ,                      
 layer_state_t layer_state_set_user(layer_state_t state)
 {
   // レイヤーが1または3の場合、スクロールモードが有効になる
+  // keyball_set_scroll_mode(get_highest_layer(state) == 3);
   keyball_set_scroll_mode(get_highest_layer(state) == 1 || get_highest_layer(state) == 3);
 
   // レイヤーとLEDを連動させる
