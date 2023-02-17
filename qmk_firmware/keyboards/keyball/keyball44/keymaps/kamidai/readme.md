@@ -22,7 +22,7 @@ https://user-images.githubusercontent.com/34639637/219548230-d1c8ee17-b649-48c8-
 
 QMK のビルド環境がない方は以下の手順で使用してください。
 
-1. ファイルを[こちら](https://github.com/kamiichi99/keyball/blob/main/builded-firmware/keyball39/Scroll_mode_in_layer3_keyball_keyball39_kamidai.hex)からダウンロードする
+1. ファイルを[こちら](https://github.com/kamiichi99/keyball/releases/download/keyball44%2Fv1/Scroll_mode_in_layer3_keyball_keyball44_kamidai.hex)からダウンロードする
 2. [Pro Micro Web Updater](https://sekigon-gonnoc.github.io/promicro-web-updater/index.html)や[QMK Toolbox](https://kbd.dailycraft.jp/claw44/buildguide/10_firmware/toolbox/)でファームウェアを Pro Micro に書き込む
 
 ※配布版はスクロールモードをレイヤー 3 にしています。
