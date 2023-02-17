@@ -2,6 +2,8 @@
 
 [@d_kamiichi](https://twitter.com/d_kamiichi)の開発した Keyball39 のファームウェアです。
 
+https://user-images.githubusercontent.com/34639637/219548230-d1c8ee17-b649-48c8-97f4-8877bc62a3bd.mp4
+
 トラックボールを動かした際に、自動クリックレイヤーレイヤー(デフォルトでは 7 番目...index6 のレイヤー)が有効になります。
 
 ## 主な機能
@@ -33,3 +35,4 @@ QMK のビルド環境がない方は以下の手順で当ファームウェア�
 ## その他
 
 - 当ファームウェア、ソースコードを使用したことでの不利益や故障などは責任は負いかねます。
+- 質問や不具合等のご連絡は[Twitter](https://twitter.com/d_kamiichi)よりお願いします。
