@@ -1,6 +1,6 @@
 # 私のフォームウェアはこちら 👇
 
-- [keyball39](https://github.com/kamiichi99/keyball/tree/main/qmk_firmware/keyboards/keyball/keyball61/keymaps/kamidai)
+- [keyball39](https://github.com/kamiichi99/keyball/tree/main/qmk_firmware/keyboards/keyball/keyball39/keymaps/kamidai)
 - [keyball44（動作未確認）](https://github.com/kamiichi99/keyball/tree/main/qmk_firmware/keyboards/keyball/keyball44/keymaps/kamidai)
 - [keyball61（動作未確認）](https://github.com/kamiichi99/keyball/tree/main/qmk_firmware/keyboards/keyball/keyball61/keymaps/kamidai)
 
