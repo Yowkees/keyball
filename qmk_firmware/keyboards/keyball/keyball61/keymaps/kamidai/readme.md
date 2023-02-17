@@ -1,4 +1,4 @@
-# Keyball39 ファームウェア（動作未確認）
+# Keyball61 ファームウェア（動作未確認）
 
 [@d_kamiichi](https://twitter.com/d_kamiichi)の開発した Keyball61 のファームウェアです。
 
