@@ -43,7 +43,8 @@ enum custom_keycodes
 {
   KC_MY_BTN1 = KEYBALL_SAFE_RANGE, // Remap上では 0x5DAF
   KC_MY_BTN2,                      // Remap上では 0x5DB0
-  KC_MY_BTN3                       // Remap上では 0x5DB1
+  KC_MY_BTN3,                      // Remap上では 0x5DB1
+  KC_MY_DOUBLE_CLICK               // Remap上では 0x
 };
 
 enum click_state
@@ -64,6 +65,8 @@ const uint16_t click_layer = 6;          // マウス入力が可能になった
 
 int16_t mouse_record_threshold = 30; // ポインターの動きを一時的に記録するフレーム数。 Number of frames in which the pointer movement is temporarily recorded.
 int16_t mouse_move_count_ratio = 5;  // ポインターの動きを再生する際の移動フレームの係数。 The coefficient of the moving frame when replaying the pointer movement.
+
+const uint16_t ignore_disable_mouse_layer_keys[] = {KC_LANG1, KC_LANG2}; // この配列で指定されたキーはマウスレイヤー中に押下してもマウスレイヤーを解除しない
 
 int16_t mouse_movement;
 
@@ -112,7 +115,6 @@ bool is_clickable_mode(void)
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record)
 {
-
   switch (keycode)
   {
   case KC_MY_BTN1:
@@ -126,6 +128,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record)
 
     if (record->event.pressed)
     {
+      // キーダウン時
       // ビットORは演算子の左辺と右辺の同じ位置にあるビットを比較して、両方のビットのどちらかが「1」の場合に「1」にします。
       // Bit OR compares bits in the same position on the left and right sides of the operator and sets them to "1" if either of both bits is "1".
       currentReport.buttons |= btn;
@@ -133,6 +136,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record)
     }
     else
     {
+      // キーアップ時
       // ビットANDは演算子の左辺と右辺の同じ位置にあるビットを比較して、両方のビットが共に「1」の場合だけ「1」にします。
       // Bit AND compares the bits in the same position on the left and right sides of the operator and sets them to "1" only if both bits are "1" together.
       currentReport.buttons &= ~btn;
@@ -144,9 +148,29 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record)
     return false;
   }
 
+  case KC_LANG1:
+  case KC_LANG2:
+  {
+    if (state == CLICKABLE)
+    {
+      if (record->event.pressed)
+      {
+        // キーダウン時
+        enable_click_layer();
+        return true;
+      }
+      else
+      {
+        // キーアップ時
+        disable_click_layer();
+      }
+    }
+  }
+
   default:
     if (record->event.pressed)
     {
+      // キーダウン時
       disable_click_layer();
     }
   }
@@ -274,7 +298,7 @@ SFT_T(KC_TAB), KC_W     , KC_E     , KC_R     , KC_T     ,                      
 
   [6] = LAYOUT_universal(
     _______  , _______  , _______  , _______  , _______  ,                            _______  , _______  , _______  , _______  , _______  ,
-    _______  , _______  , _______  , _______  , _______  ,                            _______  ,KC_MY_BTN1, _______  ,KC_MY_BTN2, _______  ,
+    _______  , _______  , _______  , _______  , _______  ,                  KC_MY_DOUBLE_CLICK ,KC_MY_BTN1, _______  ,KC_MY_BTN2, _______  ,
     _______  , _______  , _______  , _______  , _______  ,                            _______  , _______  , _______  , _______  , _______  ,
     _______  , _______  , _______  , _______  , _______  , _______  ,      _______ ,  _______  , _______  , _______  , _______  , _______  
   )
