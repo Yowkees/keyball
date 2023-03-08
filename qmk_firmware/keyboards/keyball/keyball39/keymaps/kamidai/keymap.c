@@ -18,6 +18,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #include QMK_KEYBOARD_H
 #include "quantum.h"
+#include <stdlib.h>
 
 // コード表
 // 【KBC_RST: 0x5DA5】Keyball 設定のリセット
@@ -44,7 +45,7 @@ enum custom_keycodes
   KC_MY_BTN1 = KEYBALL_SAFE_RANGE, // Remap上では 0x5DAF
   KC_MY_BTN2,                      // Remap上では 0x5DB0
   KC_MY_BTN3,                      // Remap上では 0x5DB1
-  KC_MY_DOUBLE_CLICK               // Remap上では 0x
+  KC_GESTURE                       // Remap上では 0x5DB2
 };
 
 enum click_state
@@ -53,6 +54,7 @@ enum click_state
   WAITING,   // マウスレイヤーが有効になるのを待つ。 Wait for mouse layer to activate.
   CLICKABLE, // マウスレイヤー有効になりクリック入力が取れる。 Mouse layer is enabled to take click input.
   CLICKING,  // クリック中。 Clicking.
+  SWIPE      // スワイプ中。 swiping.
 };
 
 enum click_state state; // 現在のクリック入力受付の状態 Current click input reception status
@@ -69,6 +71,12 @@ int16_t mouse_move_count_ratio = 5;  // ポインターの動きを再生する�
 const uint16_t ignore_disable_mouse_layer_keys[] = {KC_LANG1, KC_LANG2}; // この配列で指定されたキーはマウスレイヤー中に押下してもマウスレイヤーを解除しない
 
 int16_t mouse_movement;
+
+// swipe gesture 変数
+// bool is_swipe_gesture = false;
+int16_t swipe_x = 0;
+int16_t swipe_y = 0;
+const int16_t SWIPE_THRESHOLD = 10;
 
 // クリック用のレイヤーを有効にする。　Enable layers for clicks
 void enable_click_layer(void)
@@ -113,6 +121,60 @@ bool is_clickable_mode(void)
   return state == CLICKABLE || state == CLICKING;
 }
 
+// is_swipe_gesture が true の間だけで、トラックボールの x と y の動きを合計する
+void process_mouse_user(report_mouse_t *mouse_report, int16_t x, int16_t y)
+{
+  switch (state)
+  {
+  case SWIPE:
+    swipe_x += x;
+    swipe_y += y;
+    return;
+
+  default:
+    return;
+  }
+}
+
+// スワイプジェスチャで何が起こるかを実際に処理する関数です
+// 上、下、左、右、スワイプなしの5つのオプションがあります
+void process_swipe_gesture(int16_t x, int16_t y)
+{
+  if (abs(x) < SWIPE_THRESHOLD && abs(y) < SWIPE_THRESHOLD)
+  {
+    // no swipe
+    return;
+  }
+
+  if (abs(x) > abs(y))
+  {
+    if (x > 0)
+    { // swipe right
+      register_code(KC_LANG1);
+      unregister_code(KC_LANG1);
+    }
+
+    else
+    { // swipe left
+      register_code(KC_LANG2);
+      unregister_code(KC_LANG2);
+    }
+  }
+  else
+  {
+    if (y > 0)
+    { // swipe down
+      register_code(KC_ESC);
+      unregister_code(KC_ESC);
+    }
+    else
+    { // swipe up
+      register_code(KC_ESC);
+      unregister_code(KC_ESC);
+    }
+  }
+}
+
 bool process_record_user(uint16_t keycode, keyrecord_t *record)
 {
   switch (keycode)
@@ -148,6 +210,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record)
     return false;
   }
 
+  // 自動クリックレイヤーでLang1とLang2を押せるようにする
   case KC_LANG1:
   case KC_LANG2:
   {
@@ -166,6 +229,25 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record)
       }
     }
   }
+
+  // クリックすると、is_swipe_gesture が true に設定されます
+  // 離したら、is_swipe_gesture、swipe_x、swipe_y をリセットし、process_swipe_gesture を呼び出します。
+  case KC_GESTURE:
+  case KC_SPACE:
+    if (record->event.pressed)
+    {
+      state = SWIPE;
+      register_code(KC_SPACE);
+    }
+    else
+    {
+      unregister_code(KC_SPACE);
+      process_swipe_gesture(swipe_x, swipe_y);
+      swipe_x = 0;
+      swipe_y = 0;
+      state = NONE;
+    }
+    return false;
 
   default:
     if (record->event.pressed)
@@ -205,6 +287,11 @@ report_mouse_t pointing_device_task_user(report_mouse_t mouse_report)
       }
       break;
 
+    case SWIPE:
+      swipe_x += current_x;
+      swipe_y += current_y;
+      break;
+
     default:
       click_timer = timer_read();
       state = WAITING;
@@ -233,6 +320,11 @@ report_mouse_t pointing_device_task_user(report_mouse_t mouse_report)
       }
       break;
 
+    case SWIPE:
+      swipe_x += current_x;
+      swipe_y += current_y;
+      break;
+
     default:
       mouse_movement = 0;
       state = NONE;
@@ -258,7 +350,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 SFT_T(KC_TAB), KC_W     , KC_E     , KC_R     , KC_T     ,                            KC_Y     , KC_U     , KC_I     , KC_O     , SFT_T(KC_P),
    LT(2,KC_A), KC_S     , KC_D     , KC_F     , KC_G     ,                            KC_H     , KC_J     , KC_K     , KC_L     , LT(2,KC_SCOLON),
     KC_Z     , KC_X     , KC_C     , KC_V     , KC_B     ,                            KC_N     , KC_M     , KC_COMM  , KC_DOT   , KC_SLASH  ,
-    KC_LALT , KC_F5 , LT(1,KC_Q) , KC_SPACE ,CTL_T(KC_DEL), KC_ESC  ,      KC_BSPC  , KC_ENT   , _______  , _______  , _______  , LT(3,KC_ESC)
+ KC_LALT ,KC_GESTURE, LT(1,KC_Q) , KC_SPACE ,CTL_T(KC_DEL), KC_ESC  ,      KC_BSPC  , KC_ENT   , _______  , _______  , _______  , LT(3,KC_ESC)
   ),
 
   [1] = LAYOUT_universal(
@@ -298,7 +390,7 @@ SFT_T(KC_TAB), KC_W     , KC_E     , KC_R     , KC_T     ,                      
 
   [6] = LAYOUT_universal(
     _______  , _______  , _______  , _______  , _______  ,                            _______  , _______  , _______  , _______  , _______  ,
-    _______  , _______  , _______  , _______  , _______  ,                  KC_MY_DOUBLE_CLICK ,KC_MY_BTN1, _______  ,KC_MY_BTN2, _______  ,
+    _______  , _______  , _______  , _______  , _______  ,                            _______  ,KC_MY_BTN1, _______  ,KC_MY_BTN2, _______  ,
     _______  , _______  , _______  , _______  , _______  ,                            _______  , _______  , _______  , _______  , _______  ,
     _______  , _______  , _______  , _______  , _______  , _______  ,      _______ ,  _______  , _______  , _______  , _______  , _______  
   )
@@ -337,9 +429,28 @@ void oledkit_render_info_user(void)
 
   oled_write_P(PSTR("Layer:"), false);
   oled_write(get_u8_str(get_highest_layer(layer_state), ' '), false);
-  oled_write_P(PSTR(" MV:"), false);
-  oled_write(get_u8_str(mouse_movement, ' '), false);
-  oled_write_P(PSTR("/"), false);
-  oled_write(get_u8_str(to_clickable_movement, ' '), false);
+  // oled_write_P(PSTR(" MV:"), false);
+  // oled_write(get_u8_str(mouse_movement, ' '), false);
+  // oled_write_P(PSTR("/"), false);
+  // oled_write(get_u8_str(to_clickable_movement, ' '), false);
+
+  switch (state)
+  {
+  case NONE:
+    oled_write_ln_P(PSTR("  NONE"), false);
+    break;
+  case CLICKABLE:
+    oled_write_ln_P(PSTR("  CLICKABLE"), false);
+    break;
+  case WAITING:
+    oled_write_ln_P(PSTR("  WAITING"), false);
+    break;
+  case CLICKING:
+    oled_write_ln_P(PSTR("  CLICKING"), false);
+    break;
+  case SWIPE:
+    oled_write_ln_P(PSTR("  SWIPE"), false);
+    break;
+  }
 }
 #endif
