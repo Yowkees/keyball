@@ -135,7 +135,7 @@ int16_t swipe_x = 0;
 int16_t swipe_y = 0;
 const int16_t SWIPE_THRESHOLD = 10;
 
-// is_swipe_gesture が true の間だけで、トラックボールの x と y の動きを合計する
+// state が SWIPE の間だけで、トラックボールの x と y の動きを合計する
 void process_mouse_user(report_mouse_t *mouse_report, int16_t x, int16_t y)
 {
   switch (state)
@@ -150,7 +150,7 @@ void process_mouse_user(report_mouse_t *mouse_report, int16_t x, int16_t y)
   }
 }
 
-// スワイプジェスチャで何が起こるかを実際に処理する関数です
+// スワイプジェスチャーで何が起こるかを実際に処理する関数です
 // 上、下、左、右、スワイプなしの5つのオプションがあります
 void process_swipe_gesture(int16_t x, int16_t y)
 {
