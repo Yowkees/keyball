@@ -135,6 +135,8 @@ int16_t swipe_x = 0;
 int16_t swipe_y = 0;
 const int16_t SWIPE_THRESHOLD = 10;
 
+const uint16_t gesture_key = KC_D; // ここで指定されたキーを押すとスワイプモードになる
+
 // state が SWIPE の間だけで、トラックボールの x と y の動きを合計する
 void process_mouse_user(report_mouse_t *mouse_report, int16_t x, int16_t y)
 {
@@ -157,8 +159,8 @@ void process_swipe_gesture(int16_t x, int16_t y)
   if (abs(x) < SWIPE_THRESHOLD && abs(y) < SWIPE_THRESHOLD)
   {
     // no swipe
-    register_code(KC_D);
-    unregister_code(KC_D);
+    register_code(gesture_key);
+    unregister_code(gesture_key);
     return;
   }
 
@@ -334,15 +336,15 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record)
   // クリックすると、is_swipe_gesture が true に設定されます
   // 離したら、is_swipe_gesture、swipe_x、swipe_y をリセットし、process_swipe_gesture を呼び出します。
   case KC_GESTURE:
-  case KC_D:
+  case gesture_key:
     if (record->event.pressed)
     {
       state = SWIPE;
-      // register_code(KC_SPACE);
+      rgblight_sethsv(HSV_RED);
     }
     else
     {
-      // unregister_code(KC_SPACE);
+      rgblight_sethsv(HSV_OFF);
       process_swipe_gesture(swipe_x, swipe_y);
       swipe_x = 0;
       swipe_y = 0;
