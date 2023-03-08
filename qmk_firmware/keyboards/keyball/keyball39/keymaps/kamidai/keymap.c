@@ -32,14 +32,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 // 【SCRL_DVI: 0x5DAD】スクロール除数を１つ上げます(max D7 = 1/128)← 最もスクロール遅い
 // 【SCRL_DVD: 0x5DAE】スクロール除数を１つ下げます(min D0 = 1/1)← 最もスクロール速い
 
-////////////////////////////////////
-///
-/// 自動マウスレイヤーの実装 ここから
-/// 参考にさせていただいたページ
-/// https://zenn.dev/takashicompany/articles/69b87160cda4b9
-///
-////////////////////////////////////
-
 enum custom_keycodes
 {
   KC_MY_BTN1 = KEYBALL_SAFE_RANGE, // Remap上では 0x5DAF
@@ -47,51 +39,6 @@ enum custom_keycodes
   KC_MY_BTN3,                      // Remap上では 0x5DB1
   KC_GESTURE                       // Remap上では 0x5DB2
 };
-
-enum click_state
-{
-  NONE = 0,
-  WAITING,   // マウスレイヤーが有効になるのを待つ。 Wait for mouse layer to activate.
-  CLICKABLE, // マウスレイヤー有効になりクリック入力が取れる。 Mouse layer is enabled to take click input.
-  CLICKING,  // クリック中。 Clicking.
-  SWIPE      // スワイプ中。 swiping.
-};
-
-enum click_state state; // 現在のクリック入力受付の状態 Current click input reception status
-uint16_t click_timer;   // タイマー。状態に応じて時間で判定する。 Timer. Time to determine the state of the system.
-
-uint16_t to_reset_time = 800; // この秒数(千分の一秒)、CLICKABLE状態ならクリックレイヤーが無効になる。 For this number of seconds (milliseconds), the click layer is disabled if in CLICKABLE state.
-
-const int16_t to_clickable_movement = 0; // クリックレイヤーが有効になるしきい値
-const uint16_t click_layer = 6;          // マウス入力が可能になった際に有効になるレイヤー。Layers enabled when mouse input is enabled
-
-int16_t mouse_record_threshold = 30; // ポインターの動きを一時的に記録するフレーム数。 Number of frames in which the pointer movement is temporarily recorded.
-int16_t mouse_move_count_ratio = 5;  // ポインターの動きを再生する際の移動フレームの係数。 The coefficient of the moving frame when replaying the pointer movement.
-
-const uint16_t ignore_disable_mouse_layer_keys[] = {KC_LANG1, KC_LANG2}; // この配列で指定されたキーはマウスレイヤー中に押下してもマウスレイヤーを解除しない
-
-int16_t mouse_movement;
-
-// swipe gesture 変数
-// bool is_swipe_gesture = false;
-int16_t swipe_x = 0;
-int16_t swipe_y = 0;
-const int16_t SWIPE_THRESHOLD = 10;
-
-// クリック用のレイヤーを有効にする。　Enable layers for clicks
-void enable_click_layer(void)
-{
-  layer_on(click_layer);
-  click_timer = timer_read();
-  state = CLICKABLE;
-}
-
-// クリック用のレイヤーを無効にする。 Disable layers for clicks.
-void disable_click_layer(void)
-{
-  state = NONE;
-  layer_off(click_layer);
-}
 
 // 自前の絶対数を返す関数。 Functions that return absolute numbers.
 int16_t my_abs(int16_t num)
@@ -115,11 +62,78 @@ int16_t mmouse_move_y_sign(int16_t num)
   return 1;
 }
 
+////////////////////////////////////
+///
+/// 自動マウスレイヤーの実装 ここから
+/// 参考にさせていただいたページ
+/// https://zenn.dev/takashicompany/articles/69b87160cda4b9
+///
+////////////////////////////////////
+
+enum ball_state
+{
+  NONE = 0,
+  WAITING,   // マウスレイヤーが有効になるのを待つ。 Wait for mouse layer to activate.
+  CLICKABLE, // マウスレイヤー有効になりクリック入力が取れる。 Mouse layer is enabled to take click input.
+  CLICKING,  // クリック中。 Clicking.
+  SWIPE      // スワイプ中。 swiping.
+};
+
+enum ball_state state; // 現在のクリック入力受付の状態 Current click input reception status
+uint16_t click_timer;  // タイマー。状態に応じて時間で判定する。 Timer. Time to determine the state of the system.
+
+uint16_t to_reset_time = 800; // この秒数(千分の一秒)、CLICKABLE状態ならクリックレイヤーが無効になる。 For this number of seconds (milliseconds), the click layer is disabled if in CLICKABLE state.
+
+const int16_t to_clickable_movement = 0; // クリックレイヤーが有効になるしきい値
+const uint16_t click_layer = 6;          // マウス入力が可能になった際に有効になるレイヤー。Layers enabled when mouse input is enabled
+
+int16_t mouse_record_threshold = 30; // ポインターの動きを一時的に記録するフレーム数。 Number of frames in which the pointer movement is temporarily recorded.
+int16_t mouse_move_count_ratio = 5;  // ポインターの動きを再生する際の移動フレームの係数。 The coefficient of the moving frame when replaying the pointer movement.
+
+const uint16_t ignore_disable_mouse_layer_keys[] = {KC_LANG1, KC_LANG2}; // この配列で指定されたキーはマウスレイヤー中に押下してもマウスレイヤーを解除しない
+
+int16_t mouse_movement;
+
+// クリック用のレイヤーを有効にする。　Enable layers for clicks
+void enable_click_layer(void)
+{
+  layer_on(click_layer);
+  click_timer = timer_read();
+  state = CLICKABLE;
+}
+
+// クリック用のレイヤーを無効にする。 Disable layers for clicks.
+void disable_click_layer(void)
+{
+  state = NONE;
+  layer_off(click_layer);
+}
+
 // 現在クリックが可能な状態か。 Is it currently clickable?
 bool is_clickable_mode(void)
 {
   return state == CLICKABLE || state == CLICKING;
 }
+
+////////////////////////////////////
+///
+/// 自動マウスレイヤーの実装 ここまで
+///
+////////////////////////////////////
+
+////////////////////////////////////
+///
+/// スワイプジェスチャーの実装 ここから
+/// 参考にさせていただいたページ
+/// https://www.reddit.com/r/ploopy/comments/pbmrh3/qmk_options_on_ploopy_mouse_gestures/
+/// https://github.com/RobertCurry0216/qmk_firmware/blob/59f83aac8fa06010c3a1a0a53fcd453d96ce2f80/keyboards/ploopyco/trackball/keymaps/robertcurry0216/keymap.c
+///
+////////////////////////////////////
+
+// 変数
+int16_t swipe_x = 0;
+int16_t swipe_y = 0;
+const int16_t SWIPE_THRESHOLD = 10;
 
 // is_swipe_gesture が true の間だけで、トラックボールの x と y の動きを合計する
 void process_mouse_user(report_mouse_t *mouse_report, int16_t x, int16_t y)
@@ -143,6 +157,8 @@ void process_swipe_gesture(int16_t x, int16_t y)
   if (abs(x) < SWIPE_THRESHOLD && abs(y) < SWIPE_THRESHOLD)
   {
     // no swipe
+    register_code(KC_D);
+    unregister_code(KC_D);
     return;
   }
 
@@ -175,91 +191,13 @@ void process_swipe_gesture(int16_t x, int16_t y)
   }
 }
 
-bool process_record_user(uint16_t keycode, keyrecord_t *record)
-{
-  switch (keycode)
-  {
-  case KC_MY_BTN1:
-  case KC_MY_BTN2:
-  case KC_MY_BTN3:
-  {
-    report_mouse_t currentReport = pointing_device_get_report();
+////////////////////////////////////
+///
+/// スワイプジェスチャーの実装 ここまで
+///
+////////////////////////////////////
 
-    // どこのビットを対象にするか。 Which bits are to be targeted?
-    uint8_t btn = 1 << (keycode - KC_MY_BTN1);
-
-    if (record->event.pressed)
-    {
-      // キーダウン時
-      // ビットORは演算子の左辺と右辺の同じ位置にあるビットを比較して、両方のビットのどちらかが「1」の場合に「1」にします。
-      // Bit OR compares bits in the same position on the left and right sides of the operator and sets them to "1" if either of both bits is "1".
-      currentReport.buttons |= btn;
-      state = CLICKING;
-    }
-    else
-    {
-      // キーアップ時
-      // ビットANDは演算子の左辺と右辺の同じ位置にあるビットを比較して、両方のビットが共に「1」の場合だけ「1」にします。
-      // Bit AND compares the bits in the same position on the left and right sides of the operator and sets them to "1" only if both bits are "1" together.
-      currentReport.buttons &= ~btn;
-      enable_click_layer();
-    }
-
-    pointing_device_set_report(currentReport);
-    pointing_device_send();
-    return false;
-  }
-
-  // 自動クリックレイヤーでLang1とLang2を押せるようにする
-  case KC_LANG1:
-  case KC_LANG2:
-  {
-    if (state == CLICKABLE)
-    {
-      if (record->event.pressed)
-      {
-        // キーダウン時
-        enable_click_layer();
-        return true;
-      }
-      else
-      {
-        // キーアップ時
-        disable_click_layer();
-      }
-    }
-  }
-
-  // クリックすると、is_swipe_gesture が true に設定されます
-  // 離したら、is_swipe_gesture、swipe_x、swipe_y をリセットし、process_swipe_gesture を呼び出します。
-  case KC_GESTURE:
-  case KC_SPACE:
-    if (record->event.pressed)
-    {
-      state = SWIPE;
-      register_code(KC_SPACE);
-    }
-    else
-    {
-      unregister_code(KC_SPACE);
-      process_swipe_gesture(swipe_x, swipe_y);
-      swipe_x = 0;
-      swipe_y = 0;
-      state = NONE;
-    }
-    return false;
-
-  default:
-    if (record->event.pressed)
-    {
-      // キーダウン時
-      disable_click_layer();
-    }
-  }
-
-  return true;
-}
-
+// ball_stateの設定
 report_mouse_t pointing_device_task_user(report_mouse_t mouse_report)
 {
   int16_t current_x = mouse_report.x;
@@ -337,11 +275,91 @@ report_mouse_t pointing_device_task_user(report_mouse_t mouse_report)
   return mouse_report;
 }
 
-////////////////////////////////////
-///
-/// 自動マウスレイヤーの実装 ここまで
-///
-////////////////////////////////////
+// マクロキーを設定
+bool process_record_user(uint16_t keycode, keyrecord_t *record)
+{
+  switch (keycode)
+  {
+  case KC_MY_BTN1:
+  case KC_MY_BTN2:
+  case KC_MY_BTN3:
+  {
+    report_mouse_t currentReport = pointing_device_get_report();
+
+    // どこのビットを対象にするか。 Which bits are to be targeted?
+    uint8_t btn = 1 << (keycode - KC_MY_BTN1);
+
+    if (record->event.pressed)
+    {
+      // キーダウン時
+      // ビットORは演算子の左辺と右辺の同じ位置にあるビットを比較して、両方のビットのどちらかが「1」の場合に「1」にします。
+      // Bit OR compares bits in the same position on the left and right sides of the operator and sets them to "1" if either of both bits is "1".
+      currentReport.buttons |= btn;
+      state = CLICKING;
+    }
+    else
+    {
+      // キーアップ時
+      // ビットANDは演算子の左辺と右辺の同じ位置にあるビットを比較して、両方のビットが共に「1」の場合だけ「1」にします。
+      // Bit AND compares the bits in the same position on the left and right sides of the operator and sets them to "1" only if both bits are "1" together.
+      currentReport.buttons &= ~btn;
+      enable_click_layer();
+    }
+
+    pointing_device_set_report(currentReport);
+    pointing_device_send();
+    return false;
+  }
+
+  // 自動クリックレイヤーでLang1とLang2を押せるようにする
+  case KC_LANG1:
+  case KC_LANG2:
+  {
+    if (state == CLICKABLE)
+    {
+      if (record->event.pressed)
+      {
+        // キーダウン時
+        enable_click_layer();
+        return true;
+      }
+      else
+      {
+        // キーアップ時
+        disable_click_layer();
+      }
+    }
+  }
+
+  // クリックすると、is_swipe_gesture が true に設定されます
+  // 離したら、is_swipe_gesture、swipe_x、swipe_y をリセットし、process_swipe_gesture を呼び出します。
+  case KC_GESTURE:
+  case KC_D:
+    if (record->event.pressed)
+    {
+      state = SWIPE;
+      // register_code(KC_SPACE);
+    }
+    else
+    {
+      // unregister_code(KC_SPACE);
+      process_swipe_gesture(swipe_x, swipe_y);
+      swipe_x = 0;
+      swipe_y = 0;
+      state = NONE;
+    }
+    return false;
+
+  default:
+    if (record->event.pressed)
+    {
+      // キーダウン時
+      disable_click_layer();
+    }
+  }
+
+  return true;
+}
 
 // clang-format off
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
