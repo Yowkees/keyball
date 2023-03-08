@@ -346,7 +346,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record)
       process_swipe_gesture(swipe_x, swipe_y);
       swipe_x = 0;
       swipe_y = 0;
-      state = NONE;
+      disable_click_layer();
     }
     return false;
 
