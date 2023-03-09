@@ -76,7 +76,8 @@ enum ball_state
   WAITING,   // マウスレイヤーが有効になるのを待つ。 Wait for mouse layer to activate.
   CLICKABLE, // マウスレイヤー有効になりクリック入力が取れる。 Mouse layer is enabled to take click input.
   CLICKING,  // クリック中。 Clicking.
-  SWIPE      // スワイプ中。 swiping.
+  SWIPE,     // スワイプモードが有効になりスワイプ入力が取れる。 Swipe mode is enabled to take swipe input.
+  SWIPING    // スワイプ中。 swiping.
 };
 
 enum ball_state state; // 現在のクリック入力受付の状態 Current click input reception status
@@ -133,9 +134,9 @@ bool is_clickable_mode(void)
 // 変数
 int16_t swipe_x = 0;
 int16_t swipe_y = 0;
+int16_t current_keycode;
 const int16_t SWIPE_THRESHOLD = 10;
-
-const uint16_t gesture_key = KC_D; // ここで指定されたキーを押すとスワイプモードになる
+bool is_swiped = false;
 
 // state が SWIPE の間だけで、トラックボールの x と y の動きを合計する
 void process_mouse_user(report_mouse_t *mouse_report, int16_t x, int16_t y)
@@ -159,38 +160,83 @@ void process_swipe_gesture(int16_t x, int16_t y)
   if (abs(x) < SWIPE_THRESHOLD && abs(y) < SWIPE_THRESHOLD)
   {
     // no swipe
-    register_code(gesture_key);
-    unregister_code(gesture_key);
+    // register_code(gesture_key);
+    // unregister_code(gesture_key);
     return;
   }
 
-  if (abs(x) > abs(y))
+  if (current_keycode == KC_D)
   {
-    if (x > 0)
-    { // swipe right
-      register_code(KC_LANG1);
-      unregister_code(KC_LANG1);
+    register_code(KC_BSPC);
+    unregister_code(KC_BSPC);
+
+    if (abs(x) > abs(y))
+    {
+      if (x > 0)
+      { // swipe right
+        register_code(KC_LANG1);
+        unregister_code(KC_LANG1);
+      }
+
+      else
+      { // swipe left
+        register_code(KC_LANG2);
+        unregister_code(KC_LANG2);
+      }
+    }
+  }
+
+  if (current_keycode == KC_F)
+  {
+    register_code(KC_BSPC);
+    unregister_code(KC_BSPC);
+
+    if (abs(x) > abs(y))
+    {
+      if (x > 0)
+      { // swipe right
+
+        register_code(KC_S);
+        unregister_code(KC_S);
+        // state = SWIPING;
+      }
+
+      else
+      { // swipe left
+        // register_code(KC_LANG2);
+        // unregister_code(KC_LANG2);
+        register_code(KC_W);
+        unregister_code(KC_W);
+        // state = SWIPING;
+      }
+      // state = SWIPING;
     }
 
-    else
-    { // swipe left
-      register_code(KC_LANG2);
-      unregister_code(KC_LANG2);
+    if (abs(x) < abs(y))
+    {
+      if (y > 0)
+      { // swipe down
+        register_code(KC_V);
+        unregister_code(KC_V);
+        // state = SWIPING;
+      }
+      else
+      { // swipe up
+        // register_code(KC_ESC);
+        // unregister_code(KC_ESC);
+        register_code(KC_H);
+        unregister_code(KC_H);
+        // state = SWIPING;
+      }
+      // state = SWIPING;
     }
   }
-  else
-  {
-    if (y > 0)
-    { // swipe down
-      register_code(KC_ESC);
-      unregister_code(KC_ESC);
-    }
-    else
-    { // swipe up
-      register_code(KC_ESC);
-      unregister_code(KC_ESC);
-    }
-  }
+  // if (abs(x) == 0 || abs(y) == 0)
+  // {
+  //   register_code(gesture_key);
+  //   unregister_code(gesture_key);
+  //   return;
+  // }
 }
 
 ////////////////////////////////////
@@ -198,84 +244,6 @@ void process_swipe_gesture(int16_t x, int16_t y)
 /// スワイプジェスチャーの実装 ここまで
 ///
 ////////////////////////////////////
-
-// ball_stateの設定
-report_mouse_t pointing_device_task_user(report_mouse_t mouse_report)
-{
-  int16_t current_x = mouse_report.x;
-  int16_t current_y = mouse_report.y;
-
-  if (current_x != 0 || current_y != 0)
-  {
-
-    switch (state)
-    {
-    case CLICKABLE:
-      click_timer = timer_read();
-      break;
-
-    case CLICKING:
-      break;
-
-    case WAITING:
-      mouse_movement += my_abs(current_x) + my_abs(current_y);
-
-      if (mouse_movement >= to_clickable_movement)
-      {
-        mouse_movement = 0;
-        enable_click_layer();
-      }
-      break;
-
-    case SWIPE:
-      swipe_x += current_x;
-      swipe_y += current_y;
-      break;
-
-    default:
-      click_timer = timer_read();
-      state = WAITING;
-      mouse_movement = 0;
-    }
-  }
-  else
-  {
-    switch (state)
-    {
-    case CLICKING:
-      break;
-
-    case CLICKABLE:
-      if (timer_elapsed(click_timer) > to_reset_time)
-      {
-        disable_click_layer();
-      }
-      break;
-
-    case WAITING:
-      if (timer_elapsed(click_timer) > 50)
-      {
-        mouse_movement = 0;
-        state = NONE;
-      }
-      break;
-
-    case SWIPE:
-      swipe_x += current_x;
-      swipe_y += current_y;
-      break;
-
-    default:
-      mouse_movement = 0;
-      state = NONE;
-    }
-  }
-
-  mouse_report.x = current_x;
-  mouse_report.y = current_y;
-
-  return mouse_report;
-}
 
 // マクロキーを設定
 bool process_record_user(uint16_t keycode, keyrecord_t *record)
@@ -335,21 +303,44 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record)
 
   // クリックすると、is_swipe_gesture が true に設定されます
   // 離したら、is_swipe_gesture、swipe_x、swipe_y をリセットし、process_swipe_gesture を呼び出します。
-  case KC_GESTURE:
-  case gesture_key:
+  // case KC_GESTURE:
+  // case gesture_key:
+  case KC_D:
+  case KC_F:
+    // const uint16_t gesture_key = KC_D; // ここで指定されたキーを押すとスワイプモードになる
+
     if (record->event.pressed)
     {
+      is_swiped = false;
       state = SWIPE;
+      current_keycode = keycode;
       rgblight_sethsv(HSV_RED);
+      if (is_swiped == false)
+      {
+        register_code(keycode);
+        unregister_code(keycode);
+        // return true;
+        // return false;
+      }
     }
     else
     {
       rgblight_sethsv(HSV_OFF);
-      process_swipe_gesture(swipe_x, swipe_y);
-      swipe_x = 0;
-      swipe_y = 0;
+      // process_swipe_gesture(swipe_x, swipe_y);
+      // swipe_x = 0;
+      // swipe_y = 0;
       disable_click_layer();
+      // state = NONE;
+
+      // if (is_swiped == true)
+      // {
+      //   return false;
+      // }
     }
+    // if (is_swiped == true)
+    // {
+    //   return false;
+    // }
     return false;
 
   default:
@@ -361,6 +352,122 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record)
   }
 
   return true;
+}
+
+// ball_stateの設定
+report_mouse_t pointing_device_task_user(report_mouse_t mouse_report)
+{
+  int16_t current_x = mouse_report.x;
+  int16_t current_y = mouse_report.y;
+
+  if (current_x != 0 || current_y != 0)
+  {
+
+    switch (state)
+    {
+    case CLICKABLE:
+      click_timer = timer_read();
+      break;
+
+    case CLICKING:
+      break;
+
+    case WAITING:
+      mouse_movement += my_abs(current_x) + my_abs(current_y);
+
+      if (mouse_movement >= to_clickable_movement)
+      {
+        mouse_movement = 0;
+        enable_click_layer();
+      }
+      break;
+
+    case SWIPE:
+      click_timer = timer_read();
+      rgblight_sethsv(HSV_RED);
+      swipe_x += current_x;
+      swipe_y += current_y;
+      // mouse_movement += my_abs(swipe_x) + my_abs(swipe_y);
+
+      // if (mouse_movement >= SWIPE_THRESHOLD)
+      // if (abs(swipe_x) < SWIPE_THRESHOLD && abs(swipe_y) < SWIPE_THRESHOLD)
+      if (my_abs(swipe_x) >= SWIPE_THRESHOLD || my_abs(swipe_y) >= SWIPE_THRESHOLD)
+      {
+        rgblight_sethsv(HSV_BLUE);
+        process_swipe_gesture(swipe_x, swipe_y);
+        state = SWIPING;
+        is_swiped = true;
+        mouse_movement = 0;
+        // swipe_x = 0;
+        // swipe_y = 0;
+      }
+      break;
+      ;
+
+    case SWIPING:
+      break;
+
+    default:
+      click_timer = timer_read();
+      state = WAITING;
+      mouse_movement = 0;
+    }
+  }
+  else
+  {
+    switch (state)
+    {
+    case CLICKING:
+      break;
+
+    case CLICKABLE:
+      if (timer_elapsed(click_timer) > to_reset_time)
+      {
+        disable_click_layer();
+      }
+      break;
+
+    case WAITING:
+      if (timer_elapsed(click_timer) > 50)
+      {
+        mouse_movement = 0;
+        state = NONE;
+      }
+      break;
+
+    case SWIPE:
+      // swipe_x += current_x;
+      // swipe_y += current_y;
+      // if (timer_elapsed(click_timer) > to_reset_time)
+      // {
+      //   rgblight_sethsv(HSV_OFF);
+      //   disable_click_layer();
+      swipe_x = 0;
+      swipe_y = 0;
+      // }
+      break;
+
+    case SWIPING:
+      if (timer_elapsed(click_timer) > 300)
+      {
+        rgblight_sethsv(HSV_RED);
+        // mouse_movement = 0;
+        // swipe_x = 0;
+        // swipe_y = 0;
+        state = SWIPE;
+      }
+      break;
+
+    default:
+      mouse_movement = 0;
+      state = NONE;
+    }
+  }
+
+  mouse_report.x = current_x;
+  mouse_report.y = current_y;
+
+  return mouse_report;
 }
 
 // clang-format off
@@ -470,6 +577,9 @@ void oledkit_render_info_user(void)
     break;
   case SWIPE:
     oled_write_ln_P(PSTR("  SWIPE"), false);
+    break;
+  case SWIPING:
+    oled_write_ln_P(PSTR("  SWIPING"), false);
     break;
   }
 }
