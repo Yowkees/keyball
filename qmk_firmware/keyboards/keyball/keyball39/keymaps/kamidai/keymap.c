@@ -18,7 +18,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #include QMK_KEYBOARD_H
 #include "quantum.h"
-#include <stdlib.h>
 
 // コード表
 // 【KBC_RST: 0x5DA5】Keyball 設定のリセット
@@ -37,7 +36,6 @@ enum custom_keycodes
   KC_MY_BTN1 = KEYBALL_SAFE_RANGE, // Remap上では 0x5DAF
   KC_MY_BTN2,                      // Remap上では 0x5DB0
   KC_MY_BTN3,                      // Remap上では 0x5DB1
-  KC_GESTURE                       // Remap上では 0x5DB2
 };
 
 // 自前の絶対数を返す関数。 Functions that return absolute numbers.
@@ -47,7 +45,6 @@ int16_t my_abs(int16_t num)
   {
     num = -num;
   }
-
   return num;
 }
 
@@ -58,7 +55,6 @@ int16_t mmouse_move_y_sign(int16_t num)
   {
     return -1;
   }
-
   return 1;
 }
 
@@ -132,45 +128,20 @@ bool is_clickable_mode(void)
 ////////////////////////////////////
 
 // 変数
-int16_t swipe_x = 0;
-int16_t swipe_y = 0;
 int16_t current_keycode;
 const int16_t SWIPE_THRESHOLD = 10;
 bool is_swiped = false;
-
-// state が SWIPE の間だけで、トラックボールの x と y の動きを合計する
-void process_mouse_user(report_mouse_t *mouse_report, int16_t x, int16_t y)
-{
-  switch (state)
-  {
-  case SWIPE:
-    swipe_x += x;
-    swipe_y += y;
-    return;
-
-  default:
-    return;
-  }
-}
 
 // スワイプジェスチャーで何が起こるかを実際に処理する関数です
 // 上、下、左、右、スワイプなしの5つのオプションがあります
 void process_swipe_gesture(int16_t x, int16_t y)
 {
-  if (abs(x) < SWIPE_THRESHOLD && abs(y) < SWIPE_THRESHOLD)
-  {
-    // no swipe
-    // register_code(gesture_key);
-    // unregister_code(gesture_key);
-    return;
-  }
-
   if (current_keycode == KC_D)
   {
     register_code(KC_BSPC);
     unregister_code(KC_BSPC);
 
-    if (abs(x) > abs(y))
+    if (my_abs(x) > my_abs(y))
     {
       if (x > 0)
       { // swipe right
@@ -191,52 +162,35 @@ void process_swipe_gesture(int16_t x, int16_t y)
     register_code(KC_BSPC);
     unregister_code(KC_BSPC);
 
-    if (abs(x) > abs(y))
+    if (my_abs(x) > my_abs(y))
     {
       if (x > 0)
       { // swipe right
-
         register_code(KC_S);
         unregister_code(KC_S);
-        // state = SWIPING;
       }
 
       else
       { // swipe left
-        // register_code(KC_LANG2);
-        // unregister_code(KC_LANG2);
         register_code(KC_W);
         unregister_code(KC_W);
-        // state = SWIPING;
       }
-      // state = SWIPING;
     }
 
-    if (abs(x) < abs(y))
+    if (my_abs(x) < my_abs(y))
     {
       if (y > 0)
       { // swipe down
         register_code(KC_V);
         unregister_code(KC_V);
-        // state = SWIPING;
       }
       else
       { // swipe up
-        // register_code(KC_ESC);
-        // unregister_code(KC_ESC);
         register_code(KC_H);
         unregister_code(KC_H);
-        // state = SWIPING;
       }
-      // state = SWIPING;
     }
   }
-  // if (abs(x) == 0 || abs(y) == 0)
-  // {
-  //   register_code(gesture_key);
-  //   unregister_code(gesture_key);
-  //   return;
-  // }
 }
 
 ////////////////////////////////////
@@ -301,46 +255,27 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record)
     }
   }
 
-  // クリックすると、is_swipe_gesture が true に設定されます
-  // 離したら、is_swipe_gesture、swipe_x、swipe_y をリセットし、process_swipe_gesture を呼び出します。
-  // case KC_GESTURE:
-  // case gesture_key:
+  // クリックすると state が SWIPE になり、離したら NONE になる
   case KC_D:
-  case KC_F:
-    // const uint16_t gesture_key = KC_D; // ここで指定されたキーを押すとスワイプモードになる
-
     if (record->event.pressed)
     {
-      is_swiped = false;
+      // キーダウン時
+      // スワイプ操作が可能です
       state = SWIPE;
+      is_swiped = false;
       current_keycode = keycode;
-      rgblight_sethsv(HSV_RED);
+
       if (is_swiped == false)
       {
         register_code(keycode);
         unregister_code(keycode);
-        // return true;
-        // return false;
       }
     }
     else
     {
-      rgblight_sethsv(HSV_OFF);
-      // process_swipe_gesture(swipe_x, swipe_y);
-      // swipe_x = 0;
-      // swipe_y = 0;
+      // キーアップ時
       disable_click_layer();
-      // state = NONE;
-
-      // if (is_swiped == true)
-      // {
-      //   return false;
-      // }
     }
-    // if (is_swiped == true)
-    // {
-    //   return false;
-    // }
     return false;
 
   default:
@@ -384,22 +319,13 @@ report_mouse_t pointing_device_task_user(report_mouse_t mouse_report)
 
     case SWIPE:
       click_timer = timer_read();
-      rgblight_sethsv(HSV_RED);
-      swipe_x += current_x;
-      swipe_y += current_y;
-      // mouse_movement += my_abs(swipe_x) + my_abs(swipe_y);
 
-      // if (mouse_movement >= SWIPE_THRESHOLD)
-      // if (abs(swipe_x) < SWIPE_THRESHOLD && abs(swipe_y) < SWIPE_THRESHOLD)
-      if (my_abs(swipe_x) >= SWIPE_THRESHOLD || my_abs(swipe_y) >= SWIPE_THRESHOLD)
+      if (my_abs(current_x) >= SWIPE_THRESHOLD || my_abs(current_y) >= SWIPE_THRESHOLD)
       {
         rgblight_sethsv(HSV_BLUE);
-        process_swipe_gesture(swipe_x, swipe_y);
+        process_swipe_gesture(current_x, current_y);
         state = SWIPING;
         is_swiped = true;
-        mouse_movement = 0;
-        // swipe_x = 0;
-        // swipe_y = 0;
       }
       break;
       ;
@@ -436,24 +362,12 @@ report_mouse_t pointing_device_task_user(report_mouse_t mouse_report)
       break;
 
     case SWIPE:
-      // swipe_x += current_x;
-      // swipe_y += current_y;
-      // if (timer_elapsed(click_timer) > to_reset_time)
-      // {
-      //   rgblight_sethsv(HSV_OFF);
-      //   disable_click_layer();
-      swipe_x = 0;
-      swipe_y = 0;
-      // }
+      rgblight_sethsv(HSV_RED);
       break;
 
     case SWIPING:
       if (timer_elapsed(click_timer) > 300)
       {
-        rgblight_sethsv(HSV_RED);
-        // mouse_movement = 0;
-        // swipe_x = 0;
-        // swipe_y = 0;
         state = SWIPE;
       }
       break;
@@ -477,7 +391,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 SFT_T(KC_TAB), KC_W     , KC_E     , KC_R     , KC_T     ,                            KC_Y     , KC_U     , KC_I     , KC_O     , SFT_T(KC_P),
    LT(2,KC_A), KC_S     , KC_D     , KC_F     , KC_G     ,                            KC_H     , KC_J     , KC_K     , KC_L     , LT(2,KC_SCOLON),
     KC_Z     , KC_X     , KC_C     , KC_V     , KC_B     ,                            KC_N     , KC_M     , KC_COMM  , KC_DOT   , KC_SLASH  ,
- KC_LALT ,KC_GESTURE, LT(1,KC_Q) , KC_SPACE ,CTL_T(KC_DEL), KC_ESC  ,      KC_BSPC  , KC_ENT   , _______  , _______  , _______  , LT(3,KC_ESC)
+    KC_LALT  ,KC_F5, LT(1,KC_Q) , KC_SPACE ,CTL_T(KC_DEL), KC_ESC  ,      KC_BSPC  , KC_ENT   , _______  , _______  , _______  , LT(3,KC_ESC)
   ),
 
   [1] = LAYOUT_universal(
