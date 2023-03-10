@@ -131,10 +131,9 @@ bool is_swiped = false;
 // 上、下、左、右、スワイプなしの5つのオプションがあります
 void process_swipe_gesture(int16_t x, int16_t y)
 {
-  if (current_keycode == KC_D)
+  if (current_keycode == KC_LCMD)
   {
-    register_code(KC_BSPC);
-    unregister_code(KC_BSPC);
+    unregister_code(KC_LCMD);
 
     if (my_abs(x) > my_abs(y))
     {
@@ -152,7 +151,7 @@ void process_swipe_gesture(int16_t x, int16_t y)
     }
   }
 
-  if (current_keycode == KC_F)
+  if (current_keycode == KC_D)
   {
     register_code(KC_BSPC);
     unregister_code(KC_BSPC);
@@ -251,20 +250,38 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record)
   }
 
   // クリックすると state が SWIPE になり、離したら NONE になる
-  case KC_D:
+  // HOLD系
+  case KC_LCMD:
     if (record->event.pressed)
     {
       // キーダウン時
-      // スワイプ操作が可能です
+      // スワイプ操作が可能
       state = SWIPE;
       is_swiped = false;
       current_keycode = keycode;
 
-      if (is_swiped == false)
-      {
-        register_code(keycode);
-        unregister_code(keycode);
-      }
+      register_code(keycode);
+    }
+    else
+    {
+      // キーアップ時
+      unregister_code(keycode);
+      disable_click_layer();
+    }
+    return false;
+
+  // TAP系
+  case KC_D:
+    if (record->event.pressed)
+    {
+      // キーダウン時
+      // スワイプ操作が可能
+      state = SWIPE;
+      is_swiped = false;
+      current_keycode = keycode;
+
+      register_code(keycode);
+      unregister_code(keycode);
     }
     else
     {
