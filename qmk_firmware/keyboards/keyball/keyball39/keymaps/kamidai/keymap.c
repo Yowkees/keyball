@@ -106,12 +106,6 @@ void disable_click_layer(void)
   layer_off(click_layer);
 }
 
-// 現在クリックが可能な状態か。 Is it currently clickable?
-bool is_clickable_mode(void)
-{
-  return state == CLICKABLE || state == CLICKING;
-}
-
 ////////////////////////////////////
 ///
 /// 自動マウスレイヤーの実装 ここまで
