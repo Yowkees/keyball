@@ -133,20 +133,29 @@ void process_swipe_gesture(int16_t x, int16_t y)
 {
   if (current_keycode == KC_LCMD)
   {
-    unregister_code(KC_LCMD);
-
     if (my_abs(x) > my_abs(y))
     {
+      unregister_code(KC_LCMD);
+
       if (x > 0)
       { // swipe right
-        register_code(KC_LANG1);
-        unregister_code(KC_LANG1);
+        tap_code(KC_LANG1);
       }
-
       else
       { // swipe left
-        register_code(KC_LANG2);
-        unregister_code(KC_LANG2);
+        tap_code(KC_LANG2);
+      }
+    }
+
+    if (my_abs(x) < my_abs(y))
+    {
+      if (y > 0)
+      { // swipe down
+        tap_code(KC_EQUAL);
+      }
+      else
+      { // swipe up
+        tap_code(KC_MINUS);
       }
     }
   }
@@ -265,7 +274,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record)
     else
     {
       // キーアップ時
-      unregister_code(keycode);
+      clear_mods();
       disable_click_layer();
     }
     return false;
