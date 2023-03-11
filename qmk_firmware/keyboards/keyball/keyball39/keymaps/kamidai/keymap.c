@@ -31,6 +31,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 // 【SCRL_DVI: 0x5DAD】スクロール除数を１つ上げます(max D7 = 1/128)← 最もスクロール遅い
 // 【SCRL_DVD: 0x5DAE】スクロール除数を１つ下げます(min D0 = 1/1)← 最もスクロール速い
 // https://github.com/kamiichi99/keyball/tree/main/qmk_firmware/keyboards/keyball/keyball39/keymaps/kamidai
+// https://shirogane-lab.com/collections/all
 
 enum custom_keycodes
 {
@@ -126,6 +127,7 @@ void disable_click_layer(void)
 int16_t current_keycode;
 const int16_t SWIPE_THRESHOLD = 10;
 bool is_swiped = false;
+bool is_repeat = false;
 
 // スワイプジェスチャーで何が起こるかを実際に処理する関数です
 // 上、下、左、右、スワイプなしの5つのオプションがあります
@@ -134,7 +136,7 @@ void process_swipe_gesture(int16_t x, int16_t y)
   if (current_keycode == KC_LCMD)
   {
     if (my_abs(x) > my_abs(y))
-    {
+    { // 英かな切り替え
       unregister_code(KC_LCMD);
 
       if (x > 0)
@@ -148,7 +150,7 @@ void process_swipe_gesture(int16_t x, int16_t y)
     }
 
     if (my_abs(x) < my_abs(y))
-    {
+    { // 拡大と縮小
       if (y > 0)
       { // swipe down
         tap_code(KC_EQUAL);
@@ -161,22 +163,16 @@ void process_swipe_gesture(int16_t x, int16_t y)
   }
 
   if (current_keycode == KC_D)
-  {
-    register_code(KC_BSPC);
-    unregister_code(KC_BSPC);
-
+  { // カーソル移動
     if (my_abs(x) > my_abs(y))
     {
       if (x > 0)
       { // swipe right
-        register_code(KC_S);
-        unregister_code(KC_S);
+        tap_code(KC_RIGHT);
       }
-
       else
       { // swipe left
-        register_code(KC_W);
-        unregister_code(KC_W);
+        tap_code(KC_LEFT);
       }
     }
 
@@ -184,13 +180,41 @@ void process_swipe_gesture(int16_t x, int16_t y)
     {
       if (y > 0)
       { // swipe down
-        register_code(KC_V);
-        unregister_code(KC_V);
+        tap_code(KC_DOWN);
       }
       else
       { // swipe up
-        register_code(KC_H);
-        unregister_code(KC_H);
+        tap_code(KC_UP);
+      }
+    }
+  }
+
+  if (current_keycode == KC_T)
+  { // フリック風
+    tap_code(KC_BSPC);
+
+    if (my_abs(x) > my_abs(y))
+    {
+      if (x > 0)
+      { // swipe right
+        tap_code(KC_S);
+      }
+
+      else
+      { // swipe left
+        tap_code(KC_W);
+      }
+    }
+
+    if (my_abs(x) < my_abs(y))
+    {
+      if (y > 0)
+      { // swipe down
+        tap_code(KC_V);
+      }
+      else
+      { // swipe up
+        tap_code(KC_H);
       }
     }
   }
@@ -205,6 +229,8 @@ void process_swipe_gesture(int16_t x, int16_t y)
 // マクロキーを設定
 bool process_record_user(uint16_t keycode, keyrecord_t *record)
 {
+  current_keycode = keycode;
+
   switch (keycode)
   {
   case KC_MY_BTN1:
@@ -259,16 +285,12 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record)
   }
 
   // クリックすると state が SWIPE になり、離したら NONE になる
-  // HOLD系
+  // MOD系
   case KC_LCMD:
     if (record->event.pressed)
     {
       // キーダウン時
-      // スワイプ操作が可能
       state = SWIPE;
-      is_swiped = false;
-      current_keycode = keycode;
-
       register_code(keycode);
     }
     else
@@ -279,23 +301,40 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record)
     }
     return false;
 
-  // TAP系
-  case KC_D:
+  // TAP系（フリック風）
+  case KC_T:
     if (record->event.pressed)
     {
       // キーダウン時
-      // スワイプ操作が可能
       state = SWIPE;
-      is_swiped = false;
-      current_keycode = keycode;
-
-      register_code(keycode);
-      unregister_code(keycode);
+      tap_code(keycode);
     }
     else
     {
       // キーアップ時
       disable_click_layer();
+    }
+    return false;
+
+  // TAP系（キーリピートあり）
+  case KC_D:
+    if (record->event.pressed)
+    {
+      // キーダウン時
+      state = SWIPE;
+      is_repeat = true;
+    }
+    else
+    {
+      // キーアップ時
+      if (is_swiped == false)
+      {
+        tap_code(keycode);
+      }
+
+      disable_click_layer();
+      is_swiped = false;
+      is_repeat = false;
     }
     return false;
 
@@ -345,8 +384,12 @@ report_mouse_t pointing_device_task_user(report_mouse_t mouse_report)
       {
         rgblight_sethsv(HSV_BLUE);
         process_swipe_gesture(current_x, current_y);
-        state = SWIPING;
         is_swiped = true;
+
+        if (is_repeat == false)
+        {
+          state = SWIPING;
+        }
       }
       break;
       ;
