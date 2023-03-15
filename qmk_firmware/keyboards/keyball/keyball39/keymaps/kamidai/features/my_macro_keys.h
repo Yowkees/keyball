@@ -66,6 +66,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record)
   // クリックすると state が SWIPE になり、離したら NONE になる
   // MOD系
   case KC_LCMD:
+  case KC_LALT:
     if (record->event.pressed)
     {
       // キーダウン時
@@ -77,11 +78,53 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record)
       // キーアップ時
       clear_mods();
       disable_click_layer();
+      is_repeat = false;
     }
     return false;
 
+  // TAP系
+  case KC_E:
+    if (record->event.pressed)
+    {
+      // キーダウン時
+      state = SWIPE;
+      tap_code(keycode);
+    }
+    else
+    {
+      // キーアップ時
+      if (is_swiped == true)
+      {
+        tap_code(KC_BSPC);
+      }
+      disable_click_layer();
+      is_swiped = false;
+    }
+    return false;
+
+  // TAP系（キーリピートあり）
+  // case LT(2, KC_ESC):
+  //   if (record->event.pressed)
+  //   {
+  //     // キーダウン時
+  //     state = SWIPE;
+  //     tap_code(keycode);
+  //   }
+  //   else
+  //   {
+  //     // キーアップ時
+  //     if (is_swiped == true)
+  //     {
+  //       tap_code(KC_BSPC);
+  //     }
+  //     disable_click_layer();
+  //     is_repeat = false;
+  //     is_swiped = false;
+  //   }
+  //   return false;
+
   // TAP系（フリック風）
-  case KC_T:
+  case KC_S:
     if (record->event.pressed)
     {
       // キーダウン時
@@ -92,28 +135,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record)
     {
       // キーアップ時
       disable_click_layer();
-    }
-    return false;
-
-  // TAP系（キーリピートあり）
-  case KC_D:
-    if (record->event.pressed)
-    {
-      // キーダウン時
-      state = SWIPE;
-      is_repeat = true;
-    }
-    else
-    {
-      // キーアップ時
-      if (is_swiped == false)
-      {
-        tap_code(keycode);
-      }
-
-      disable_click_layer();
-      is_swiped = false;
-      is_repeat = false;
     }
     return false;
 

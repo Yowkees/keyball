@@ -15,6 +15,7 @@ bool is_repeat = false;
 // 上、下、左、右、スワイプなしの5つのオプションがあります
 void process_swipe_gesture(int16_t x, int16_t y)
 {
+  // LCMD
   if (current_keycode == KC_LCMD)
   {
     if (my_abs(x) > my_abs(y))
@@ -44,17 +45,26 @@ void process_swipe_gesture(int16_t x, int16_t y)
     }
   }
 
-  if (current_keycode == KC_D)
-  { // カーソル移動
+  // D
+  if (current_keycode == KC_LALT)
+  { //
+    unregister_code(KC_LALT);
+
     if (my_abs(x) > my_abs(y))
     {
+      // is_repeat = false;
+
       if (x > 0)
       { // swipe right
-        tap_code(KC_RIGHT);
+        register_code(KC_LCMD);
+        tap_code(KC_RBRACKET);
+        unregister_code(KC_LCMD);
       }
       else
       { // swipe left
-        tap_code(KC_LEFT);
+        register_code(KC_LCMD);
+        tap_code(KC_LBRACKET);
+        unregister_code(KC_LCMD);
       }
     }
 
@@ -62,29 +72,34 @@ void process_swipe_gesture(int16_t x, int16_t y)
     {
       if (y > 0)
       { // swipe down
-        tap_code(KC_DOWN);
+        register_code(KC_LCMD);
+        tap_code(KC_2);
+        unregister_code(KC_LCMD);
       }
       else
       { // swipe up
-        tap_code(KC_UP);
+        register_code(KC_LCMD);
+        tap_code(KC_1);
+        unregister_code(KC_LCMD);
       }
+      // is_repeat = true;
     }
   }
-
-  if (current_keycode == KC_T)
-  { // フリック風
+  // S
+  if (current_keycode == KC_S)
+  {
     tap_code(KC_BSPC);
 
     if (my_abs(x) > my_abs(y))
     {
       if (x > 0)
       { // swipe right
-        tap_code(KC_S);
+        tap_code(KC_RBRACKET);
       }
 
       else
       { // swipe left
-        tap_code(KC_W);
+        tap_code(KC_LBRACKET);
       }
     }
 
