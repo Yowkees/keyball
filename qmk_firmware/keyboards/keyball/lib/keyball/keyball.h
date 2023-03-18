@@ -71,7 +71,11 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 // Types
 
 enum keyball_keycodes {
+#ifdef VIA_ENABLED
+    KBC_RST = USER00, // Keyball configuration: reset to default
+#else
     KBC_RST = SAFE_RANGE, // Keyball configuration: reset to default
+#endif
     KBC_SAVE,             // Keyball configuration: save to EEPROM
 
     CPI_I100, // CPI +100 CPI
@@ -88,6 +92,8 @@ enum keyball_keycodes {
 
     KEYBALL_SAFE_RANGE,
 };
+
+
 
 typedef union {
     uint32_t raw;
