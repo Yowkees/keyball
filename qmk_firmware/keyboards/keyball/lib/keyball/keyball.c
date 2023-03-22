@@ -407,6 +407,28 @@ void keyball_oled_render_keyinfo(void) {
 #endif
 }
 
+void keyball_oled_render_layerinfo(void) {
+#ifdef OLED_ENABLE
+    // Format: `Layer: {layer}`
+    //
+    // Output example:
+    //
+    //     Layer: 0
+    //
+    oled_write_P(PSTR("Layer: "), false);
+    layer_state_t layer = layer_state;
+    for (uint8_t i = 0; i < 8; i++) {
+        if (layer & 1) {
+            oled_write_char('#', false);
+        } else {
+            oled_write_char('-', false);
+        }
+        layer >>= 1;
+    }
+    oled_advance_page(true);
+#endif
+}
+
 //////////////////////////////////////////////////////////////////////////////
 // Public API functions
 
