@@ -407,6 +407,28 @@ void keyball_oled_render_keyinfo(void) {
 #endif
 }
 
+void keyball_oled_render_layerinfo(void) {
+#ifdef OLED_ENABLE
+    // Format: `Layer: --{layer}---}`
+    //
+    // Output example:
+    //
+    //     Layer: ----4---
+    //
+    oled_write_P(PSTR("Layer: "), false);
+    layer_state_t layer = layer_state;
+    for (uint8_t i = 0; i < 8; i++) {
+        if (layer & 1) {
+            oled_write_char('0' + i, false);
+        } else {
+            oled_write_char('-', false);
+        }
+        layer >>= 1;
+    }
+    oled_advance_page(true);
+#endif
+}
+
 //////////////////////////////////////////////////////////////////////////////
 // Public API functions
 
@@ -497,14 +519,14 @@ bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
 
     switch (keycode) {
 #ifndef MOUSEKEY_ENABLE
-        // process KC_MS_BTN1~8 by myself
-        // See process_action() in quantum/action.c for details.
-        case KC_MS_BTN1 ... KC_MS_BTN8: {
-            extern void register_button(bool, enum mouse_buttons);
-            register_button(record->event.pressed, MOUSE_BTN_MASK(keycode - KC_MS_BTN1));
-            // to apply QK_MODS actions, allow to process others.
-            return true;
-        }
+        // // process KC_MS_BTN1~8 by myself
+        // // See process_action() in quantum/action.c for details.
+        // case KC_MS_BTN1 ... KC_MS_BTN8: {
+        //     extern void register_mouse(uint8_t mouse_keycode, bool pressed);
+        //     register_mouse(keycode, record->event.pressed);
+        //     // to apply QK_MODS actions, allow to process others.
+        //     return true;
+        // }
 #endif
 
         case SCRL_MO:

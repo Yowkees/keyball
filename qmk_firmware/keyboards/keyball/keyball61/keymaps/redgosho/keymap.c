@@ -53,12 +53,31 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     _______  , _______  , SCRL_DVD , SCRL_DVI , SCRL_MO  , SCRL_TO  , EE_CLR  ,            EE_CLR  , KC_HOME  , KC_PGDN  , KC_PGUP  , KC_END   , _______  , _______  ,
     QK_BOOT    , _______  , KC_LEFT  , KC_DOWN  , KC_UP    , KC_RGHT  , _______  ,            _______  , KC_BSPC  , _______  , _______  , _______  , _______  , QK_BOOT
   ),
+
+  [4] = LAYOUT_universal(
+    _______  , _______  , _______  , _______  , _______  , _______  ,                                  _______  , _______  , _______  , _______  , _______  , _______  ,
+    _______  , _______  , _______  , _______  , _______  , _______  ,                                  _______  , _______  , _______  , _______  , _______  , _______  ,
+    _______  , _______  , _______  , _______  , _______  , _______  ,                                  _______  , KC_BTN1  , KC_BTN2  , _______  , _______  , _______  ,
+    _______  , _______  , _______  , _______  , _______  , _______  , _______  ,            _______  , _______  , _______  , _______  , _______  , _______  , _______  ,
+    _______  , _______  , _______  , _______  , _______  , _______  , _______  ,            _______  , _______  , _______  , _______  , _______  , _______  , _______
+  ),
 };
 // clang-format on
 
 layer_state_t layer_state_set_user(layer_state_t state) {
-    // Auto enable scroll mode when the highest layer is 3
-    keyball_set_scroll_mode(get_highest_layer(state) == 3);
+    switch(get_highest_layer(remove_auto_mouse_layer(state, true))) {
+        case 3:
+            // Auto enable scroll mode when the highest layer is 3
+            // remove_auto_mouse_target must be called to adjust state *before* setting enable
+            state = remove_auto_mouse_layer(state, false);
+            set_auto_mouse_enable(false);
+            keyball_set_scroll_mode(true);
+            break;
+        default:
+            set_auto_mouse_enable(true);
+            keyball_set_scroll_mode(false);
+            break;
+    }
     return state;
 }
 
@@ -67,7 +86,13 @@ layer_state_t layer_state_set_user(layer_state_t state) {
 #    include "lib/oledkit/oledkit.h"
 
 void oledkit_render_info_user(void) {
+    keyball_oled_render_layerinfo();
     keyball_oled_render_keyinfo();
     keyball_oled_render_ballinfo();
 }
 #endif
+
+void pointing_device_init_user(void) {
+    // set_auto_mouse_layer(<mouse_layer>); // only required if AUTO_MOUSE_DEFAULT_LAYER is not set to index of <mouse_layer>
+    set_auto_mouse_enable(true);         // always required before the auto mouse feature will work
+}
