@@ -419,7 +419,7 @@ void keyball_oled_render_layerinfo(void) {
     layer_state_t layer = layer_state;
     for (uint8_t i = 0; i < 8; i++) {
         if (layer & 1) {
-            oled_write_char('#', false);
+            oled_write_char('0' + i, false);
         } else {
             oled_write_char('-', false);
         }
