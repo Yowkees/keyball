@@ -68,25 +68,25 @@ layer_state_t layer_state_set_user(layer_state_t state) {
     uint8_t rgb_layer = biton32(state);
     uint8_t layer = get_highest_layer(remove_auto_mouse_layer(state, true));
     bool is_scroll_mode_layer = (layer == 3);
+
+    // Set RGB LED color based on the active layer
+    HSV hsv_color;
+    switch (rgb_layer) {
+      case 0: hsv_color = (HSV){ .h = 0, .s = 255, .v = 255 };     break;
+      case 1: hsv_color = (HSV){ .h = 213, .s = 255, .v = 255 };   break;
+      case 2: hsv_color = (HSV){ .h = 170, .s = 255, .v = 255 };   break;
+      case 3: hsv_color = (HSV){ .h = 128, .s = 255, .v = 255 };   break;
+      case 4: hsv_color = (HSV){ .h = 0, .s = 0, .v = 255 };       break;
+      default: hsv_color = (HSV){ .h = 0, .s = 255, .v = 255 };    break;
+    }
+    rgblight_sethsv(hsv_color.h, hsv_color.s, hsv_color.v);
+
+    // Set auto mouse and scroll mode based on the layer
     set_auto_mouse_enable(!is_scroll_mode_layer);
     keyball_set_scroll_mode(is_scroll_mode_layer);
-    switch (rgb_layer) {
-        case 0:
-            rgblight_sethsv(HSV_RED);
-            break;
-        case 1:
-            rgblight_sethsv(HSV_MAGENTA);
-            break;
-        case 2:
-            rgblight_sethsv(HSV_BLUE);
-            break;
-        case 3:
-            rgblight_sethsv(HSV_CYAN);
-            state = remove_auto_mouse_layer(state, false);
-            break;
-        case 4:
-            rgblight_sethsv(HSV_WHITE);
-            break;
+
+    if (is_scroll_mode_layer) {
+        state = remove_auto_mouse_layer(state, false);
     }
     return state;
 }
