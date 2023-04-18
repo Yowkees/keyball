@@ -191,6 +191,31 @@ static void motion_to_mouse_scroll(keyball_motion_t *m, report_mouse_t *r, bool 
         r->h = 0;
     }
 #endif
+
+#if KEYBALL_LINEARSCROLL_ENABLE && !(KEYBALL_SCROLLSNAP_ENABLE)
+    uint32_t now = timer_read32();
+    // set scrolling flag
+    if ((!keyball.is_scrolling_h && !keyball.is_scrolling_v)
+        || TIMER_DIFF_32(now, keyball.linearscroll_set_time) < KEYBALL_LINEARSCROLL_ALLOW_TIMER) {
+        if (!keyball.is_scrolling_h && !keyball.is_scrolling_v) {
+            keyball.linearscroll_set_time = now;
+        }
+        if (r->h != 0) keyball.is_scrolling_h = true;
+        if (r->v != 0) keyball.is_scrolling_v = true;
+    }
+    // reset scrolling flag
+    if (r->h == 0 && r->v == 0) {
+        if (TIMER_DIFF_32(now, keyball.linearscroll_reset_time) >= KEYBALL_LINEARSCROLL_RESET_TIMER) {
+            keyball.is_scrolling_h = false;
+            keyball.is_scrolling_v = false;
+        }
+    } else {
+        keyball.linearscroll_reset_time = now;
+    }
+    // block scrolling by flag
+    if (!keyball.is_scrolling_h) r->h = 0;
+    if (!keyball.is_scrolling_v) r->v = 0;
+#endif
 }
 
 static void motion_to_mouse(keyball_motion_t *m, report_mouse_t *r, bool is_left, bool as_scroll) {

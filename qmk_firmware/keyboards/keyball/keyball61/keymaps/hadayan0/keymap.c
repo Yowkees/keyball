@@ -189,13 +189,21 @@ void keyball_oled_render_ballinfo_inv(bool is_inverted) {
 void keyball_oled_render_layerinfo_inv(bool is_inverted) {
     oled_write_P(PSTR("Layer: "), is_inverted);
     oled_write_char(current_layer + '0', is_inverted);
-    oled_write_P(PSTR("             "), is_inverted);
+    oled_write_P(PSTR("  "), is_inverted);
+}
+
+void keyball_oled_render_scrollinfo_inv(bool is_inverted) {
+    oled_write_P(PSTR("Scroll: "), is_inverted);
+    oled_write_char(keyball.is_scrolling_h ? '-' : ' ', is_inverted);
+    oled_write_char(keyball.is_scrolling_v ? '|' : ' ', is_inverted);
+    oled_write_P(PSTR(" "), is_inverted);
 }
 
 void oledkit_render_info_user(void) {
     keyball_oled_render_keyinfo_inv(is_current_layer_mouse());
     keyball_oled_render_ballinfo_inv(is_current_layer_mouse());
     keyball_oled_render_layerinfo_inv(is_current_layer_mouse());
+    keyball_oled_render_scrollinfo_inv(is_current_layer_mouse());
 }
 
 #endif
