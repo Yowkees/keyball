@@ -84,3 +84,13 @@ void pointing_device_task() {
     pointing_device_set_report(local_mouse_report);
     pointing_device_send();
 }
+
+#ifdef OLED_ENABLE
+
+#    include "lib/oledkit/oledkit.h"
+
+void oledkit_render_info_user(void) {
+    keyball_oled_render_keyinfo();
+    keyball_oled_render_ballinfo();
+}
+#endif
