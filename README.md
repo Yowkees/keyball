@@ -22,7 +22,7 @@ Keyball61 provides some keymaps as default:
 1. Check out this repository.
 
     ```console
-    $ git clone https://github.com/Code-Hex/keyball.git keyball
+    $ git clone https://github.com/Code-Hex/ble-micro-pro-keyball61.git keyball
     ```
 
 2. Check out [sekigon-gonnoc/qmk_firmware](https://github.com/sekigon-gonnoc/qmk_firmware) repository in another place.
