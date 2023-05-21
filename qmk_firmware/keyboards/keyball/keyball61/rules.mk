@@ -3,7 +3,6 @@ MCU_FAMILY = NRF52
 MCU_SERIES = NRF52840
 MCU_LDSCRIPT = nrf52840_ao
 MCU = cortex-m4
-CUSTOM_MATRIX = yes # This flag should be on for nrf52
 
 # Bootloader selection
 BOOTLOADER = caterina
@@ -14,14 +13,16 @@ LTO_ENABLE = yes
 # Build Options
 BOOTMAGIC_ENABLE = no       # Enable Bootmagic Lite
 EXTRAKEY_ENABLE = no        # Audio control and System control
-CONSOLE_ENABLE = no         # Console for debug
+CONSOLE_ENABLE = yes        # Console for debug. Should be enabled for BLE Micro Pro
 COMMAND_ENABLE = no         # Commands for debug and configuration
 NKRO_ENABLE = no            # Enable N-Key Rollover
 BACKLIGHT_ENABLE = no       # Enable keyboard backlight functionality
 AUDIO_ENABLE = no           # Audio output
+MOUSE_SHARED_EP = no        # Should be disabled for BLE Micro Pro
+COMBO_ENABLE = yes          # Should be enabled for BLE Micro Pro
 
 # Keyball61 is duplex matrix, uses custom matrix.
-CUSTOM_MATRIX = lite
+CUSTOM_MATRIX = yes # for BLE Micro Pro
 SRC += matrix.c
 
 # Keyball61 is split keyboard.
