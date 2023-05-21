@@ -44,20 +44,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #    define PMW3360_SCLK 16
 #endif
 
-#ifndef PMW3360_LIFTOFF_DISTANCE
-#    define PMW3360_LIFTOFF_DISTANCE 0x02
-#endif
-
-#ifndef ROTATIONAL_TRANSFORM_ANGLE
-#    define ROTATIONAL_TRANSFORM_ANGLE 0x00
-#endif
-
-/// DEBUG_PMW3360_SCAN_RATE enables scan performance counter.
-/// It records scan count in a last second and enables pmw3360_scan_rate_get().
-/// Additionally, it will be logged automatically when defined CONSOLE_ENABLE
-/// and `debug_enable = true`.
-//#define DEBUG_PMW3360_SCAN_RATE
-
 //////////////////////////////////////////////////////////////////////////////
 // Top level API
 

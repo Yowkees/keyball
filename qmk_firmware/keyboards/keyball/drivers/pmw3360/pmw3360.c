@@ -28,24 +28,13 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 void spi_start() {
     setPinOutput(PMW3360_NCS_PIN);
     writePinLow(PMW3360_NCS_PIN);
+    wait_us(1);
 }
 
 void spi_stop() {
+    wait_us(1);
     setPinOutput(PMW3360_NCS_PIN);
     writePinHigh(PMW3360_NCS_PIN);
-}
-
-//////////////////////////////////////////////////////////////////////////////
-// SPIM operations
-
-void spim_write(uint8_t data) {
-    BMPAPI->spim.start(&data, 1, NULL, 0, 0xFF);
-}
-
-uint8_t spim_read() {
-    uint8_t data = 0x00;
-    BMPAPI->spim.start(&data, 1, NULL, 0, 0xFF);
-    return data;
 }
 
 // clang-format off
@@ -58,15 +47,8 @@ bmp_api_spim_config_t config = {
 };
 // clang-format on
 
-bool pmw3360_spi_start(void) {
-    spi_start();
-    // tNCS-SCLK, 10ns
-    wait_us(1);
-    return true;
-}
-
 uint8_t pmw3360_reg_read(uint8_t addr) {
-    pmw3360_spi_start();
+    spi_start();
     // send adress of the register, with MSBit = 0 to indicate it's a read
     uint8_t snd = addr & 0x7f;
     BMPAPI->spim.start(&snd, 1, NULL, 0, 0xFF);
@@ -85,7 +67,7 @@ uint8_t pmw3360_reg_read(uint8_t addr) {
 }
 
 void pmw3360_reg_write(uint8_t addr, uint8_t data) {
-    pmw3360_spi_start();
+    spi_start();
     uint8_t snd[] = {addr | 0x80, data};
     BMPAPI->spim.start(snd, sizeof(snd), NULL, 0, 0xFF);
 
@@ -147,8 +129,9 @@ bool pmw3360_motion_burst(pmw3360_motion_t *d) {
 #ifdef DEBUG_PMW3360_SCAN_RATE
     pmw3360_scan_perf_task();
 #endif
-    pmw3360_spi_start();
-    spim_write(pmw3360_Motion_Burst);
+    spi_start();
+    uint8_t snd = pmw3360_Motion_Burst;
+    BMPAPI->spim.start(&snd, 1, NULL, 0, 0xFF);
     wait_us(35);
 
     uint8_t data[] = {0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF};
@@ -184,7 +167,7 @@ bool pmw3360_init(void) {
     // reboot
     // power up, need to first drive NCS high then low.
     // the datasheet does not say for how long, 40us works well in practice.
-    pmw3360_spi_start();
+    spi_start();
     wait_us(40);
     spi_stop();
     wait_us(40);
@@ -205,5 +188,6 @@ bool pmw3360_init(void) {
     // pmw3360_reg_write(pmw3360_Lift_Config, PMW3360_LIFTOFF_DISTANCE);
     uint8_t pid   = pmw3360_reg_read(pmw3360_Product_ID);
     uint8_t rev   = pmw3360_reg_read(pmw3360_Revision_ID);
+    spi_stop();
     return pid == 0x42 && rev == 0x01;
 }
