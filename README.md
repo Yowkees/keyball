@@ -1,49 +1,57 @@
-# keyball
+# BLE Micro Pro Keyball61
 
-Keyball is split keyboard has 100% track ball
+![Keyball61](https://raw.githubusercontent.com/Yowkees/keyball/f24aaa449eee3eb635794630aac0181600e94af0/keyball61/doc/rev1/images/kb61_001.jpg)
 
-## Firmware build guide
+A split keyboard with 61 vertically staggered keys and 34mm track ball with [BLE Micro Pro](https://sekigon-gonnoc.github.io/BLE-Micro-Pro/#/).
 
-Keyball46 have separate firmwares for each of PCBs w/ trackball and w/o
-trackball.  You can build those with this commands in root of QMK firmware
-source tree.
-
-```console
-$ make keyball/rev1/ball:via
-$ make keyball/rev1/noball:via
-```
-
-You will get two files:
-
-* `keyball_rev1_ball_via.hex` - Trackball PCB firmware with VIA support.
-* `keyball_rev1_noball_via.hex` - No trackball PCB firmware with VIA support.
-
-Write each firmwares to correct PCB's Pro Micro.
-
-In generally, you can build fimwares with this command.
-
-```console
-$ make keyball/rev1/ball:{YOUR_FAVORITE_KEYMAP}
-$ make keyball/rev1/noball:{YOUR_FAVORITE_KEYMAP}
-```
+* Keyboard firmware Maintainer: [@codehex](https://twitter.com/codehex)
+* Original Keyboard Maintainer: [@Yowkees](https://twitter.com/Yowkees)
+* Hardware Supported: Keyball61 PCB, BLE Micro Pro
+* Hardware Availability:
+  * <https://shirogane-lab.com/>
 
 ### Keyamaps
 
-Keyball46 provides some keymaps as default:
+Keyball61 provides some keymaps as default:
 
-* `via` - VIA support, trackball is on right side
-* `via_Left` - VIA support, trackball is on left side
-* `test` - Test for building/soldering Keyball46 (w/ right trackball)
+* `test` - Test for building/soldering Keyball61 (w/ right trackball)
 * `default` - Template for customized keymap (w/ right trackball)
 
-### Prerequirements to build firmware
+## How to build firmware
 
-1. Checkout [QMK firmware source codes](https://github.com/qmk/qmk_firmware)
-2. Setup QMK correctly ([See also](https://beta.docs.qmk.fm/tutorial/newbs_getting_started))
-3. Copy `./qmk_firmware/keyboards/keyball/` directory in this repository to QMK firmware's dir as `{QMK_FIRMWARE_ROOT}/keyboards/keyball`.
-4. Build Keyball46 firmwares (See above section)
+1. Check out this repository.
 
     ```console
-    $ make keyball/rev1/ball:via
-    $ make keyball/rev1/noball:via
+    $ git clone https://github.com/Code-Hex/keyball.git keyball
     ```
+
+2. Check out [sekigon-gonnoc/qmk_firmware](https://github.com/sekigon-gonnoc/qmk_firmware) repository in another place.
+
+    ```console
+    $ git clone https://github.com/sekigon-gonnoc/qmk_firmware.git --depth 1 --recurse-submodules --shallow-submodules -b bmp-0.11.3 qmk
+    ```
+
+    Currently BLE Micro Pro Keyball firmwares are verified to compile with bmp-0.11.3
+
+3. Create a symbolic link to this `keyball/` directory from [sekigon-gonnoc/qmk_firmware]'s `keyboards/` directory.
+
+    ```console
+    $ ls
+    keyball/ qmk/
+
+    $ cd qmk/keyboards
+    $ ln -s ../../keyball/qmk_firmware/keyboards/keyball keyball
+    $ ls keyball/
+    drivers/  keyball61/  lib/  readme.md
+    $ cd ..
+    ```
+
+4. `make` your Keyball firmwares.
+
+    ```console
+    $ make -j8 SKIP_GIT=yes keyball/keyball61:default
+    ```
+
+## How to create your keymap
+
+(to be documented)
