@@ -1,5 +1,9 @@
 # MCU name
-MCU = atmega32u4
+MCU_FAMILY = NRF52
+MCU_SERIES = NRF52840
+MCU_LDSCRIPT = nrf52840_ao
+MCU = cortex-m4
+CUSTOM_MATRIX = yes # This flag should be on for nrf52
 
 # Bootloader selection
 BOOTLOADER = caterina
@@ -27,7 +31,7 @@ SPLIT_KEYBOARD = yes
 POINTING_DEVICE_ENABLE = yes
 POINTING_DEVICE_DRIVER = custom
 SRC += drivers/pmw3360/pmw3360.c
-QUANTUM_LIB_SRC += spi_master.c # Optical sensor use SPI to communicate
+# QUANTUM_LIB_SRC += spi_master.c # Optical sensor use SPI to communicate
 
 # This is unnecessary for processing KC_MS_BTN*.
 MOUSEKEY_ENABLE = no
@@ -51,3 +55,6 @@ SRC += lib/keyball/keyball.c
 # Disable other features to squeeze firmware size
 SPACE_CADET_ENABLE = no
 MAGIC_ENABLE = no
+
+# Support bmp keyboard configuration
+SRC += lib/bmp/keyboard.c

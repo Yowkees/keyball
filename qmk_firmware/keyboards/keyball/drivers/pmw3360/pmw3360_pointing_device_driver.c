@@ -15,7 +15,6 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#include "pointing_device.h"
 #include "pmw3360.h"
 
 bool pmw3360_has = false;
@@ -36,6 +35,9 @@ report_mouse_t pointing_device_driver_get_report(report_mouse_t mouse_report) {
     return mouse_report;
 }
 
+// Might be unused :D
+// https://github.com/sekigon-gonnoc/qmk_firmware/blob/04e1ca4fc4d3ebe5389e19dc022c8feef28ab757/quantum/pointing_device.h
+//
 uint16_t pointing_device_driver_get_cpi(void) {
     if (!pmw3360_has) {
         return 0;

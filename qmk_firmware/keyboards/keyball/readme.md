@@ -21,18 +21,18 @@ See each directories for each keyboards in a table above.
 1. Check out this repository.
 
     ```console
-    $ git clone https://github.com/Yowkees/keyball.git keyball
+    $ git clone https://github.com/Code-Hex/keyball.git keyball
     ```
 
-2. Check out [qmk/qmk_firmware](https://github.com/qmk/qmk_firmware/) repository in another place.
+2. Check out [sekigon-gonnoc/qmk_firmware](https://github.com/sekigon-gonnoc/qmk_firmware) repository in another place.
 
     ```console
-    $ git clone https://github.com/qmk/qmk_firmware.git --depth 1 --recurse-submodules --shallow-submodules -b 0.15.13 qmk
+    $ git clone https://github.com/sekigon-gonnoc/qmk_firmware.git --depth 1 --recurse-submodules --shallow-submodules -b bmp-0.11.3 qmk
     ```
 
-    Currently Keyball firmwares are verified to compile with QMK 0.16.13
+    Currently Keyball firmwares are verified to compile with bmp-0.11.3
 
-3. Create a symbolic link to this `keyball/` directory from [qmk/qmk_firmware]'s `keyboards/` directory.
+3. Create a symbolic link to this `keyball/` directory from [sekigon-gonnoc/qmk_firmware]'s `keyboards/` directory.
 
     ```console
     $ ls

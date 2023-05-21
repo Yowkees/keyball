@@ -22,6 +22,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #include "keyball.h"
 #include "drivers/pmw3360/pmw3360.h"
+#include "lib/bmp/keyboard.h"
 
 const uint8_t CPI_DEFAULT    = KEYBALL_CPI_DEFAULT / 100;
 const uint8_t CPI_MAX        = pmw3360_MAXCPI + 1;
@@ -64,38 +65,6 @@ static int16_t add16(int16_t a, int16_t b) {
 // clip2int8 clips an integer fit into int8_t.
 static inline int8_t clip2int8(int16_t v) {
     return (v) < -127 ? -127 : (v) > 127 ? 127 : (int8_t)v;
-}
-
-static const char *format_4d(int8_t d) {
-    static char buf[5] = {0}; // max width (4) + NUL (1)
-    char        lead   = ' ';
-    if (d < 0) {
-        d    = -d;
-        lead = '-';
-    }
-    buf[3] = (d % 10) + '0';
-    d /= 10;
-    if (d == 0) {
-        buf[2] = lead;
-        lead   = ' ';
-    } else {
-        buf[2] = (d % 10) + '0';
-        d /= 10;
-    }
-    if (d == 0) {
-        buf[1] = lead;
-        lead   = ' ';
-    } else {
-        buf[1] = (d % 10) + '0';
-        d /= 10;
-    }
-    buf[0] = lead;
-    return buf;
-}
-
-static char to_1x(uint8_t x) {
-    x &= 0x0f;
-    return x < 10 ? x + '0' : x + 'a' - 10;
 }
 
 static void add_cpi(int8_t delta) {
@@ -346,6 +315,38 @@ const char PROGMEM code_to_name[] = {
     '_', '-', '=', '[', ']', '\\', '#', ';', '\'', '`',
     ',', '.', '/',
 };
+
+static char to_1x(uint8_t x) {
+    x &= 0x0f;
+    return x < 10 ? x + '0' : x + 'a' - 10;
+}
+
+static const char *format_4d(int8_t d) {
+    static char buf[5] = {0}; // max width (4) + NUL (1)
+    char        lead   = ' ';
+    if (d < 0) {
+        d    = -d;
+        lead = '-';
+    }
+    buf[3] = (d % 10) + '0';
+    d /= 10;
+    if (d == 0) {
+        buf[2] = lead;
+        lead   = ' ';
+    } else {
+        buf[2] = (d % 10) + '0';
+        d /= 10;
+    }
+    if (d == 0) {
+        buf[1] = lead;
+        lead   = ' ';
+    } else {
+        buf[1] = (d % 10) + '0';
+        d /= 10;
+    }
+    buf[0] = lead;
+    return buf;
+}
 // clang-format on
 #endif
 
@@ -429,11 +430,11 @@ void keyball_set_scroll_div(uint8_t div) {
     keyball.scroll_div = div > SCROLL_DIV_MAX ? SCROLL_DIV_MAX : div;
 }
 
-uint8_t keyball_get_cpi(void) {
+uint16_t keyball_get_cpi(void) {
     return keyball.cpi_value == 0 ? CPI_DEFAULT : keyball.cpi_value;
 }
 
-void keyball_set_cpi(uint8_t cpi) {
+void keyball_set_cpi(uint16_t cpi) {
     if (cpi > CPI_MAX) {
         cpi = CPI_MAX;
     }
@@ -481,7 +482,7 @@ void housekeeping_task_kb(void) {
 }
 #endif
 
-bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
+bool process_record_kb_bmp(uint16_t keycode, keyrecord_t *record) {
     // store last keycode, row, and col for OLED
     keyball.last_kc  = keycode;
     keyball.last_pos = record->event.key;
