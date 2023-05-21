@@ -17,21 +17,32 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #pragma once
 
+#include QMK_KEYBOARD_H
+
+// https://github.com/sekigon-gonnoc/qmk_firmware/blob/04e1ca4fc4d3ebe5389e19dc022c8feef28ab757/drivers/sensors/pmw3360.h#L23
+
 #include <stdint.h>
-#include "spi_master.h"
+#include <stdbool.h>
 
 //////////////////////////////////////////////////////////////////////////////
 // Configurations
+#define PMW3360_SPI_MODE 3
 
 #ifndef PMW3360_NCS_PIN
-#    define PMW3360_NCS_PIN B6
+#    define PMW3360_NCS_PIN 13
 #endif
 
-/// DEBUG_PMW3360_SCAN_RATE enables scan performance counter.
-/// It records scan count in a last second and enables pmw3360_scan_rate_get().
-/// Additionally, it will be logged automatically when defined CONSOLE_ENABLE
-/// and `debug_enable = true`.
-//#define DEBUG_PMW3360_SCAN_RATE
+#ifndef PMW3360_MOSI
+#    define PMW3360_MOSI 14
+#endif
+
+#ifndef PMW3360_MISO
+#    define PMW3360_MISO 15
+#endif
+
+#ifndef PMW3360_SCLK
+#    define PMW3360_SCLK 16
+#endif
 
 //////////////////////////////////////////////////////////////////////////////
 // Top level API
@@ -60,10 +71,10 @@ bool pmw3360_motion_burst(pmw3360_motion_t *d);
 uint32_t pmw3360_scan_rate_get(void);
 
 // TODO: document
-uint8_t pmw3360_cpi_get(void);
+uint16_t pmw3360_cpi_get(void);
 
 // TODO: document
-void pmw3360_cpi_set(uint8_t cpi);
+void pmw3360_cpi_set(uint16_t cpi);
 
 //////////////////////////////////////////////////////////////////////////////
 // Register operations
@@ -126,23 +137,12 @@ typedef enum {
     pmw3360_LiftCutoff_Tune2           = 0x65,
 } pmw3360_reg_t;
 
+#define CPI_STEP 100
+#define PMW3360_CPI 500U
+
 enum {
     pmw3360_MAXCPI = 0x77, // = 119: 12000 CPI
 };
 
-//////////////////////////////////////////////////////////////////////////////
-// SPI operations
-
-bool pmw3360_spi_start(void);
-
-void inline pmw3360_spi_stop(void) {
-    spi_stop();
-}
-
-spi_status_t inline pmw3360_spi_write(uint8_t data) {
-    return spi_write(data);
-}
-
-spi_status_t inline pmw3360_spi_read(void) {
-    return spi_read();
-}
+report_mouse_t pointing_device_driver_get_report(report_mouse_t mouse_report);
+void pointing_device_driver_init(void);

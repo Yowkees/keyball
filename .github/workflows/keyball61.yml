@@ -28,7 +28,7 @@ jobs:
 
     - run: qmk compile -j 4 -kb keyball/keyball61 -km test
 
-    - run: qmk compile -j 4 -kb keyball/keyball61 -km via
+    - run: qmk compile -j 4 -kb keyball/keyball61 -km bmp
 
     - name: Archive firmwares
       uses: actions/upload-artifact@v3

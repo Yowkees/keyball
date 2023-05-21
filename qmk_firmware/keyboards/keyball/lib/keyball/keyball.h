@@ -92,7 +92,7 @@ enum keyball_keycodes {
 typedef union {
     uint32_t raw;
     struct {
-        uint8_t cpi : 7;
+        uint16_t cpi : 7;
         uint8_t sdiv : 3; // scroll divider
     };
 } keyball_config_t;
@@ -166,7 +166,11 @@ uint8_t keyball_get_scroll_div(void);
 void keyball_set_scroll_div(uint8_t div);
 
 // TODO: document
-uint8_t keyball_get_cpi(void);
+uint16_t keyball_get_cpi(void);
 
 // TODO: document
-void keyball_set_cpi(uint8_t cpi);
+void keyball_set_cpi(uint16_t cpi);
+
+void pointing_device_driver_init(void);
+
+report_mouse_t pointing_device_driver_get_report(report_mouse_t rep);
