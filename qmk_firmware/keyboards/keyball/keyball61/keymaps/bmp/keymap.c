@@ -29,9 +29,13 @@ enum custom_keycodes {
 };
 
 const key_string_map_t custom_keys_user = {
-    .start_kc = LOWER, 
-    .end_kc = RAISE, 
-    .key_strings = "LOWER\0RAISE\0"
+    .start_kc = KBC_RST,
+    .end_kc = RAISE,
+    .key_strings =
+    "KBC_RST\0KBC_SAVE\0"
+    "CPI_I100\0CPI_D100\0CPI_I1K\0CPI_D1K\0"
+    "SCRL_TO\0SCRL_MO\0SCRL_DVI\0SCRL_DVD\0"
+    "LOWER\0RAISE\0"
 };
 
 enum layers { _BASE, _LOWER, _RAISE, _ADJUST };

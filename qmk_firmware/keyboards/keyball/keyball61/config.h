@@ -68,7 +68,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 #define MATRIX_ROW_PINS {7, 8, 9, 10, 11} // Dummy
 #define MATRIX_COL_PINS {20, 19, 18, 17}
-#define MATRIX_LAYOUT {1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,255}
+#define MATRIX_LAYOUT {1, 2, 3, 5, 6, 7, 47, 46, 45, 43, 42, 41, 0, 9, 10, 11, 13, 14, 15, 55, 54, 53, 51, 50, 49, 0, 17, 18, 19, 21, 22, 23, 63, 62, 61, 59, 58, 57, 0, 25, 26, 27, 29, 30, 31, 32, 72, 71, 70, 69, 67, 66, 65, 0, 33, 34, 35, 37, 38, 39, 40, 80, 79, 74, 73}
 #define MATRIX_MASKED
 
 #define KEYMAP_PRIOR_LOCALE 0
