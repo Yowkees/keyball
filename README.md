@@ -16,6 +16,7 @@ Keyball61 provides some keymaps as default:
 
 * `test` - Test for building/soldering Keyball61 (w/ right trackball)
 * `default` - Template for customized keymap (w/ right trackball)
+* `bmp` - Template for customized keymap (w/ right trackball and BLE Micro Pro custom keys)
 
 ## How to build firmware
 
@@ -54,4 +55,23 @@ Keyball61 provides some keymaps as default:
 
 ## How to create your keymap
 
-(to be documented)
+You should make keymap on https://sekigon-gonnoc.github.io/qmk_configurator
+
+Using `./layouts/KEYMAP.JSN` file as a base will likely make configuration easier.
+
+## Special keycodes
+
+Value    | Keycode    |Description
+---------|------------|------------------------------------------------------------------
+`0x5D62` | `KBC_RST`  |Reset Keyball configuration
+`0x5D63` | `KBC_SAVE` |Persist Keyball configuration to EEPROM
+`0x5D64` | `CPI_I100` |Increase 100 CPI (max 12000)
+`0x5D65` | `CPI_D100` |Decrease 100 CPI (min 100)
+`0x5D66` | `CPI_I1K`  |Increase 1000 CPI (max 12000)
+`0x5D67` | `CPI_D1K`  |Decrease 1000 CPI (min 100)
+`0x5D68` | `SCRL_TO`  |Toggle scroll mode
+`0x5D69` | `SCRL_MO`  |Enable scroll mode when pressing
+`0x5D6A` | `SCRL_DVI` |Increase scroll divider (max 7 = 1/128)
+`0x5D6B` | `SCRL_DVD` |Decrease scroll divider (min 0 = 1/1)
+
+*NOTE*: The values are for Remap
