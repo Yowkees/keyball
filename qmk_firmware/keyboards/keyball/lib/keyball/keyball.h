@@ -17,6 +17,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #pragma once
 
+#include "bmp_custom_keycode.h"
 //////////////////////////////////////////////////////////////////////////////
 // Configurations
 
@@ -71,7 +72,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 // Types
 
 enum keyball_keycodes {
-    KBC_RST = SAFE_RANGE, // Keyball configuration: reset to default
+    KBC_RST = BMP_SAFE_RANGE, // Keyball configuration: reset to default
     KBC_SAVE,             // Keyball configuration: save to EEPROM
 
     CPI_I100, // CPI +100 CPI
