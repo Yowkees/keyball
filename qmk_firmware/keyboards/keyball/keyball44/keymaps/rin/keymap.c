@@ -20,13 +20,107 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #include "quantum.h"
 
+enum custom_keycodes {
+  LCTL_NICOLA = SAFE_RANGE,
+  TO_DVORAK,
+  NICOLA_KA,
+  NICOLA_TA,
+  NICOLA_KO,
+  NICOLA_SA,
+  NICOLA_RA,
+  NICOLA_TI,
+  NICOLA_KU,
+  NICOLA_TU,
+  NICOLA_SI,
+  NICOLA_TE,
+  NICOLA_KE,
+  NICOLA_SE,
+  NICOLA_HA,
+  NICOLA_TO,
+  NICOLA_KI,
+  NICOLA_NN,
+  NICOLA_HI,
+  NICOLA_SU,
+  NICOLA_FU,
+  NICOLA_HE,
+  NICOLA_ME,
+  NICOLA_SO,
+  NICOLA_NE,
+  NICOLA_HO,
+};
+
+enum unicode_names {
+    MID_DOT,
+};
+
+const uint32_t PROGMEM unicode_map[] = {
+    [MID_DOT]  = 0x30FB  // ・
+};
+
+#define HANDLE_NICOLA_KEY(keyname, keystring) \
+    case NICOLA_##keyname: \
+        if (record->event.pressed) { \
+            SEND_STRING(keystring); \
+        } \
+        return false
+
+bool process_record_user(uint16_t keycode, keyrecord_t *record) {
+  static uint16_t lctl_timer;
+
+  switch (keycode) {
+    case LCTL_NICOLA:
+      if (record->event.pressed) {
+        lctl_timer = timer_read();
+        register_code(KC_LCTL);
+      } else {
+        unregister_code(KC_LCTL);
+        if (timer_elapsed(lctl_timer) < TAPPING_TERM) {
+          tap_code16(KC_LANG1);
+          layer_on(5);
+        }
+      }
+    case TO_DVORAK:
+      if (record->event.pressed) {
+        tap_code16(KC_LANG2);
+        layer_off(5);
+      }
+      return false;
+      HANDLE_NICOLA_KEY(KA, "ka");
+      HANDLE_NICOLA_KEY(TA, "ta");
+      HANDLE_NICOLA_KEY(KO, "ko");
+      HANDLE_NICOLA_KEY(SA, "sa");
+      HANDLE_NICOLA_KEY(RA, "ra");
+      HANDLE_NICOLA_KEY(TI, "ti");
+      HANDLE_NICOLA_KEY(KU, "ku");
+      HANDLE_NICOLA_KEY(TU, "tu");
+      HANDLE_NICOLA_KEY(SI, "si");
+      HANDLE_NICOLA_KEY(TE, "te");
+      HANDLE_NICOLA_KEY(KE, "ke");
+      HANDLE_NICOLA_KEY(SE, "se");
+      HANDLE_NICOLA_KEY(HA, "ha");
+      HANDLE_NICOLA_KEY(TO, "to");
+      HANDLE_NICOLA_KEY(KI, "ki");
+      HANDLE_NICOLA_KEY(NN, "nn");
+      HANDLE_NICOLA_KEY(HI, "hi");
+      HANDLE_NICOLA_KEY(SU, "su");
+      HANDLE_NICOLA_KEY(FU, "fu");
+      HANDLE_NICOLA_KEY(HE, "he");
+      HANDLE_NICOLA_KEY(ME, "me");
+      HANDLE_NICOLA_KEY(SO, "so");
+      HANDLE_NICOLA_KEY(NE, "ne");
+      HANDLE_NICOLA_KEY(HO, "ho");
+    default:
+      return true;
+  }
+}
+
 // clang-format off
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [0] = LAYOUT_universal(
     LGUI_T(KC_TAB), KC_QUOT  , KC_COMM  , KC_DOT   , KC_P     , KC_Y     ,                                        KC_F     , KC_G     , KC_C     , KC_R     , KC_L     , KC_SLSH  ,
     LCTL_T(KC_ESC), KC_A     , KC_O     , KC_E     , KC_U     , KC_I     ,                                        KC_D     , KC_H     , KC_T     , KC_N     , KC_S     , KC_MINS  ,
     KC_LSFT       , KC_SCLN  , KC_Q     , KC_J     , KC_K     , KC_X     ,                                        KC_B     , KC_M     , KC_W     , KC_V     , KC_Z     , RSFT_T(KC_BTN1),
-    LSFT_T(KC_CAPS), KC_LALT,     LT(3,KC_BTN1), LT(1,KC_SPC), LCTL_T(KC_LANG1),                    LT(2, KC_LANG2), RGUI_T(KC_SPC), _______ ,   _______,  LT(4,KC_ENT)
+       LSFT_T(KC_CAPS), KC_LALT,     LT(3,KC_BTN1), LT(1,KC_SPC), LCTL_NICOLA,                    LT(2, KC_LANG2), RGUI_T(KC_SPC), _______ ,   _______,  KC_ENT
   ),
 
   [1] = LAYOUT_universal(
@@ -39,7 +133,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [2] = LAYOUT_universal(
     _______  ,_______,        _______, KC_GRAVE, KC_QUOT  , KC_QUES ,                                          KC_EXLM , _______ , _______ , _______ , _______ , _______  ,
     _______  ,KC_BSLS, KC_LCBR  , KC_LBRC , KC_LPRN  , KC_LABK ,                                               KC_RABK , KC_RPRN  , KC_RBRC, KC_RCBR , KC_SLSH  , _______ ,
-    _______  ,KC_SCLN, _______  , KC_UNDS , KC_MINS  , KC_PIPE ,                                               KC_EQL  , KC_PLUS, KC_MINS  , KC_ASTR , KC_SLSH _______ ,
+    _______  ,KC_SCLN, _______  , KC_UNDS , KC_MINS  , KC_PIPE ,                                               KC_EQL  , KC_PLUS, KC_MINS  , KC_ASTR , KC_SLSH, _______ ,
                   _______ , _______  ,     _______ , _______  , _______  ,                              _______  , _______  , _______       , _______  , _______
   ),
 
@@ -54,6 +148,12 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     _______  , KC_SLSH  , KC_4     , KC_5    , KC_6  , KC_ASTR ,                                        _______  , _______  , _______  , _______  ,  _______  , _______ ,
     _______  , KC_MINS  , KC_1     , KC_2    , KC_3  , KC_PLUS ,                                        _______  , KC_LEFT  , KC_DOWN  , KC_RIGHT  , _______  , _______ ,
                   KC_0  , KC_0 ,   KC_DOT , KC_ENT  , KC_BSPC   ,                                        KC_EQL  , _______  , _______       , _______  , _______
+  ),
+  [5] = LAYOUT_universal(
+    _______  , KC_DOT , NICOLA_KA , NICOLA_TA , NICOLA_KO , NICOLA_SA ,                                        NICOLA_RA , NICOLA_TI  ,  NICOLA_KU , NICOLA_TU  ,  KC_COMM , _______ ,
+    _______  , KC_U   , NICOLA_SI   , NICOLA_TE , NICOLA_KE , NICOLA_SE ,                                NICOLA_HA , NICOLA_TO , NICOLA_KI , KC_I      ,  NICOLA_NN , _______ ,
+    _______  , _______, NICOLA_HI, NICOLA_SU, NICOLA_FU, NICOLA_HE,                                      NICOLA_ME , NICOLA_SO , NICOLA_NE , NICOLA_HO ,  MID_DOT   , _______ ,
+    KC_0  , KC_1 ,   KC_DOT , LT(1,KC_SPC)  , _______   ,                                        TO_DVORAK  , _______  , _______       , _______  , _______
   ),
 };
 // clang-format on
