@@ -1,7 +1,7 @@
 /*
 Copyright 2022 @Yowkees
 Copyright 2022 MURAOKA Taro (aka KoRoN, @kaoriya)
-Copyright 2023 kamidai <@d_kamiichi>
+Copyright 2023 kamidai (@d_kamiichi)
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -43,31 +43,31 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   // keymap for default
   [0] = LAYOUT_universal(
-SFT_T(KC_TAB), KC_W     , KC_E     , KC_R     , KC_T     ,                            KC_Y     , KC_U     , KC_I     , KC_O     , SFT_T(KC_P),
-   LT(2,KC_A), KC_S     , KC_D     , KC_F     , KC_G     ,                            KC_H     , KC_J     , KC_K     , KC_L     , LT(2,KC_SCOLON),
-    KC_Z     , KC_X     , KC_C     , KC_V     , KC_B     ,                            KC_N     , KC_M     , KC_COMM  , KC_DOT   , KC_SLASH  ,
-    KC_LALT  ,KC_F5, LT(1,KC_Q) , KC_SPACE ,CTL_T(KC_DEL), KC_ESC  ,      KC_BSPC  , KC_ENT   , _______  , _______  , _______  , LT(3,KC_ESC)
+    KC_TAB   , KC_A     , KC_E     , KC_R     , KC_T     ,                            KC_Y     , KC_U     , KC_I     , KC_O     , KC_P     ,
+    KC_Z     , KC_S     , KC_D     , KC_F     , KC_G     ,                            KC_H     , KC_J     , KC_K     , KC_L     , KC_MINUS ,
+    KC_V     , KC_X     , KC_C     ,LT(2,KC_W),LT(3,KC_B),                            KC_N     , KC_M     , KC_COMMA , KC_DOT   , KC_SLASH ,
+    LSFT_T(KC_LANG2), KC_LALT, LT(1,KC_ESC), LCMD_T(KC_SPACE), CTL_T(KC_Q),KC_F5,     KC_BSPC  , KC_ENT,_______,_______,_______, LT(1,KC_LANG1)
   ),
 
   [1] = LAYOUT_universal(
-    _______  , _______  , _______  , _______  , _______  ,                           G(KC_LBRC), _______  , G(KC_1)  , G(KC_2)  , _______  ,
-    _______  ,C(KC_LEFT), KC_LEFT  , KC_RIGHT,C(KC_RIGHT),                           G(KC_RBRC), KC_DOWN  , KC_UP    , G(KC_V)  , _______  ,
-    _______  , _______  , _______  , _______  , _______  ,                            G(KC_Z)  , G(KC_C)  , G(KC_X)  , G(KC_A)  ,SGUI(KC_Z),
-    _______  , _______  , _______  , _______  , _______  , _______  ,      _______  , _______  , _______  , _______  , _______  , _______
+    _______  , G(KC_A)  , _______  , _______  , _______  ,                            _______  , _______  , _______  , _______  , _______  ,
+    _______  , _______  , KC_LEFT  , KC_RIGHT , KC_SPACE ,                            _______  , KC_DOWN  , KC_UP    , G(KC_V)  , _______  ,
+    _______  , _______  , C(KC_LEFT), C(KC_RIGHT), _______  ,                         G(KC_Z)  , G(KC_C)  , G(KC_X)  , _______  , G(KC_SLASH),
+    _______, _______, _______, _______, _______, _______ ,                            _______  , _______  ,_______,_______,_______, _______
   ),
 
   [2] = LAYOUT_universal(
-    _______  , _______  , S(KC_1)  ,S(KC_SLSH), _______  ,                            KC_NUM   , KC_7     , KC_8     , KC_9     , KC_MINUS ,
-    KC_LBRC  , S(KC_9)  , S(KC_0)  , KC_RBRC  , KC_QUOTE ,                            KC_COMMA , KC_4     , KC_5     , KC_6     , KC_EQUAL ,
-    _______  , _______  , _______  , _______  , KC_SCOLON,                            KC_DOT	 , KC_1     , KC_2     , KC_3     ,KC_BSLS  ,
-    _______  , _______  , _______  , _______  , _______  , _______  ,      _______ ,  KC_0     , _______  , _______  , _______  , _______
+    _______  , _______  , _______  , KC_COMMA , KC_PDOT  ,                            KC_ESC   , KC_7     , KC_8     , KC_9     , KC_NUMLOCK,
+    _______  , _______  , KC_LEFT  , KC_RIGHT , KC_SPACE ,                            KC_PSLS  , KC_4     , KC_5     , KC_6     , KC_PPLS  ,
+    _______  , _______  , _______  , _______  , _______  ,                            KC_PMNS  , KC_1     , KC_2     , KC_3     , KC_PAST  ,
+    _______, _______, _______, _______, _______, _______ ,                            _______  , KC_0     ,_______,_______,_______, _______
   ),
 
   [3] = LAYOUT_universal(
-    RGB_TOG  , RGB_MOD  , RGB_RMOD , _______  , _______  ,                            RGB_M_P  , RGB_M_B  , RGB_M_R  , RGB_M_SW , RGB_M_SN ,
-    SCRL_DVD , SCRL_DVI , CPI_D100 , CPI_I100 , _______  ,                            RGB_M_K  , RGB_M_X  , RGB_M_G  , RGB_M_T  , RGB_M_TW ,
-    _______  , _______  , _______  , _______  , _______  ,                            _______  , _______  , _______  , _______  , _______  ,
-    RESET    , _______  , _______  , _______  , _______  , _______  ,      _______ ,  _______  , _______  , _______  , _______  , _______
+    KC_GRAVE , S(KC_2)  , S(KC_3)  , S(KC_4)  , S(KC_5)  ,                            S(KC_6)  , S(KC_7)  , S(KC_9)  , S(KC_0)  , S(KC_8)  ,
+    _______  , _______  , KC_LEFT  , KC_RIGHT , KC_SPACE ,                            S(KC_1)  , KC_QUOTE , KC_LBRC  , KC_RBRC  , KC_EQUAL ,
+    CPI_I100 , CPI_D100 , SCRL_DVI , SCRL_DVD , _______  ,                            KC_SCLN  , _______  , _______  , _______  , KC_BSLASH ,
+    _______, _______, _______, _______, RGB_TOG , RESET  ,                            _______  , _______  ,_______,_______,_______, _______
   ),
 
   [4] = LAYOUT_universal(
@@ -86,7 +86,7 @@ SFT_T(KC_TAB), KC_W     , KC_E     , KC_R     , KC_T     ,                      
 
   [6] = LAYOUT_universal(
     _______  , _______  , _______  , _______  , _______  ,                            _______  , _______  , _______  , _______  , _______  ,
-    _______  , _______  , _______  , _______  , _______  ,                            _______  ,KC_MY_BTN1, _______  ,KC_MY_BTN2, _______  ,
+    _______  , _______  , _______  , _______  , _______  ,                            _______  ,KC_MY_BTN1,KC_MY_BTN3,KC_MY_BTN2, _______  ,
     _______  , _______  , _______  , _______  , _______  ,                            _______  , _______  , _______  , _______  , _______  ,
     _______  , _______  , _______  , _______  , _______  , _______  ,      _______ ,  _______  , _______  , _______  , _______  , _______  
   )
@@ -96,8 +96,8 @@ SFT_T(KC_TAB), KC_W     , KC_E     , KC_R     , KC_T     ,                      
 layer_state_t layer_state_set_user(layer_state_t state)
 {
   // レイヤーが1または3の場合、スクロールモードが有効になる
-  // keyball_set_scroll_mode(get_highest_layer(state) == 3);
-  keyball_set_scroll_mode(get_highest_layer(state) == 1 || get_highest_layer(state) == 3);
+  // keyball_set_scroll_mode(get_highest_layer(state) == 1 || get_highest_layer(state) == 3);
+  keyball_set_scroll_mode(get_highest_layer(state) == 1);
 
   // レイヤーとLEDを連動させる
   uint8_t layer = biton32(state);

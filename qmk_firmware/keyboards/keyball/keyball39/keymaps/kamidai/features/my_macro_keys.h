@@ -60,24 +60,39 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record)
   }
 
   // 自動クリックレイヤーでLang1とLang2を押せるようにする
-  case KC_LANG1:
-  case KC_LANG2:
-  {
-    if (state == CLICKABLE)
-    {
-      if (record->event.pressed)
-      {
-        // キーダウン時
-        enable_click_layer();
-        return true;
-      }
-      else
-      {
-        // キーアップ時
-        disable_click_layer();
-      }
-    }
-  }
+  // case KC_LANG1:
+  // case KC_LANG2:
+  // {
+  //   if (state == CLICKABLE)
+  //   {
+  //     if (record->event.pressed)
+  //     {
+  //       // キーダウン時
+  //       enable_click_layer();
+  //       return true;
+  //     }
+  //     else
+  //     {
+  //       // キーアップ時
+  //       disable_click_layer();
+  //     }
+  //   }
+  // }
+
+  // 右shiftホールド中はスクロールモードにする
+  // case RSFT_T(KC_LANG1):
+  //   if (record->event.pressed)
+  //   {
+  //     // キーダウン時
+  //     disable_click_layer();
+  //     keyball_set_scroll_mode(true);
+  //   }
+  //   else
+  //   {
+  //     // キーアップ時
+  //     keyball_set_scroll_mode(false);
+  //   }
+  //   return true;
 
   // クリックすると state が SWIPE になり、離したら NONE になる
   // MOD系
@@ -98,61 +113,72 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record)
     }
     return false;
 
-  // TAP系
-  case KC_E:
+    // TAP系
+    // case KC_F:
+    // case KC_D:
+    // case KC_S:
+    // uint16_t alt_tab_timer = 0;
+
+  // モッドタップ系
+  case LSFT_T(KC_LANG2):
+  case LCMD_T(KC_SPACE):
     if (record->event.pressed)
     {
       // キーダウン時
       state = SWIPE;
-      tap_code(keycode);
     }
     else
     {
       // キーアップ時
-      if (is_swiped == true)
-      {
-        tap_code(KC_BSPC);
-      }
+      clear_mods();
       disable_click_layer();
+    }
+
+    if (is_swiped == true)
+    {
       is_swiped = false;
+      return false;
     }
-    return false;
-
-  // TAP系（キーリピートあり）
-  // case LT(2, KC_ESC):
-  //   if (record->event.pressed)
-  //   {
-  //     // キーダウン時
-  //     state = SWIPE;
-  //     tap_code(keycode);
-  //   }
-  //   else
-  //   {
-  //     // キーアップ時
-  //     if (is_swiped == true)
-  //     {
-  //       tap_code(KC_BSPC);
-  //     }
-  //     disable_click_layer();
-  //     is_repeat = false;
-  //     is_swiped = false;
-  //   }
-  //   return false;
-
-  // TAP系（フリック風）
-  case KC_S:
-    if (record->event.pressed)
+    if (is_swiped == false)
     {
-      // キーダウン時
-      state = SWIPE;
-      tap_code(keycode);
+      return true;
     }
-    else
-    {
-      // キーアップ時
-      disable_click_layer();
-    }
-    return false;
+
+    // TAP系（キーリピートあり）
+    // case LT(2, KC_ESC):
+    //   if (record->event.pressed)
+    //   {
+    //     // キーダウン時
+    //     state = SWIPE;
+    //     tap_code(keycode);
+    //   }
+    //   else
+    //   {
+    //     // キーアップ時
+    //     if (is_swiped == true)
+    //     {
+    //       tap_code(KC_BSPC);
+    //     }
+    //     disable_click_layer();
+    //     is_repeat = false;
+    //     is_swiped = false;
+    //   }
+    //   return false;
+
+    // TAP系（フリック風）
+    // case KC_S:
+    //   if (record->event.pressed)
+    //   {
+    //     // キーダウン時
+    //     state = SWIPE;
+    //     tap_code(keycode);
+    //   }
+    //   else
+    //   {
+    //     // キーアップ時
+    //     disable_click_layer();
+    //   }
+    //   return false;
 
   default:
     if (record->event.pressed)

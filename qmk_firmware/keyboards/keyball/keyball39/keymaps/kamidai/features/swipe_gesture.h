@@ -15,8 +15,11 @@ bool is_repeat = false;
 // 上、下、左、右、スワイプなしの5つのオプションがあります
 void process_swipe_gesture(int16_t x, int16_t y)
 {
-  // LCMD
-  if (current_keycode == KC_LCMD)
+
+  // #include "features/kamidai_hairetsu.h"
+
+  // Command
+  if (current_keycode == LCMD_T(KC_SPACE))
   {
     if (my_abs(x) > my_abs(y))
     { // 英かな切り替え
@@ -34,6 +37,8 @@ void process_swipe_gesture(int16_t x, int16_t y)
 
     if (my_abs(x) < my_abs(y))
     { // 拡大と縮小
+      register_code(KC_LCMD);
+
       if (y > 0)
       { // swipe down
         tap_code(KC_MINUS);
@@ -45,58 +50,18 @@ void process_swipe_gesture(int16_t x, int16_t y)
     }
   }
 
-  // D
-  if (current_keycode == KC_LALT)
-  { //
-    unregister_code(KC_LALT);
-
-    if (my_abs(x) > my_abs(y))
-    {
-      // is_repeat = false;
-
-      if (x > 0)
-      { // swipe right
-        register_code(KC_LCMD);
-        tap_code(KC_RBRACKET);
-        unregister_code(KC_LCMD);
-      }
-      else
-      { // swipe left
-        register_code(KC_LCMD);
-        tap_code(KC_LBRACKET);
-        unregister_code(KC_LCMD);
-      }
-    }
-
-    if (my_abs(x) < my_abs(y))
-    {
-      if (y > 0)
-      { // swipe down
-        register_code(KC_LCMD);
-        tap_code(KC_2);
-        unregister_code(KC_LCMD);
-      }
-      else
-      { // swipe up
-        register_code(KC_LCMD);
-        tap_code(KC_1);
-        unregister_code(KC_LCMD);
-      }
-      // is_repeat = true;
-    }
-  }
-  // S
-  if (current_keycode == KC_S)
+  // shift
+  if (current_keycode == LSFT_T(KC_LANG2))
   {
-    tap_code(KC_BSPC);
+    unregister_code(KC_LSFT);
+    register_code(KC_LCMD);
 
     if (my_abs(x) > my_abs(y))
-    {
+    { // 英かな切り替え
       if (x > 0)
       { // swipe right
         tap_code(KC_RBRACKET);
       }
-
       else
       { // swipe left
         tap_code(KC_LBRACKET);
@@ -104,15 +69,93 @@ void process_swipe_gesture(int16_t x, int16_t y)
     }
 
     if (my_abs(x) < my_abs(y))
-    {
+    { // 拡大と縮小
       if (y > 0)
       { // swipe down
-        tap_code(KC_V);
+        tap_code(KC_2);
       }
       else
       { // swipe up
-        tap_code(KC_H);
+        tap_code(KC_1);
       }
     }
   }
+
+  // alt
+  // if (current_keycode == KC_LALT)
+  // { //
+  //   unregister_code(KC_LALT);
+  //   // register_code(KC_LCMD);
+  //   register_code(KC_LCTL);
+
+  //   if (my_abs(x) > my_abs(y))
+  //   {
+  //     // is_repeat = false;
+  //     if (x > 0)
+  //     { // swipe right
+  //       // register_code16(HYPR(KC_RIGHT));
+  //       // tap_code(KC_RBRACKET);
+  //       tap_code(KC_LEFT);
+  //       // unregister_code(KC_LCMD);
+  //     }
+  //     else
+  //     { // swipe left
+  //       tap_code(KC_RIGHT);
+  //       // register_code16(HYPR(KC_LEFT));
+  //     }
+  //   }
+
+  //   if (my_abs(x) < my_abs(y))
+  //   {
+  //     if (y > 0)
+  //     { // swipe down
+  //       // register_code(KC_LCMD);
+  //       // register_code(KC_LCTL);
+  //       tap_code(KC_DOWN);
+  //       // unregister_code(KC_LCMD);
+  //       // unregister_code(KC_LCTL);
+  //     }
+  //     else
+  //     { // swipe up
+  //       // register_code(KC_LCMD);
+  //       // register_code(KC_LCTL);
+  //       tap_code(KC_UP);
+  //       // unregister_code(KC_LCMD);
+  //       // unregister_code(KC_LCTL);
+  //     }
+  //     // is_repeat = true;
+  //   }
+
+  //   // unregister_code(KC_LCMD);
+  //   unregister_code(KC_LCTL);
+  // }
+
+  // layer2 & a
+  // if (current_keycode == LT(2, KC_A))
+  // {
+  //   register_code(KC_LCMD);
+
+  //   if (my_abs(x) > my_abs(y))
+  //   { // 英かな切り替え
+  //     if (x > 0)
+  //     { // swipe right
+  //       tap_code(KC_RBRACKET);
+  //     }
+  //     else
+  //     { // swipe left
+  //       tap_code(KC_LBRACKET);
+  //     }
+  //   }
+
+  //   if (my_abs(x) < my_abs(y))
+  //   { // 拡大と縮小
+  //     if (y > 0)
+  //     { // swipe down
+  //       tap_code(KC_2);
+  //     }
+  //     else
+  //     { // swipe up
+  //       tap_code(KC_1);
+  //     }
+  //   }
 }
