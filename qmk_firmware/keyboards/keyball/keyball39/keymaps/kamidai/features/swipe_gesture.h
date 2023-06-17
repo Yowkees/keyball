@@ -22,17 +22,16 @@ void process_swipe_gesture(int16_t x, int16_t y)
   if (current_keycode == LCMD_T(KC_SPACE))
   {
     if (my_abs(x) > my_abs(y))
-    { // 英かな切り替え
+    { // 音声入力とsiri
       unregister_code(KC_LCMD);
-      register_code(KC_LCTRL);
 
-      if (x > 0)
-      { // swipe right
-        tap_code(KC_RIGHT);
+      if (x < 0)
+      { // swipe left: 音声入力
+        tap_code(KC_F5);
       }
       else
-      { // swipe left
-        tap_code(KC_LEFT);
+      { // swipe right: siri
+        register_code(KC_F5);
       }
     }
 
@@ -40,13 +39,13 @@ void process_swipe_gesture(int16_t x, int16_t y)
     { // 拡大と縮小
       register_code(KC_LCMD);
 
-      if (y > 0)
-      { // swipe down
-        tap_code(KC_MINUS);
+      if (y < 0)
+      { // swipe up: 拡大
+        tap_code(KC_EQUAL);
       }
       else
-      { // swipe up
-        tap_code(KC_EQUAL);
+      { // swipe down: 縮小
+        tap_code(KC_MINUS);
       }
     }
   }
@@ -63,25 +62,25 @@ void process_swipe_gesture(int16_t x, int16_t y)
 
     if (my_abs(x) > my_abs(y))
     { // ページの戻る、進む
-      if (x > 0)
-      { // swipe right
-        tap_code(KC_RBRACKET);
+      if (x < 0)
+      { // swipe left: 戻る
+        tap_code(KC_LBRACKET);
       }
       else
-      { // swipe left
-        tap_code(KC_LBRACKET);
+      { // swipe right: 進む
+        tap_code(KC_RBRACKET);
       }
     }
 
     if (my_abs(x) < my_abs(y))
     { // タブ移動（要、Mac側でのショートカット設定）
-      if (y > 0)
-      { // swipe down
-        tap_code(KC_2);
+      if (y < 0)
+      { // swipe up: 右のタブへ移動
+        tap_code(KC_1);
       }
       else
-      { // swipe up
-        tap_code(KC_1);
+      { // swipe down: 左のタブへ移動
+        tap_code(KC_2);
       }
     }
   }
@@ -90,30 +89,30 @@ void process_swipe_gesture(int16_t x, int16_t y)
   if (current_keycode == LCTL_T(KC_Q))
   {
     if (my_abs(x) > my_abs(y))
-    { // ウインドウのサイズ変更と移動
+    { // ウインドウのサイズ変更と移動（BetterTouchToolで設定）
       register_code(KC_LCMD);
 
-      if (x > 0)
-      { // swipe right
-        tap_code(KC_6);
+      if (x < 0)
+      { // swipe left: ウインドウを1/2サイズで左へ
+        tap_code(KC_4);
       }
       else
-      { // swipe left
-        tap_code(KC_4);
+      { // swipe right: ウインドウを1/2サイズで右へ
+        tap_code(KC_6);
       }
     }
 
     if (my_abs(x) < my_abs(y))
-    { // ウインドウのサイズ変更と移動s
+    { // ウインドウのサイズ変更と移動（BetterTouchToolで設定）
       register_code(KC_LCMD);
 
-      if (y > 0)
-      { // swipe down
-        tap_code(KC_2);
+      if (y < 0)
+      { // swipe up: ウィンドウを最大化
+        tap_code(KC_8);
       }
       else
-      { // swipe up
-        tap_code(KC_8);
+      { // swipe down: ウインドウを最小サイズで中央へ
+        tap_code(KC_2);
       }
     }
   }
