@@ -16,9 +16,10 @@
 
 enum custom_keycodes
 {
-  KC_MY_BTN1 = KEYBALL_SAFE_RANGE, // Remap上では 0x5DAF
-  KC_MY_BTN2,                      // Remap上では 0x5DB0
-  KC_MY_BTN3,                      // Remap上では 0x5DB1
+  KC_MY_BTN0 = KEYBALL_SAFE_RANGE, // Remap上では 0x5DAF（レイヤー0に遷移できるBTN1）
+  KC_MY_BTN1,                      // Remap上では 0x5DB0
+  KC_MY_BTN2,                      // Remap上では 0x5DB1
+  KC_MY_BTN3,                      // Remap上では 0x5DB2
 };
 
 // マクロキーを設定
@@ -28,6 +29,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record)
 
   switch (keycode)
   {
+  case KC_MY_BTN0:
   case KC_MY_BTN1:
   case KC_MY_BTN2:
   case KC_MY_BTN3:
@@ -52,6 +54,11 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record)
       // Bit AND compares the bits in the same position on the left and right sides of the operator and sets them to "1" only if both bits are "1" together.
       currentReport.buttons &= ~btn;
       enable_click_layer();
+
+      if (keycode == KC_MY_BTN0)
+      {
+        disable_click_layer();
+      }
     }
 
     pointing_device_set_report(currentReport);
