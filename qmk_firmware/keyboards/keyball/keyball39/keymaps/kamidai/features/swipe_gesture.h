@@ -24,14 +24,15 @@ void process_swipe_gesture(int16_t x, int16_t y)
     if (my_abs(x) > my_abs(y))
     { // 英かな切り替え
       unregister_code(KC_LCMD);
+      register_code(KC_LCTRL);
 
       if (x > 0)
       { // swipe right
-        tap_code(KC_LANG1);
+        tap_code(KC_RIGHT);
       }
       else
       { // swipe left
-        tap_code(KC_LANG2);
+        tap_code(KC_LEFT);
       }
     }
 
@@ -51,13 +52,17 @@ void process_swipe_gesture(int16_t x, int16_t y)
   }
 
   // shift
+  // if (current_keycode == LSFT_T(KC_LANG2) || current_keycode == LCTL_T(KC_Q) || current_keycode == LCMD_T(KC_SPACE))
+  // if (current_keycode == LSFT_T(KC_LANG2) || current_keycode == LCTL_T(KC_Q) || current_keycode == LCMD_T(KC_SPACE))
   if (current_keycode == LSFT_T(KC_LANG2))
+  // if (current_keycode == LCMD_T(KC_SPACE))
   {
     unregister_code(KC_LSFT);
+    // unregister_code(KC_LCTRL);
     register_code(KC_LCMD);
 
     if (my_abs(x) > my_abs(y))
-    { // 英かな切り替え
+    { // ページの戻る、進む
       if (x > 0)
       { // swipe right
         tap_code(KC_RBRACKET);
@@ -69,7 +74,7 @@ void process_swipe_gesture(int16_t x, int16_t y)
     }
 
     if (my_abs(x) < my_abs(y))
-    { // 拡大と縮小
+    { // タブ移動（要、Mac側でのショートカット設定）
       if (y > 0)
       { // swipe down
         tap_code(KC_2);
@@ -80,6 +85,70 @@ void process_swipe_gesture(int16_t x, int16_t y)
       }
     }
   }
+
+  // Ctrl
+  if (current_keycode == LCTL_T(KC_Q))
+  {
+    if (my_abs(x) > my_abs(y))
+    { // ウインドウのサイズ変更と移動
+      register_code(KC_LCMD);
+
+      if (x > 0)
+      { // swipe right
+        tap_code(KC_6);
+      }
+      else
+      { // swipe left
+        tap_code(KC_4);
+      }
+    }
+
+    if (my_abs(x) < my_abs(y))
+    { // ウインドウのサイズ変更と移動s
+      register_code(KC_LCMD);
+
+      if (y > 0)
+      { // swipe down
+        tap_code(KC_2);
+      }
+      else
+      { // swipe up
+        tap_code(KC_8);
+      }
+    }
+  }
+
+  // alt
+  // if (current_keycode == KC_LALT)
+  // {
+  //   if (my_abs(x) > my_abs(y))
+  //   { // ウインドウのサイズ変更と移動
+  //     register_code(KC_LCMD);
+
+  //     if (x > 0)
+  //     { // swipe right
+  //       tap_code(KC_6);
+  //     }
+  //     else
+  //     { // swipe left
+  //       tap_code(KC_4);
+  //     }
+  //   }
+
+  //   if (my_abs(x) < my_abs(y))
+  //   { // ウインドウのサイズ変更と移動s
+  //     register_code(KC_LCMD);
+
+  //     if (y > 0)
+  //     { // swipe down
+  //       tap_code(KC_2);
+  //     }
+  //     else
+  //     { // swipe up
+  //       tap_code(KC_8);
+  //     }
+  //   }
+  // }
 
   // alt
   // if (current_keycode == KC_LALT)
