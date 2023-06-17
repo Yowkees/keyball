@@ -148,6 +148,9 @@ void oledkit_render_info_user(void)
   case CLICKING:
     oled_write_ln_P(PSTR("  CLICKING"), false);
     break;
+  case CLICKED:
+    oled_write_ln_P(PSTR("  CLICKED"), false);
+    break;
   case SWIPE:
     oled_write_ln_P(PSTR("  SWIPE"), false);
     break;

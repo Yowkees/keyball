@@ -54,6 +54,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record)
       // Bit AND compares the bits in the same position on the left and right sides of the operator and sets them to "1" only if both bits are "1" together.
       currentReport.buttons &= ~btn;
       enable_click_layer();
+      state = CLICKED;
 
       if (keycode == KC_MY_BTN0)
       {

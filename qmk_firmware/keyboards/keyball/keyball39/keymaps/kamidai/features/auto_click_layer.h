@@ -11,7 +11,7 @@
  * GNU General Public License for more details.
  *
  * You should have received a copy of the GNU General Public License
- * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
 ////////////////////////////////////
@@ -28,6 +28,7 @@ enum ball_state
   WAITING,   // マウスレイヤーが有効になるのを待つ。 Wait for mouse layer to activate.
   CLICKABLE, // マウスレイヤー有効になりクリック入力が取れる。 Mouse layer is enabled to take click input.
   CLICKING,  // クリック中。 Clicking.
+  CLICKED,   // クリック直後。 Clicked.
   SWIPE,     // スワイプモードが有効になりスワイプ入力が取れる。 Swipe mode is enabled to take swipe input.
   SWIPING    // スワイプ中。 swiping.
 };
@@ -35,7 +36,8 @@ enum ball_state
 enum ball_state state; // 現在のクリック入力受付の状態 Current click input reception status
 uint16_t click_timer;  // タイマー。状態に応じて時間で判定する。 Timer. Time to determine the state of the system.
 
-uint16_t to_reset_time = 800; // この秒数(千分の一秒)、CLICKABLE状態ならクリックレイヤーが無効になる。 For this number of seconds (milliseconds), the click layer is disabled if in CLICKABLE state.
+uint16_t clicked_stay_time = 140;    // CLICKEDの滞在時間（千分の一秒)。その後、クリックレイヤーが無効になる。 For this number of seconds (milliseconds), the click layer is disabled if in CLICKED state.
+uint16_t clickable_stay_time = 1000; // CLICKABLEの滞在時間（千分の一秒)。その後、クリックレイヤーが無効になる。 For this number of seconds (milliseconds), the click layer is disabled if in CLICKABLE state.
 
 const int16_t to_clickable_movement = 0; // クリックレイヤーが有効になるしきい値
 const uint16_t click_layer = 6;          // マウス入力が可能になった際に有効になるレイヤー。Layers enabled when mouse input is enabled
@@ -123,8 +125,14 @@ report_mouse_t pointing_device_task_user(report_mouse_t mouse_report)
     case CLICKING:
       break;
 
+    case CLICKED:
+      if (timer_elapsed(click_timer) > clicked_stay_time)
+      {
+        disable_click_layer();
+      }
+      break;
     case CLICKABLE:
-      if (timer_elapsed(click_timer) > to_reset_time)
+      if (timer_elapsed(click_timer) > clickable_stay_time)
       {
         disable_click_layer();
       }
