@@ -11,13 +11,11 @@ const int16_t SWIPE_THRESHOLD = 10;
 bool is_swiped = false;
 bool is_repeat = false;
 
-// スワイプジェスチャーで何が起こるかを実際に処理する関数です
-// 上、下、左、右、スワイプなしの5つのオプションがあります
+// スワイプジェスチャーで何が起こるかを処理する関数です
+// 上、下、左、右の4つのオプションがあります
 void process_swipe_gesture(int16_t x, int16_t y) {
-  // #include "features/kamidai_hairetsu.h"
-
   // Command
-  if (current_keycode == LCMD_T(KC_SPACE)) {
+  if (current_keycode == CMD_T(KC_SPACE)) {
     // 拡大と縮小
     if (my_abs(x) < my_abs(y)) {
       register_code(KC_LCMD);
@@ -42,11 +40,10 @@ void process_swipe_gesture(int16_t x, int16_t y) {
   }
 
   // shift
-  // if (current_keycode == LSFT_T(KC_LANG2) || current_keycode == LCTL_T(KC_Q) || current_keycode == LCMD_T(KC_SPACE))
-  // if (current_keycode == LSFT_T(KC_LANG2) || current_keycode == LCTL_T(KC_Q) || current_keycode == LCMD_T(KC_SPACE))
-  if (current_keycode == LSFT_T(KC_LANG2))
-  // if (current_keycode == LCMD_T(KC_SPACE))
-  {
+  // if (current_keycode == SFT_T(KC_LANG2) || current_keycode == CTL_T(KC_Q) || current_keycode == CMD_T(KC_SPACE))
+  // if (current_keycode == SFT_T(KC_LANG2) || current_keycode == CTL_T(KC_Q) || current_keycode == CMD_T(KC_SPACE))
+  // if (current_keycode == CMD_T(KC_SPACE))
+  if (current_keycode == SFT_T(KC_LANG2)) {
     unregister_code(KC_LSFT);
     // unregister_code(KC_LCTRL);
     register_code(KC_LCMD);
@@ -72,7 +69,7 @@ void process_swipe_gesture(int16_t x, int16_t y) {
   }
 
   // Ctrl
-  if (current_keycode == LCTL_T(KC_F13)) {
+  if (current_keycode == CTL_T(KC_F14)) {
     // ウインドウのサイズ変更と移動
     // BetterTouchToolで設定が必要
     if (my_abs(x) < my_abs(y)) {

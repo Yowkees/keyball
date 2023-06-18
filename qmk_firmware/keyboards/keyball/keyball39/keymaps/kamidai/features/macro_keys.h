@@ -97,10 +97,9 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     // 以下スワイプジェスチャー
     // クリックすると state が SWIPE になり、離したら NONE になる
     // モッドタップ系
-    case LCMD_T(KC_SPACE):
-    case LSFT_T(KC_LANG2):
-      // case KC_LALT:
-    case LCTL_T(KC_F13): {
+    case CMD_T(KC_SPACE):
+    case SFT_T(KC_LANG2):
+    case CTL_T(KC_F14): {
       if (record->event.pressed) {
         // キーダウン時
         state = SWIPE;
