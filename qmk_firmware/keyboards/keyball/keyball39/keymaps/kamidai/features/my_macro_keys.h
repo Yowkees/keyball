@@ -130,7 +130,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record)
   // モッドタップ系
   case LCMD_T(KC_SPACE):
   case LSFT_T(KC_LANG2):
-  case LCTL_T(KC_Q):
+  case LCTL_T(KC_F13):
     // case KC_LALT:
     if (record->event.pressed)
     {
@@ -189,6 +189,22 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record)
     //     disable_click_layer();
     //   }
     //   return false;
+
+    // f13
+    // case LCTL_T(KC_F13):
+    //   if (record->event.pressed)
+    //   {
+    //     // キーが押されたとき
+    //     register_mods(MOD_LCTL | MOD_LSFT | MOD_LALT | MOD_LGUI); // Control, Shift, Option, そして Command を押す
+    //     register_code(KC_C);                                      // C を押す
+    //   }
+    //   else
+    //   {
+    //     // キーが離されたとき
+    //     unregister_code(KC_C);                                      // C を離す
+    //     unregister_mods(MOD_LCTL | MOD_LSFT | MOD_LALT | MOD_LGUI); // Control, Shift, Option, そして Command を離す
+    //   }
+    //   return false; // このキーの他の全ての処理をスキップする
 
   default:
     if (record->event.pressed)
