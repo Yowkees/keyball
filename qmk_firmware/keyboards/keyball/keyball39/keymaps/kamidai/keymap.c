@@ -56,7 +56,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [1] = LAYOUT_universal(
     _______  , G(KC_A)  , _______  , _______  , _______  ,                            _______  , _______  , _______  , _______  , _______  ,
     _______  , _______  , KC_LEFT  , KC_RIGHT , KC_SPACE ,                            _______  , KC_DOWN  , KC_UP    , G(KC_V)  , _______  ,
-    _______  , _______  , C(KC_LEFT), C(KC_RIGHT), _______  ,                         G(KC_Z)  , G(KC_C)  , G(KC_X)  , _______  , G(KC_SLASH),
+    _______  , _______  ,C(KC_LEFT), _______ ,C(KC_RIGHT),                       G(KC_Z)  , G(KC_C)  , G(KC_X)  , _______  , G(KC_SLASH),
     _______, _______, _______, _______, _______, _______ ,                            _______  , _______  ,_______,_______,_______, _______
   ),
 
@@ -97,22 +97,20 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 };
 // clang-format on
 
-layer_state_t layer_state_set_user(layer_state_t state)
-{
+layer_state_t layer_state_set_user(layer_state_t state) {
   // レイヤーが1または3の場合、スクロールモードが有効になる
   // keyball_set_scroll_mode(get_highest_layer(state) == 1 || get_highest_layer(state) == 3);
   keyball_set_scroll_mode(get_highest_layer(state) == 1);
 
   // レイヤーとLEDを連動させる
   uint8_t layer = biton32(state);
-  switch (layer)
-  {
-  case 6:
-    rgblight_sethsv(HSV_WHITE);
-    break;
+  switch (layer) {
+    case 6:
+      rgblight_sethsv(HSV_WHITE);
+      break;
 
-  default:
-    rgblight_sethsv(HSV_OFF);
+    default:
+      rgblight_sethsv(HSV_OFF);
   }
 
   return state;
@@ -122,8 +120,7 @@ layer_state_t layer_state_set_user(layer_state_t state)
 
 #include "lib/oledkit/oledkit.h"
 
-void oledkit_render_info_user(void)
-{
+void oledkit_render_info_user(void) {
   keyball_oled_render_keyinfo();
   keyball_oled_render_ballinfo();
 
@@ -138,29 +135,28 @@ void oledkit_render_info_user(void)
   // oled_write(get_u8_str(to_clickable_movement, ' '), false);
 
   // <state>を表示
-  switch (state)
-  {
-  case NONE:
-    oled_write_ln_P(PSTR("  NONE"), false);
-    break;
-  case CLICKABLE:
-    oled_write_ln_P(PSTR("  CLICKABLE"), false);
-    break;
-  case WAITING:
-    oled_write_ln_P(PSTR("  WAITING"), false);
-    break;
-  case CLICKING:
-    oled_write_ln_P(PSTR("  CLICKING"), false);
-    break;
-  case CLICKED:
-    oled_write_ln_P(PSTR("  CLICKED"), false);
-    break;
-  case SWIPE:
-    oled_write_ln_P(PSTR("  SWIPE"), false);
-    break;
-  case SWIPING:
-    oled_write_ln_P(PSTR("  SWIPING"), false);
-    break;
+  switch (state) {
+    case NONE:
+      oled_write_ln_P(PSTR("  NONE"), false);
+      break;
+    case CLICKABLE:
+      oled_write_ln_P(PSTR("  CLICKABLE"), false);
+      break;
+    case WAITING:
+      oled_write_ln_P(PSTR("  WAITING"), false);
+      break;
+    case CLICKING:
+      oled_write_ln_P(PSTR("  CLICKING"), false);
+      break;
+    case CLICKED:
+      oled_write_ln_P(PSTR("  CLICKED"), false);
+      break;
+    case SWIPE:
+      oled_write_ln_P(PSTR("  SWIPE"), false);
+      break;
+    case SWIPING:
+      oled_write_ln_P(PSTR("  SWIPING"), false);
+      break;
   }
 }
 #endif

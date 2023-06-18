@@ -3,14 +3,12 @@
  * 参考ページ
  * 公式：https://docs.qmk.fm/#/ja/feature_combo?id=%e3%82%b3%e3%83%b3%e3%83%9c
  *
- *
  * 注意： 以下の設定が必要です
  * rules.mk: COMBO_ENABLE = yes
  * config.h: #define COMBO_COUNT 2（=実際に設定するコンボ数）
  */
 
-enum combos
-{
+enum combos {
   COMBO_F14,
   COMBO_F15
 };

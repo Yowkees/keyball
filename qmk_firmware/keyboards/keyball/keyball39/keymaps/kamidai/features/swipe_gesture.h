@@ -1,10 +1,10 @@
-////////////////////////////////////
-///
-/// 参考にさせていただいたページ
-/// https://www.reddit.com/r/ploopy/comments/pbmrh3/qmk_options_on_ploopy_mouse_gestures/
-/// https://github.com/RobertCurry0216/qmk_firmware/blob/59f83aac8fa06010c3a1a0a53fcd453d96ce2f80/keyboards/ploopyco/trackball/keymaps/robertcurry0216/keymap.c
-///
-////////////////////////////////////
+/* Copyright 2023 kamidai (@d_kamiichi)
+ *
+ * 参考にさせていただいたページ
+ * https://www.reddit.com/r/ploopy/comments/pbmrh3/qmk_options_on_ploopy_mouse_gestures/
+ * https://github.com/RobertCurry0216/qmk_firmware/blob/59f83aac8fa06010c3a1a0a53fcd453d96ce2f80/keyboards/ploopyco/trackball/keymaps/robertcurry0216/keymap.c
+ *
+ */
 
 int16_t current_keycode;
 const int16_t SWIPE_THRESHOLD = 10;
@@ -13,38 +13,27 @@ bool is_repeat = false;
 
 // スワイプジェスチャーで何が起こるかを実際に処理する関数です
 // 上、下、左、右、スワイプなしの5つのオプションがあります
-void process_swipe_gesture(int16_t x, int16_t y)
-{
-
+void process_swipe_gesture(int16_t x, int16_t y) {
   // #include "features/kamidai_hairetsu.h"
 
   // Command
-  if (current_keycode == LCMD_T(KC_SPACE))
-  {
-    if (my_abs(x) > my_abs(y))
-    { // 音声入力とsiri
+  if (current_keycode == LCMD_T(KC_SPACE)) {  // 音声入力とsiri
+    if (my_abs(x) > my_abs(y)) {
       unregister_code(KC_LCMD);
 
-      if (x < 0)
-      { // swipe left: 音声入力
+      if (x < 0) {  // swipe left: 音声入力
         tap_code(KC_F5);
-      }
-      else
-      { // swipe right: siri
+      } else {  // swipe right: siri
         register_code(KC_F5);
       }
     }
 
-    if (my_abs(x) < my_abs(y))
-    { // 拡大と縮小
+    if (my_abs(x) < my_abs(y)) {  // 拡大と縮小
       register_code(KC_LCMD);
 
-      if (y < 0)
-      { // swipe up: 拡大
+      if (y < 0) {  // swipe up: 拡大
         tap_code(KC_EQUAL);
-      }
-      else
-      { // swipe down: 縮小
+      } else {  // swipe down: 縮小
         tap_code(KC_MINUS);
       }
     }
@@ -60,58 +49,41 @@ void process_swipe_gesture(int16_t x, int16_t y)
     // unregister_code(KC_LCTRL);
     register_code(KC_LCMD);
 
-    if (my_abs(x) > my_abs(y))
-    { // ページの戻る、進む
-      if (x < 0)
-      { // swipe left: 戻る
+    if (my_abs(x) > my_abs(y)) {  // ページの戻る、進む
+      if (x < 0) {                // swipe left: 戻る
         tap_code(KC_LBRACKET);
-      }
-      else
-      { // swipe right: 進む
+      } else {  // swipe right: 進む
         tap_code(KC_RBRACKET);
       }
     }
 
-    if (my_abs(x) < my_abs(y))
-    { // タブ移動（要、Mac側でのショートカット設定）
-      if (y < 0)
-      { // swipe up: 右のタブへ移動
+    if (my_abs(x) < my_abs(y)) {  // タブ移動（要、Mac側でのショートカット設定）
+      if (y < 0) {                // swipe up: 右のタブへ移動
         tap_code(KC_1);
-      }
-      else
-      { // swipe down: 左のタブへ移動
+      } else {  // swipe down: 左のタブへ移動
         tap_code(KC_2);
       }
     }
   }
 
   // Ctrl
-  if (current_keycode == LCTL_T(KC_F13))
-  {
-    if (my_abs(x) > my_abs(y))
-    { // ウインドウのサイズ変更と移動（BetterTouchToolで設定）
+  if (current_keycode == LCTL_T(KC_F13)) {
+    if (my_abs(x) > my_abs(y)) {  // ウインドウのサイズ変更と移動（BetterTouchToolで設定）
       register_code(KC_LCMD);
 
-      if (x < 0)
-      { // swipe left: ウインドウを1/2サイズで左へ
+      if (x < 0) {  // swipe left: ウインドウを1/2サイズで左へ
         tap_code(KC_4);
-      }
-      else
-      { // swipe right: ウインドウを1/2サイズで右へ
+      } else {  // swipe right: ウインドウを1/2サイズで右へ
         tap_code(KC_6);
       }
     }
 
-    if (my_abs(x) < my_abs(y))
-    { // ウインドウのサイズ変更と移動（BetterTouchToolで設定）
+    if (my_abs(x) < my_abs(y)) {  // ウインドウのサイズ変更と移動（BetterTouchToolで設定）
       register_code(KC_LCMD);
 
-      if (y < 0)
-      { // swipe up: ウィンドウを最大化
+      if (y < 0) {  // swipe up: ウィンドウを最大化
         tap_code(KC_8);
-      }
-      else
-      { // swipe down: ウインドウを最小サイズで中央へ
+      } else {  // swipe down: ウインドウを最小サイズで中央へ
         tap_code(KC_2);
       }
     }
