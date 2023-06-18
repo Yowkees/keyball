@@ -17,7 +17,19 @@ void process_swipe_gesture(int16_t x, int16_t y) {
   // #include "features/kamidai_hairetsu.h"
 
   // Command
-  if (current_keycode == LCMD_T(KC_SPACE)) {  // 音声入力とsiri
+  if (current_keycode == LCMD_T(KC_SPACE)) {
+    // 拡大と縮小
+    if (my_abs(x) < my_abs(y)) {
+      register_code(KC_LCMD);
+
+      if (y < 0) {  // swipe up: 拡大
+        tap_code(KC_EQUAL);
+      } else {  // swipe down: 縮小
+        tap_code(KC_MINUS);
+      }
+    }
+
+    // 音声入力とsiri
     if (my_abs(x) > my_abs(y)) {
       unregister_code(KC_LCMD);
 
@@ -25,16 +37,6 @@ void process_swipe_gesture(int16_t x, int16_t y) {
         tap_code(KC_F5);
       } else {  // swipe right: siri
         register_code(KC_F5);
-      }
-    }
-
-    if (my_abs(x) < my_abs(y)) {  // 拡大と縮小
-      register_code(KC_LCMD);
-
-      if (y < 0) {  // swipe up: 拡大
-        tap_code(KC_EQUAL);
-      } else {  // swipe down: 縮小
-        tap_code(KC_MINUS);
       }
     }
   }
@@ -49,25 +51,40 @@ void process_swipe_gesture(int16_t x, int16_t y) {
     // unregister_code(KC_LCTRL);
     register_code(KC_LCMD);
 
-    if (my_abs(x) > my_abs(y)) {  // ページの戻る、進む
-      if (x < 0) {                // swipe left: 戻る
-        tap_code(KC_LBRACKET);
-      } else {  // swipe right: 進む
-        tap_code(KC_RBRACKET);
+    // タブ移動
+    // Mac側でのショートカット設定が必要
+    if (my_abs(x) < my_abs(y)) {
+      if (y < 0) {  // swipe up: 右のタブへ
+        tap_code(KC_1);
+      } else {  // swipe down: 左のタブへ
+        tap_code(KC_2);
       }
     }
 
-    if (my_abs(x) < my_abs(y)) {  // タブ移動（要、Mac側でのショートカット設定）
-      if (y < 0) {                // swipe up: 右のタブへ移動
-        tap_code(KC_1);
-      } else {  // swipe down: 左のタブへ移動
-        tap_code(KC_2);
+    // ページの戻る、進む
+    if (my_abs(x) > my_abs(y)) {
+      if (x < 0) {  // swipe left: 戻る
+        tap_code(KC_LBRACKET);
+      } else {  // swipe right: 進む
+        tap_code(KC_RBRACKET);
       }
     }
   }
 
   // Ctrl
   if (current_keycode == LCTL_T(KC_F13)) {
+    // ウインドウのサイズ変更と移動
+    // BetterTouchToolで設定が必要
+    if (my_abs(x) < my_abs(y)) {
+      register_code(KC_LCMD);
+
+      if (y < 0) {  // swipe up: ウィンドウを最大化
+        tap_code(KC_8);
+      } else {  // swipe down: ウインドウを最小サイズで中央へ
+        tap_code(KC_2);
+      }
+    }
+
     if (my_abs(x) > my_abs(y)) {  // ウインドウのサイズ変更と移動（BetterTouchToolで設定）
       register_code(KC_LCMD);
 
@@ -75,16 +92,6 @@ void process_swipe_gesture(int16_t x, int16_t y) {
         tap_code(KC_4);
       } else {  // swipe right: ウインドウを1/2サイズで右へ
         tap_code(KC_6);
-      }
-    }
-
-    if (my_abs(x) < my_abs(y)) {  // ウインドウのサイズ変更と移動（BetterTouchToolで設定）
-      register_code(KC_LCMD);
-
-      if (y < 0) {  // swipe up: ウィンドウを最大化
-        tap_code(KC_8);
-      } else {  // swipe down: ウインドウを最小サイズで中央へ
-        tap_code(KC_2);
       }
     }
   }
