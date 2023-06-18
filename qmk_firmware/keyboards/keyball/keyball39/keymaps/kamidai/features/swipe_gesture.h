@@ -86,7 +86,7 @@ void process_swipe_gesture(int16_t x, int16_t y)
   }
 
   // Ctrl
-  if (current_keycode == LCTL_T(KC_Q))
+  if (current_keycode == LCTL_T(KC_F13))
   {
     if (my_abs(x) > my_abs(y))
     { // ウインドウのサイズ変更と移動（BetterTouchToolで設定）
