@@ -40,7 +40,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "features/my_macro_keys.h"
 
 // 容量オーバーのため不使用（VIAをOFFにすれば、使用可能）
-// #include "features/my_overrides.h"
+// #include "features/overrides.h"
 
 // clang-format off
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
