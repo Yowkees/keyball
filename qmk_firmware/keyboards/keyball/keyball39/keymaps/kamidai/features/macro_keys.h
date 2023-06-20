@@ -21,42 +21,42 @@ enum custom_keycodes {
   KC_MY_BTN3,                       // Remap上では 0x5DB2
 };
 
-// マクロキーを設定
+// マクロキーの処理を行う関数
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-  current_keycode = keycode;
+  current_keycode = keycode;             // 押下されたキーコードを保存する
+  bool mod_pressed = (get_mods() != 0);  // 修飾キーが押されているかを判定（0でなければ修飾キーが押されている）
 
   switch (keycode) {
     case KC_MY_BTN0:
     case KC_MY_BTN1:
     case KC_MY_BTN2:
     case KC_MY_BTN3: {
-      report_mouse_t currentReport = pointing_device_get_report();
+      report_mouse_t currentReport = pointing_device_get_report();  // 現在のマウス状態を取得する
 
-      // どこのビットを対象にするか。 Which bits are to be targeted?
-      uint8_t btn = 1 << (keycode - KC_MY_BTN1);
+      // キーコードに基づいて、対象とするボタンを決定
+      uint8_t btn = 1 << (keycode - KC_MY_BTN1);  // 対象ボタンのビット位置を設定
 
       if (record->event.pressed) {
         // キーダウン時
-        // ビットORは演算子の左辺と右辺の同じ位置にあるビットを比較して、両方のビットのどちらかが「1」の場合に「1」にします。
-        // Bit OR compares bits in the same position on the left and right sides of the operator and sets them to "1" if either of both bits is "1".
-        currentReport.buttons |= btn;
+        // 対象のボタンを有効にし、状態をCLICKINGに設定
+        currentReport.buttons |= btn;  // ビットORは演算子の左辺と右辺の同じ位置にあるビットを比較して、両方のビットのどちらかが「1」の場合に「1」にします。
         state = CLICKING;
       } else {
         // キーアップ時
-        // ビットANDは演算子の左辺と右辺の同じ位置にあるビットを比較して、両方のビットが共に「1」の場合だけ「1」にします。
-        // Bit AND compares the bits in the same position on the left and right sides of the operator and sets them to "1" only if both bits are "1" together.
-        currentReport.buttons &= ~btn;
+        // 対象のボタンを無効にし、クリックレイヤーを有効にして、状態をCLICKEDに設定
+        currentReport.buttons &= ~btn;  // ビットANDは演算子の左辺と右辺の同じ位置にあるビットを比較して、両方のビットが共に「1」の場合だけ「1」にします。
         enable_click_layer();
         state = CLICKED;
 
+        // キーコードがKC_MY_BTN0の場合はクリックレイヤーを無効化
         if (keycode == KC_MY_BTN0) {
           disable_click_layer();
         }
       }
 
-      pointing_device_set_report(currentReport);
-      pointing_device_send();
-      return false;
+      pointing_device_set_report(currentReport);  // マウスの状態（ボタンの押下状態）をcurrentReportの内容で更新する
+      pointing_device_send();                     // 更新したマウスの状態をシステムに送信する
+      return false;                               // キーのデフォルトの動作をスキップする
     }
 
     // 自動クリックレイヤーでLang1とLang2を押せるようにする
@@ -105,15 +105,24 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         state = SWIPE;
       } else {
         // キーアップ時
-        clear_mods();
-        disable_click_layer();
+        clear_mods();           // すべての修飾キーの状態をクリアする
+        disable_click_layer();  // クリックレイヤーを無効化する
       }
 
-      if (is_swiped == true) {
-        is_swiped = false;
-        return false;
+      // 複数の修飾キーが押された場合、LEDをオフにし、スワイプ状態を解除する
+      if (mod_pressed) {
+        rgblight_sethsv(HSV_OFF);
+        state = NONE;
       }
-      if (is_swiped == false) {
+
+      // スワイプが行われた場合、スワイプフラグをリセット
+      if (is_swiped) {
+        is_swiped = false;
+        return false;  // キーのデフォルトの動作をスキップする
+      }
+
+      // スワイプが行われていなかった場合、キーのデフォルトの動作を続行させる
+      if (!is_swiped) {
         return true;
       }
     }
@@ -179,9 +188,10 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       //   return false;
 
     default:
+      // その他のキーコードの場合
       if (record->event.pressed) {
         // キーダウン時
-        disable_click_layer();
+        disable_click_layer();  // クリックレイヤーを無効化
       }
   }
 
