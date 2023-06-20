@@ -121,6 +121,10 @@ layer_state_t layer_state_set_user(layer_state_t state) {
 #include "lib/oledkit/oledkit.h"
 
 void oledkit_render_info_user(void) {
+  // デバッグ用に変数を表示する
+  // oled_write_P(PSTR("Debug:"), false);
+  // oled_write(get_u8_str(xxx, ' '), false);
+
   keyball_oled_render_keyinfo();
   keyball_oled_render_ballinfo();
 
