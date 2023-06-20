@@ -62,91 +62,106 @@ void disable_click_layer(void) {
   layer_off(click_layer);
 }
 
-//
+// マウスレポートを受け取り、それに基づいて様々なアクションを実行する関数
 report_mouse_t pointing_device_task_user(report_mouse_t mouse_report) {
-  int16_t current_x = mouse_report.x;
-  int16_t current_y = mouse_report.y;
+  int16_t current_x = mouse_report.x;  // 現在のマウスのX座標
+  int16_t current_y = mouse_report.y;  // 現在のマウスのY座標
 
+  // マウスが動いているかどうかチェック
   if (current_x != 0 || current_y != 0) {
+    // マウスが動いたときのアクションを各状態ごとに制御する
     switch (state) {
-      case CLICKABLE:
-        click_timer = timer_read();
-        break;
-
-      case CLICKING:
-        break;
-
       case WAITING:
-        mouse_movement += my_abs(current_x) + my_abs(current_y);
+        mouse_movement += my_abs(current_x) + my_abs(current_y);  // マウスの移動距離を加算
 
+        // マウスの移動距離が閾値を超えた場合
         if (mouse_movement >= to_clickable_movement) {
-          mouse_movement = 0;
-          enable_click_layer();
+          mouse_movement = 0;    // マウスの動きを0にリセット
+          enable_click_layer();  // クリック可能状態（ state = CLICKABLE ）に遷移
         }
         break;
 
-      case SWIPE:
-        click_timer = timer_read();
+      case CLICKABLE:
+        click_timer = timer_read();  // タイマーをリセット
+        break;
 
+      case CLICKING:
+        // 状態が"クリック中"のときは何もしない
+        break;
+
+      case SWIPE:
+        click_timer = timer_read();  // タイマーをリセット
+
+        // マウスの移動が閾値を超えた場合、スワイプを処理
+        // 具体的なスワイプに関連する処理は swipe_gesture.h に定義されている
         if (my_abs(current_x) >= SWIPE_THRESHOLD || my_abs(current_y) >= SWIPE_THRESHOLD) {
-          rgblight_sethsv(HSV_PINK);
-          process_swipe_gesture(current_x, current_y);
+          rgblight_sethsv(HSV_PINK);                    // LEDをピンクに変更
+          process_swipe_gesture(current_x, current_y);  // スワイプジェスチャを処理
           is_swiped = true;
 
+          // 一度のスワイプにつき、一回のジェスチャーを処理する
           if (is_repeat == false) {
-            state = SWIPING;
+            state = SWIPING;  // スワイプ中状態に遷移
           }
         }
         break;
 
       case SWIPING:
+        // 状態が"スワイプ中"のときは何もしない
         break;
 
       default:
-        click_timer = timer_read();
+        click_timer = timer_read();  // タイマーをリセット
         state = WAITING;
-        mouse_movement = 0;
+        mouse_movement = 0;  // マウスの動きを0にリセット
     }
   } else {
+    // マウスが動いていないとき、各状態ごとに以下のアクションに実行する
     switch (state) {
-      case CLICKING:
-        break;
-
-      case CLICKED:
-        if (timer_elapsed(click_timer) > clicked_stay_time) {
-          disable_click_layer();
-        }
-        break;
-      case CLICKABLE:
-        if (timer_elapsed(click_timer) > clickable_stay_time) {
-          disable_click_layer();
-        }
-        break;
-
       case WAITING:
+        // 一定時間が経過したら、マウスの動きを0にリセットし、状態をNONEに変更
         if (timer_elapsed(click_timer) > 50) {
           mouse_movement = 0;
           state = NONE;
         }
         break;
 
+      case CLICKABLE:
+        // クリック可能状態が一定時間持続したら、クリックレイヤーを無効化
+        if (timer_elapsed(click_timer) > clickable_stay_time) {
+          disable_click_layer();
+        }
+        break;
+
+      case CLICKING:
+        // 状態が"クリック中"のときは何もしない
+        break;
+
+      case CLICKED:
+        // クリック後一定時間経過でクリックレイヤーを無効化
+        if (timer_elapsed(click_timer) > clicked_stay_time) {
+          disable_click_layer();
+        }
+        break;
+
       case SWIPE:
-        rgblight_sethsv(HSV_SPRINGGREEN);
+        rgblight_sethsv(HSV_SPRINGGREEN);  // LEDをスプリング・グリーンに変更
         break;
 
       case SWIPING:
+        // 一定時間が経過したら、状態をSWIPEに変更
         if (timer_elapsed(click_timer) > 300) {
           state = SWIPE;
         }
         break;
 
       default:
-        mouse_movement = 0;
+        mouse_movement = 0;  // マウスの動きを0にリセット
         state = NONE;
     }
   }
-  mouse_report.x = current_x;
-  mouse_report.y = current_y;
+  mouse_report.x = current_x;  // 新しいマウスのX座標をマウスレポートにセット
+  mouse_report.y = current_y;  // 新しいマウスのY座標をマウスレポートにセット
 
-  return mouse_report;
+  return mouse_report;  // マウスレポートを返す
 }
