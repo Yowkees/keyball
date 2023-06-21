@@ -59,6 +59,11 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       return false;                               // キーのデフォルトの動作をスキップする
     }
 
+    // altキーはデフォルトの動作を続行させる
+    case ALT_T(KC_F13): {
+      return true;
+    }
+
     // 以下スワイプジェスチャー
     // クリックすると state が SWIPE になり、離したら NONE になる
     // モッドタップ系
