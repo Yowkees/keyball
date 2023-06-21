@@ -125,8 +125,8 @@ void oledkit_render_info_user(void) {
   // oled_write_P(PSTR("Debug:"), false);
   // oled_write(get_u8_str(xxx, ' '), false);
 
-  keyball_oled_render_keyinfo();
-  keyball_oled_render_ballinfo();
+  keyball_oled_render_keyinfo();   // キー情報を表示
+  keyball_oled_render_ballinfo();  // トラックボール情報を表示
 
   // <Layer>を表示する
   oled_write_P(PSTR("Layer:"), false);
@@ -140,14 +140,11 @@ void oledkit_render_info_user(void) {
 
   // <state>を表示
   switch (state) {
-    case NONE:
-      oled_write_ln_P(PSTR("  NONE"), false);
+    case WAITING:
+      oled_write_ln_P(PSTR("  WAITING"), false);
       break;
     case CLICKABLE:
       oled_write_ln_P(PSTR("  CLICKABLE"), false);
-      break;
-    case WAITING:
-      oled_write_ln_P(PSTR("  WAITING"), false);
       break;
     case CLICKING:
       oled_write_ln_P(PSTR("  CLICKING"), false);
@@ -160,6 +157,9 @@ void oledkit_render_info_user(void) {
       break;
     case SWIPING:
       oled_write_ln_P(PSTR("  SWIPING"), false);
+      break;
+    case NONE:
+      oled_write_ln_P(PSTR("  NONE"), false);
       break;
   }
 }
