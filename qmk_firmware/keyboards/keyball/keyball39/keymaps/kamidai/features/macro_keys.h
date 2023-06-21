@@ -77,22 +77,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     //       disable_click_layer();
     //     }
     //   }
-    // }
-
-    // 右shiftホールド中はスクロールモードにする
-    // case RSFT_T(KC_LANG1):
-    //   if (record->event.pressed)
-    //   {
-    //     // キーダウン時
-    //     disable_click_layer();
-    //     keyball_set_scroll_mode(true);
-    //   }
-    //   else
-    //   {
-    //     // キーアップ時
-    //     keyball_set_scroll_mode(false);
-    //   }
-    //   return true;
+    // }s
 
     // 以下スワイプジェスチャー
     // クリックすると state が SWIPE になり、離したら NONE になる
