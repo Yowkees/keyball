@@ -40,16 +40,11 @@ void process_swipe_gesture(int16_t x, int16_t y) {
   }
 
   // shift
-  // if (current_keycode == SFT_T(KC_LANG2) || current_keycode == CTL_T(KC_Q) || current_keycode == CMD_T(KC_SPACE))
-  // if (current_keycode == SFT_T(KC_LANG2) || current_keycode == CTL_T(KC_Q) || current_keycode == CMD_T(KC_SPACE))
-  // if (current_keycode == CMD_T(KC_SPACE))
   if (current_keycode == SFT_T(KC_LANG2)) {
     unregister_code(KC_LSFT);
-    // unregister_code(KC_LCTRL);
     register_code(KC_LCMD);
 
-    // タブ移動
-    // Mac側でのショートカット設定が必要
+    // タブ移動（Mac側でのショートカットを設定）
     if (my_abs(x) < my_abs(y)) {
       if (y < 0) {  // swipe up: 右のタブへ
         tap_code(KC_1);
@@ -57,7 +52,6 @@ void process_swipe_gesture(int16_t x, int16_t y) {
         tap_code(KC_2);
       }
     }
-
     // ページの戻る、進む
     if (my_abs(x) > my_abs(y)) {
       if (x < 0) {  // swipe left: 戻る
@@ -66,25 +60,24 @@ void process_swipe_gesture(int16_t x, int16_t y) {
         tap_code(KC_RBRACKET);
       }
     }
+    unregister_code(KC_LCMD);
+    register_code(KC_LSFT);
   }
 
   // Ctrl
   if (current_keycode == CTL_T(KC_F14)) {
-    // ウインドウのサイズ変更と移動
-    // BetterTouchToolで設定が必要
-    if (my_abs(x) < my_abs(y)) {
-      register_code(KC_LCMD);
+    register_code(KC_LCTRL);
 
+    // ウインドウのサイズ変更と移動（BetterTouchToolで設定）
+    if (my_abs(x) < my_abs(y)) {
       if (y < 0) {  // swipe up: ウィンドウを最大化
         tap_code(KC_8);
       } else {  // swipe down: ウインドウを最小サイズで中央へ
         tap_code(KC_2);
       }
     }
-
-    if (my_abs(x) > my_abs(y)) {  // ウインドウのサイズ変更と移動（BetterTouchToolで設定）
-      register_code(KC_LCMD);
-
+    // ウインドウのサイズ変更と移動（BetterTouchToolで設定）
+    if (my_abs(x) > my_abs(y)) {
       if (x < 0) {  // swipe left: ウインドウを1/2サイズで左へ
         tap_code(KC_4);
       } else {  // swipe right: ウインドウを1/2サイズで右へ

@@ -113,6 +113,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       if (mod_pressed) {
         rgblight_sethsv(HSV_OFF);
         state = NONE;
+        return true;  // キーのデフォルトの動作を続行させる
       }
 
       // スワイプが行われた場合、スワイプフラグをリセット
