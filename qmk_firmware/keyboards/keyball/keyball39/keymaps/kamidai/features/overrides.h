@@ -10,9 +10,11 @@
 
 // シフトキー + バックスペース で deleteキー
 const key_override_t delete_key_override = ko_make_basic(MOD_MASK_SHIFT, KC_BSPACE, KC_DELETE);
+// const key_override_t hiragana_nn_override = ko_make_basic(KC_Z, KC_N, KC_I);
 
 // 使用する全てのキーオーバーライドをグローバルに定義
 const key_override_t **key_overrides = (const key_override_t *[]){
     &delete_key_override,
+    // &hiragana_nn_override,
     NULL  // オーバーライドの配列は Null で終了
 };
