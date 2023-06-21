@@ -59,26 +59,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       return false;                               // キーのデフォルトの動作をスキップする
     }
 
-    // 自動クリックレイヤーでLang1とLang2を押せるようにする
-    // case KC_LANG1:
-    // case KC_LANG2:
-    // {
-    //   if (state == CLICKABLE)
-    //   {
-    //     if (record->event.pressed)
-    //     {
-    //       // キーダウン時
-    //       enable_click_layer();
-    //       return true;
-    //     }
-    //     else
-    //     {
-    //       // キーアップ時
-    //       disable_click_layer();
-    //     }
-    //   }
-    // }s
-
     // 以下スワイプジェスチャー
     // クリックすると state が SWIPE になり、離したら NONE になる
     // モッドタップ系
