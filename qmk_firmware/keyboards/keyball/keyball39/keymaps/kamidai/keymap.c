@@ -37,6 +37,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "features/functions.h"
 #include "features/swipe_gesture.h"
 #include "features/auto_click_layer.h"
+// #include "features/one_tap_double_click.h"
 #include "features/macro_keys.h"
 
 // 容量オーバーのため不使用（VIAをOFFにすれば、使用可能）
