@@ -38,6 +38,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "features/swipe_gesture.h"
 #include "features/auto_click_layer.h"
 // #include "features/one_tap_multi_click.h"
+// #include "features/one_tap_multi_click.h"
 #include "features/macro_keys.h"
 
 // 容量オーバーのため不使用（VIAをOFFにすれば、使用可能）
@@ -104,8 +105,6 @@ layer_state_t layer_state_set_user(layer_state_t state) {
   keyball_set_scroll_mode(get_highest_layer(state) == 1);
 
   // レイヤーとLEDを連動させる
-  // uint8_t layer = biton32(state);
-  // switch (layer) {
   switch (get_highest_layer(state)) {
     case click_layer:
       rgblight_sethsv(HSV_WHITE);
