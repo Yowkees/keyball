@@ -34,10 +34,10 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include QMK_KEYBOARD_H
 #include "quantum.h"
 
-#include "features/functions.h"
+#include "utils/functions.h"
 #include "features/swipe_gesture.h"
 #include "features/auto_click_layer.h"
-// #include "features/one_tap_double_click.h"
+#include "features/one_tap_multi_click.h"
 #include "features/macro_keys.h"
 
 // 容量オーバーのため不使用（VIAをOFFにすれば、使用可能）
@@ -92,7 +92,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [6] = LAYOUT_universal(
     _______  , _______  , _______  , _______  , _______  ,                            _______  , _______  , _______  , _______  , _______  ,
     _______  , _______  , _______  , _______  , _______  ,                            _______  ,KC_MY_BTN1,KC_MY_BTN3,KC_MY_BTN2, _______  ,
-    _______  , _______  , _______  ,KC_TO_LAYER_0_BTN1,KC_TO_LAYER_0_BTN1,            _______  , _______  , _______  , _______  , _______  ,
+    _______  , _______  , _______  , _______  , _______  ,                            _______  , _______  , _______  , _______  , _______  ,
     _______  , _______  , _______  , _______  , _______  , _______  ,      _______ ,  _______  , _______  , _______  , _______  , _______  
   )
 };
@@ -105,8 +105,9 @@ layer_state_t layer_state_set_user(layer_state_t state) {
 
   // レイヤーとLEDを連動させる
   uint8_t layer = biton32(state);
+  // switch (get_highest_layer(state)) {
   switch (layer) {
-    case 6:
+    case click_layer:
       rgblight_sethsv(HSV_WHITE);
       break;
 

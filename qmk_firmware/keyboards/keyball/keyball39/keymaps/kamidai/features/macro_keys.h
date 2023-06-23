@@ -15,13 +15,14 @@
  */
 
 enum custom_keycodes {
-  KC_TO_LAYER_0_BTN1 = KEYBALL_SAFE_RANGE,  // Remap上では 0x5DAF: レイヤー0に遷移できるBTN1
-  KC_MY_BTN1,                               // Remap上では 0x5DB0
-  KC_MY_BTN2,                               // Remap上では 0x5DB1
-  KC_MY_BTN3,                               // Remap上では 0x5DB2
-  KC_MY_BTN4,                               // Remap上では 0x5DB3
-  KC_MY_BTN5,                               // Remap上では 0x5DB4
-  KC_DOUBLE_CLICK_BTN1,                     // Remap上では 0x5DB5: 1タップでダブルクリックできるBTN1
+  KC_BACK_TO_LAYER0_BTN1 = KEYBALL_SAFE_RANGE,  // Remap上では 0x5DAF: レイヤー0に遷移できるBTN1
+  KC_MY_BTN1,                                   // Remap上では 0x5DB0
+  KC_MY_BTN2,                                   // Remap上では 0x5DB1
+  KC_MY_BTN3,                                   // Remap上では 0x5DB2
+  KC_MY_BTN4,                                   // Remap上では 0x5DB3
+  KC_MY_BTN5,                                   // Remap上では 0x5DB4
+  KC_DOUBLE_CLICK_BTN1,                         // Remap上では 0x5DB5: 1タップでダブルクリックできるBTN1
+  KC_TRIPLE_CLICK_BTN1,                         // Remap上では 0x5DB6: 1タップでトリプルクリックできるBTN1
 };
 
 // マクロキーの処理を行う関数
@@ -30,6 +31,28 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   bool mod_pressed = (get_mods() != 0);  // 修飾キーが押されているかを判定（0でなければ修飾キーが押されている）
 
   switch (keycode) {
+    case KC_DOUBLE_CLICK_BTN1:
+    case KC_TRIPLE_CLICK_BTN1: {
+      if (record->event.pressed) {
+        // キーダウン時
+        // `KC_DOUBLE_CLICK_BTN1`の場合
+        if (keycode == KC_DOUBLE_CLICK_BTN1) {
+          double_click_mouse_button1();  // マウスボタン1をダブルクリック
+        }
+        // `KC_TRIPLE_CLICK_BTN1`の場合
+        if (keycode == KC_TRIPLE_CLICK_BTN1) {
+          triple_click_mouse_button1();  // マウスボタン1をトリプルクリック
+        }
+      } else {
+        if (click_layer && get_highest_layer(layer_state) == click_layer) {
+          // キーアップ時: クリックレイヤーを有効にして、状態をCLICKEDに設定
+          enable_click_layer();
+          state = CLICKED;
+        }
+      }
+      return false;  // キーのデフォルトの動作をスキップする
+    }
+
     // case KC_TO_LAYER_0_BTN1:
     // case KC_MY_BTN1:
     // case KC_MY_BTN2:
@@ -70,12 +93,12 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     case KC_MS_BTN3:
     case KC_MS_BTN4:
     case KC_MS_BTN5: {
-      if (get_highest_layer(layer_state) == 6) {
+      if (click_layer && get_highest_layer(layer_state) == click_layer) {
         if (record->event.pressed) {
           // キーダウン時: 状態をCLICKINGに設定
           state = CLICKING;
         } else {
-          // キーアップ時: 対象のボタンを無効にし、クリックレイヤーを有効にして、状態をCLICKEDに設定
+          // キーアップ時: クリックレイヤーを有効にして、状態をCLICKEDに設定
           enable_click_layer();
           state = CLICKED;
         }
@@ -83,7 +106,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       return true;
     }
 
-    case KC_TO_LAYER_0_BTN1: {
+    case KC_BACK_TO_LAYER0_BTN1: {
       report_mouse_t currentReport = pointing_device_get_report();  // 現在のマウス状態を取得する
 
       // キーコードに基づいて、対象とするボタンを決定
