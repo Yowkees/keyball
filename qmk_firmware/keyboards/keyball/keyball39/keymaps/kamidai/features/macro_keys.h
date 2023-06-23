@@ -30,12 +30,60 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   bool mod_pressed = (get_mods() != 0);  // 修飾キーが押されているかを判定（0でなければ修飾キーが押されている）
 
   switch (keycode) {
-    case KC_TO_LAYER_0_BTN1:
-    case KC_MY_BTN1:
-    case KC_MY_BTN2:
-    case KC_MY_BTN3:
-    case KC_MY_BTN4:
-    case KC_MY_BTN5: {
+    // case KC_TO_LAYER_0_BTN1:
+    // case KC_MY_BTN1:
+    // case KC_MY_BTN2:
+    // case KC_MY_BTN3:
+    // case KC_MY_BTN4:
+    // case KC_MY_BTN5: {
+    //   report_mouse_t currentReport = pointing_device_get_report();  // 現在のマウス状態を取得する
+
+    //   // キーコードに基づいて、対象とするボタンを決定
+    //   uint8_t btn = 1 << (keycode - KC_MY_BTN1);  // 対象ボタンのビット位置を設定
+
+    //   if (record->event.pressed) {
+    //     // キーダウン時
+    //     // 対象のボタンを有効にし、状態をCLICKINGに設定
+    //     currentReport.buttons |= btn;  // ビットORは演算子の左辺と右辺の同じ位置にあるビットを比較して、両方のビットのどちらかが「1」の場合に「1」にします。
+    //     state = CLICKING;
+    //   } else {
+    //     // キーアップ時
+    //     // 対象のボタンを無効にし、クリックレイヤーを有効にして、状態をCLICKEDに設定
+    //     currentReport.buttons &= ~btn;  // ビットANDは演算子の左辺と右辺の同じ位置にあるビットを比較して、両方のビットが共に「1」の場合だけ「1」にします。
+    //     enable_click_layer();
+    //     state = CLICKED;
+
+    //     // キーコードがKC_MY_BTN0の場合はクリックレイヤーを無効化
+    //     if (keycode == KC_TO_LAYER_0_BTN1) {
+    //       disable_click_layer();
+    //     }
+    //   }
+
+    //   pointing_device_set_report(currentReport);  // マウスの状態（ボタンの押下状態）をcurrentReportの内容で更新する
+    //   pointing_device_send();                     // 更新したマウスの状態をシステムに送信する
+    //   return false;                               // キーのデフォルトの動作をスキップする
+    // }
+
+    // デフォルトのマウスキーは動作を続行させる
+    case KC_MS_BTN1:
+    case KC_MS_BTN2:
+    case KC_MS_BTN3:
+    case KC_MS_BTN4:
+    case KC_MS_BTN5: {
+      if (get_highest_layer(layer_state) == 6) {
+        if (record->event.pressed) {
+          // キーダウン時: 状態をCLICKINGに設定
+          state = CLICKING;
+        } else {
+          // キーアップ時: 対象のボタンを無効にし、クリックレイヤーを有効にして、状態をCLICKEDに設定
+          enable_click_layer();
+          state = CLICKED;
+        }
+      }
+      return true;
+    }
+
+    case KC_TO_LAYER_0_BTN1: {
       report_mouse_t currentReport = pointing_device_get_report();  // 現在のマウス状態を取得する
 
       // キーコードに基づいて、対象とするボタンを決定
@@ -53,12 +101,9 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         enable_click_layer();
         state = CLICKED;
 
-        // キーコードがKC_MY_BTN0の場合はクリックレイヤーを無効化
-        if (keycode == KC_TO_LAYER_0_BTN1) {
-          disable_click_layer();
-        }
+        // クリックレイヤーを無効化
+        disable_click_layer();
       }
-
       pointing_device_set_report(currentReport);  // マウスの状態（ボタンの押下状態）をcurrentReportの内容で更新する
       pointing_device_send();                     // 更新したマウスの状態をシステムに送信する
       return false;                               // キーのデフォルトの動作をスキップする
