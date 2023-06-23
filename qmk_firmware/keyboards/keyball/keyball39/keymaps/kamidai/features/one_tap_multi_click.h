@@ -21,6 +21,12 @@
             if (keycode == KC_TRIPLE_CLICK_BTN1) {
               triple_click_mouse_button1();  // マウスボタン1をトリプルクリック
             }
+          } else {
+            if (click_layer && get_highest_layer(layer_state) == click_layer) {
+              // キーアップ時: クリックレイヤーを有効にして、状態をCLICKEDに設定
+              enable_click_layer();
+              state = CLICKED;
+            }
           }
           return false;  // キーのデフォルトの動作をスキップする
         }
