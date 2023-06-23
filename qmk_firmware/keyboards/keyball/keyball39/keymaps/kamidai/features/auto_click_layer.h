@@ -12,51 +12,51 @@
  *
  * You should have received a copy of the GNU General Public License
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
- */
+ *
+ * -------------------------------------------------------------------
 
-////////////////////////////////////
-///
-/// 自動マウスレイヤーの実装 ここから
-/// 参考にさせていただいたページ
-/// https://zenn.dev/takashicompany/articles/69b87160cda4b9
-///
-////////////////////////////////////
+ * 参考文献：
+ * - 以下のリソースを参考にしました：
+ *   https://zenn.dev/takashicompany/articles/69b87160cda4b9
+ *
+ */
 
 enum ball_state {
   NONE = 0,
-  WAITING,    // マウスレイヤーが有効になるのを待つ。 Wait for mouse layer to activate.
-  CLICKABLE,  // マウスレイヤー有効になりクリック入力が取れる。 Mouse layer is enabled to take click input.
-  CLICKING,   // クリック中。 Clicking.
-  CLICKED,    // クリック直後。 Clicked.
-  SWIPE,      // スワイプモードが有効になりスワイプ入力が取れる。 Swipe mode is enabled to take swipe input.
-  SWIPING     // スワイプ中。 swiping.
+  WAITING,    // マウスレイヤーが有効になるのを待つ
+  CLICKABLE,  // マウスレイヤー有効になりクリック入力が取れる
+  CLICKING,   // クリック中
+  CLICKED,    // クリック直後
+  SWIPE,      // スワイプモードが有効になりスワイプ入力が取れる
+  SWIPING     // スワイプ中
+
 };
 
-enum ball_state state;  // 現在のクリック入力受付の状態 Current click input reception status
-uint16_t click_timer;   // タイマー。状態に応じて時間で判定する。 Timer. Time to determine the state of the system.
+enum ball_state state;  // 現在のクリック入力受付の状態
+uint16_t click_timer;   // タイマー。状態に応じて時間で判定する
 
-uint16_t clicked_stay_time = 150;     // CLICKEDの滞在時間（千分の一秒)。その後、クリックレイヤーが無効になる。 For this number of seconds (milliseconds), the click layer is disabled if in CLICKED state.
-uint16_t clickable_stay_time = 1400;  // CLICKABLEの滞在時間（千分の一秒)。その後、クリックレイヤーが無効になる。 For this number of seconds (milliseconds), the click layer is disabled if in CLICKABLE state.
+uint16_t clicked_stay_time = 150;     // CLICKEDの滞在時間（千分の一秒)。その後、クリックレイヤーが無効になる
+uint16_t clickable_stay_time = 1400;  // CLICKABLEの滞在時間（千分の一秒)。その後、クリックレイヤーが無効になる
 
 const int16_t to_clickable_movement = 0;  // クリックレイヤーが有効になるしきい値
-const uint16_t click_layer = 6;           // マウス入力が可能になった際に有効になるレイヤー。Layers enabled when mouse input is enabled
+const uint16_t click_layer = 6;           // マウス入力が可能になった際に有効になるレイヤー
 
-int16_t mouse_record_threshold = 30;  // ポインターの動きを一時的に記録するフレーム数。 Number of frames in which the pointer movement is temporarily recorded.
-int16_t mouse_move_count_ratio = 5;   // ポインターの動きを再生する際の移動フレームの係数。 The coefficient of the moving frame when replaying the pointer movement.
+int16_t mouse_record_threshold = 30;  // ポインターの動きを一時的に記録するフレーム数
+int16_t mouse_move_count_ratio = 5;   // ポインターの動きを再生する際の移動フレームの係数
 
 // Modifierが絡むときの挙動が理想とは違ったので、一旦コメントアウト
 // const uint16_t ignore_disable_mouse_layer_keys[] = {KC_LANG1, KC_LANG2}; // この配列で指定されたキーはマウスレイヤー中に押下してもマウスレイヤーを解除しない
 
 int16_t mouse_movement;
 
-// クリック用のレイヤーを有効にする。　Enable layers for clicks
+// クリック用のレイヤーを有効にする
 void enable_click_layer(void) {
   layer_on(click_layer);
   click_timer = timer_read();
   state = CLICKABLE;
 }
 
-// クリック用のレイヤーを無効にする。 Disable layers for clicks.
+// クリック用のレイヤーを無効にする
 void disable_click_layer(void) {
   state = NONE;
   layer_off(click_layer);
@@ -93,7 +93,6 @@ report_mouse_t pointing_device_task_user(report_mouse_t mouse_report) {
         click_timer = timer_read();  // タイマーをリセット
 
         // マウスの移動が閾値を超えた場合、スワイプを処理
-        // 具体的なスワイプに関連する処理は swipe_gesture.h に定義されている
         if (my_abs(current_x) >= SWIPE_THRESHOLD || my_abs(current_y) >= SWIPE_THRESHOLD) {
           rgblight_sethsv(HSV_PINK);                    // LEDをピンクに変更
           process_swipe_gesture(current_x, current_y);  // スワイプジェスチャを処理
