@@ -48,9 +48,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   // keymap for default
   [0] = LAYOUT_universal(
-    KC_TAB   , KC_A     , KC_E     , KC_R     , KC_T     ,                            KC_Y     , KC_U     , KC_I     , KC_O     , KC_P     ,
-    KC_Z     , KC_S     , KC_D     , KC_F     , KC_G     ,                            KC_H     , KC_J     , KC_K     , KC_L     , KC_MINUS ,
-    KC_V     , KC_X     , KC_C     ,LT(2,KC_W),LT(3,KC_B),                            KC_N     , KC_M     , KC_COMMA , KC_DOT   , KC_SLASH ,
+    MT(MOD_LGUI | MOD_LCTL, KC_TAB), KC_A, KC_E, KC_R, KC_T,                          KC_Y     , KC_U     , KC_I     , KC_O     , KC_P     ,
+    KC_X     , KC_S     , KC_D     , KC_F     , KC_G     ,                            KC_H     , KC_J     , KC_K     , KC_L     , KC_MINUS ,
+    KC_C     , KC_V     , KC_W     ,LT(2,KC_Z),LT(3,KC_B),                            KC_N     , KC_M     , KC_COMMA , KC_DOT   , KC_SLASH ,
     SFT_T(KC_LANG2),ALT_T(KC_F13),LT(1,KC_ESC),CMD_T(KC_SPACE),CTL_T(KC_F14),KC_Q,     KC_BSPC, KC_ENT,_______,_______,_______, LT(1,KC_LANG1)
   ),
 
@@ -92,7 +92,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [6] = LAYOUT_universal(
     _______  , _______  , _______  , _______  , _______  ,                            _______  , _______  , _______  , _______  , _______  ,
     _______  , _______  , _______  , _______  , _______  ,                            _______  ,KC_MY_BTN1,KC_MY_BTN3,KC_MY_BTN2, _______  ,
-    _______  , _______  , _______  ,KC_MY_BTN0,KC_MY_BTN0,                            _______  , _______  , _______  , _______  , _______  ,
+    _______  , _______  , _______  ,KC_TO_LAYER_0_BTN1,KC_TO_LAYER_0_BTN1,            _______  , _______  , _______  , _______  , _______  ,
     _______  , _______  , _______  , _______  , _______  , _______  ,      _______ ,  _______  , _______  , _______  , _______  , _______  
   )
 };

@@ -15,10 +15,13 @@
  */
 
 enum custom_keycodes {
-  KC_MY_BTN0 = KEYBALL_SAFE_RANGE,  // Remap上では 0x5DAF（レイヤー0に遷移できるBTN1）
-  KC_MY_BTN1,                       // Remap上では 0x5DB0
-  KC_MY_BTN2,                       // Remap上では 0x5DB1
-  KC_MY_BTN3,                       // Remap上では 0x5DB2
+  KC_TO_LAYER_0_BTN1 = KEYBALL_SAFE_RANGE,  // Remap上では 0x5DAF: レイヤー0に遷移できるBTN1
+  KC_MY_BTN1,                               // Remap上では 0x5DB0
+  KC_MY_BTN2,                               // Remap上では 0x5DB1
+  KC_MY_BTN3,                               // Remap上では 0x5DB2
+  KC_MY_BTN4,                               // Remap上では 0x5DB3
+  KC_MY_BTN5,                               // Remap上では 0x5DB4
+  KC_DOUBLE_CLICK_BTN1,                     // Remap上では 0x5DB5: ダブルクリックできるBTN1
 };
 
 // マクロキーの処理を行う関数
@@ -27,10 +30,12 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   bool mod_pressed = (get_mods() != 0);  // 修飾キーが押されているかを判定（0でなければ修飾キーが押されている）
 
   switch (keycode) {
-    case KC_MY_BTN0:
+    case KC_TO_LAYER_0_BTN1:
     case KC_MY_BTN1:
     case KC_MY_BTN2:
-    case KC_MY_BTN3: {
+    case KC_MY_BTN3:
+    case KC_MY_BTN4:
+    case KC_MY_BTN5: {
       report_mouse_t currentReport = pointing_device_get_report();  // 現在のマウス状態を取得する
 
       // キーコードに基づいて、対象とするボタンを決定
@@ -49,7 +54,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         state = CLICKED;
 
         // キーコードがKC_MY_BTN0の場合はクリックレイヤーを無効化
-        if (keycode == KC_MY_BTN0) {
+        if (keycode == KC_TO_LAYER_0_BTN1) {
           disable_click_layer();
         }
       }
