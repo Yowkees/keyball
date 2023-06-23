@@ -6,6 +6,17 @@
 
 ---
 
+# 変更履歴
+
+-
+
+# ロードマップ
+
+- 『レイヤー 0 に遷移できる BTN1』を追加
+- 『BTN4 と BTN5』を追加
+- ”CLICKABLE の滞在時間”と”CLICKED の滞在時間”のしきい値を flash 後にも調整可能にする
+- 『タップでダブルクリックできる BTN1』を追加
+
 # Keyball series
 
 This directory includes source code of Keyball keyboard seriers:
