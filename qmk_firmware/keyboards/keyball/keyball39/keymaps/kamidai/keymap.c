@@ -37,7 +37,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "utils/functions.h"
 #include "features/swipe_gesture.h"
 #include "features/auto_click_layer.h"
-// #include "features/one_tap_multi_click.h"
+#include "features/back_to_layer0_btn1.h"
 // #include "features/one_tap_multi_click.h"
 #include "features/macro_keys.h"
 
