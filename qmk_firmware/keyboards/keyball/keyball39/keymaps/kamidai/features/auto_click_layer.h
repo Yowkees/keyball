@@ -82,7 +82,7 @@ report_mouse_t pointing_device_task_user(report_mouse_t mouse_report) {
         break;
 
       case CLICKABLE:
-        // click_timer = timer_read();  // タイマーをリセット
+        click_timer = timer_read();  // タイマーをリセット
         break;
 
       case CLICKING:
