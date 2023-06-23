@@ -35,8 +35,8 @@ enum ball_state {
 enum ball_state state;  // 現在のクリック入力受付の状態 Current click input reception status
 uint16_t click_timer;   // タイマー。状態に応じて時間で判定する。 Timer. Time to determine the state of the system.
 
-uint16_t clicked_stay_time = 140;     // CLICKEDの滞在時間（千分の一秒)。その後、クリックレイヤーが無効になる。 For this number of seconds (milliseconds), the click layer is disabled if in CLICKED state.
-uint16_t clickable_stay_time = 1000;  // CLICKABLEの滞在時間（千分の一秒)。その後、クリックレイヤーが無効になる。 For this number of seconds (milliseconds), the click layer is disabled if in CLICKABLE state.
+uint16_t clicked_stay_time = 200;     // CLICKEDの滞在時間（千分の一秒)。その後、クリックレイヤーが無効になる。 For this number of seconds (milliseconds), the click layer is disabled if in CLICKED state.
+uint16_t clickable_stay_time = 1400;  // CLICKABLEの滞在時間（千分の一秒)。その後、クリックレイヤーが無効になる。 For this number of seconds (milliseconds), the click layer is disabled if in CLICKABLE state.
 
 const int16_t to_clickable_movement = 0;  // クリックレイヤーが有効になるしきい値
 const uint16_t click_layer = 6;           // マウス入力が可能になった際に有効になるレイヤー。Layers enabled when mouse input is enabled
