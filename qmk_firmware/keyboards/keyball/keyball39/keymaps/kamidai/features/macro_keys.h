@@ -15,9 +15,9 @@
  */
 
 enum custom_keycodes {
-  KC_BACK_TO_LAYER0_BTN1 = KEYBALL_SAFE_RANGE,  // Remap上では 0x5DAF: レイヤー0に遷移できるBTN1
-  KC_DOUBLE_CLICK_BTN1,                         // Remap上では 0x5DB0: 1タップでダブルクリックできるBTN1
-  KC_TRIPLE_CLICK_BTN1,                         // Remap上では 0x5DB1: 1タップでトリプルクリックできるBTN1
+  KC_BACK_TO_LAYER0_BTN1 = KEYBALL_SAFE_RANGE,  // (0x5DAF): レイヤー0に遷移できるBTN1
+  KC_DOUBLE_CLICK_BTN1,                         // (0x5DB0): 1タップでダブルクリックできるBTN1
+  KC_TRIPLE_CLICK_BTN1,                         // (0x5DB1): 1タップでトリプルクリックできるBTN1
 };
 
 // マクロキーの処理を行う関数
