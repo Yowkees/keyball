@@ -45,7 +45,8 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       return true;
     }
 
-    // altキーはデフォルトの動作を続行させる
+    // 以下のキーは自動クリックレイヤーで使用可能にする
+    // case SCRL_MO:
     case ALT_T(KC_F13): {
       return true;
     }
