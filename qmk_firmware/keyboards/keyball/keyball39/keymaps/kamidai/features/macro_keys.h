@@ -16,13 +16,8 @@
 
 enum custom_keycodes {
   KC_BACK_TO_LAYER0_BTN1 = KEYBALL_SAFE_RANGE,  // Remap上では 0x5DAF: レイヤー0に遷移できるBTN1
-  KC_MY_BTN1,                                   // Remap上では 0x5DB0
-  KC_MY_BTN2,                                   // Remap上では 0x5DB1
-  KC_MY_BTN3,                                   // Remap上では 0x5DB2
-  KC_MY_BTN4,                                   // Remap上では 0x5DB3
-  KC_MY_BTN5,                                   // Remap上では 0x5DB4
-  KC_DOUBLE_CLICK_BTN1,                         // Remap上では 0x5DB5: 1タップでダブルクリックできるBTN1
-  KC_TRIPLE_CLICK_BTN1,                         // Remap上では 0x5DB6: 1タップでトリプルクリックできるBTN1
+  KC_DOUBLE_CLICK_BTN1,                         // Remap上では 0x5DB0: 1タップでダブルクリックできるBTN1
+  KC_TRIPLE_CLICK_BTN1,                         // Remap上では 0x5DB1: 1タップでトリプルクリックできるBTN1
 };
 
 // マクロキーの処理を行う関数
@@ -31,40 +26,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   bool mod_pressed = (get_mods() != 0);  // 修飾キーが押されているかを判定（0でなければ修飾キーが押されている）
 
   switch (keycode) {
-    // case KC_TO_LAYER_0_BTN1:
-    // case KC_MY_BTN1:
-    // case KC_MY_BTN2:
-    // case KC_MY_BTN3:
-    // case KC_MY_BTN4:
-    // case KC_MY_BTN5: {
-    //   report_mouse_t currentReport = pointing_device_get_report();  // 現在のマウス状態を取得する
-
-    //   // キーコードに基づいて、対象とするボタンを決定
-    //   uint8_t btn = 1 << (keycode - KC_MY_BTN1);  // 対象ボタンのビット位置を設定
-
-    //   if (record->event.pressed) {
-    //     // キーダウン時
-    //     // 対象のボタンを有効にし、状態をCLICKINGに設定
-    //     currentReport.buttons |= btn;  // ビットORは演算子の左辺と右辺の同じ位置にあるビットを比較して、両方のビットのどちらかが「1」の場合に「1」にします。
-    //     state = CLICKING;
-    //   } else {
-    //     // キーアップ時
-    //     // 対象のボタンを無効にし、クリックレイヤーを有効にして、状態をCLICKEDに設定
-    //     currentReport.buttons &= ~btn;  // ビットANDは演算子の左辺と右辺の同じ位置にあるビットを比較して、両方のビットが共に「1」の場合だけ「1」にします。
-    //     enable_click_layer();
-    //     state = CLICKED;
-
-    //     // キーコードがKC_MY_BTN0の場合はクリックレイヤーを無効化
-    //     if (keycode == KC_TO_LAYER_0_BTN1) {
-    //       disable_click_layer();
-    //     }
-    //   }
-
-    //   pointing_device_set_report(currentReport);  // マウスの状態（ボタンの押下状態）をcurrentReportの内容で更新する
-    //   pointing_device_send();                     // 更新したマウスの状態をシステムに送信する
-    //   return false;                               // キーのデフォルトの動作をスキップする
-    // }
-
     // デフォルトのマウスキーを自動クリックレイヤーで使用可能にする
     case KC_MS_BTN1:
     case KC_MS_BTN2:
@@ -82,23 +43,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         }
       }
       return true;
-    }
-
-    case KC_BACK_TO_LAYER0_BTN1: {
-      if (record->event.pressed) {
-        // キーダウン時: 状態をCLICKINGに設定
-        click_mouse_button1();  // マウスのボタン1をクリック
-        state = CLICKING;
-      } else {
-        // キーアップ時: 状態をCLICKEDに設定
-        release_mouse_button1();  // マウスのボタン1をリリース
-        enable_click_layer();
-        state = CLICKED;
-
-        // クリックレイヤーを無効化
-        disable_click_layer();
-      }
-      return false;  // キーのデフォルトの動作をスキップする
     }
 
     // altキーはデフォルトの動作を続行させる
@@ -200,13 +144,12 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       //   }
       //   return false;
 
+    // その他のキーコードの場合
     default:
-      // その他のキーコードの場合
       if (record->event.pressed) {
         // キーダウン時
         disable_click_layer();  // クリックレイヤーを無効化
       }
   }
-
   return true;
 }
