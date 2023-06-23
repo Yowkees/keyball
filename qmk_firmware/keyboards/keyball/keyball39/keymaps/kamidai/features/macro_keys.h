@@ -21,7 +21,7 @@ enum custom_keycodes {
   KC_MY_BTN3,                               // Remap上では 0x5DB2
   KC_MY_BTN4,                               // Remap上では 0x5DB3
   KC_MY_BTN5,                               // Remap上では 0x5DB4
-  KC_DOUBLE_CLICK_BTN1,                     // Remap上では 0x5DB5: ダブルクリックできるBTN1
+  KC_DOUBLE_CLICK_BTN1,                     // Remap上では 0x5DB5: 1タップでダブルクリックできるBTN1
 };
 
 // マクロキーの処理を行う関数
