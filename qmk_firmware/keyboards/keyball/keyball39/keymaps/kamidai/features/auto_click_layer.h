@@ -14,7 +14,7 @@
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  *
  * -------------------------------------------------------------------
-
+ *
  * 参考文献：
  * - 以下のリソースを参考にしました：
  *   https://zenn.dev/takashicompany/articles/69b87160cda4b9
