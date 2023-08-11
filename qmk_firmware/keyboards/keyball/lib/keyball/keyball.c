@@ -66,6 +66,7 @@ static inline int8_t clip2int8(int16_t v) {
     return (v) < -127 ? -127 : (v) > 127 ? 127 : (int8_t)v;
 }
 
+#ifdef OLED_ENABLE
 static const char *format_4d(int8_t d) {
     static char buf[5] = {0}; // max width (4) + NUL (1)
     char        lead   = ' ';
@@ -97,6 +98,7 @@ static char to_1x(uint8_t x) {
     x &= 0x0f;
     return x < 10 ? x + '0' : x + 'a' - 10;
 }
+#endif
 
 static void add_cpi(int8_t delta) {
     int16_t v = keyball_get_cpi() + delta;
