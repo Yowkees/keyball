@@ -1,0 +1,11 @@
+{
+  "keyboard_name": "Keyball61",
+  "url": "",
+  "maintainer": "Yowkees",
+  "manufacturer": "Yowkees",
+  "usb": {
+    "vid": "0x5957",
+    "pid": "0x0100",
+    "device_version": "0.0.1"
+  }
+}

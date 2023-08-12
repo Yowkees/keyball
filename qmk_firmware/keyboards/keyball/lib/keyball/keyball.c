@@ -20,6 +20,11 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #    include "transactions.h"
 #endif
 
+#ifdef OS_DETECTION_ENABLE
+  #include "os_detection.h"
+  #include <tmk_core/protocol/usb_device_state.h>
+#endif
+
 #include "keyball.h"
 #include "drivers/pmw3360/pmw3360.h"
 
@@ -337,6 +342,22 @@ static void rpc_set_cpi_invoke(void) {
 // OLED utility
 
 #ifdef OLED_ENABLE
+
+uint32_t execute_os_switching(uint32_t trigger_time, void *cb_arg) {
+    detected_host_os();
+
+    return 0;
+}
+
+void notify_usb_device_state_change_user(enum usb_device_state usb_device_state) {
+    // this is the USB reset event - so reset the os detection counter.
+    if (USB_DEVICE_STATE_INIT == usb_device_state) {
+        erase_wlength_data();
+        // usb setup packets should be done by this time (500ms by the spec + some slack time).
+        defer_exec(1000, execute_os_switching, NULL);
+    }
+}
+
 // clang-format off
 const char PROGMEM code_to_name[] = {
     'a', 'b', 'c', 'd', 'e', 'f',  'g', 'h', 'i',  'j',
@@ -370,6 +391,27 @@ void keyball_oled_render_ballinfo(void) {
     oled_write_char(keyball.scroll_mode ? '1' : '0', false);
     oled_write_P(PSTR("  D"), false);
     oled_write_char('0' + keyball_get_scroll_div(), false);
+#ifdef OS_DETECTION_ENABLE
+    switch (detected_host_os()) {
+        case OS_UNSURE:
+            oled_write_P(PSTR("OS_UNSURE"), false);
+            break;
+        case OS_LINUX:
+            oled_write_P(PSTR("OS_LINUX"), false);
+            break;
+        case OS_WINDOWS:
+            oled_write_P(PSTR("OS_WINDOWS"), false);
+            break;
+        case OS_MACOS:
+            oled_write_P(PSTR("OS_MACOS"), false);
+            break;
+        case OS_IOS:
+            oled_write_P(PSTR("OS_IOS"), false);
+            break;
+        default:
+            oled_write_P(PSTR("Unknown"), false);
+    }
+#endif
 #endif
 }
 
@@ -496,16 +538,6 @@ bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
     }
 
     switch (keycode) {
-#ifndef MOUSEKEY_ENABLE
-        // process KC_MS_BTN1~8 by myself
-        // See process_action() in quantum/action.c for details.
-        case KC_MS_BTN1 ... KC_MS_BTN8: {
-            extern void register_button(bool, enum mouse_buttons);
-            register_button(record->event.pressed, MOUSE_BTN_MASK(keycode - KC_MS_BTN1));
-            // to apply QK_MODS actions, allow to process others.
-            return true;
-        }
-#endif
 
         case SCRL_MO:
             keyball_set_scroll_mode(record->event.pressed);
