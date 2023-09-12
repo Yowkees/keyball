@@ -39,10 +39,10 @@ matrix_row_t matrix_mask[MATRIX_ROWS] = {
 
 void keyball_on_adjust_layout(keyball_adjust_t v) {
 #ifdef RGBLIGHT_ENABLE
-    // adjust RGBLIGHT's clipping and effect ranges
-    uint8_t lednum_this = keyball.this_have_ball ? 34 : 37;
-    uint8_t lednum_that = !keyball.that_enable ? 0 : keyball.that_have_ball ? 34 : 37;
-    rgblight_set_clipping_range(is_keyboard_left() ? 0 : lednum_that, lednum_this);
-    rgblight_set_effect_range(0, lednum_this + lednum_that);
+  // adjust RGBLIGHT's clipping and effect ranges
+  uint8_t lednum_this = keyball.this_have_ball ? 34 : 37;
+  uint8_t lednum_that = !keyball.that_enable ? 0: keyball.that_have_ball ? 34: 37;
+  rgblight_set_clipping_range(is_keyboard_left() ? 0 : lednum_that, lednum_this);
+  rgblight_set_effect_range(0, lednum_this + lednum_that);
 #endif
 }

@@ -43,7 +43,7 @@ SLEEP_LED_ENABLE = no       # Breathing sleep LED during USB suspend
 
 # To support OLED
 OLED_ENABLE = no                # Please Enable this in each keymaps.
-SRC += lib/oledkit/oledkit.c    # OLED utility for Keyball series.
+# SRC += lib/oledkit/oledkit.c    # OLED utility for Keyball series.
 
 # Include common library
 SRC += lib/keyball/keyball.c
