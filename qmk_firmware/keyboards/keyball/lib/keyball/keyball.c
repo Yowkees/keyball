@@ -411,23 +411,16 @@ void keyball_oled_render_keyinfo(void) {
 
 void keyball_oled_render_layerinfo(void) {
 #ifdef OLED_ENABLE
-    // Format: `Layer: {layer}`
+    // Format: `Layer:{layer state}`
     //
     // Output example:
     //
-    //     Layer: 0
+    //     Layer:-23------------
     //
-    oled_write_P(PSTR("Layer: "), false);
-    layer_state_t layer = layer_state;
-    for (uint8_t i = 0; i < 8; i++) {
-        if (layer & 1) {
-            oled_write_char('0' + i, false);
-        } else {
-            oled_write_char('-', false);
-        }
-        layer >>= 1;
+    oled_write_P(PSTR("Layer:"), false);
+    for (uint8_t i = 1; i < 16; i++) {
+        oled_write_char((layer_state_is(i) ? to_1x(i) : '_'), false);
     }
-    oled_advance_page(true);
 #endif
 }
 
