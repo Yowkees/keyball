@@ -599,18 +599,7 @@ The latest firmware for the Keyball46 is available in the [Github repository](ht
    - The USB cable can be plugged in either left or right. However, since the keymap is written to the ProMicro on the side where the USB cable is plugged in, please review the keymap when replacing the cable for the first time.
    - There are Special keys for Keyball users as below list. It is located on Layer 3. These key codes can be used for switching Cursor action to Scroll or Changing CPI and Speed of Scroll.
 
-| Keycode | Value on Remap | Description |
-|:-|:-|:-|
-| `KBC_RST` | `0x5DA5` | Reset Keyball configuration |
-| `KBC_SAVE` | `0x5DA6` | Persist Keyball configuration to EEPROM |
-| `CPI_I100` | `0x5DA7` | Increase 100 CPI (max 12000) |
-| `CPI_D100` | `0x5DA8` | Decrease 100 CPI (min 100) |
-| `CPI_I1K` | `0x5DA9` | Increase 1000 CPI (max 12000) |
-| `CPI_D1K` | `0x5DAA` | Decrease 1000 CPI (min 100) |
-| `SCRL_TO` | `0x5DAB` | Toggle scroll mode |
-| `SCRL_MO` | `0x5DAC` | Enable scroll mode when pressing |
-| `SCRL_DVI` | `0x5DAD` | Increase scroll divider (max D7 = 1/128) <- Most Scroll slow |
-| `SCRL_DVD` | `0x5DAE` | Decrease scroll divider (min 0 = 1/1) <- Most Scroll fast  |
+See [Special Keycode](./keycodes.md#english) also.
 
 
 
