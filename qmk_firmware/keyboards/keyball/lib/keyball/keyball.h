@@ -71,29 +71,24 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 // Types
 
 enum keyball_keycodes {
-#ifdef VIA_ENABLED
-    KBC_RST = USER00, // Keyball configuration: reset to default
-#else
-    KBC_RST = SAFE_RANGE, // Keyball configuration: reset to default
-#endif
-    KBC_SAVE,             // Keyball configuration: save to EEPROM
+    KBC_RST  = QK_KB_0, // Keyball configuration: reset to default
+    KBC_SAVE = QK_KB_1, // Keyball configuration: save to EEPROM
 
-    CPI_I100, // CPI +100 CPI
-    CPI_D100, // CPI -100 CPI
-    CPI_I1K,  // CPI +1000 CPI
-    CPI_D1K,  // CPI -1000 CPI
+    CPI_I100 = QK_KB_2, // CPI +100 CPI
+    CPI_D100 = QK_KB_3, // CPI -100 CPI
+    CPI_I1K  = QK_KB_4, // CPI +1000 CPI
+    CPI_D1K  = QK_KB_5, // CPI -1000 CPI
 
     // In scroll mode, motion from primary trackball is treated as scroll
     // wheel.
-    SCRL_TO,  // Toggle scroll mode
-    SCRL_MO,  // Momentary scroll mode
-    SCRL_DVI, // Increment scroll divider
-    SCRL_DVD, // Decrement scroll divider
+    SCRL_TO  = QK_KB_6, // Toggle scroll mode
+    SCRL_MO  = QK_KB_7, // Momentary scroll mode
+    SCRL_DVI = QK_KB_8, // Increment scroll divider
+    SCRL_DVD = QK_KB_9, // Decrement scroll divider
 
-    KEYBALL_SAFE_RANGE,
+    // User customizable 32 keycodes.
+    KEYBALL_SAFE_RANGE = QK_USER_0,
 };
-
-
 
 typedef union {
     uint32_t raw;
