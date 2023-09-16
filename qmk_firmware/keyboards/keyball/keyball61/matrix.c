@@ -152,6 +152,6 @@ uint8_t matrix_scan(void) {
         changed = true;
     }
 
-    matrix_scan_quantum();
+    matrix_scan_kb();
     return changed;
 }

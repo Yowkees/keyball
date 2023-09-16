@@ -18,8 +18,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #pragma once
 
-#include "config_common.h"
-
 // Key matrix parameters (Keyball61 is duplex matrix)
 #define MATRIX_ROWS         (5 * 2)  // split keyboard
 #define MATRIX_COLS         (4 * 2)  // duplex matrix
@@ -37,7 +35,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define SPLIT_TRANSACTION_IDS_KB KEYBALL_GET_INFO, KEYBALL_GET_MOTION, KEYBALL_SET_CPI
 
 // RGB LED settings
-#define RGB_DI_PIN          D3
+#define WS2812_DI_PIN       D3
 #ifdef RGBLIGHT_ENABLE
 #    define RGBLED_NUM      74
 #    define RGBLED_SPLIT    { 37, 37 }
