@@ -10,6 +10,9 @@
     "maintainer": "Yowkees",
     "width": 17.5,
     "height": 4.5,
+    "rgblight": {
+        "driver": "ws2812"
+    },
     "layouts": {
         "LAYOUT_right_ball": {
             "layout": [
