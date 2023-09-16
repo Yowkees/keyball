@@ -6,7 +6,7 @@
 <a id="english"></a>
 ## Special Keycodes
 
-| Keycode    | Value on Remap  | Value    | Description                                                       |
+| Keycode    | Value on Remap  | Hex      | Description                                                       |
 |:-----------|:----------------|:---------|:------------------------------------------------------------------|
 | `KBC_RST`  | `Kb 0`          | `0x7e00` | Reset Keyball configuration                                       |
 | `KBC_SAVE` | `Kb 1`          | `0x7e01` | Persist Keyball configuration to EEPROM                           |
