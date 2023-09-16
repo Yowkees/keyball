@@ -111,7 +111,7 @@
                 {"label":"R35", "x":14.5, "y":3.05}
             ]
         },
-        "LAYOUT_double_ball": {
+        "LAYOUT_double_balls": {
             "layout": [
                 {"label":"L00", "x":0, "y":1.18},
                 {"label":"L01", "x":1, "y":1.03},
