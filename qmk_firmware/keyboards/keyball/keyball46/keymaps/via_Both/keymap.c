@@ -112,26 +112,6 @@ layer_state_t layer_state_set_user(layer_state_t state) {
 void oledkit_render_info_user(void) {
     keyball_oled_render_keyinfo();
     keyball_oled_render_ballinfo();
-
-    const char *n;
-    switch (get_highest_layer(layer_state)) {
-        case _QWERTY:
-            n = PSTR("Default");
-            break;
-        case _RAISE:
-            n = PSTR("Raise");
-            break;
-        case _LOWER:
-            n = PSTR("Lower");
-            break;
-        case _BALL:
-            n = PSTR("Adjust");
-            break;
-        default:
-            n = PSTR("Undefined");
-            break;
-    }
-    oled_write_P(PSTR("Layer: "), false);
-    oled_write_ln_P(n, false);
+    keyball_oled_render_layerinfo();
 }
 #endif

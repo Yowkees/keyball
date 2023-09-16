@@ -154,6 +154,11 @@ void keyball_oled_render_ballinfo(void);
 /// It shows column, row, key code, and key name (if available).
 void keyball_oled_render_keyinfo(void);
 
+/// keyball_oled_render_layerinfo renders current layer status information to
+/// OLED.  It shows layer mask with number (1~f) for active layers and '_' for
+/// inactive layers.
+void keyball_oled_render_layerinfo(void);
+
 /// keyball_get_scroll_mode gets current scroll mode.
 bool keyball_get_scroll_mode(void);
 
