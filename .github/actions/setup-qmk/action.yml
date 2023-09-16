@@ -2,7 +2,7 @@ name: 'Setup QMK firmware'
 
 inputs:
   version:
-    default: '0.16.3'
+    default: '0.19.10'
     type: string
     required: false
   path:

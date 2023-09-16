@@ -1,5 +1,11 @@
 {
-    "keyboard_name": "Keyball46 rev1",
+    "usb": {
+        "vid": "0x5957",
+        "pid": "0x0001",
+        "device_version": "1.0.0"
+    },
+    "manufacturer": "Yowkees",
+    "keyboard_name": "Keyball46",
     "url": "",
     "maintainer": "Yowkees",
     "width": 17.5,

@@ -34,10 +34,10 @@ enum keymap_layers {
 #define KC_R_ENT    LT(_RAISE, KC_ENT)
 
 // shift_t
-#define KC_S_EN     LSFT_T(KC_LANG2)
+#define KC_S_EN     LSFT_T(KC_LNG2)
 
 // original
-#define KC_A_JA     LT(_BALL, KC_LANG1)     // cmd or adjust
+#define KC_A_JA     LT(_BALL, KC_LNG1)     // cmd or adjust
 #define KC_AL_CP    MT(MOD_LALT, KC_CAPS)   // alt or caps lock
 #define KC_G_BS     MT(MOD_LGUI, KC_BSPC)   // command or back space
 #define KC_G_DEL    MT(MOD_LGUI, KC_DEL)    // command or delete
@@ -92,7 +92,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   //|--------+--------+--------+--------+--------+--------'                    |--------+--------+--------+--------+--------+--------|
      RGB_RMOD, RGB_HUD, RGB_SAD, RGB_VAD, _______,                               _______, CPI_D1K,CPI_D100,CPI_I100, CPI_I1K,KBC_SAVE,
   //|--------+--------+--------+--------+--------+-------+--------.            `--------+--------+--------+--------+--------+--------|
-        RESET, EEP_RST,    _______,    _______,   _______, _______,                _______,SCRL_DVD,       SCRL_DVI, _______, KBC_RST
+        QK_BOOT, EE_CLR,    _______,    _______,   _______, _______,                _______,SCRL_DVD,       SCRL_DVI, _______, KBC_RST
   //`--------+--------'  `--------'  `--------' `--------+--------'              `--------+--------'      `--------+--------+--------'
   ),
 

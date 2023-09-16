@@ -20,13 +20,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #include "config_common.h"
 
-// USB Device descriptor parameters
-#define VENDOR_ID           0x5957      // "YW" = Yowkees
-#define PRODUCT_ID          0x0001
-#define DEVICE_VER          0x0001
-#define MANUFACTURER        Yowkees
-#define PRODUCT             Keyball46
-
 // Key matrix parameters (Keyball61 is duplex matrix)
 #define MATRIX_ROWS         8
 #define MATRIX_COLS         6
@@ -78,5 +71,3 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 // To squeeze firmware size
 #undef LOCKING_SUPPORT_ENABLE
 #undef LOCKING_RESYNC_ENABLE
-#define NO_ACTION_MACRO
-#define NO_ACTION_FUNCTION
