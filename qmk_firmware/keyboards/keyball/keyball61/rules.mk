@@ -16,11 +16,11 @@ NKRO_ENABLE = no            # Enable N-Key Rollover
 BACKLIGHT_ENABLE = no       # Enable keyboard backlight functionality
 AUDIO_ENABLE = no           # Audio output
 
-# Keyball61 is duplex matrix, uses custom matrix.
+# Duplex matrix.
 CUSTOM_MATRIX = lite
-SRC += matrix.c
+SRC += lib/duplexmatrix/duplexmatrix.c
 
-# Keyball61 is split keyboard.
+# Split keyboard.
 SPLIT_KEYBOARD = yes
 
 # Optical sensor driver for trackball.
