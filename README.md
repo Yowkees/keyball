@@ -41,7 +41,7 @@ Keyboards in the family are:
 
 ## Firmware
 
-See [document for firware source code](./qmk_firmware/keyboards/keyball/readme.md).
+See [document for firmware source code](./qmk_firmware/keyboards/keyball/readme.md).
 
 ### Pre-compiled Firmwares
 
