@@ -7,7 +7,8 @@ A split keyboard with 39 vertically staggered keys and 34mm track ball.
 * Keyboard Maintainer: [@Yowkees](https://twitter.com/Yowkees)
 * Hardware Supported: Keyball39 PCB, ProMicro
 * Hardware Availability:
-  * <https://shirogane-lab.com/>
+    * <https://shop.yushakobo.jp/products/5357>
+    * <https://shirogane-lab.net/items/64b8f8693ee3fd0045280190>
 
 Make example for this keyboard (after setting up your build environment):
 

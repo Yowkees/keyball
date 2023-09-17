@@ -108,7 +108,7 @@ Keyball44 キットの同梱品は下記になります。
 |:-|:-|:-|
 | キーキャップ | ４４個 | 1u ４４個 |
 | ロープロファイルキーキャップ | ５個 | 親指ロープロ仕様のみ　1u ５個 |
-| [YS-SK6812MINI-E](https://shirogane-lab.com/products/%E3%83%95%E3%83%AB%E3%82%AB%E3%83%A9%E3%83%BC%E3%83%81%E3%83%83%E3%83%97led-sk6812mini-e) | ５９個 | ※SK6812MINIは使用できません |
+| [YS-SK6812MINI-E](https://shirogane-lab.net/items/64b8f178cbce52004b9555f9) | ５９個 | ※SK6812MINIは使用できません |
 
 <a id="anchor2"></a>
 ## ２．準備
@@ -207,7 +207,7 @@ PCBはリバーシブルになっているので、最初にどちらを左手�
 
 <a id="anchor3-3"></a>
 ### 3-3．LED（オプション）のはんだ付け
-LED（YS-SK6812MINI-E）はオプションになります。キットには含まれませんので、[こちら](https://shirogane-lab.com/products/%E3%83%95%E3%83%AB%E3%82%AB%E3%83%A9%E3%83%BC%E3%83%81%E3%83%83%E3%83%97led-sk6812mini-e)等で入手してください。
+LED（YS-SK6812MINI-E）はオプションになります。キットには含まれませんので、[こちら](https://shirogane-lab.net/items/64b8f178cbce52004b9555f9)等で入手してください。
 
 左右で計５９個取り付け可能です。  
 
