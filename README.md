@@ -1,6 +1,6 @@
 # Keyball Series
 
-![Keyball44](./keyball44/doc/rev1/images/kb44_001.jpg)
+![Keyball61](./keyball61/doc/rev1/images/kb61_001.jpg)
 
 Keyball series is keyboard family which have 100% track ball.
 
