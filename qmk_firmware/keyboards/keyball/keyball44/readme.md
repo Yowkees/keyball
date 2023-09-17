@@ -1,6 +1,6 @@
 # Keyball44
 
-![Keyball44]
+![Keyball44](../../../../keyball44/doc/rev1/images/kb44_001.jpg)
 
 A split keyboard with 44 vertically staggered keys and 34mm track ball.
 

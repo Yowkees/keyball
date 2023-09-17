@@ -1,6 +1,6 @@
 # Keyball46
 
-![Keyball46](https://raw.githubusercontent.com/Yowkees/keyball/f24aaa449eee3eb635794630aac0181600e94af0/keyball46/doc/rev1/images/yw001.jpg)
+![Keyball46](../../../../keyball46/doc/rev1/images/yw001.jpg)
 
 A split keyboard with 4x6 vertically staggered keys and 34mm track ball.
 

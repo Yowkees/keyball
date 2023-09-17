@@ -1,6 +1,6 @@
 # Keyball61
 
-![Keyball61](https://raw.githubusercontent.com/Yowkees/keyball/f24aaa449eee3eb635794630aac0181600e94af0/keyball61/doc/rev1/images/kb61_001.jpg)
+![Keyball61](../../../..//keyball61/doc/rev1/images/kb61_001.jpg)
 
 A split keyboard with 61 vertically staggered keys and 34mm track ball.
 
