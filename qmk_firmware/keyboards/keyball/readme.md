@@ -48,13 +48,13 @@ See each directories for each keyboards in a table above.
 4. `make` your Keyball firmware.
 
     ```console
-    # Build Keyball39 with "default" keymap firmware
+    # Build Keyball39 firmware with "default" keymap
     $ make SKIP_GIT=yes keyball/keyball39:default
 
-    # Build Keyball44 with "default" keymap firmware
+    # Build Keyball44 firmware with "default" keymap
     $ make SKIP_GIT=yes keyball/keyball44:default
 
-    # Build Keyball61 with "default" keymap firmware
+    # Build Keyball61 firmware with "default" keymap
     $ make SKIP_GIT=yes keyball/keyball61:default
     ```
 
