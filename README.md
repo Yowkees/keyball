@@ -1,49 +1,48 @@
-# keyball
+# Keyball Series
 
-Keyball is split keyboard has 100% track ball
+![Keyball61](./keyball61/doc/rev1/images/kb61_001.jpg)
 
-## Firmware build guide
+Keyball series is keyboard family which have 100% track ball.
 
-Keyball46 have separate firmwares for each of PCBs w/ trackball and w/o
-trackball.  You can build those with this commands in root of QMK firmware
-source tree.
+Keyboards in the family are:
 
-```console
-$ make keyball/rev1/ball:via
-$ make keyball/rev1/noball:via
-```
+* Available
+    * Keyball39: split + 39 keys + a track ball
+    * Keyball44: split + 44 keys + a track ball
+    * Keyball61: split + 61 keys + a track ball
+* Unavailable
+    * Keyball46 (first one!)
+    * One47
 
-You will get two files:
+## Where to Buy
 
-* `keyball_rev1_ball_via.hex` - Trackball PCB firmware with VIA support.
-* `keyball_rev1_noball_via.hex` - No trackball PCB firmware with VIA support.
+|Keyboard   |Yushakobo / 遊舎工房                       |Shirogane Lab / 白金ラボ                                   |
+|-----------|-------------------------------------------|-----------------------------------------------------------|
+|Keyball39  |<https://shop.yushakobo.jp/products/5357>  |<https://shirogane-lab.net/items/64b8f8693ee3fd0045280190> |
+|Keyball44  |N/A                                        |<https://shirogane-lab.net/items/64b7a006eb6dbe00346cd0c5> |
+|Keyball61  |<https://shop.yushakobo.jp/products/5358>  |<https://shirogane-lab.net/items/64b8ed191435c1002bc4cd30> |
 
-Write each firmwares to correct PCB's Pro Micro.
+## Build Guide
 
-In generally, you can build fimwares with this command.
+*   Keyball39:
+    [English/英語](/keyball39/doc/rev1/buildguide_en.md),
+    [日本語/Japanese (ピンヘッダ版)](./keyball39/doc/rev1/buildguide_jp.md),
+    [日本語/Japanese (コンスルー版)](./keyball39/doc/rev1/buildguide_jp_conth.md)
+*   Keyball44: ~~English/英語~~ (Sorry, unavailable),
+    [日本語/Japanese (ピンヘッダ版)](./keyball44/doc/rev1/buildguide_jp.md),
+    [日本語/Japanese (コンスルー版)](./keyball44/doc/rev1/buildguide_jp_conth.md)
+*   Keyball46:
+    [English/英語](./keyball46/doc/rev1/buildguide_en.md),
+    [日本語/Japanese](./keyball46/doc/rev1/buildguide_jp.md)
+*   Keyball61:
+    [English/英語](./keyball61/doc/rev1/buildguide_en.md),
+    [日本語/Japanese (ピンヘッダ版)](./keyball61/doc/rev1/buildguide_jp.md),
+    [日本語/Japanese (コンスルー版)](./keyball61/doc/rev1/buildguide_jp_conth.md)
 
-```console
-$ make keyball/rev1/ball:{YOUR_FAVORITE_KEYMAP}
-$ make keyball/rev1/noball:{YOUR_FAVORITE_KEYMAP}
-```
+## Firmware
 
-### Keyamaps
+See [document for firmware source code](./qmk_firmware/keyboards/keyball/readme.md).
 
-Keyball46 provides some keymaps as default:
+### Pre-compiled Firmwares
 
-* `via` - VIA support, trackball is on right side
-* `via_Left` - VIA support, trackball is on left side
-* `test` - Test for building/soldering Keyball46 (w/ right trackball)
-* `default` - Template for customized keymap (w/ right trackball)
-
-### Prerequirements to build firmware
-
-1. Checkout [QMK firmware source codes](https://github.com/qmk/qmk_firmware)
-2. Setup QMK correctly ([See also](https://beta.docs.qmk.fm/tutorial/newbs_getting_started))
-3. Copy `./qmk_firmware/keyboards/keyball/` directory in this repository to QMK firmware's dir as `{QMK_FIRMWARE_ROOT}/keyboards/keyball`.
-4. Build Keyball46 firmwares (See above section)
-
-    ```console
-    $ make keyball/rev1/ball:via
-    $ make keyball/rev1/noball:via
-    ```
+(TO BE DOCUMENTED)

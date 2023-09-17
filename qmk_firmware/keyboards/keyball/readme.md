@@ -1,6 +1,6 @@
 # Keyball series
 
-This directory includes source code of Keyball keyboard seriers:
+This directory includes source code of Keyball keyboard series:
 
 | Name          | Description
 |---------------|-------------------------------------------------------------
@@ -12,7 +12,7 @@ This directory includes source code of Keyball keyboard seriers:
 
 * Keyboard Designer: [@Yowkees](https://twitter.com/Yowkees)  
 * Hardware Supported: ProMicro like footprint
-* Hardware Availability: <https://shirogane-lab.com/>
+* Hardware Availability: See [Where to Buy](../../../README.md#where-to-buy)
 
 See each directories for each keyboards in a table above.
 
@@ -41,16 +41,29 @@ See each directories for each keyboards in a table above.
     $ cd qmk/keyboards
     $ ln -s ../../keyball/qmk_firmware/keyboards/keyball keyball
     $ ls keyball/
-    drivers/  keyball46/  keyball61/  lib/  readme.md
+    drivers/  keyball39/  keyball44/  keyball46/  keyball61/  lib/  one47/  readme.md
     $ cd ..
     ```
 
-4. `make` your Keyball firmwares.
+4. `make` your Keyball firmware.
 
     ```console
-    $ make -j8 SKIP_GIT=yes keyball/keyball61:default
+    # Build Keyball39 firmware with "default" keymap
+    $ make SKIP_GIT=yes keyball/keyball39:default
+
+    # Build Keyball44 firmware with "default" keymap
+    $ make SKIP_GIT=yes keyball/keyball44:default
+
+    # Build Keyball61 firmware with "default" keymap
+    $ make SKIP_GIT=yes keyball/keyball61:default
     ```
+
+There are three keymaps provided at least:
+
+* `via` - Standard version with [Remap](https://remap-keys.app/) or VIA to change keymap
+* `test` - Easy-to-use version for checking operation at build time
+* `default` - Base version for creating your own customized firmware
 
 ## How to create your keymap
 
-(to be documented)
+(TO BE DOCUMENTED)
