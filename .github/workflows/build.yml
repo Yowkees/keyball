@@ -12,6 +12,15 @@ on:
       - '*'
     branches:
       - '*'
+
+  pull_request:
+    paths:
+      - 'qmk_firmware/keyboards/keyball/**.c'
+      - 'qmk_firmware/keyboards/keyball/**.h'
+      - 'qmk_firmware/keyboards/keyball/**.json'
+      - '.github/actions/setup-qmk/**.yml'
+      - '.github/workflows/build*.yml'
+
   workflow_call: {}
 
 jobs:
