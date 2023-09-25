@@ -1,0 +1,97 @@
+name: Build all firmwares
+
+on:
+  push:
+    paths:
+      - 'qmk_firmware/keyboards/keyball/**.c'
+      - 'qmk_firmware/keyboards/keyball/**.h'
+      - 'qmk_firmware/keyboards/keyball/**.json'
+      - '.github/actions/setup-qmk/**.yml'
+      - '.github/workflows/build*.yml'
+    tags-ignore:
+      - '*'
+    branches:
+      - '*'
+
+  pull_request:
+    paths:
+      - 'qmk_firmware/keyboards/keyball/**.c'
+      - 'qmk_firmware/keyboards/keyball/**.h'
+      - 'qmk_firmware/keyboards/keyball/**.json'
+      - '.github/actions/setup-qmk/**.yml'
+      - '.github/workflows/build*.yml'
+
+  workflow_call: {}
+
+jobs:
+
+  build:
+
+    strategy:
+      matrix:
+        keyboard: [ keyball39, keyball44, keyball61, keyball46, one47 ]
+        keymap: [ test, default, via ]
+        include:
+          - keyboard: keyball46
+            keymap:   test_Left
+          - keyboard: keyball46
+            keymap:   test_Both
+          - keyboard: keyball46
+            keymap:   via_Left
+          - keyboard: keyball46
+            keymap:   via_Both
+
+    name: Build ${{ matrix.keyboard }} w/ ${{ matrix.keymap }}
+
+    runs-on: ubuntu-latest
+    container:
+      image: ghcr.io/qmk/qmk_cli:latest
+
+    steps:
+
+    - name: Checkout source
+      uses: actions/checkout@v4
+
+    - name: Checkout qmk_firmware
+      uses: ./.github/actions/checkout-qmk_firmware
+
+    - name: Install a link to own source
+      run: ln -s $(pwd)/qmk_firmware/keyboards/keyball __qmk__/keyboards/keyball
+
+    - run: qmk compile -j 4 -kb keyball/${{ matrix.keyboard }} -km ${{ matrix.keymap }}
+
+    - name: Archive firmwares
+      uses: actions/upload-artifact@v3
+      with:
+        name: ${{ matrix.keyboard }}-firmwares
+        path: __qmk__/*.hex
+
+  check-size:
+    name: Check size
+    runs-on: ubuntu-latest
+    needs:
+    - build
+
+    steps:
+
+    - uses: actions/download-artifact@v3
+      with: { name: keyball39-firmwares }
+
+    - uses: actions/download-artifact@v3
+      with: { name: keyball44-firmwares }
+
+    - uses: actions/download-artifact@v3
+      with: { name: keyball61-firmwares }
+
+    - uses: actions/download-artifact@v3
+      with: { name: keyball46-firmwares }
+
+    - uses: actions/download-artifact@v3
+      with: { name: one47-firmwares }
+
+    - name: List size of firmwares
+      run: |
+        for f in *.hex ; do
+          cut -c 2,3 $f | awk '{s+=strtonum("0x" $1)}END{printf "%5d/28672 (%2d%%, %5d bytes free) ",s,s*100/28672,28672-s}'
+          echo $f
+        done
