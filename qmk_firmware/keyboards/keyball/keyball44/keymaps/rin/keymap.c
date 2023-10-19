@@ -47,11 +47,9 @@ enum custom_keycodes {
   NICOLA_SO,
   NICOLA_NE,
   NICOLA_HO,
+  MID_DOT,
 };
 
-enum unicode_names {
-    MID_DOT,
-};
 
 const uint32_t PROGMEM unicode_map[] = {
     [MID_DOT]  = 0x30FB  // ・
@@ -145,7 +143,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [4] = LAYOUT_universal(
     _______  , KC_DOT , NICOLA_KA , NICOLA_TA , NICOLA_KO , NICOLA_SA ,                                        NICOLA_RA , NICOLA_TI  ,  NICOLA_KU , NICOLA_TU  ,  KC_COMM , _______ ,
     _______  , KC_U   , NICOLA_SI   , NICOLA_TE , NICOLA_KE , NICOLA_SE ,                                NICOLA_HA , NICOLA_TO , NICOLA_KI , KC_I      ,  NICOLA_NN , _______ ,
-    _______  , _______, NICOLA_HI, NICOLA_SU, NICOLA_FU, NICOLA_HE,                                      NICOLA_ME , NICOLA_SO , NICOLA_NE , NICOLA_HO ,  MID_DOT   , _______ ,
+    _______  , MID_DOT, NICOLA_HI, NICOLA_SU, NICOLA_FU, NICOLA_HE,                                      NICOLA_ME , NICOLA_SO , NICOLA_NE , NICOLA_HO ,  UC(0x30FB)   , _______ ,
     _______  , _______ ,   LT(5, KC_LGUI) , LT(1,KC_SPC)  , _______   ,                                        TO_DVORAK  , _______  , _______       , _______  , _______
   ),
   [5] = LAYOUT_universal(
