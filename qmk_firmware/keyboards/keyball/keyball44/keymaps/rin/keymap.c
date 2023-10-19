@@ -73,13 +73,13 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       } else {
         unregister_code(KC_LCTL);
         if (timer_elapsed(lctl_timer) < TAPPING_TERM) {
-          tap_code16(KC_LANG1);
+          tap_code16(KC_LNG1);
           layer_on(4);
         }
       }
     case TO_DVORAK:
       if (record->event.pressed) {
-        tap_code16(KC_LANG2);
+        tap_code16(KC_LNG2);
         layer_off(4);
       }
       return false;
