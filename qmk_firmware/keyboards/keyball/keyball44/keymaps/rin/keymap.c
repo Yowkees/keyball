@@ -47,12 +47,104 @@ enum custom_keycodes {
   NICOLA_SO,
   NICOLA_NE,
   NICOLA_HO,
+// shifted characters with same-side thumb shift
+  NICOLA_XA,
+  NICOLA_E,
+  NICOLA_RI,
+  NICOLA_XYA,
+  NICOLA_RE,
+  NICOLA_YO,
+  NICOLA_NI,
+  NICOLA_RU,
+  NICOLA_MA,
+  NICOLA_XE,
+  NICOLA_WO,
+  NICOLA_A,
+  NICOLA_NA,
+  NICOLA_XYU,
+  NICOLA_MO,
+  NICOLA_MI,
+  NICOLA_O,
+  NICOLA_NO,
+  NICOLA_XYO,
+  NICOLA_XTU,
+  NICOLA_XU,
+  NICOLA_CHOUON,
+  NICOLA_RO,
+  NICOLA_YA,
+  NICOLA_XI,
+  NICOLA_NU,
+  NICOLA_YU,
+  NICOLA_MU,
+  NICOLA_WA,
+  NICOLA_XO,
   MID_DOT,
 };
 
+// shifted characters with same-side thumb shift
+const uint16_t PROGMEM nicola_xa[]     = {LT(5, KC_LGUI), KC_DOT, COMBO_END};
+const uint16_t PROGMEM nicola_e[]      = {LT(5, KC_LGUI), NICOLA_KA, COMBO_END};
+const uint16_t PROGMEM nicola_ri[]     = {LT(5, KC_LGUI), NICOLA_TA, COMBO_END};
+const uint16_t PROGMEM nicola_xya[]    = {LT(5, KC_LGUI), NICOLA_KO, COMBO_END};
+const uint16_t PROGMEM nicola_re[]     = {LT(5, KC_LGUI), NICOLA_SA, COMBO_END};
+const uint16_t PROGMEM nicola_yo[]     = {LT(5, KC_LGUI), NICOLA_RA, COMBO_END};
+const uint16_t PROGMEM nicola_ni[]     = {LT(5, KC_LGUI), NICOLA_TI, COMBO_END};
+const uint16_t PROGMEM nicola_ru[]     = {LT(5, KC_LGUI), NICOLA_KU, COMBO_END};
+const uint16_t PROGMEM nicola_ma[]     = {LT(5, KC_LGUI), NICOLA_TU, COMBO_END};
+const uint16_t PROGMEM nicola_xe[]     = {LT(5, KC_LGUI), KC_COMM, COMBO_END};
+const uint16_t PROGMEM nicola_wo[]     = {LT(5, KC_LGUI), KC_U, COMBO_END};
+const uint16_t PROGMEM nicola_a[]      = {LT(5, KC_LGUI), NICOLA_SI, COMBO_END};
+const uint16_t PROGMEM nicola_na[]     = {LT(5, KC_LGUI), NICOLA_TE, COMBO_END};
+const uint16_t PROGMEM nicola_xyu[]    = {LT(5, KC_LGUI), NICOLA_KE, COMBO_END};
+const uint16_t PROGMEM nicola_mo[]     = {LT(5, KC_LGUI), NICOLA_SE, COMBO_END};
+const uint16_t PROGMEM nicola_mi[]     = {LT(5, KC_LGUI), NICOLA_HA, COMBO_END};
+const uint16_t PROGMEM nicola_o[]     = {LT(5, KC_LGUI), NICOLA_TO, COMBO_END};
+const uint16_t PROGMEM nicola_no[]     = {LT(5, KC_LGUI), NICOLA_KI, COMBO_END};
+const uint16_t PROGMEM nicola_xyo[]     = {LT(5, KC_LGUI), KC_I, COMBO_END};
+const uint16_t PROGMEM nicola_xtu[]     = {LT(5, KC_LGUI), NICOLA_NN, COMBO_END};
+const uint16_t PROGMEM nicola_xu[]     = {LT(5, KC_LGUI), MID_DOT, COMBO_END};
+const uint16_t PROGMEM nicola_chouon[] = {LT(5, KC_LGUI), NICOLA_HI, COMBO_END};
+const uint16_t PROGMEM nicola_ro[]     = {LT(5, KC_LGUI), NICOLA_SU, COMBO_END};
+const uint16_t PROGMEM nicola_ya[]     = {LT(5, KC_LGUI), NICOLA_FU, COMBO_END};
+const uint16_t PROGMEM nicola_xi[]     = {LT(5, KC_LGUI), NICOLA_HE, COMBO_END};
+const uint16_t PROGMEM nicola_nu[]     = {LT(5, KC_LGUI), NICOLA_ME, COMBO_END};
+const uint16_t PROGMEM nicola_yu[]     = {LT(5, KC_LGUI), NICOLA_SO, COMBO_END};
+const uint16_t PROGMEM nicola_mu[]     = {LT(5, KC_LGUI), NICOLA_NE, COMBO_END};
+const uint16_t PROGMEM nicola_wa[]     = {LT(5, KC_LGUI), NICOLA_HO, COMBO_END};
+const uint16_t PROGMEM nicola_xo[]     = {LT(5, KC_LGUI), UC(0x30FB), COMBO_END};
 
-const uint32_t PROGMEM unicode_map[] = {
-    [MID_DOT]  = 0x30FB  // ・
+combo_t key_combos[] = {
+// shifted characters with same-side thumb shift
+    COMBO(nicola_xa, NICOLA_XA),
+    COMBO(nicola_e, NICOLA_E),
+    COMBO(nicola_ri, NICOLA_RI),
+    COMBO(nicola_xya, NICOLA_XYA),
+    COMBO(nicola_re, NICOLA_RE),
+    COMBO(nicola_yo, NICOLA_YO),
+    COMBO(nicola_ni, NICOLA_NI),
+    COMBO(nicola_ru, NICOLA_RU),
+    COMBO(nicola_ma, NICOLA_MA),
+    COMBO(nicola_xe, NICOLA_XE),
+    COMBO(nicola_wo, NICOLA_WO),
+    COMBO(nicola_a, NICOLA_A),
+    COMBO(nicola_na, NICOLA_NA),
+    COMBO(nicola_xyu, NICOLA_XYU),
+    COMBO(nicola_mo, NICOLA_MO),
+    COMBO(nicola_mi, NICOLA_MI),
+    COMBO(nicola_o, NICOLA_O),
+    COMBO(nicola_no, NICOLA_NO),
+    COMBO(nicola_xyo, NICOLA_XYO),
+    COMBO(nicola_xtu, NICOLA_XTU),
+    COMBO(nicola_xu, NICOLA_XU),
+    COMBO(nicola_chouon, NICOLA_CHOUON),
+    COMBO(nicola_ro, NICOLA_RO),
+    COMBO(nicola_ya, NICOLA_YA),
+    COMBO(nicola_xi, NICOLA_XI),
+    COMBO(nicola_nu, NICOLA_NU),
+    COMBO(nicola_yu, NICOLA_YU),
+    COMBO(nicola_mu, NICOLA_MU),
+    COMBO(nicola_wa, NICOLA_WA),
+    COMBO(nicola_xo, NICOLA_XO),
 };
 
 #define HANDLE_NICOLA_KEY(keyname, keystring) \
@@ -107,6 +199,37 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       HANDLE_NICOLA_KEY(SO, "so");
       HANDLE_NICOLA_KEY(NE, "ne");
       HANDLE_NICOLA_KEY(HO, "ho");
+      // shifted characters with same-side thumb shift
+      HANDLE_NICOLA_KEY(XA, "xa");
+      HANDLE_NICOLA_KEY(E, "e");
+      HANDLE_NICOLA_KEY(RI, "ri");
+      HANDLE_NICOLA_KEY(XYA, "xya");
+      HANDLE_NICOLA_KEY(RE, "re");
+      HANDLE_NICOLA_KEY(YO, "yo");
+      HANDLE_NICOLA_KEY(NI, "ni");
+      HANDLE_NICOLA_KEY(RU, "ru");
+      HANDLE_NICOLA_KEY(MA, "ma");
+      HANDLE_NICOLA_KEY(XE, "xe");
+      HANDLE_NICOLA_KEY(WO, "wo");
+      HANDLE_NICOLA_KEY(A, "a");
+      HANDLE_NICOLA_KEY(NA, "na");
+      HANDLE_NICOLA_KEY(XYU, "xyu");
+      HANDLE_NICOLA_KEY(MO, "mo");
+      HANDLE_NICOLA_KEY(MI, "mi");
+      HANDLE_NICOLA_KEY(O, "o");
+      HANDLE_NICOLA_KEY(NO, "no");
+      HANDLE_NICOLA_KEY(XYO, "xyo");
+      HANDLE_NICOLA_KEY(XTU, "xtu");
+      HANDLE_NICOLA_KEY(XU, "xu");
+      HANDLE_NICOLA_KEY(CHOUON, "-");
+      HANDLE_NICOLA_KEY(RO, "ro");
+      HANDLE_NICOLA_KEY(YA, "ya");
+      HANDLE_NICOLA_KEY(XI, "xi");
+      HANDLE_NICOLA_KEY(NU, "nu");
+      HANDLE_NICOLA_KEY(YU, "yu");
+      HANDLE_NICOLA_KEY(MU, "mu");
+      HANDLE_NICOLA_KEY(WA, "wa");
+      HANDLE_NICOLA_KEY(XO, "xo");
     default:
       return true;
   }
