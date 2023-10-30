@@ -36,9 +36,16 @@ enum layer_names {
   _SET,
 };
 
-enum custome_keycodes { CST_IME_TG = KEYBALL_SAFE_RANGE };
+enum custome_keycodes {
+  CST_IME_TG = KEYBALL_SAFE_RANGE,
+  CST_AM_TG,
+  CST_J,
+  CST_K,
+  CST_L
+};
 
 bool ime_mode = false;
+bool auto_mouse_mode = true;
 
 // clang-format off
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
@@ -46,7 +53,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [_BASE] = LAYOUT(
     QK_GESC  , KC_1     , KC_2     , KC_3     , KC_4     , KC_5     ,                                  KC_6     , KC_7     , KC_8     , KC_9     , KC_0     , KC_MINS  ,
     KC_TAB   , KC_Q     , KC_W     , KC_E     , KC_R     , KC_T     ,                                  KC_Y     , KC_U     , KC_I     , KC_O     , KC_P     , KC_EQL  ,
-    KC_LCTL  , KC_A     , KC_S     , KC_D     , KC_F     , KC_G     ,                                  KC_H     , KC_J     , KC_K     , KC_L     , KC_SCLN  , KC_QUOT  ,
+    KC_LCTL  , KC_A     , KC_S     , KC_D     , KC_F     , KC_G     ,                                  KC_H     , CST_J    , CST_K    , CST_L    , KC_SCLN  , KC_QUOT  ,
     KC_LSFT  , KC_Z     , KC_X     , KC_C     , KC_V     , KC_B     , KC_LBRC  ,              KC_RBRC, KC_N     , KC_M     , KC_COMM  , KC_DOT   , KC_SLSH  , KC_BSLS  ,
     KC_LCTL  , KC_LGUI  , KC_LALT,LT(_SET,KC_GRV),CST_IME_TG, KC_SPC   , LT(_ARROW,KC_DEL),      KC_BSPC,LT(_ARROW,KC_ENT)                          , MO(_ARROW) , S(C(RCMD(KC_4)))
   ),
@@ -69,7 +76,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
   [_ARROW] = LAYOUT(
     _______  , KC_F1    , KC_F2    , KC_F3    , KC_F4    , KC_F5    ,                                  KC_F6    , KC_F7    , KC_F8    , KC_F9    , KC_F10   , KC_F11   ,
-    _______  , _______  , _______  ,C(KC_UP)  , _______  , _______  ,                                  _______  , _______  , KC_UP    , _______  , _______  , KC_F12  ,
+    _______  , _______  , _______  ,C(KC_UP)  , _______  , _______  ,                                  _______  , KC_BTN4  , KC_UP    , KC_BTN5  , _______  , KC_F12  ,
     _______  , _______  ,C(KC_LEFT),C(KC_DOWN),C(KC_RIGHT), _______ ,                                  _______  , KC_LEFT  , KC_DOWN  , KC_RIGHT , _______  , _______  ,
     _______  , _______  , _______  , _______  , _______  , _______  , _______  ,            _______  , _______  , _______  , _______  , _______  , _______  , _______  ,
     _______  , _______  , _______  , _______  , _______  , _______  , _______  ,            _______  , _______                                   , _______  , _______
@@ -77,7 +84,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
   [_MOUSE] = LAYOUT(
     _______  , _______  , _______  , _______  , _______  , _______  ,                                  _______  , _______  , _______  , _______  , _______  , _______  ,
-    _______  , _______  , _______     , _______     , _______     , _______  ,                                  _______  , _______  , _______    , _______  , _______  , _______   ,
+    _______  , _______  , _______     , _______     , _______     , _______  ,                                  _______  , KC_BTN4  , _______    , KC_BTN5  , _______  , _______   ,
     _______  , _______  , _______     , _______     , _______     ,_______,                                  _______  , KC_BTN1    , KC_BTN2  , _______  , _______  , _______  ,
     _______  , _______  , _______     , _______     , _______     ,_______, _______  ,            _______  , _______  , _______  , _______  , _______  , _______  , _______  ,
     _______  , _______  , _______     , _______   , _______  , _______  , _______  ,             _______  , _______                                   ,  _______  , _______
@@ -85,7 +92,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
   [_SET] = LAYOUT(
     TG(_SET) , TG(_WIN) , TG(_MAC) , _______ , _______  , _______  ,                                  _______  , _______  , _______  , _______ , _______ , _______  ,
-    _______  , _______  , _______  , _______  , _______  , _______  ,                                  _______  , _______  , _______  , _______ , _______  , _______  ,
+    CST_AM_TG, _______  , _______  , _______  , _______  , _______  ,                                  _______  , _______  , _______  , _______ , _______  , _______  ,
     _______  , _______  , SCRL_DVI  , SCRL_TO  , CPI_I1K  , CPI_I100  ,                                  _______  ,  KC_HOME  , KC_PGUP  , KC_PGDN  , KC_END , _______  ,
     _______  , _______  , SCRL_DVD , SCRL_MO ,   CPI_D1K  , CPI_D100  , _______  ,            _______  , _______  , _______  , _______  , _______   , _______  , _______  ,
     _______  , _______  , _______  , _______  , _______    , _______  , _______  ,              _______  , _______                                  ,  _______  , _______
@@ -150,13 +157,14 @@ layer_state_t layer_state_set_user(layer_state_t state) {
   switch (get_highest_layer(remove_auto_mouse_layer(state, true))) {
   case _ARROW:
     // Auto enable scroll mode when the highest layer is 3
-    // remove_auto_mouse_target must be called to adjust state *before* setting enable
+    // remove_auto_mouse_target must be called to adjust state *before* setting
+    // enable
     state = remove_auto_mouse_layer(state, false);
-    set_auto_mouse_enable(false);
+    set_auto_mouse_enable(auto_mouse_mode && false);
     keyball_set_scroll_mode(true);
     break;
   default:
-    set_auto_mouse_enable(true);
+    set_auto_mouse_enable(auto_mouse_mode && true);
     keyball_set_scroll_mode(false);
     break;
   }
@@ -165,8 +173,10 @@ layer_state_t layer_state_set_user(layer_state_t state) {
 }
 
 void pointing_device_init_user(void) {
-  set_auto_mouse_layer(_MOUSE); // only required if AUTO_MOUSE_DEFAULT_LAYER is not set to index of <mouse_layer>
-  set_auto_mouse_enable(true); // always required before the auto mouse feature will work
+  set_auto_mouse_layer(_MOUSE); // only required if AUTO_MOUSE_DEFAULT_LAYER is
+                                // not set to index of <mouse_layer>
+  set_auto_mouse_enable(
+      true); // always required before the auto mouse feature will work
 }
 
 #include QMK_KEYBOARD_H
@@ -202,26 +212,61 @@ void notify_usb_device_state_change_user(
   // this is the USB reset event - so reset the os detection counter.
   if (USB_DEVICE_STATE_INIT == usb_device_state) {
     erase_wlength_data();
-    // usb setup packets should be done by this time (500ms by the spec + some slack time).
+    // usb setup packets should be done by this time (500ms by the spec + some
+    // slack time).
     defer_exec(1000, execute_os_switching, NULL);
   }
 }
 
+bool process_custom_key_code(uint16_t standard_keycode, uint16_t other_keycode,
+                             keyrecord_t *record, bool return_bool,
+                             bool condition_flag) {
+  if (condition_flag) {
+    if (record->event.pressed) {
+      register_code(standard_keycode);
+      return return_bool;
+    } else {
+      unregister_code(standard_keycode);
+      return return_bool;
+    }
+  } else {
+    if (record->event.pressed) {
+      register_code(other_keycode);
+      return return_bool;
+    } else {
+      unregister_code(other_keycode);
+      return return_bool;
+    }
+  }
+}
+
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-  if (record->event.pressed) {
-    switch (keycode) {
-    case CST_IME_TG:
+  switch (keycode) {
+  case CST_IME_TG:
+    if (record->event.pressed) {
       if (ime_mode) {
-        register_code(KC_LNG1);
-        unregister_code(KC_LNG1);
+        tap_code(KC_LNG1);
         ime_mode = !ime_mode;
       } else {
-        register_code(KC_LNG2);
-        unregister_code(KC_LNG2);
+        tap_code(KC_LNG2);
         ime_mode = !ime_mode;
       }
       return false;
     }
+  case CST_AM_TG:
+    if (record->event.pressed) {
+      auto_mouse_mode = !auto_mouse_mode;
+      return false;
+    }
+  case CST_J:
+    return process_custom_key_code(KC_J, KC_BTN1, record, false,
+                                   auto_mouse_mode);
+  case CST_K:
+    return process_custom_key_code(KC_K, KC_BTN2, record, false,
+                                   auto_mouse_mode);
+  case CST_L:
+    return process_custom_key_code(KC_L, KC_BTN3, record, false,
+                                   auto_mouse_mode);
   }
   return true;
 };

@@ -100,6 +100,26 @@ static const char *format_4d(int8_t d) {
   return buf;
 }
 
+static bool is_move(int8_t d) {
+  if (d == 0) {
+    return false;
+  } else {
+    return true;
+  }
+  return false;
+}
+
+static const char *format_2d(int8_t d) {
+  static char buf[3] = {0}; // max width (2) + NUL (1)
+  if (d < 0) {
+    buf[0] = '-';
+    buf[1] = '1';
+  } else {
+    buf[0] = '+';
+    buf[1] = '1';
+  }
+  return buf;
+}
 static char to_1x(uint8_t x) {
   x &= 0x0f;
   return x < 10 ? x + '0' : x + 'a' - 10;
@@ -379,18 +399,43 @@ void keyball_oled_render_ballinfo(void) {
   //
   //     Ball: -12  34   0   0
   //
-  oled_write_P(PSTR("Ball:"), false);
-  oled_write(format_4d(keyball.last_mouse.x), false);
-  oled_write(format_4d(keyball.last_mouse.y), false);
-  oled_write(format_4d(keyball.last_mouse.h), false);
-  oled_write(format_4d(keyball.last_mouse.v), false);
+  oled_write_P(PSTR("B:"), false);
+  bool moving = is_move(keyball.last_mouse.x);
+  if (moving != 0) {
+    oled_write_P(PSTR("x"), false);
+    oled_write(format_2d(keyball.last_mouse.x), false);
+  } else {
+    moving = is_move(keyball.last_mouse.y);
+    if (moving != 0) {
+      oled_write_P(PSTR("y"), false);
+      oled_write(format_2d(keyball.last_mouse.y), false);
+    } else {
+      moving = is_move(keyball.last_mouse.h);
+      if (moving != 0) {
+        oled_write_P(PSTR("h"), false);
+        oled_write(format_2d(keyball.last_mouse.h), false);
+      } else {
+        moving = is_move(keyball.last_mouse.v);
+        if (moving != 0) {
+          oled_write_P(PSTR("v"), false);
+          oled_write(format_2d(keyball.last_mouse.v), false);
+        } else {
+          oled_write_P(PSTR("   "), false);
+        }
+      }
+    }
+  }
   // CPI
-  oled_write_P(PSTR("     CPI"), false);
+  oled_write_P(PSTR("C:"), false);
   oled_write(format_4d(keyball_get_cpi()) + 1, false);
-  oled_write_P(PSTR("00  S"), false);
-  oled_write_char(keyball.scroll_mode ? '1' : '0', false);
-  oled_write_P(PSTR("  D"), false);
-  oled_write_char('0' + keyball_get_scroll_div(), false);
+  // oled_advance_page(true);
+
+  oled_write_P(PSTR("S:"), false);
+  oled_write(format_4d(keyball.scroll_mode) + 1, false);
+  oled_write_P(PSTR("D:"), false);
+  oled_write(format_4d(keyball_get_scroll_div()) + 1, false);
+  oled_write_P(PSTR("A:"), false);
+  oled_write(format_4d(get_auto_mouse_enable() ? 1 : 0) + 1, false);
 
 #endif
 }
@@ -421,6 +466,7 @@ void keyball_oled_render_keyinfo(void) {
     oled_write_P(PSTR("0x"), false);
     oled_write_char(to_1x(keycode >> 4), false);
     oled_write_char(to_1x(keycode), false);
+    oled_advance_page(true);
   } else {
     oled_advance_page(true);
   }
