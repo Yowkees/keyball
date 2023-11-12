@@ -20,6 +20,8 @@ enum custom_keycodes {
   KC_TRIPLE_CLICK_BTN1,                         // (0x5DB1): 1タップでトリプルクリックできるBTN1
 };
 
+// bool is_ctrl_tab_active = false;  // keymap.c の先頭付近にこれを追加します
+
 // マクロキーの処理を行う関数
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   current_keycode = keycode;             // 押下されたキーコードを保存する
@@ -45,18 +47,46 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       return true;
     }
 
-    // 以下のキーは自動クリックレイヤーで使用可能にする
-    // case SCRL_MO:
-    case ALT_T(KC_F13): {
-      return true;
-    }
+      // 以下のキーは自動クリックレイヤーで使用可能にする
+      // case SCRL_MO:
+      // case ALT_T(KC_F13): {
+      //   return true;
+      // }
+
+      // レイヤー1の間は、TABは "コントロール + タブ" になる
+      if (get_highest_layer(layer_state) == 1) {
+        case KC_TAB: {
+          if (record->event.pressed) {
+            // キーダウン時:
+            // is_ctrl_tab_active = true;
+            register_code(KC_LCTRL);
+            enable_click_layer();
+          } else {
+            // キーアップ時:
+          }
+          return true;
+        }
+          // if (is_ctrl_tab_active) {
+        case LT(1, KC_ESC): {
+          disable_click_layer();
+
+          if (record->event.pressed) {
+            // キーダウン時:
+          } else {
+            // キーアップ時:
+            // is_ctrl_tab_active = false;
+            unregister_code(KC_LCTRL);
+          }
+          return true;
+        }
+          // }
+      }
 
     // 以下スワイプジェスチャー
     // クリックすると state が SWIPE になり、離したら NONE になる
-    // モッドタップ系
     case CMD_T(KC_SPACE):
     case SFT_T(KC_LANG2):
-    case CTL_T(KC_F14): {
+    case ALT_T(KC_F13): {
       if (record->event.pressed) {
         // キーダウン時
         state = SWIPE;

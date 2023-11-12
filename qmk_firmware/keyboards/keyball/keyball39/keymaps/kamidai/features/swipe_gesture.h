@@ -30,76 +30,98 @@ bool is_repeat = false;
 // スワイプジェスチャーで何が起こるかを処理する関数です
 // 上、下、左、右の4つのオプションがあります
 void process_swipe_gesture(int16_t x, int16_t y) {
-  // Command
-  if (current_keycode == CMD_T(KC_SPACE)) {
+  // Alt
+  if (current_keycode == ALT_T(KC_F13)) {
+    unregister_code(KC_LALT);
+
     // 拡大と縮小
     if (my_abs(x) < my_abs(y)) {
       register_code(KC_LCMD);
 
-      if (y < 0) {  // swipe up: 拡大
+      if (y < 0) {
+        // swipe up: 拡大
         tap_code(KC_EQUAL);
-      } else {  // swipe down: 縮小
+      } else {
+        // swipe down: 縮小
         tap_code(KC_MINUS);
       }
     }
 
-    // 音声入力とsiri
+    // 次のモニターへ移動
     if (my_abs(x) > my_abs(y)) {
-      unregister_code(KC_LCMD);
+      register_code(KC_LCTRL);
 
-      if (x < 0) {  // swipe left: 音声入力
-        tap_code(KC_F5);
-      } else {  // swipe right: siri
-        register_code(KC_F5);
+      if (x < 0) {
+        // swipe left:
+        tap_code(KC_7);
+      } else {
+        // swipe right:
+        tap_code(KC_7);
       }
     }
+    unregister_code(KC_LCMD);
+    unregister_code(KC_LCTRL);
+
+    register_code(KC_LALT);
   }
 
   // shift
   if (current_keycode == SFT_T(KC_LANG2)) {
-    unregister_code(KC_LSFT);
+    unregister_code(KC_LALT);
     register_code(KC_LCMD);
 
-    // タブ移動（Mac側でのショートカットを設定）
+    // CMD + J
     if (my_abs(x) < my_abs(y)) {
-      if (y < 0) {  // swipe up: 右のタブへ
-        tap_code(KC_1);
-      } else {  // swipe down: 左のタブへ
-        tap_code(KC_2);
+      if (y < 0) {
+        // swipe up:
+        tap_code(KC_J);
+      } else {
+        // swipe down:
+        tap_code(KC_J);
       }
     }
     // ページの戻る、進む
     if (my_abs(x) > my_abs(y)) {
-      if (x < 0) {  // swipe left: 戻る
+      if (x < 0) {
+        // swipe left: 戻る
         tap_code(KC_LBRACKET);
-      } else {  // swipe right: 進む
+      } else {
+        // swipe right: 進む
         tap_code(KC_RBRACKET);
       }
     }
     unregister_code(KC_LCMD);
-    register_code(KC_LSFT);
+    register_code(KC_LALT);
   }
 
-  // Ctrl
-  if (current_keycode == CTL_T(KC_F14)) {
+  // CMD
+  if (current_keycode == CMD_T(KC_SPACE)) {
+    unregister_code(KC_LCMD);
     register_code(KC_LCTRL);
 
     // ウインドウのサイズ変更と移動（BetterTouchToolで設定）
     if (my_abs(x) < my_abs(y)) {
-      if (y < 0) {  // swipe up: ウィンドウを最大化
+      if (y < 0) {
+        // swipe up: ウィンドウを最大化
         tap_code(KC_8);
-      } else {  // swipe down: ウインドウを最小サイズで中央へ
+      } else {
+        // swipe down: ウインドウを最小サイズで中央へ
         tap_code(KC_2);
       }
     }
     // ウインドウのサイズ変更と移動（BetterTouchToolで設定）
     if (my_abs(x) > my_abs(y)) {
-      if (x < 0) {  // swipe left: ウインドウを1/2サイズで左へ
+      if (x < 0) {
+        // swipe left: ウインドウを1/2サイズで左へ
         tap_code(KC_4);
-      } else {  // swipe right: ウインドウを1/2サイズで右へ
+      } else {
+        // swipe right: ウインドウを1/2サイズで右へ
         tap_code(KC_6);
       }
     }
+
+    unregister_code(KC_LCTRL);
+    register_code(KC_LCMD);
   }
 
   // alt
