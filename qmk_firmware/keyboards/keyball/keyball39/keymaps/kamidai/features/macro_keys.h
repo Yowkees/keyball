@@ -20,12 +20,11 @@ enum custom_keycodes {
   KC_TRIPLE_CLICK_BTN1,                         // (0x5DB1): 1タップでトリプルクリックできるBTN1
 };
 
-// bool is_ctrl_tab_active = false;  // keymap.c の先頭付近にこれを追加します
-
 // マクロキーの処理を行う関数
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   current_keycode = keycode;             // 押下されたキーコードを保存する
   bool mod_pressed = (get_mods() != 0);  // 修飾キーが押されているかを判定（0でなければ修飾キーが押されている）
+  bool is_ctrl_tab_active = false;       //
 
   switch (keycode) {
     // デフォルトのマウスキーを自動クリックレイヤーで使用可能にする
@@ -54,19 +53,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       // }
 
       // レイヤー1の間は、TABは "コントロール + タブ" になる
-      if (get_highest_layer(layer_state) == 1) {
-        case KC_TAB: {
-          if (record->event.pressed) {
-            // キーダウン時:
-            // is_ctrl_tab_active = true;
-            register_code(KC_LCTRL);
-            enable_click_layer();
-          } else {
-            // キーアップ時:
-          }
-          return true;
-        }
-          // if (is_ctrl_tab_active) {
+      if (is_ctrl_tab_active) {
         case LT(1, KC_ESC): {
           disable_click_layer();
 
@@ -74,13 +61,26 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             // キーダウン時:
           } else {
             // キーアップ時:
-            // is_ctrl_tab_active = false;
+            is_ctrl_tab_active = false;
             unregister_code(KC_LCTRL);
           }
           return true;
         }
-          // }
       }
+    // レイヤー1の間は、TABは "コントロール + タブ" になる
+    case KC_TAB: {
+      if (get_highest_layer(layer_state) == 1) {
+        if (record->event.pressed) {
+          // キーダウン時:
+          is_ctrl_tab_active = true;
+          register_code(KC_LCTRL);
+          enable_click_layer();
+        } else {
+          // キーアップ時:
+        }
+      }
+      return true;
+    }
 
     // 以下スワイプジェスチャー
     // クリックすると state が SWIPE になり、離したら NONE になる
