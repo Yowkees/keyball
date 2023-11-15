@@ -378,7 +378,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     _______  , _______ ,   LT(5, KC_LGUI) , LT(1,KC_SPC)  , _______   ,                                        TO_DVORAK  , _______  , _______       , _______  , _______
   ),
   [5] = LAYOUT_universal(
-    _______  , G(KC_Q)  , G(KC_W)  , G(KC_E) , G(KC_R)  , G(KC_T)  ,                                             G(KC_Y)   , G(KC_U)  , G(KC_I)    , G(KC_O)   , G(KC_P)    , _______   ,
+    G(KC_TAB), G(KC_Q)  , G(KC_W)  , G(KC_E) , G(KC_R)  , G(KC_T)  ,                                             G(KC_Y)   , G(KC_U)  , G(KC_I)    , G(KC_O)   , G(KC_P)    , _______   ,
     _______  , G(KC_A)  , G(KC_S)  , G(KC_D) , G(KC_F)  , G(KC_G)  ,                                             G(KC_H)   , G(KC_J)  , G(KC_K)    , G(KC_L)   , G(KC_SCLN) , G(KC_QUOT),
     _______  , G(KC_Z)  , G(KC_X)  , G(KC_C) , G(KC_V)  , G(KC_B)  ,                                             G(KC_N)   , G(KC_M)  , G(KC_COMM) , G(KC_DOT) , G(KC_SLSH) , _______   ,
                    _______ , _______ ,     _______ , _______  , _______  ,                           G(KC_LBRC)  , G(KC_RBRC)  , _______       , _______  , _______
