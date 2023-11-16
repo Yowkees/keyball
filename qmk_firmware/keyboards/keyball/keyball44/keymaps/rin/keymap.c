@@ -240,9 +240,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     case LCTL_NICOLA:
       if (record->event.pressed) {
         lctl_timer = timer_read();
-        register_code(KC_LCTL);
       } else {
-        unregister_code(KC_LCTL);
         if (timer_elapsed(lctl_timer) < TAPPING_TERM) {
           tap_code16(KC_LNG1);
           layer_on(4);
@@ -254,6 +252,19 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         layer_off(4);
       }
       return false;
+      case LCTL_T(KC_ESC):
+        if (record->event.pressed) {
+          lctl_timer = timer_read();
+          // 通常のLCTLの動作を有効にする
+          register_mods(MOD_BIT(KC_LCTL));
+        } else {
+          unregister_mods(MOD_BIT(KC_LCTL));
+          if (timer_elapsed(lctl_timer) < TAPPING_TERM) {
+            // タップされた場合、ESCを送出
+            tap_code(KC_ESC);
+          }
+        }
+        return false; // 他のキーの動作に影響を与えない
       HANDLE_NICOLA_KEY(KA, "ka");
       HANDLE_NICOLA_KEY(TA, "ta");
       HANDLE_NICOLA_KEY(KO, "ko");
@@ -275,7 +286,20 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       HANDLE_NICOLA_KEY(FU, "fu");
       HANDLE_NICOLA_KEY(HE, "he");
       HANDLE_NICOLA_KEY(ME, "me");
-      HANDLE_NICOLA_KEY(SO, "so");
+      // HANDLE_NICOLA_KEY(SO, "so"); // Ctrl が押されていたら改行させたいのでこの記法は使わない
+      case NICOLA_SO:
+        if (record->event.pressed) {
+          if (get_mods() & MOD_BIT(KC_LCTL)) {
+            // LCTLが押されている場合
+            clear_mods(); // 一時的に修飾キーをクリア
+            tap_code(KC_ENT); // ENTERを送出
+            set_mods(MOD_BIT(KC_LCTL)); // Ctrlを再度有効化
+          } else {
+            // LCTLが押されていない場合
+            SEND_STRING("so");
+          }
+        }
+        return false;
       HANDLE_NICOLA_KEY(NE, "ne");
       HANDLE_NICOLA_KEY(HO, "ho");
       // shifted characters with same-side thumb shift
