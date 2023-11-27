@@ -40,6 +40,8 @@ jobs:
             keymap:   via_Left
           - keyboard: keyball46
             keymap:   via_Both
+          - keyboard: keyball61
+            keymap:   someone
 
     name: Build ${{ matrix.keyboard }} w/ ${{ matrix.keymap }}
 
