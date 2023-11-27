@@ -63,49 +63,49 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   // keymap for default
   [0] = LAYOUT_universal(
     KC_TAB   , KC_W     , KC_E     , KC_R     , KC_T     ,                            KC_Y     , KC_U     , KC_I     , KC_O     , KC_P     ,
-    KC_A     , KC_S     , KC_D     ,LT(3,KC_F), KC_G     ,                            KC_H     , KC_J     , KC_K     , KC_L     , KC_F5 ,
-    KC_Z     , KC_X     , KC_C     ,LT(2,KC_V), KC_B     ,                            KC_N     , KC_M   , KC_COMMA , KC_DOT   ,SFT_T(KC_SLASH),
-    SFT_T(KC_LANG2),ALT_T(KC_F13),LT(1,KC_ESC),CMD_T(KC_SPACE),CTL_T(KC_Y),LT(4,KC_Q),    KC_BSPC,CMD_T(KC_ENT),_______,_______,_______,LT(3,KC_LANG1)
+    KC_A     , KC_S     , KC_D     , KC_F     , KC_G     ,                            KC_H     , KC_J     , KC_K     , KC_L     , KC_F5    ,
+    KC_Z     , KC_X     , KC_C     ,LT(2,KC_V),SFT_T(KC_B),                           SFT_T(KC_N), KC_M   , KC_COMMA , KC_DOT  , KC_SLASH  ,
+    LT(1,KC_LANG2),ALT_T(KC_F13),LT(3,KC_ESC),CMD_T(KC_SPACE),CTL_T(KC_Y),LT(5,KC_Q),    KC_BSPC,CMD_T(KC_ENT),_______,_______,_______,LT(1,KC_LANG1)
   ),
 
   [1] = LAYOUT_universal(
-    G(KC_LBRC), _______  , _______  , _______  , _______ ,                            _______  , _______  , KC_UP    , _______  , G(KC_RBRC)  ,
-    C(KC_LEFT), _______  , _______ , _______  , _______  ,                            KC_LEFT  , KC_DOWN  , G(KC_A)  , KC_RIGHT  , C(KC_RIGHT)  ,
-    _______  , _______  , _______  , _______  , _______  ,                            G(KC_Z)  , G(KC_C)  , G(KC_X)  , G(KC_V) ,G(KC_SLASH),
-    _______  , _______  , _______  , _______  , _______  , _______  ,      _______  , _______  , _______  , _______  , _______  , _______  
+    _______  , _______  ,SGUI(KC_3),SGUI(KC_4), _______  ,                            G(KC_LBRC),G(KC_RBRC), KC_UP   , G(KC_1)  , G(KC_2)  ,
+    _______  , _______  , _______  , _______  , _______  ,                            KC_LEFT  , KC_DOWN  , G(KC_A)  , KC_RIGHT , _______  ,
+    C(KC_LEFT), _______ , _______  , _______  , _______  ,                            G(KC_Z)  , G(KC_C)  , G(KC_X)  , G(KC_V) ,C(KC_RIGHT),
+    CMD_T(KC_LANG2)  , _______  , _______  , _______  , _______  , _______  ,      _______  , _______  , _______  , _______  , _______  , CMD_T(KC_LANG1)
   ),
 
   [2] = LAYOUT_universal(
-    _______  , _______  , KC_LEFT  , _______  , _______  ,                            KC_ESC   , KC_7     , KC_8     , KC_9     ,KC_NUMLOCK,
-    _______  , _______  , _______  , KC_RIGHT , _______  ,                            KC_COMMA , KC_4     , KC_5     , KC_6     , KC_DOT   ,
-    _______  , _______  , _______  , _______  , _______  ,                            KC_COMMA , KC_1     , KC_2     , KC_3     , KC_DOT   ,
+    _______  , KC_7     , KC_8     , KC_9     , _______  ,                            S(KC_4)  , KC_7     , KC_8     , KC_9     ,KC_BSLASH ,
+    KC_0     , KC_4     , KC_5     , KC_6     , _______  ,                            _______  , KC_4     , KC_5     , KC_6     , _______  ,
+    _______  , KC_1     , KC_2     , KC_3     , _______  ,                    SFT_T(KC_NUMLOCK), KC_1     , KC_2     , KC_3     , _______  ,
     _______  , _______  , _______  , _______  , _______  , _______  ,      _______  , KC_0     , _______  , _______  , _______  , _______  
   ),
 
   [3] = LAYOUT_universal(
-    KC_GRAVE , S(KC_2)  , S(KC_3)  ,S(KC_SCLN), S(KC_9)  ,                            S(KC_0)  , KC_SCLN  , KC_MINUS ,S(KC_EQUAL),KC_EQUAL ,
-    S(KC_5)  , S(KC_6)  , S(KC_7)  ,S(KC_LBRC), KC_LBRC  ,                            KC_RBRC  ,S(KC_RBRC), KC_SLASH , S(KC_8)  , _______  ,
-    S(KC_4)  ,S(KC_QUOTE),KC_QUOTE ,S(KC_COMMA),KC_SLASH ,                         S(KC_MINUS),S(KC_DOT),KC_BSLASH,S(KC_BSLASH),_______ ,
-    _______  , _______  , _______  , _______  , _______  , _______  ,      _______  , _______  , _______  , _______  , _______  , _______  
+    _______ , S(KC_2)   , S(KC_3)  , S(KC_5)  , S(KC_7)  ,                            KC_QUOTE  , S(KC_9) , S(KC_0)  , KC_MINUS ,S(KC_EQUAL),
+    S(KC_GRAVE),KC_F24,KC_SCOLON,S(KC_SCOLON),S(KC_BSLASH),                           S(KC_QUOTE),KC_LBRC , KC_RBRC  ,S(KC_COMMA),S(KC_DOT) ,
+    KC_GRAVE , S(KC_6)  ,A(KC_BSLASH),S(KC_8) ,SFT_T(KC_EQUAL),                       S(KC_MINUS),S(KC_LBRC),S(KC_RBRC),S(KC_1) ,S(KC_SLASH),
+    _______  , _______  , _______  , _______  , _______  , _______  ,      _______  , _______  , _______  , _______  , _______  , _______
   ),
 
   [4] = LAYOUT_universal(
-    _______  , _______  , _______  , _______  , _______  ,                            _______  , SCRL_DVI , CPI_I100 , _______  , RGB_TOG  ,
-    _______  , _______  , _______  , _______  , _______  ,                            SCRL_DVD , CPI_D100 , _______  , _______  , _______  ,
-    _______  , _______  , _______  , _______  , _______  ,                            _______  , _______  , _______  , _______  , _______  ,
-    _______  , _______  , _______  , _______  , _______  , _______  ,        RESET  , _______  , _______  , _______  , _______  , _______  
-  ),
-
-  [5] = LAYOUT_universal(
     _______  , _______  , _______  , _______  , _______  ,                            _______  , _______  , _______  , _______  , _______  ,
     _______  , _______  , _______  , _______  , _______  ,                            _______  , _______  , _______  , _______  , _______  ,
     _______  , _______  , _______  , _______  , _______  ,                            _______  , _______  , _______  , _______  , _______  ,
     _______  , _______  , _______  , _______  , _______  , _______  ,      _______  , _______  , _______  , _______  , _______  , _______  
+  ),
+
+  [5] = LAYOUT_universal(
+    _______  , _______  , _______  , _______  , _______  ,                            _______  , SCRL_DVI , CPI_I100 , _______  , RGB_TOG  ,
+    _______  , _______  , _______  , _______  , _______  ,                            SCRL_DVD , CPI_D100 , _______  , _______  , _______  ,
+    _______  , _______  , _______  , _______  , _______  ,                            _______  , _______  , _______  , _______  , _______  ,
+    _______  , _______  , _______  , _______  , _______  , _______  ,        RESET  , KBC_RST  , _______  , _______  , _______  , _______  
   ),
 
   [6] = LAYOUT_universal(
     _______  , _______  , _______  , _______  , _______  ,                            _______  , _______  , _______  , _______  , _______  ,
-    _______  , _______  , _______  , _______  , _______  ,                             _______  ,KC_MS_BTN1,KC_MS_BTN3,KC_MS_BTN2, _______  ,
+    KC_LALT  , KC_LSFT  , _______  ,KC_MS_BTN1, _______ ,                            _______  ,KC_MS_BTN1,KC_MS_BTN3,KC_MS_BTN2, _______  ,
     _______  , _______  , _______  , _______  , _______  ,                            _______  , _______  , _______  , _______  , _______  ,
     _______  , _______  , _______  , _______  , _______  , _______  ,      _______  , _______  , _______  , _______  , _______  , _______  
   )
@@ -121,6 +121,15 @@ layer_state_t layer_state_set_user(layer_state_t state) {
   switch (get_highest_layer(state)) {
     case click_layer:
       rgblight_sethsv(HSV_WHITE);
+      break;
+    case 1:
+      rgblight_sethsv(HSV_RED);
+      break;
+    case 2:
+      rgblight_sethsv(HSV_YELLOW);
+      break;
+    case 3:
+      rgblight_sethsv(HSV_GREEN);
       break;
 
     default:
