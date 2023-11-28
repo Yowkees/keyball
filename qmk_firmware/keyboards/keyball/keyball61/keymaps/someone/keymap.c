@@ -32,11 +32,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
   // mouse layer
   [1] = LAYOUT_universal(
-    KC_NO    , KC_NO    , KC_NO         , KC_NO         , KC_NO         , KC_NO    ,                                   KC_NO    , KC_NO    , KC_NO    , KC_NO    , KC_NO    , KC_NO    ,
-    KC_NO    , KC_NO    , KC_NO         , LAG(KC_F)     , KC_NO         , KC_NO    ,                                   KC_NO    , KC_BTN1  , KC_UP    , KC_BTN2  , KC_NO    , SCRL_MO  ,
-    KC_NO    , KC_NO    , LAG(KC_LEFT)  , LCTL(KC_DOWN) , LAG(KC_RGHT)  , KC_NO    ,                                   KC_NO    , KC_LEFT  , KC_DOWN  , KC_RGHT  , KC_NO    , KC_NO    ,
-    KC_NO    , KC_NO    , LCTL(KC_LEFT) , KC_NO         , LCTL(KC_RGHT) , KC_NO    , KC_NO    ,             KC_NO    , KC_NO    , KC_NO    , KC_NO    , KC_NO    , KC_NO    , KC_NO    ,
-    KC_NO    , KC_NO    , KC_NO         , KC_NO         , KC_NO         , KC_NO    , KC_NO    ,             KC_NO    , KC_NO    , KC_NO    , KC_NO    , KC_NO    , KC_NO    , _______
+    KC_NO    , KC_NO         , KC_NO         , KC_NO         , KC_NO         , KC_NO         ,                                   KC_NO    , KC_NO    , KC_NO    , KC_NO    , KC_NO    , KC_NO    ,
+    KC_NO    , KC_NO         , LCTL(KC_UP)   , LAG(KC_F)     , LCTL(KC_DOWN) , KC_NO         ,                                   KC_NO    , KC_BTN1  , KC_UP    , KC_BTN2  , KC_NO    , SCRL_MO  ,
+    KC_NO    , LCTL(KC_LEFT) , LAG(KC_LEFT)  , KC_NO         , LAG(KC_RGHT)  , LCTL(KC_RGHT) ,                                   KC_NO    , KC_LEFT  , KC_DOWN  , KC_RGHT  , KC_NO    , KC_NO    ,
+    KC_NO    , KC_NO         , KC_NO         , KC_NO         , KC_NO         , KC_NO         , KC_NO    ,             KC_NO    , KC_NO    , KC_NO    , KC_NO    , KC_NO    , KC_NO    , KC_NO    ,
+    KC_NO    , KC_NO         , KC_NO         , KC_NO         , KC_NO         , KC_NO         , KC_NO    ,             KC_NO    , KC_NO    , KC_NO    , KC_NO    , KC_NO    , KC_NO    , _______
   ),
 };
 // clang-format on
