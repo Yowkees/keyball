@@ -69,44 +69,148 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     }
 
       // 上位レイヤーから下位レイヤーへ移動できるようにする
-      static uint8_t previous_layer = 0;  // 前のレイヤーを記録する変数
-      static uint16_t lt_timer;           // タイマーを記録する変数
+      //   static uint8_t previous_layer = 0;  // 前のレイヤーを記録する変数
+      //   static uint16_t lt_timer;           // タイマーを記録する変数
 
-    case LT(1, KC_LANG2):
-    case LT(2, KC_V):
-    case S(KC_8): {
-      // int16_t hlayer = get_highest_layer(layer_state);
-      // if (get_highest_layer(layer_state) == 2) {
+      // case LT(1, KC_LANG2):
+      // case LT(1, KC_LANG1):
+      // case LT(2, KC_V):
+      // case S(KC_8): {
+      //   // int16_t hlayer = get_highest_layer(layer_state);
+      //   // if (get_highest_layer(layer_state) == 2) {
+      //   if (record->event.pressed) {
+      //     // キーダウン時:
+      //     lt_timer = timer_read();                          // 現在のタイマー値を記録
+      //     previous_layer = get_highest_layer(layer_state);  // 現在の最上位レイヤーを記録
+      //     layer_off(previous_layer);                        // 現在のレイヤーをオフにする
+
+      //     if (keycode == LT(1, KC_LANG2) || keycode == LT(1, KC_LANG1)) {
+      //       layer_on(1);
+      //     } else if (keycode == LT(2, KC_V) || keycode == S(KC_8)) {
+      //       layer_on(2);
+      //     }
+      //   } else {
+      //     // キーアップ時:
+      //     layer_on(previous_layer);  // 前のレイヤーをオンにする
+      //     if (keycode == LT(1, KC_LANG2) || keycode == LT(1, KC_LANG1)) {
+      //       layer_off(1);
+      //     } else if (keycode == LT(2, KC_V) || keycode == S(KC_8)) {
+      //       layer_off(2);
+      //     }
+      //     if (timer_elapsed(lt_timer) < TAPPING_TERM) {
+      //       // タッピングタイム内に放された場合はタップ動作
+      //       if (keycode == LT(1, KC_LANG2)) {
+      //         tap_code(KC_LANG2);
+      //       } else if (keycode == LT(1, KC_LANG1)) {
+      //         tap_code(KC_LANG1);
+      //       } else if (keycode == LT(2, KC_V)) {
+      //         tap_code(KC_V);
+      //       } else if (keycode == S(KC_8)) {
+      //         tap_code16(S(KC_8));
+      //       }
+      //     }
+      //   }
+      //   return false;
+      // }
+
+      // 上位レイヤーから下位レイヤーへ移動できるようにする
+      static bool is_lt1_pressed = false;  // レイヤー1の状態を追跡する変数
+      static bool is_lt2_pressed = false;  // レイヤー2の状態を追跡する変数
+      static bool is_lt3_pressed = false;  // レイヤー3の状態を追跡する変数
+      // static uint16_t lt_timer;            // タイマーを記録する変数
+
+    case LT(1, KC_LANG2):  // レイヤー1へのキー
       if (record->event.pressed) {
-        // キーダウン時:
-        lt_timer = timer_read();                          // 現在のタイマー値を記録
-        previous_layer = get_highest_layer(layer_state);  // 現在の最上位レイヤーを記録
-        layer_off(previous_layer);                        // 現在のレイヤーをオフにする
+        click_timer = timer_read();
+        is_lt1_pressed = true;
+        layer_on(1);  // レイヤー1をオンにする
 
-        if (keycode == LT(1, KC_LANG2)) {
-          layer_on(1);
-        } else if (keycode == LT(2, KC_V) || keycode == S(KC_8)) {
-          layer_on(2);
+        if (is_lt2_pressed) {
+          layer_off(2);  // LT2が既に押されていればレイヤー2をオフにする
+        } else if (is_lt3_pressed) {
+          layer_off(3);  // LT3が既に押されていればレイヤー3をオフにする
         }
       } else {
-        // キーアップ時:
-        layer_on(previous_layer);  // 前のレイヤーをオンにする
-        if (keycode == LT(1, KC_LANG2)) {
-          layer_off(1);
-        } else if (keycode == LT(2, KC_V) || keycode == S(KC_8)) {
-          layer_off(2);
+        is_lt1_pressed = false;
+        layer_off(1);  // LT2が押されていなければレイヤー1をオフにする
+
+        if (is_lt2_pressed) {
+          layer_on(2);  // LT2が押されていればレイヤー2をオンにする
+        } else if (is_lt3_pressed) {
+          layer_on(3);  // LT3が押されていればレイヤー3をオンにする
         }
-        if (timer_elapsed(lt_timer) < TAPPING_TERM) {
+
+        if (timer_elapsed(click_timer) < TAPPING_TERM) {
           // タッピングタイム内に放された場合はタップ動作
           if (keycode == LT(1, KC_LANG2)) {
             tap_code(KC_LANG2);
+          } else if (keycode == LT(1, KC_LANG1)) {
+            tap_code(KC_LANG1);
+          }
+        }
+      }
+      return false;
+
+    case LT(2, KC_V):  // レイヤー2へのキー
+    case S(KC_8):      // レイヤー2へのキー
+      if (record->event.pressed) {
+        click_timer = timer_read();
+        is_lt2_pressed = true;
+        layer_on(2);  // レイヤー2をオンにする
+
+        if (is_lt1_pressed) {
+          layer_off(1);  // LT1が既に押されていればレイヤー1をオフにする
+        } else if (is_lt3_pressed) {
+          layer_off(3);  // LT3が既に押されていればレイヤー3をオフにする
+        }
+      } else {
+        is_lt2_pressed = false;
+        layer_off(2);  // LTが押されていなければレイヤー2をオフにする
+
+        if (is_lt1_pressed) {
+          layer_on(1);  // LT1が押されていればレイヤー1をオンにする
+        } else if (is_lt3_pressed) {
+          layer_on(3);  // LT1が押されていればレイヤー1をオンにする
+        }
+
+        if (timer_elapsed(click_timer) < TAPPING_TERM) {
+          // タッピングタイム内に放された場合はタップ動作
+          if (keycode == LT(2, KC_V)) {
+            tap_code(KC_V);
           } else if (keycode == S(KC_8)) {
             tap_code16(S(KC_8));
           }
         }
       }
       return false;
-    }
+
+    case LT(3, KC_ESC):  // レイヤー3へのキー
+      if (record->event.pressed) {
+        click_timer = timer_read();
+        is_lt3_pressed = true;
+        layer_on(3);  // レイヤー3をオンにする
+
+        if (is_lt1_pressed) {
+          layer_off(1);  // LT1が既に押されていればレイヤー1をオフにする
+        } else if (is_lt2_pressed) {
+          layer_off(2);  // LT2が既に押されていればレイヤー2をオフにする
+        }
+      } else {
+        is_lt3_pressed = false;
+        layer_off(3);  // LT3をオフにする
+
+        if (is_lt1_pressed) {
+          layer_on(1);  // LT1が押されていればレイヤー1をオンにする
+        } else if (is_lt2_pressed) {
+          layer_on(2);  // LT2が押されていればレイヤー2をオンにする
+        }
+
+        if (timer_elapsed(click_timer) < TAPPING_TERM) {
+          // タッピングタイム内に放された場合はタップ動作
+          tap_code(KC_ESC);
+        }
+      }
+      return false;
 
       // case select_BRC: {
       //   if (record->event.pressed) {
