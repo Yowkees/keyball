@@ -69,7 +69,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   ),
 
   [1] = LAYOUT_universal(
-    _______  , _______  ,SGUI(KC_3),SGUI(KC_4), _______  ,                            G(KC_LBRC),G(KC_RBRC), KC_UP   , G(KC_1)  , G(KC_2)  ,
+    _______  , _______  ,SGUI(KC_3),SGUI(KC_4), _______  ,                            G(KC_LBRC),G(KC_RBRC), KC_UP   , KC_RIGHT , G(KC_2)  ,
     _______  , _______  , _______  , _______  , _______  ,                            KC_LEFT  , KC_DOWN  , G(KC_A)  , KC_RIGHT , _______  ,
     C(KC_LEFT), _______ , _______  , _______  , _______  ,                            G(KC_Z)  , G(KC_C)  , G(KC_X)  , G(KC_V) ,C(KC_RIGHT),
     CMD_T(KC_LANG2)  , _______  , _______  , _______  , _______  , _______  ,      _______  , _______  , _______  , _______  , _______  , CMD_T(KC_LANG1)

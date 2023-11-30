@@ -31,7 +31,9 @@ enum custom_keycodes {
   KC_BACK_TO_LAYER0_BTN1 = KEYBALL_SAFE_RANGE,  // (0x5DAF): レイヤー0に遷移できるBTN1
   KC_DOUBLE_CLICK_BTN1,                         // (0x5DB0): 1タップでダブルクリックできるBTN1
   KC_TRIPLE_CLICK_BTN1,                         // (0x5DB1): 1タップでトリプルクリックできるBTN1
-  // KC_ALT_BTN1,                                  // (0x5DB2):
+  // CUSTOM_S9,                                    // (0x5DB2):
+  // CUSTOM_S0,                                    // (0x5DB3):
+  // KC_ALT_BTN1,                                  //
   // select_BRC,
   // CMD_SCRL,
 };
@@ -40,7 +42,7 @@ enum custom_keycodes {
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   current_keycode = keycode;             // 押下されたキーコードを保存する
   bool mod_pressed = (get_mods() != 0);  // 修飾キーが押されているかを判定（0でなければ修飾キーが押されている）
-  bool is_ctrl_tab_active = false;       //
+  // bool is_ctrl_tab_active = false;       //
 
   switch (keycode) {
     // デフォルトのマウスキーを自動クリックレイヤーで使用可能にする
@@ -212,6 +214,26 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       }
       return false;
 
+      // karabinerでのコンボ用
+      // case CUSTOM_S9:
+      //   if (record->event.pressed) {
+      //     register_code(KC_LSFT);
+      //     register_code(KC_9);
+      //   } else {
+      //     unregister_code(KC_9);
+      //     unregister_code(KC_LSFT);
+      //   }
+      //   return false;
+      // case CUSTOM_S0:
+      //   if (record->event.pressed) {
+      //     register_code(KC_LSFT);
+      //     register_code(KC_0);
+      //   } else {
+      //     unregister_code(KC_0);
+      //     unregister_code(KC_LSFT);
+      //   }
+      //   return false;
+
       // case select_BRC: {
       //   if (record->event.pressed) {
       //     register_code16(G(KC_X));
@@ -235,34 +257,34 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       // }
 
       // レイヤー1の間は、TABは "コントロール + タブ" になる
-      if (is_ctrl_tab_active) {
-        case LT(1, KC_ESC): {
-          disable_click_layer();
+      // if (is_ctrl_tab_active) {
+      //   case LT(1, KC_ESC): {
+      //     disable_click_layer();
 
-          if (record->event.pressed) {
-            // キーダウン時:
-          } else {
-            // キーアップ時:
-            is_ctrl_tab_active = false;
-            unregister_code(KC_LCTRL);
-          }
-          return true;
-        }
-      }
+      //     if (record->event.pressed) {
+      //       // キーダウン時:
+      //     } else {
+      //       // キーアップ時:
+      //       is_ctrl_tab_active = false;
+      //       unregister_code(KC_LCTRL);
+      //     }
+      //     return true;
+      //   }
+      // }
     // レイヤー1の間は、TABは "コントロール + タブ" になる
-    case KC_TAB: {
-      if (get_highest_layer(layer_state) == 1) {
-        if (record->event.pressed) {
-          // キーダウン時:
-          is_ctrl_tab_active = true;
-          register_code(KC_LCTRL);
-          enable_click_layer();
-        } else {
-          // キーアップ時:
-        }
-      }
-      return true;
-    }
+    // case KC_TAB: {
+    //   if (get_highest_layer(layer_state) == 1) {
+    //     if (record->event.pressed) {
+    //       // キーダウン時:
+    //       is_ctrl_tab_active = true;
+    //       register_code(KC_LCTRL);
+    //       enable_click_layer();
+    //     } else {
+    //       // キーアップ時:
+    //     }
+    //   }
+    //   return true;
+    // }
 
     // 以下スワイプジェスチャー
     // クリックすると state が SWIPE になり、離したら NONE になる
