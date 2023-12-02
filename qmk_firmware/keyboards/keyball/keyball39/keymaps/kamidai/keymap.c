@@ -56,7 +56,7 @@
 
 // 容量オーバーのため不使用（VIAをOFFにすれば、使用可能）
 // #include "features/overrides.h"
-// #include "features/combo.h"
+#include "features/combo.h"
 
 // clang-format off
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
@@ -69,9 +69,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   ),
 
   [1] = LAYOUT_universal(
-    _______  , S(KC_LEFT), C(KC_J) , _______  , _______  ,                           G(KC_LBRC),G(KC_RBRC), KC_UP    , KC_RIGHT , _______  ,
-    _______  ,HYPR(KC_4),SGUI(KC_3), C(KC_K)  ,S(KC_RIGHT),                           KC_LEFT  , KC_DOWN  , _______  , KC_RIGHT , _______  ,
-    C(KC_LEFT), _______ , _______  , _______  ,SFT_T_G_KC_A,                          G(KC_Z)  , G(KC_C)  , G(KC_X)  , G(KC_V)  ,C(KC_RIGHT),
+    _______  ,HYPR(KC_4),SGUI(KC_4),SGUI(KC_3),SGUI(KC_5),                           G(KC_LBRC),G(KC_RBRC), KC_UP    , KC_RIGHT , KC_TAB   ,
+    _______  ,S(KC_LEFT), C(KC_J)  , _______  , _______  ,                            KC_LEFT  , KC_DOWN  , C(KC_K)  ,S(KC_RIGHT), C(KC_Y) ,
+    C(KC_LEFT), _______ , _______  , _______  ,SFT_T_G_KC_A,                          G(KC_Z)  , G(KC_C)  , G(KC_X)  , G(KC_V)  ,C(KC_SLASH),
     CMD_T(KC_LANG2)  , _______  , _______  , _______  , _______  , _______  ,      _______  , _______  , _______  , _______  , _______  , CMD_T(KC_LANG1)
   ),
 

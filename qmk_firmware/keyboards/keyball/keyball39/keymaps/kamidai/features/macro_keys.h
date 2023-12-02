@@ -41,6 +41,7 @@ enum custom_keycodes {
   COMBO_select_S_BRC,                           // (0x5DB5):
   COMBO_sumitsuki_BRC,                          // (0x5DB5):
   COMBO_select_sumitsuki_BRC,                   // (0x5DB5):
+  COMBO_MINUS_SPACE,                            // (0x5DB5):
   // CUSTOM_S9,                                    //
   // CUSTOM_S0,                                    //
   // KC_ALT_BTN1,                                  //
@@ -291,6 +292,15 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       return false;
 
       // コンボ
+    case COMBO_MINUS_SPACE:
+      if (record->event.pressed) {
+        tap_code(KC_LANG2);  //
+        tap_code(KC_MINUS);  // -　を送信
+        tap_code(KC_SPACE);  //  スペース を送信
+        tap_code(KC_LANG1);  //
+      }
+      return false;
+
     case COMBO_BRC:
     case COMBO_select_BRC:
     case COMBO_S9_S0:
