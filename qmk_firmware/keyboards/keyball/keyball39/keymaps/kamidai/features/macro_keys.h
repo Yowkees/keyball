@@ -31,8 +31,18 @@ enum custom_keycodes {
   KC_BACK_TO_LAYER0_BTN1 = KEYBALL_SAFE_RANGE,  // (0x5DAF): レイヤー0に遷移できるBTN1
   KC_DOUBLE_CLICK_BTN1,                         // (0x5DB0): 1タップでダブルクリックできるBTN1
   KC_TRIPLE_CLICK_BTN1,                         // (0x5DB1): 1タップでトリプルクリックできるBTN1
-  // CUSTOM_S9,                                    // (0x5DB2):
-  // CUSTOM_S0,                                    // (0x5DB3):
+  SFT_T_G_KC_A,                                 // (0x5DB2):
+  SFT_T_S_KC_SCOLON,                            // (0x5DB3):
+  COMBO_BRC,                                    // (0x5DB5):
+  COMBO_select_BRC,                             // (0x5DB5):
+  COMBO_S9_S0,                                  // (0x5DB5):
+  COMBO_select_S9_S0,                           // (0x5DB5):
+  COMBO_S_BRC,                                  // (0x5DB5):
+  COMBO_select_S_BRC,                           // (0x5DB5):
+  COMBO_sumitsuki_BRC,                          // (0x5DB5):
+  COMBO_select_sumitsuki_BRC,                   // (0x5DB5):
+  // CUSTOM_S9,                                    //
+  // CUSTOM_S0,                                    //
   // KC_ALT_BTN1,                                  //
   // select_BRC,
   // CMD_SCRL,
@@ -42,7 +52,16 @@ enum custom_keycodes {
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   current_keycode = keycode;             // 押下されたキーコードを保存する
   bool mod_pressed = (get_mods() != 0);  // 修飾キーが押されているかを判定（0でなければ修飾キーが押されている）
-  // bool is_ctrl_tab_active = false;       //
+
+  static bool is_gui_active = false;
+  static bool is_ctrl_active = false;
+
+  static bool is_lt1_pressed = false;  // レイヤー1の状態を追跡する変数
+  static bool is_lt2_pressed = false;  // レイヤー2の状態を追跡する変数
+  static bool is_lt3_pressed = false;  // レイヤー3の状態を追跡する変数
+
+  // static bool is_eisuu = false;  // レイヤー1の状態を追跡する変数
+  static bool is_kana = false;  // レイヤー1の状態を追跡する変数
 
   switch (keycode) {
     // デフォルトのマウスキーを自動クリックレイヤーで使用可能にする
@@ -70,62 +89,81 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       return true;
     }
 
+      // レイヤー1の間は、TABは "command + タブ" になる
+      // レイヤー3の間は、TABは "control + タブ" になる
+    case KC_TAB: {
+      if (record->event.pressed) {
+        is_gui_active = true;
+
+        if (get_highest_layer(layer_state) == 1) {
+          // キーダウン時:
+          register_code(KC_LGUI);
+          is_gui_active = true;
+          // tap_code(KC_TAB);
+          enable_click_layer();
+        } else if (get_highest_layer(layer_state) == 3) {
+          // キーダウン時:
+          register_code(KC_LCTRL);
+          is_ctrl_active = true;
+          // tap_code(KC_TAB);
+          enable_click_layer();
+        }
+      }
+      return true;
+    }
+
       // 上位レイヤーから下位レイヤーへ移動できるようにする
-      //   static uint8_t previous_layer = 0;  // 前のレイヤーを記録する変数
-      //   static uint16_t lt_timer;           // タイマーを記録する変数
+      //   case LT(1, KC_LANG2):
+      //   case LT(1, KC_LANG1):
+      //   case LT(2, KC_V):
+      //   case S(KC_8): {
+      //     // int16_t hlayer = get_highest_layer(layer_state);
+      //     // if (get_highest_layer(layer_state) == 2) {
+      //     if (record->event.pressed) {
+      //       // キーダウン時:
+      //       lt_timer = timer_read();                          // 現在のタイマー値を記録
+      //       previous_layer = get_highest_layer(layer_state);  // 現在の最上位レイヤーを記録
+      //       layer_off(previous_layer);                        // 現在のレイヤーをオフにする
 
-      // case LT(1, KC_LANG2):
-      // case LT(1, KC_LANG1):
-      // case LT(2, KC_V):
-      // case S(KC_8): {
-      //   // int16_t hlayer = get_highest_layer(layer_state);
-      //   // if (get_highest_layer(layer_state) == 2) {
-      //   if (record->event.pressed) {
-      //     // キーダウン時:
-      //     lt_timer = timer_read();                          // 現在のタイマー値を記録
-      //     previous_layer = get_highest_layer(layer_state);  // 現在の最上位レイヤーを記録
-      //     layer_off(previous_layer);                        // 現在のレイヤーをオフにする
-
-      //     if (keycode == LT(1, KC_LANG2) || keycode == LT(1, KC_LANG1)) {
-      //       layer_on(1);
-      //     } else if (keycode == LT(2, KC_V) || keycode == S(KC_8)) {
-      //       layer_on(2);
-      //     }
-      //   } else {
-      //     // キーアップ時:
-      //     layer_on(previous_layer);  // 前のレイヤーをオンにする
-      //     if (keycode == LT(1, KC_LANG2) || keycode == LT(1, KC_LANG1)) {
-      //       layer_off(1);
-      //     } else if (keycode == LT(2, KC_V) || keycode == S(KC_8)) {
-      //       layer_off(2);
-      //     }
-      //     if (timer_elapsed(lt_timer) < TAPPING_TERM) {
-      //       // タッピングタイム内に放された場合はタップ動作
-      //       if (keycode == LT(1, KC_LANG2)) {
-      //         tap_code(KC_LANG2);
-      //       } else if (keycode == LT(1, KC_LANG1)) {
-      //         tap_code(KC_LANG1);
-      //       } else if (keycode == LT(2, KC_V)) {
-      //         tap_code(KC_V);
-      //       } else if (keycode == S(KC_8)) {
-      //         tap_code16(S(KC_8));
+      //       if (keycode == LT(1, KC_LANG2) || keycode == LT(1, KC_LANG1)) {
+      //         layer_on(1);
+      //       } else if (keycode == LT(2, KC_V) || keycode == S(KC_8)) {
+      //         layer_on(2);
       //       }
+      //     } else {
+      //       // キーアップ時:
+      //       layer_on(previous_layer);  // 前のレイヤーをオンにする
+      //       if (keycode == LT(1, KC_LANG2) || keycode == LT(1, KC_LANG1)) {
+      //         layer_off(1);
+      //       } else if (keycode == LT(2, KC_V) || keycode == S(KC_8)) {
+      //         layer_off(2);
+      //       }
+      //       if (timer_elapsed(lt_timer) < TAPPING_TERM) {
+      //         // タッピングタイム内に放された場合はタップ動作
+      //         if (keycode == LT(1, KC_LANG2)) {
+      //           tap_code(KC_LANG2);
+      //         } else if (keycode == LT(1, KC_LANG1)) {
+      //           tap_code(KC_LANG1);
+      //         } else if (keycode == LT(2, KC_V)) {
+      //           tap_code(KC_V);
+      //         } else if (keycode == S(KC_8)) {
+      //           tap_code16(S(KC_8));
+      //         }
+      //       }
+
       //     }
       //   }
-      //   return false;
+      //     return false;
       // }
 
       // 上位レイヤーから下位レイヤーへ移動できるようにする
-      static bool is_lt1_pressed = false;  // レイヤー1の状態を追跡する変数
-      static bool is_lt2_pressed = false;  // レイヤー2の状態を追跡する変数
-      static bool is_lt3_pressed = false;  // レイヤー3の状態を追跡する変数
-      // static uint16_t lt_timer;            // タイマーを記録する変数
-
     case LT(1, KC_LANG2):  // レイヤー1へのキー
+    case LT(1, KC_LANG1):  // レイヤー1へのキー
       if (record->event.pressed) {
         click_timer = timer_read();
         is_lt1_pressed = true;
         layer_on(1);  // レイヤー1をオンにする
+        disable_click_layer();
 
         if (is_lt2_pressed) {
           layer_off(2);  // LT2が既に押されていればレイヤー2をオフにする
@@ -146,19 +184,28 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
           // タッピングタイム内に放された場合はタップ動作
           if (keycode == LT(1, KC_LANG2)) {
             tap_code(KC_LANG2);
+            // is_eisuu = true;
+            is_kana = false;
           } else if (keycode == LT(1, KC_LANG1)) {
             tap_code(KC_LANG1);
+            is_kana = true;
           }
+        }
+
+        if (is_gui_active) {
+          unregister_code(KC_LGUI);
+          is_gui_active = false;
         }
       }
       return false;
 
     case LT(2, KC_V):  // レイヤー2へのキー
-    case S(KC_8):      // レイヤー2へのキー
+    case S(KC_DOT):    // レイヤー2へのキー
       if (record->event.pressed) {
         click_timer = timer_read();
         is_lt2_pressed = true;
         layer_on(2);  // レイヤー2をオンにする
+        disable_click_layer();
 
         if (is_lt1_pressed) {
           layer_off(1);  // LT1が既に押されていればレイヤー1をオフにする
@@ -179,8 +226,8 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
           // タッピングタイム内に放された場合はタップ動作
           if (keycode == LT(2, KC_V)) {
             tap_code(KC_V);
-          } else if (keycode == S(KC_8)) {
-            tap_code16(S(KC_8));
+          } else if (keycode == S(KC_DOT)) {
+            tap_code16(S(KC_DOT));
           }
         }
       }
@@ -191,6 +238,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         click_timer = timer_read();
         is_lt3_pressed = true;
         layer_on(3);  // レイヤー3をオンにする
+        disable_click_layer();
 
         if (is_lt1_pressed) {
           layer_off(1);  // LT1が既に押されていればレイヤー1をオフにする
@@ -211,6 +259,108 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
           // タッピングタイム内に放された場合はタップ動作
           tap_code(KC_ESC);
         }
+
+        if (is_ctrl_active) {
+          unregister_code(KC_LCTRL);
+          is_ctrl_active = false;
+        }
+      }
+      return false;
+
+      // SFT_Tのカスタムキーコード
+    case SFT_T_G_KC_A:
+    case SFT_T_S_KC_SCOLON:
+      if (record->event.pressed) {
+        // キーが押されたとき
+        click_timer = timer_read();
+        register_code(KC_LSFT);
+      } else {
+        // キーが放されたとき
+        unregister_code(KC_LSFT);
+
+        if (timer_elapsed(click_timer) < TAPPING_TERM) {
+          // タッピングタイム内に放された場合はタップ動作
+          if (keycode == SFT_T_G_KC_A) {
+            tap_code16(G(KC_A));
+          }
+          if (keycode == SFT_T_S_KC_SCOLON) {
+            tap_code16(S(KC_SCOLON));
+          }
+        }
+      }
+      return false;
+
+      // コンボ
+    case COMBO_BRC:
+    case COMBO_select_BRC:
+    case COMBO_S9_S0:
+    case COMBO_select_S9_S0:
+    case COMBO_S_BRC:
+    case COMBO_select_S_BRC:
+    case COMBO_sumitsuki_BRC:
+    case COMBO_select_sumitsuki_BRC:
+      if (record->event.pressed) {
+        // 選択バージョン
+        if (keycode == COMBO_select_BRC || keycode == COMBO_select_S9_S0 || keycode == COMBO_select_S_BRC || keycode == COMBO_select_sumitsuki_BRC) {
+          tap_code16(G(KC_X));  // カット
+        }
+
+        // if (keycode == COMBO_BRC || keycode == COMBO_S9_S0 || keycode == COMBO_S_BRC || keycode == COMBO_sumitsuki_BRC) {
+        if (keycode == COMBO_BRC || keycode == COMBO_select_BRC) {
+          tap_code(KC_LBRC);  // 「　を送信
+          tap_code(KC_RBRC);  //  」 を送信
+        } else if (keycode == COMBO_S9_S0 || keycode == COMBO_select_S9_S0) {
+          tap_code16(S(KC_9));  // （　を送信
+          tap_code16(S(KC_0));  //  ） を送信
+        } else if (keycode == COMBO_S_BRC || keycode == COMBO_select_S_BRC) {
+          tap_code16(S(KC_LBRC));  // 『　を送信
+          tap_code16(S(KC_RBRC));  //  』 を送信
+        } else if (keycode == COMBO_sumitsuki_BRC || keycode == COMBO_select_sumitsuki_BRC) {
+          tap_code16(A(KC_9));  // 　を送信
+          tap_code16(A(KC_0));  //  ） を送信
+        }
+        // かなの場合にKC_ENTを送信
+        if (is_kana) {
+          tap_code(KC_ENT);
+        }
+        // KC_LEFT を送信
+        tap_code(KC_LEFT);
+        // }
+
+        // 選択バージョン
+        if (keycode == COMBO_select_BRC || keycode == COMBO_select_S9_S0 || keycode == COMBO_select_S_BRC || keycode == COMBO_select_sumitsuki_BRC) {
+          tap_code16(G(KC_V));  // ペースト
+          wait_ms(130);         // 0.1秒（1300ミリ秒）待機
+          tap_code(KC_RIGHT);
+        }
+
+        // KC_RIGHT を送信
+        // if (keycode == COMBO_select_BRC || keycode == COMBO_select_S9_S0) {
+        //   wait_ms(100);  // 1秒（1000ミリ秒）待機
+        //   tap_code(KC_RIGHT);
+        // }
+
+        // if (keycode == COMBO_select_BRC) {
+        //   if (keycode == COMBO_select_BRC) {
+        //     tap_code16(G(KC_X));  // カット
+        //     tap_code(KC_LBRC);    // 「　を送信
+
+        //     // かなの場合にKC_ENTを送信
+        //     if (is_kana) {
+        //       tap_code(KC_ENT);
+        //     }
+
+        //     tap_code16(G(KC_V));  // ペースト
+        //     wait_ms(1000);        // 1秒（1000ミリ秒）待機
+
+        //     tap_code(KC_RBRC);  //  」 を送信
+
+        //     // かなの場合にKC_ENTを送信
+        //     if (is_kana) {
+        //       tap_code(KC_ENT);
+        //     }
+        //   }
+        // }
       }
       return false;
 
@@ -255,36 +405,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       //   }
       //   return false;
       // }
-
-      // レイヤー1の間は、TABは "コントロール + タブ" になる
-      // if (is_ctrl_tab_active) {
-      //   case LT(1, KC_ESC): {
-      //     disable_click_layer();
-
-      //     if (record->event.pressed) {
-      //       // キーダウン時:
-      //     } else {
-      //       // キーアップ時:
-      //       is_ctrl_tab_active = false;
-      //       unregister_code(KC_LCTRL);
-      //     }
-      //     return true;
-      //   }
-      // }
-    // レイヤー1の間は、TABは "コントロール + タブ" になる
-    // case KC_TAB: {
-    //   if (get_highest_layer(layer_state) == 1) {
-    //     if (record->event.pressed) {
-    //       // キーダウン時:
-    //       is_ctrl_tab_active = true;
-    //       register_code(KC_LCTRL);
-    //       enable_click_layer();
-    //     } else {
-    //       // キーアップ時:
-    //     }
-    //   }
-    //   return true;
-    // }
 
     // 以下スワイプジェスチャー
     // クリックすると state が SWIPE になり、離したら NONE になる
