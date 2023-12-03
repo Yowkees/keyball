@@ -42,6 +42,8 @@ enum custom_keycodes {
   COMBO_sumitsuki_BRC,                          // (0x5DB5):
   COMBO_select_sumitsuki_BRC,                   // (0x5DB5):
   COMBO_MINUS_SPACE,                            // (0x5DB5):
+  // CUSTOM_LT1_LEFT,                                    //
+  // CUSTOM_LT1_LEFT,                                    //
   // CUSTOM_S9,                                    //
   // CUSTOM_S0,                                    //
   // KC_ALT_BTN1,                                  //
@@ -157,12 +159,20 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       //     return false;
       // }
 
+      static bool is_lt1_lang2_pressed = false;  // LT(1, KC_LANG2)の状態を追跡
+      static bool is_lt1_lang1_pressed = false;  // LT(1, KC_LANG1)の状態を追跡
+
       // 上位レイヤーから下位レイヤーへ移動できるようにする
     case LT(1, KC_LANG2):  // レイヤー1へのキー
     case LT(1, KC_LANG1):  // レイヤー1へのキー
       if (record->event.pressed) {
         click_timer = timer_read();
         is_lt1_pressed = true;
+        if (keycode == LT(1, KC_LANG2)) {
+          is_lt1_lang2_pressed = true;
+        } else if (keycode == LT(1, KC_LANG1)) {
+          is_lt1_lang1_pressed = true;
+        }
         layer_on(1);  // レイヤー1をオンにする
         disable_click_layer();
 
@@ -173,8 +183,14 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         }
       } else {
         is_lt1_pressed = false;
-        layer_off(1);  // LT2が押されていなければレイヤー1をオフにする
-
+        if (keycode == LT(1, KC_LANG2)) {
+          is_lt1_lang2_pressed = false;
+        } else if (keycode == LT(1, KC_LANG1)) {
+          is_lt1_lang1_pressed = false;
+        }
+        if (!is_lt1_lang2_pressed && !is_lt1_lang1_pressed) {
+          layer_off(1);
+        }
         if (is_lt2_pressed) {
           layer_on(2);  // LT2が押されていればレイヤー2をオンにする
         } else if (is_lt3_pressed) {
