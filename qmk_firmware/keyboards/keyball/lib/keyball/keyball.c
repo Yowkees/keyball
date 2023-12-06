@@ -407,10 +407,10 @@ void keyball_oled_render_keyinfo(void) {
         oled_write_P(PSTR("     "), false);
     }
     // pads spaces to align pressing keys to the right
-    oled_write_P(PSTR(" "), false);
+    oled_write_char(' ', false);
     for (int i=0; i<KEYBALL_OLED_MAX_PRESSING_KEYCODES; i++) {
         if (keyball.pressing_kc[i] == 0) {
-            oled_write_P(PSTR(" "), false);
+            oled_write_char(' ', false);
         }
     }
     // then, writes pressing keys
