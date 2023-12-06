@@ -416,6 +416,7 @@ void keyball_oled_render_keyinfo(void) {
     // then, writes pressing keys
     for (int i=0; i<KEYBALL_OLED_MAX_PRESSING_KEYCODES; i++) {
         if (keyball.pressing_kc[i]) {
+            // safety: if only 4 <= key < 57 keycodes are saved
             char name = pgm_read_byte(code_to_name + keyball.pressing_kc[i] - 4);
             oled_write_char(name, false);
         }
@@ -524,6 +525,7 @@ bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
         // stores the pressed key if the slot is vacant
         if (record->event.pressed && keyball.pressing_kc[i] == 0) {
             // store only valid keycodes
+            // This simplifies the code for OLED printing.
             if (lower_keycode >= 4 && lower_keycode < 57) {
                 keyball.pressing_kc[i] = lower_keycode;
             }
