@@ -40,6 +40,8 @@ keyball_t keyball = {
 
     .scroll_mode = false,
     .scroll_div  = 0,
+
+    .pressing_kc = {0},
 };
 
 //////////////////////////////////////////////////////////////////////////////
@@ -377,15 +379,18 @@ void keyball_oled_render_ballinfo(void) {
 
 void keyball_oled_render_keyinfo(void) {
 #ifdef OLED_ENABLE
-    // Format: `Key :  R{row}  C{col} K{kc}  '{name}`
+    // Format: `Key :  R{row}  C{col} K{kc} {name}{name}{name}`
     //
     // Where `kc` is lower 8 bit of keycode.
-    // Where `name` is readable label for `kc`, valid between 4 and 56.
+    // Where `name`s are readable labels for pressing keys, valid between 4 and 56.
+    //
+    // `row`, `col`, and `kc` indicates the last processed key,
+    // but `name`s indicate unreleased keys in best effort.
     //
     // It is aligned to fit with output of keyball_oled_render_ballinfo().
     // For example:
     //
-    //     Key :  R2  C3 K06  'c
+    //     Key :  R2  C3 K06 abc
     //     Ball:   0   0   0   0
     //
     uint8_t keycode = keyball.last_kc;
@@ -398,13 +403,22 @@ void keyball_oled_render_keyinfo(void) {
         oled_write_P(PSTR(" K"), false);
         oled_write_char(to_1x(keycode >> 4), false);
         oled_write_char(to_1x(keycode), false);
-    }
-    if (keycode >= 4 && keycode < 57) {
-        oled_write_P(PSTR("  '"), false);
-        char name = pgm_read_byte(code_to_name + keycode - 4);
-        oled_write_char(name, false);
     } else {
-        oled_advance_page(true);
+        oled_write_P(PSTR("     "), false);
+    }
+    // pads spaces to align pressing keys to the right
+    oled_write_P(PSTR(" "), false);
+    for (int i=0; i<KEYBALL_OLED_MAX_PRESSING_KEYCODES; i++) {
+        if (keyball.pressing_kc[i] == 0) {
+            oled_write_P(PSTR(" "), false);
+        }
+    }
+    // then, writes pressing keys
+    for (int i=0; i<KEYBALL_OLED_MAX_PRESSING_KEYCODES; i++) {
+        if (keyball.pressing_kc[i]) {
+            char name = pgm_read_byte(code_to_name + keyball.pressing_kc[i] - 4);
+            oled_write_char(name, false);
+        }
     }
 #endif
 }
@@ -499,6 +513,24 @@ void housekeeping_task_kb(void) {
 #endif
 
 bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
+    // update pressing_kc for OLED
+    uint8_t lower_keycode = keycode;
+    for (int i=0; i<KEYBALL_OLED_MAX_PRESSING_KEYCODES; i++) {
+        // releases the slot if the key is released
+        if (!record->event.pressed && keyball.pressing_kc[i] == lower_keycode) {
+            keyball.pressing_kc[i] = 0;
+            break;
+        }
+        // stores the pressed key if the slot is vacant
+        if (record->event.pressed && keyball.pressing_kc[i] == 0) {
+            // store only valid keycodes
+            if (lower_keycode >= 4 && lower_keycode < 57) {
+                keyball.pressing_kc[i] = keycode;
+            }
+            // no need to check other slots in either case above
+            break;
+        }
+    }
     // store last keycode, row, and col for OLED
     keyball.last_kc  = keycode;
     keyball.last_pos = record->event.key;

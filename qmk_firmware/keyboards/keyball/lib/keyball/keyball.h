@@ -67,6 +67,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #    define KEYBALL_MODEL 44
 #endif
 
+#define KEYBALL_OLED_MAX_PRESSING_KEYCODES 3
+
 //////////////////////////////////////////////////////////////////////////////
 // Types
 
@@ -130,6 +132,9 @@ typedef struct {
     uint16_t       last_kc;
     keypos_t       last_pos;
     report_mouse_t last_mouse;
+
+    // It needs only the lower 8 bits of each key code to show on OLED.
+    uint8_t pressing_kc[KEYBALL_OLED_MAX_PRESSING_KEYCODES];
 } keyball_t;
 
 typedef enum {
