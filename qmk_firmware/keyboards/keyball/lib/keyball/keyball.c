@@ -525,7 +525,7 @@ bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
         if (record->event.pressed && keyball.pressing_kc[i] == 0) {
             // store only valid keycodes
             if (lower_keycode >= 4 && lower_keycode < 57) {
-                keyball.pressing_kc[i] = keycode;
+                keyball.pressing_kc[i] = lower_keycode;
             }
             // no need to check other slots in either case above
             break;
