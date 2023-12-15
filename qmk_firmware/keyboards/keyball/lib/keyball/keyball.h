@@ -86,6 +86,12 @@ enum keyball_keycodes {
     SCRL_DVI = QK_KB_8, // Increment scroll divider
     SCRL_DVD = QK_KB_9, // Decrement scroll divider
 
+#ifdef POINTING_DEVICE_AUTO_MOUSE_ENABLE
+    AML_TO   = QK_KB_10, // Toggle automatic mouse layer
+    AML_I50  = QK_KB_11, // Increment automatic mouse layer timeout
+    AML_D50  = QK_KB_12, // Decrement automatic mouse layer timeout
+#endif
+
     // User customizable 32 keycodes.
     KEYBALL_SAFE_RANGE = QK_USER_0,
 };
@@ -94,7 +100,11 @@ typedef union {
     uint32_t raw;
     struct {
         uint8_t cpi : 7;
-        uint8_t sdiv : 3; // scroll divider
+        uint8_t sdiv : 3;  // scroll divider
+#ifdef POINTING_DEVICE_AUTO_MOUSE_ENABLE
+        uint8_t amle : 1;  // automatic mouse layer enabled
+        uint8_t amlto : 4; // automatic mouse layer timeout
+#endif
     };
 } keyball_config_t;
 
@@ -126,6 +136,11 @@ typedef struct {
 
     uint32_t scroll_snap_last;
     int8_t   scroll_snap_tension_h;
+
+#ifdef POINTING_DEVICE_AUTO_MOUSE_ENABLE
+    bool aml_enabled;
+    uint8_t aml_timeout;
+#endif
 
     uint16_t       last_kc;
     keypos_t       last_pos;
@@ -159,6 +174,12 @@ void keyball_oled_render_keyinfo(void);
 /// inactive layers.
 void keyball_oled_render_layerinfo(void);
 
+#ifdef POINTING_DEVICE_AUTO_MOUSE_ENABLE
+/// keyball_oled_render_amlinfo renders automatic mouse layer information to
+/// OLED.
+void keyball_oled_render_amlinfo(void);
+#endif
+
 /// keyball_get_scroll_mode gets current scroll mode.
 bool keyball_get_scroll_mode(void);
 
@@ -176,3 +197,20 @@ uint8_t keyball_get_cpi(void);
 
 // TODO: document
 void keyball_set_cpi(uint8_t cpi);
+
+#ifdef POINTING_DEVICE_AUTO_MOUSE_ENABLE
+// This function is used to enable or disable the automatic mouse layer (AML).
+// When it is enabled (true), the mouse layer will be activated automatically based on a set timeout.
+// When it is disabled (false), the user will need to manually activate the mouse layer.
+void keyball_set_aml_enabled(bool enabled);
+
+// This function is used to get the current timeout value for the automatic mouse layer (AML).
+// The returned value is the number of milliseconds the system will wait before automatically activating the mouse layer.
+// The return value is a number between 0 and 15, which corresponds to a range between 250ms and 950ms in intervals of 50ms.
+uint8_t keyball_get_aml_timeout(void);
+
+// This function is used to set the automatic mouse layer (AML) timeout value.
+// The argument is a number between 0 and 15, which corresponds to a range between 250ms and 950ms in intervals of 50ms.
+// This value sets how long (in milliseconds) the system should wait before automatically activating the mouse layer when a key is pressed.
+void keyball_set_aml_timeout(uint8_t timeout);
+#endif

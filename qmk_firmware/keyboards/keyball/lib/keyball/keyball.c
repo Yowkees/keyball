@@ -26,6 +26,10 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 const uint8_t CPI_DEFAULT    = KEYBALL_CPI_DEFAULT / 100;
 const uint8_t CPI_MAX        = pmw3360_MAXCPI + 1;
 const uint8_t SCROLL_DIV_MAX = 7;
+#ifdef POINTING_DEVICE_AUTO_MOUSE_ENABLE
+const uint16_t AML_TIMEOUT_DEFAULT = 9;
+const uint16_t AML_TIMEOUT_MAX     = 15;
+#endif
 
 keyball_t keyball = {
     .this_have_ball = false,
@@ -40,6 +44,11 @@ keyball_t keyball = {
 
     .scroll_mode = false,
     .scroll_div  = 0,
+
+#ifdef POINTING_DEVICE_AUTO_MOUSE_ENABLE
+    .aml_enabled = 0,
+    .aml_timeout = 0,
+#endif
 };
 
 //////////////////////////////////////////////////////////////////////////////
@@ -110,6 +119,15 @@ static void add_scroll_div(int8_t delta) {
     keyball_set_scroll_div(v < 1 ? 1 : v);
 }
 
+
+#ifdef POINTING_DEVICE_AUTO_MOUSE_ENABLE
+static void add_aml_timeout(int8_t delta) {
+    int8_t v = keyball_get_aml_timeout() + delta;
+    keyball_set_aml_timeout(v < 1 ? 1 : v);
+}
+#endif
+
+
 //////////////////////////////////////////////////////////////////////////////
 // Pointing device driver
 
@@ -127,6 +145,10 @@ void pointing_device_driver_init(void) {
     if (keyball.this_have_ball) {
         pmw3360_cpi_set(CPI_DEFAULT - 1);
         pmw3360_reg_write(pmw3360_Motion_Burst, 0);
+
+#ifdef POINTING_DEVICE_AUTO_MOUSE_ENABLE
+        set_auto_mouse_layer(1);
+#endif
     }
 }
 
@@ -424,6 +446,23 @@ void keyball_oled_render_layerinfo(void) {
 #endif
 }
 
+#ifdef POINTING_DEVICE_AUTO_MOUSE_ENABLE
+void keyball_oled_render_amlinfo(void) {
+#ifdef OLED_ENABLE
+    // Format: `AML:{AML state} {AML timeout}`
+    //
+    // Output example:
+    //
+    //     AML:o 5
+    //
+    oled_write_P(PSTR("AML:"), false);
+    oled_write_char((keyball.aml_enabled ? 'o' : 'x'), false);
+    oled_write_char(' ', false);
+    oled_write(format_4d(keyball.aml_timeout), false);
+#endif
+}
+#endif
+
 //////////////////////////////////////////////////////////////////////////////
 // Public API functions
 
@@ -462,6 +501,41 @@ void keyball_set_cpi(uint8_t cpi) {
     }
 }
 
+#ifdef POINTING_DEVICE_AUTO_MOUSE_ENABLE
+void keyball_set_aml_enabled(bool enabled) {
+    keyball.aml_enabled = enabled;
+    set_auto_mouse_enable(enabled);
+}
+
+// This method returns current timeout value.
+// It will return 1 to 15.
+//
+//  1=( 1-1)*50+250=250ms
+//  2=( 2-1)*50+250=300ms
+// ...
+//  9=( 9-1)*50+250=650ms
+// 10=(10-1)*50+250=700ms
+// 11=(11-1)*50+250=750ms
+// 12=(12-1)*50+250=800ms
+// 13=(13-1)*50+250=850ms
+// 14=(14-1)*50+250=900ms
+// 15=(15-1)*50+250=950ms
+uint8_t keyball_get_aml_timeout(void) {
+    return keyball.aml_timeout == 0 ? AML_TIMEOUT_DEFAULT : keyball.aml_timeout;
+}
+
+void keyball_set_aml_timeout(uint8_t timeout) {
+    if (timeout > AML_TIMEOUT_MAX) {
+        timeout = AML_TIMEOUT_MAX;
+    }
+    keyball.aml_timeout = timeout;
+    if (timeout == 0) {
+        timeout = AML_TIMEOUT_DEFAULT;
+    }
+    set_auto_mouse_timeout((timeout-1)*50+250);
+}
+#endif
+
 //////////////////////////////////////////////////////////////////////////////
 // Keyboard hooks
 
@@ -480,6 +554,10 @@ void keyboard_post_init_kb(void) {
         keyball_config_t c = {.raw = eeconfig_read_kb()};
         keyball_set_cpi(c.cpi);
         keyball_set_scroll_div(c.sdiv);
+#ifdef POINTING_DEVICE_AUTO_MOUSE_ENABLE
+        keyball_set_aml_enabled(c.amle);
+        keyball_set_aml_timeout(c.amlto);
+#endif
     }
 
     keyball_on_adjust_layout(KEYBALL_ADJUST_PENDING);
@@ -538,8 +616,12 @@ bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
                 break;
             case KBC_SAVE: {
                 keyball_config_t c = {
-                    .cpi  = keyball.cpi_value,
-                    .sdiv = keyball.scroll_div,
+                    .cpi   = keyball.cpi_value,
+                    .sdiv  = keyball.scroll_div,
+#ifdef POINTING_DEVICE_AUTO_MOUSE_ENABLE
+                    .amle  = keyball.aml_enabled,
+                    .amlto = keyball.aml_timeout,
+#endif
                 };
                 eeconfig_update_kb(c.raw);
             } break;
@@ -566,6 +648,18 @@ bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
             case SCRL_DVD:
                 add_scroll_div(-1);
                 break;
+
+#ifdef POINTING_DEVICE_AUTO_MOUSE_ENABLE
+            case AML_TO:
+                keyball_set_aml_enabled(!keyball.aml_enabled);
+                break;
+            case AML_I50:
+                add_aml_timeout(1);
+                break;
+            case AML_D50:
+                add_aml_timeout(-1);
+                break;
+#endif
 
             default:
                 return true;
