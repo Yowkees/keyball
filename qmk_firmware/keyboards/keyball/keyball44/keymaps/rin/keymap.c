@@ -236,6 +236,7 @@ combo_t key_combos[] = {
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   static uint16_t lctl_timer;
 
+  mod_state = get_mods();
   switch (keycode) {
     case LCTL_NICOLA:
       if (record->event.pressed) {
@@ -300,6 +301,30 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
           }
         }
         return false;
+      // HANDLE_NICOLA_KEY(SO, "so"); // Ctrl が押されていたら改行させたいのでこの記法は使わない
+      case NICOLA_SO:
+          {
+          static bool entkey_registered;
+
+          if (record->event.pressed) {
+              if (mod_state & MOD_MASK_CTRL) {
+                  del_mods(MOD_MASK_CTRL);
+                  register_code16(KC_ENT);
+                  set_mods(mod_state);
+                  return false;
+              } else {
+                  if (entkey_registered) {
+                    set_mods(mod_state);
+                    unregister_code16(KC_ENT);
+                    entkey_registered = false;
+                    return false;
+                  }
+                  SEND_STRING("so");
+              }
+              return true;
+          }
+          return true;
+          }
       HANDLE_NICOLA_KEY(NE, "ne");
       HANDLE_NICOLA_KEY(HO, "ho");
       // shifted characters with same-side thumb shift
