@@ -351,6 +351,33 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
           }
         }
         return false;
+      //HANDLE_NICOLA_KEY(FU, "fu");
+      case NICOLA_FU:
+          {
+          static bool kill_registered;
+
+          if (record->event.pressed) {
+              if (mod_state & MOD_MASK_GUI) {
+                  register_code16(LGUI(KC_C));
+                  return false;
+              } else if (mod_state & MOD_MASK_CTRL) {
+                  del_mods(MOD_MASK_CTRL);
+                  register_code16(LCTL(KC_K));
+                  set_mods(mod_state);
+                  return false;
+              } else {
+                  if (kill_registered) {
+                    set_mods(mod_state);
+                    unregister_code16(LCTL(KC_K));
+                    kill_registered = false;
+                    return false;
+                  }
+                  SEND_STRING("fu");
+              }
+              return true;
+          }
+          return true;
+          }
       //HANDLE_NICOLA_KEY(ME, "me");
       case NICOLA_ME:
           {
