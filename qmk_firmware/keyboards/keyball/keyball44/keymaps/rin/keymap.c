@@ -299,7 +299,33 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
           return true;
           }
       HANDLE_NICOLA_KEY(SI, "si");
-      HANDLE_NICOLA_KEY(TE, "te");
+      //HANDLE_NICOLA_KEY(TE, "te");
+      case NICOLA_TE:
+          {
+          static bool toend_registered;
+
+          if (record->event.pressed) {
+              if (mod_state & MOD_MASK_GUI) {
+                    register_code16(LGUI(KC_D));
+                  return false;
+              } else if (mod_state & MOD_MASK_CTRL) {
+                  del_mods(MOD_MASK_CTRL);
+                  register_code16(LGUI(KC_RIGHT));
+                  set_mods(mod_state);
+                  return false;
+              } else {
+                  if (toend_registered) {
+                    set_mods(mod_state);
+                    unregister_code16(LGUI(KC_RIGHT));
+                    toend_registered = false;
+                    return false;
+                  }
+                  SEND_STRING("te");
+              }
+              return true;
+          }
+          return true;
+          }
       HANDLE_NICOLA_KEY(KE, "ke");
       HANDLE_NICOLA_KEY(SE, "se");
       HANDLE_NICOLA_KEY(HA, "ha");
