@@ -351,6 +351,33 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
           }
         }
         return false;
+      //HANDLE_NICOLA_KEY(ME, "me");
+      case NICOLA_ME:
+          {
+          static bool left_registered;
+
+          if (record->event.pressed) {
+              if (mod_state & MOD_MASK_GUI) {
+                  register_code16(LGUI(KC_N));
+                  return false;
+              } else if (mod_state & MOD_MASK_CTRL) {
+                  del_mods(MOD_MASK_CTRL);
+                  register_code16(KC_LEFT);
+                  set_mods(mod_state);
+                  return false;
+              } else {
+                  if (left_registered) {
+                    set_mods(mod_state);
+                    unregister_code16(KC_LEFT);
+                    left_registered = false;
+                    return false;
+                  }
+                  SEND_STRING("me");
+              }
+              return true;
+          }
+          return true;
+          }
       // HANDLE_NICOLA_KEY(SO, "so"); // Ctrl が押されていたら改行させたいのでこの記法は使わない
       case NICOLA_SO:
           {
