@@ -234,6 +234,42 @@ combo_t key_combos[] = {
         } \
         return false
 
+static bool gui_shortcut_registered = false;
+static bool ctrl_shortcut_registered = false;
+uint8_t mod_state;
+#define HANDLE_NICOLA_KEY_CTRL(keyname, keystring, keycode_gui, keycode_ctrl) \
+    case NICOLA_##keyname: \
+        if (record->event.pressed) { \
+            if (mod_state & MOD_MASK_GUI) { \
+                del_mods(MOD_MASK_GUI); \
+                register_code16(LGUI(keycode_gui)); \
+                set_mods(mod_state); \
+                gui_shortcut_registered = true; \
+                return false; \
+            } else if (mod_state & MOD_MASK_CTRL) { \
+                del_mods(MOD_MASK_CTRL); \
+                unregister_code16(LGUI(keycode_ctrl)); \
+                set_mods(mod_state); \
+                ctrl_shortcut_registered = true; \
+                return false; \
+            } else { \
+                if (gui_shortcut_registered) { \
+                    set_mods(mod_state); \
+                    unregister_code16(keycode_gui); \
+                    gui_shortcut_registered = false; \
+                    return false; \
+                } else if (ctrl_shortcut_registered) { \
+                    set_mods(mod_state); \
+                    unregister_code16(keycode_ctrl); \
+                    ctrl_shortcut_registered = false; \
+                    return false; \
+                } \
+                SEND_STRING(keystring); \
+            } \
+            return true; \
+        } \
+        return true;
+
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   static uint16_t lctl_timer;
 
