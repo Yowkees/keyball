@@ -31,6 +31,7 @@ enum custom_keycodes {
   NICOLA_TI,
   NICOLA_KU,
   NICOLA_TU,
+  NICOLA_U,
   NICOLA_SI,
   NICOLA_TE,
   NICOLA_KE,
@@ -118,7 +119,7 @@ const uint16_t PROGMEM nicola_ni[]     = {RGUI_T(KC_SPC), NICOLA_TI, COMBO_END};
 const uint16_t PROGMEM nicola_ru[]     = {RGUI_T(KC_SPC), NICOLA_KU, COMBO_END};
 const uint16_t PROGMEM nicola_ma[]     = {RGUI_T(KC_SPC), NICOLA_TU, COMBO_END};
 const uint16_t PROGMEM nicola_xe[]     = {RGUI_T(KC_SPC), KC_COMM, COMBO_END};
-const uint16_t PROGMEM nicola_wo[]     = {LT(5, KC_LGUI), KC_U, COMBO_END};
+const uint16_t PROGMEM nicola_wo[]     = {LT(5, KC_LGUI), NICOLA_U, COMBO_END};
 const uint16_t PROGMEM nicola_a[]      = {LT(5, KC_LGUI), NICOLA_SI, COMBO_END};
 const uint16_t PROGMEM nicola_na[]     = {LT(5, KC_LGUI), NICOLA_TE, COMBO_END};
 const uint16_t PROGMEM nicola_xyu[]    = {LT(5, KC_LGUI), NICOLA_KE, COMBO_END};
@@ -274,6 +275,29 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       HANDLE_NICOLA_KEY(TI, "ti");
       HANDLE_NICOLA_KEY(KU, "ku");
       HANDLE_NICOLA_KEY(TU, "tu");
+      case NICOLA_U:
+          {
+          static bool tohead_registered;
+
+          if (record->event.pressed) {
+              if (mod_state & MOD_MASK_CTRL) {
+                  del_mods(MOD_MASK_CTRL);
+                  register_code16(LGUI(KC_LEFT));
+                  set_mods(mod_state);
+                  return false;
+              } else {
+                  if (tohead_registered) {
+                    set_mods(mod_state);
+                    unregister_code16(LGUI(KC_LEFT));
+                    tohead_registered = false;
+                    return false;
+                  }
+                  SEND_STRING("u");
+              }
+              return true;
+          }
+          return true;
+          }
       HANDLE_NICOLA_KEY(SI, "si");
       HANDLE_NICOLA_KEY(TE, "te");
       HANDLE_NICOLA_KEY(KE, "ke");
@@ -423,7 +447,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   ),
   [4] = LAYOUT_universal(
    LGUI_T(KC_TAB), KC_DOT , NICOLA_KA , NICOLA_TA , NICOLA_KO , NICOLA_SA ,                                        NICOLA_RA , NICOLA_TI  ,  NICOLA_KU , NICOLA_TU  ,  KC_COMM , _______ ,
-   LCTL_T(KC_ESC), KC_U   , NICOLA_SI   , NICOLA_TE , NICOLA_KE , NICOLA_SE ,                                NICOLA_HA , NICOLA_TO , NICOLA_KI , KC_I      ,  NICOLA_NN , _______ ,
+   LCTL_T(KC_ESC), NICOLA_U   , NICOLA_SI   , NICOLA_TE , NICOLA_KE , NICOLA_SE ,                                NICOLA_HA , NICOLA_TO , NICOLA_KI , KC_I      ,  NICOLA_NN , _______ ,
         _______  , MID_DOT, NICOLA_HI, NICOLA_SU, NICOLA_FU, NICOLA_HE,                                      NICOLA_ME , NICOLA_SO , NICOLA_NE , NICOLA_HO ,  UC(0x30FB)   , _______ ,
         _______  , _______ ,   LT(5, KC_LGUI) , LT(1,KC_SPC)  , _______   ,                                        TO_DVORAK  , _______  , _______       , _______  , _______
   ),
