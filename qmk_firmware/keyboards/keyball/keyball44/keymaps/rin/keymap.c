@@ -39,6 +39,7 @@ enum custom_keycodes {
   NICOLA_HA,
   NICOLA_TO,
   NICOLA_KI,
+  NICOLA_I,
   NICOLA_NN,
   NICOLA_HI,
   NICOLA_SU,
@@ -127,7 +128,7 @@ const uint16_t PROGMEM nicola_mo[]     = {LT(5, KC_LGUI), NICOLA_SE, COMBO_END};
 const uint16_t PROGMEM nicola_mi[]     = {RGUI_T(KC_SPC), NICOLA_HA, COMBO_END};
 const uint16_t PROGMEM nicola_o[]      = {RGUI_T(KC_SPC), NICOLA_TO, COMBO_END};
 const uint16_t PROGMEM nicola_no[]     = {RGUI_T(KC_SPC), NICOLA_KI, COMBO_END};
-const uint16_t PROGMEM nicola_xyo[]    = {RGUI_T(KC_SPC), KC_I, COMBO_END};
+const uint16_t PROGMEM nicola_xyo[]    = {RGUI_T(KC_SPC), NICOLA_I, COMBO_END};
 const uint16_t PROGMEM nicola_xtu[]    = {RGUI_T(KC_SPC), NICOLA_NN, COMBO_END};
 const uint16_t PROGMEM nicola_xu[]     = {RGUI_T(KC_SPC), MID_DOT, COMBO_END};
 const uint16_t PROGMEM nicola_chouon[] = {LT(5, KC_LGUI), NICOLA_HI, COMBO_END};
@@ -156,7 +157,7 @@ const uint16_t PROGMEM nicola_ze[]     = {RGUI_T(KC_SPC), NICOLA_SE, COMBO_END};
 const uint16_t PROGMEM nicola_ba[]     = {LT(5, KC_LGUI), NICOLA_HA, COMBO_END};
 const uint16_t PROGMEM nicola_do[]     = {LT(5, KC_LGUI), NICOLA_TO, COMBO_END};
 const uint16_t PROGMEM nicola_gi[]     = {LT(5, KC_LGUI), NICOLA_KI, COMBO_END};
-const uint16_t PROGMEM nicola_po[]     = {LT(5, KC_LGUI), KC_I, COMBO_END};
+const uint16_t PROGMEM nicola_po[]     = {LT(5, KC_LGUI), NICOLA_I, COMBO_END};
 const uint16_t PROGMEM nicola_bi[]     = {RGUI_T(KC_SPC), NICOLA_HI, COMBO_END};
 const uint16_t PROGMEM nicola_zu[]     = {RGUI_T(KC_SPC), NICOLA_SU, COMBO_END};
 const uint16_t PROGMEM nicola_bu[]     = {RGUI_T(KC_SPC), NICOLA_FU, COMBO_END};
@@ -305,206 +306,28 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         return false; // 他のキーの動作に影響を与えない
       HANDLE_NICOLA_KEY(KA, "ka");
       HANDLE_NICOLA_KEY(TA, "ta");
-      HANDLE_NICOLA_KEY(KO, "ko");
-      HANDLE_NICOLA_KEY(RA, "ra");
-      case NICOLA_SA:
-          {
-          static bool yank_registered;
-
-          if (record->event.pressed) {
-              if (mod_state & MOD_MASK_GUI) {
-                  register_code16(LGUI(KC_T));
-                  return false;
-              } else if (mod_state & MOD_MASK_CTRL) {
-                  del_mods(MOD_MASK_CTRL);
-                  register_code16(KC_Y);
-                  set_mods(mod_state);
-                  return false;
-              } else {
-                  if (yank_registered) {
-                    set_mods(mod_state);
-                    unregister_code16(KC_Y);
-                    yank_registered = false;
-                    return false;
-                  }
-                  SEND_STRING("sa");
-              }
-              return true;
-          }
-          return true;
-          }
-      //HANDLE_NICOLA_KEY(RA, "ra");
-      case NICOLA_RA:
-        if (record->event.pressed) {
-          if (get_mods() & MOD_BIT(KC_LCTL)) {
-            clear_mods();
-            tap_code(KC_RGHT);
-            set_mods(MOD_BIT(KC_LCTL));
-          } else {
-            SEND_STRING("ra");
-          }
-        }
-        return false;
+      HANDLE_NICOLA_KEY_CTRL(KO, "ko", KC_R, LCTL(KC_P));
+      HANDLE_NICOLA_KEY_CTRL(SA, "sa", KC_T, LCTL(KC_Y));
+      HANDLE_NICOLA_KEY_CTRL(RA, "ra", KC_Y, LCTL(KC_F));
       HANDLE_NICOLA_KEY(TI, "ti");
       HANDLE_NICOLA_KEY(KU, "ku");
       HANDLE_NICOLA_KEY(TU, "tu");
-      case NICOLA_U:
-          {
-          static bool tohead_registered;
-
-          if (record->event.pressed) {
-              if (mod_state & MOD_MASK_CTRL) {
-                  del_mods(MOD_MASK_CTRL);
-                  register_code16(LGUI(KC_LEFT));
-                  set_mods(mod_state);
-                  return false;
-              } else {
-                  if (tohead_registered) {
-                    set_mods(mod_state);
-                    unregister_code16(LGUI(KC_LEFT));
-                    tohead_registered = false;
-                    return false;
-                  }
-                  SEND_STRING("u");
-              }
-              return true;
-          }
-          return true;
-          }
+      HANDLE_NICOLA_KEY_CTRL(U, "u", KC_LEFT, LCTL(KC_A));
       HANDLE_NICOLA_KEY(SI, "si");
-      //HANDLE_NICOLA_KEY(TE, "te");
-      case NICOLA_TE:
-          {
-          static bool toend_registered;
-
-          if (record->event.pressed) {
-              if (mod_state & MOD_MASK_GUI) {
-                    register_code16(LGUI(KC_D));
-                  return false;
-              } else if (mod_state & MOD_MASK_CTRL) {
-                  del_mods(MOD_MASK_CTRL);
-                  register_code16(LGUI(KC_RIGHT));
-                  set_mods(mod_state);
-                  return false;
-              } else {
-                  if (toend_registered) {
-                    set_mods(mod_state);
-                    unregister_code16(LGUI(KC_RIGHT));
-                    toend_registered = false;
-                    return false;
-                  }
-                  SEND_STRING("te");
-              }
-              return true;
-          }
-          return true;
-          }
+      HANDLE_NICOLA_KEY_CTRL(TE, "te", KC_D, LCTL(KC_E));
       HANDLE_NICOLA_KEY(KE, "ke");
-      HANDLE_NICOLA_KEY(SE, "se");
-      HANDLE_NICOLA_KEY(HA, "ha");
-      HANDLE_NICOLA_KEY(TO, "to");
-      HANDLE_NICOLA_KEY(KI, "ki");
+      HANDLE_NICOLA_KEY_CTRL(SE, "se", KC_G, LCTL(KC_I));
+      HANDLE_NICOLA_KEY_CTRL(HA, "ha", KC_H, LCTL(KC_D));
+      HANDLE_NICOLA_KEY_CTRL(TO, "to", KC_J, LCTL(KC_H));
+      HANDLE_NICOLA_KEY_CTRL(KI, "ki", KC_K, LCTL(KC_T));
+      HANDLE_NICOLA_KEY_CTRL(I, "i", KC_L, LCTL(KC_N));
       HANDLE_NICOLA_KEY(NN, "nn");
       HANDLE_NICOLA_KEY(HI, "hi");
       HANDLE_NICOLA_KEY(SU, "su");
-      HANDLE_NICOLA_KEY(FU, "fu");
+      HANDLE_NICOLA_KEY_CTRL(FU, "fu", KC_C, LCTL(KC_K));
       HANDLE_NICOLA_KEY(HE, "he");
-      HANDLE_NICOLA_KEY(ME, "me");
-      // HANDLE_NICOLA_KEY(SO, "so"); // Ctrl が押されていたら改行させたいのでこの記法は使わない
-      case NICOLA_SO:
-        if (record->event.pressed) {
-          if (get_mods() & MOD_BIT(KC_LCTL)) {
-            // LCTLが押されている場合
-            clear_mods(); // 一時的に修飾キーをクリア
-            tap_code(KC_ENT); // ENTERを送出
-            set_mods(MOD_BIT(KC_LCTL)); // Ctrlを再度有効化
-          } else {
-            // LCTLが押されていない場合
-            SEND_STRING("so");
-          }
-        }
-        return false;
-      //HANDLE_NICOLA_KEY(FU, "fu");
-      case NICOLA_FU:
-          {
-          static bool kill_registered;
-
-          if (record->event.pressed) {
-              if (mod_state & MOD_MASK_GUI) {
-                  register_code16(LGUI(KC_C));
-                  return false;
-              } else if (mod_state & MOD_MASK_CTRL) {
-                  del_mods(MOD_MASK_CTRL);
-                  register_code16(LCTL(KC_K));
-                  set_mods(mod_state);
-                  return false;
-              } else {
-                  if (kill_registered) {
-                    set_mods(mod_state);
-                    unregister_code16(LCTL(KC_K));
-                    kill_registered = false;
-                    return false;
-                  }
-                  SEND_STRING("fu");
-              }
-              return true;
-          }
-          return true;
-          }
-      //HANDLE_NICOLA_KEY(ME, "me");
-      case NICOLA_ME:
-          {
-          static bool left_registered;
-
-          if (record->event.pressed) {
-              if (mod_state & MOD_MASK_GUI) {
-                  register_code16(LGUI(KC_N));
-                  return false;
-              } else if (mod_state & MOD_MASK_CTRL) {
-                  del_mods(MOD_MASK_CTRL);
-                  register_code16(KC_LEFT);
-                  set_mods(mod_state);
-                  return false;
-              } else {
-                  if (left_registered) {
-                    set_mods(mod_state);
-                    unregister_code16(KC_LEFT);
-                    left_registered = false;
-                    return false;
-                  }
-                  SEND_STRING("me");
-              }
-              return true;
-          }
-          return true;
-          }
-      // HANDLE_NICOLA_KEY(SO, "so"); // Ctrl が押されていたら改行させたいのでこの記法は使わない
-      case NICOLA_SO:
-          {
-          static bool entkey_registered;
-
-          if (record->event.pressed) {
-              if (mod_state & MOD_MASK_GUI) {
-                  register_code16(LGUI(KC_M));
-                  return false;
-              } else if (mod_state & MOD_MASK_CTRL) {
-                  del_mods(MOD_MASK_CTRL);
-                  register_code16(KC_ENT);
-                  set_mods(mod_state);
-                  return false;
-              } else {
-                  if (entkey_registered) {
-                    set_mods(mod_state);
-                    unregister_code16(KC_ENT);
-                    entkey_registered = false;
-                    return false;
-                  }
-                  SEND_STRING("so");
-              }
-              return true;
-          }
-          return true;
-          }
+      HANDLE_NICOLA_KEY_CTRL(ME, "me", KC_N, LCTL(KC_B));
+      HANDLE_NICOLA_KEY_CTRL(SO, "so", KC_M, KC_ENT);
       HANDLE_NICOLA_KEY(NE, "ne");
       HANDLE_NICOLA_KEY(HO, "ho");
       // shifted characters with same-side thumb shift
@@ -600,7 +423,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   ),
   [4] = LAYOUT_universal(
    LGUI_T(KC_TAB), KC_DOT , NICOLA_KA , NICOLA_TA , NICOLA_KO , NICOLA_SA ,                                        NICOLA_RA , NICOLA_TI  ,  NICOLA_KU , NICOLA_TU  ,  KC_COMM , _______ ,
-   LCTL_T(KC_ESC), NICOLA_U   , NICOLA_SI   , NICOLA_TE , NICOLA_KE , NICOLA_SE ,                                NICOLA_HA , NICOLA_TO , NICOLA_KI , KC_I      ,  NICOLA_NN , _______ ,
+   LCTL_T(KC_ESC), NICOLA_U   , NICOLA_SI   , NICOLA_TE , NICOLA_KE , NICOLA_SE ,                                NICOLA_HA , NICOLA_TO , NICOLA_KI , NICOLA_I      ,  NICOLA_NN , _______ ,
         _______  , MID_DOT, NICOLA_HI, NICOLA_SU, NICOLA_FU, NICOLA_HE,                                      NICOLA_ME , NICOLA_SO , NICOLA_NE , NICOLA_HO ,  UC(0x30FB)   , _______ ,
         _______  , _______ ,   LT(5, KC_LGUI) , LT(1,KC_SPC)  , _______   ,                                        TO_DVORAK  , _______  , _______       , _______  , _______
   ),
