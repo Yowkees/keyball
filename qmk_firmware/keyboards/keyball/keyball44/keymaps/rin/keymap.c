@@ -270,8 +270,45 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       HANDLE_NICOLA_KEY(KA, "ka");
       HANDLE_NICOLA_KEY(TA, "ta");
       HANDLE_NICOLA_KEY(KO, "ko");
-      HANDLE_NICOLA_KEY(SA, "sa");
       HANDLE_NICOLA_KEY(RA, "ra");
+      case NICOLA_SA:
+          {
+          static bool yank_registered;
+
+          if (record->event.pressed) {
+              if (mod_state & MOD_MASK_GUI) {
+                  register_code16(LGUI(KC_T));
+                  return false;
+              } else if (mod_state & MOD_MASK_CTRL) {
+                  del_mods(MOD_MASK_CTRL);
+                  register_code16(KC_Y);
+                  set_mods(mod_state);
+                  return false;
+              } else {
+                  if (yank_registered) {
+                    set_mods(mod_state);
+                    unregister_code16(KC_Y);
+                    yank_registered = false;
+                    return false;
+                  }
+                  SEND_STRING("sa");
+              }
+              return true;
+          }
+          return true;
+          }
+      //HANDLE_NICOLA_KEY(RA, "ra");
+      case NICOLA_RA:
+        if (record->event.pressed) {
+          if (get_mods() & MOD_BIT(KC_LCTL)) {
+            clear_mods();
+            tap_code(KC_RGHT);
+            set_mods(MOD_BIT(KC_LCTL));
+          } else {
+            SEND_STRING("ra");
+          }
+        }
+        return false;
       HANDLE_NICOLA_KEY(TI, "ti");
       HANDLE_NICOLA_KEY(KU, "ku");
       HANDLE_NICOLA_KEY(TU, "tu");
