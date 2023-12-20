@@ -317,7 +317,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       HANDLE_NICOLA_KEY(SI, "si");
       HANDLE_NICOLA_KEY_CTRL(TE, "te", KC_D, LCTL(KC_E));
       HANDLE_NICOLA_KEY(KE, "ke");
-      HANDLE_NICOLA_KEY_CTRL(SE, "se", KC_G, LCTL(KC_I));
+      HANDLE_NICOLA_KEY_CTRL(SE, "se", KC_G, KC_TAB);
       HANDLE_NICOLA_KEY_CTRL(HA, "ha", KC_H, LCTL(KC_D));
       HANDLE_NICOLA_KEY_CTRL(TO, "to", KC_J, LCTL(KC_H));
       HANDLE_NICOLA_KEY_CTRL(KI, "ki", KC_K, LCTL(KC_T));
