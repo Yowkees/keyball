@@ -283,13 +283,13 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       } else {
         if (timer_elapsed(lctl_timer) < TAPPING_TERM) {
           tap_code16(KC_LNG1);
-          layer_on(4);
+          layer_off(1);
         }
       }
     case TO_DVORAK:
       if (record->event.pressed) {
         tap_code16(KC_LNG2);
-        layer_off(4);
+        layer_on(1);
       }
       return false;
       case LCTL_T(KC_ESC):
@@ -397,36 +397,36 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 // clang-format off
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [0] = LAYOUT_universal(
+   LGUI_T(KC_TAB), KC_DOT , NICOLA_KA , NICOLA_TA , NICOLA_KO , NICOLA_SA ,                                        NICOLA_RA , NICOLA_TI  ,  NICOLA_KU , NICOLA_TU  ,  KC_COMM , _______ ,
+   LCTL_T(KC_ESC), NICOLA_U   , NICOLA_SI   , NICOLA_TE , NICOLA_KE , NICOLA_SE ,                                NICOLA_HA , NICOLA_TO , NICOLA_KI , NICOLA_I      ,  NICOLA_NN , _______ ,
+   LSFT_T(KC_ESC)  , MID_DOT, NICOLA_HI, NICOLA_SU, NICOLA_FU, NICOLA_HE,                                      NICOLA_ME , NICOLA_SO , NICOLA_NE , NICOLA_HO ,  UC(0x30FB)   , RSFT_T(KC_ENT) ,
+   LSFT_T(KC_CAPS)  , KC_LALT ,   LT(5, KC_LGUI) , LT(2,KC_SPC)  , LCTL_NICOLA  ,                                        TO_DVORAK  , RGUI_T(KC_SPC)  , _______       , _______  , KC_BTN1
+  ),
+  [1] = LAYOUT_universal(
     LGUI_T(KC_TAB), KC_QUOT  , KC_COMM  , KC_DOT   , KC_P     , KC_Y     ,                                        KC_F     , KC_G     , KC_C     , KC_R     , KC_L     , KC_SLSH  ,
     KC_LCTL,        KC_A     , KC_O     , KC_E     , KC_U     , KC_I     ,                                        KC_D     , KC_H     , KC_T     , KC_N     , KC_S     , KC_MINS  ,
     LSFT_T(KC_ESC), KC_SCLN  , KC_Q     , KC_J     , KC_K     , KC_X     ,                                        KC_B     , KC_M     , KC_W     , KC_V     , KC_Z     , RSFT_T(KC_ENT),
-       LSFT_T(KC_CAPS), KC_LALT,     LT(5,KC_BTN1), LT(1,KC_SPC), LCTL_NICOLA,                    LT(2, TO_DVORAK), RGUI_T(KC_SPC), _______ ,   _______,  KC_BTN1
+       LSFT_T(KC_CAPS), KC_LALT,     LT(5,KC_BTN1), LT(1,KC_SPC), _______,                            LT(2, TO_DVORAK), _______, _______ ,   _______,  KC_BTN1
   ),
 
-  [1] = LAYOUT_universal(
+  [2] = LAYOUT_universal(
          KC_TILDE ,  S(KC_1) ,  S(KC_2) ,  S(KC_3) ,  S(KC_4) , S(KC_5)  ,                                       S(KC_6)   ,S(KC_7)   ,S(KC_8)   ,S(KC_9)   ,S(KC_0)   , KC_EQL   ,
          KC_LBRC  ,  KC_1    ,  KC_2    ,  KC_3    ,  KC_4    ,  KC_5    ,                                         KC_6    ,  KC_7    ,  KC_8    ,  KC_9    ,  KC_0    , KC_RBRC  ,
          _______  ,  _______ ,  KC_BTN2 ,  KC_BTN3 , KC_BTN1  , KC_LPRN  ,                                        KC_RPRN  , KC_BSLS  , _______  , _______  , _______  , _______  ,
                 _______  , _______ ,      _______  , _______  , _______  ,                              _______  , _______  , _______       , _______  , _______
   ),
 
-  [2] = LAYOUT_universal(
+  [3] = LAYOUT_universal(
     _______  ,_______,        _______, KC_GRAVE, KC_QUOT  , KC_QUES ,                                          KC_EXLM , _______ , _______ , _______ , _______ , _______  ,
     _______  ,KC_BSLS, KC_LCBR  , KC_LBRC , KC_LPRN  , KC_LABK ,                                               KC_RABK , KC_RPRN  , KC_RBRC, KC_RCBR , KC_SLSH  , _______ ,
     _______  ,KC_SCLN, _______  , KC_UNDS , KC_MINS  , KC_PIPE ,                                               KC_EQL  , KC_PLUS, KC_MINS  , KC_ASTR , KC_SLSH, _______ ,
                   _______ , _______  ,     _______ , _______  , _______  ,                              _______  , _______  , _______       , _______  , _______
   ),
-  [3] = LAYOUT_universal(
+  [4] = LAYOUT_universal(
     _______  , _______  , KC_7     , KC_8    , KC_9  , _______ ,                                        _______  , _______  ,  _______ , _______  ,  _______  , _______ ,
     _______  , KC_SLSH  , KC_4     , KC_5    , KC_6  , KC_ASTR ,                                        _______  , _______  , _______  , _______  ,  _______  , _______ ,
     _______  , KC_MINS  , KC_1     , KC_2    , KC_3  , KC_PLUS ,                                        _______  , KC_LEFT  , KC_DOWN  , KC_RIGHT  , _______  , _______ ,
                   KC_0  , KC_0 ,   KC_DOT , KC_ENT  , KC_BSPC   ,                                        KC_EQL  , _______  , _______       , _______  , _______
-  ),
-  [4] = LAYOUT_universal(
-   LGUI_T(KC_TAB), KC_DOT , NICOLA_KA , NICOLA_TA , NICOLA_KO , NICOLA_SA ,                                        NICOLA_RA , NICOLA_TI  ,  NICOLA_KU , NICOLA_TU  ,  KC_COMM , _______ ,
-   LCTL_T(KC_ESC), NICOLA_U   , NICOLA_SI   , NICOLA_TE , NICOLA_KE , NICOLA_SE ,                                NICOLA_HA , NICOLA_TO , NICOLA_KI , NICOLA_I      ,  NICOLA_NN , _______ ,
-        _______  , MID_DOT, NICOLA_HI, NICOLA_SU, NICOLA_FU, NICOLA_HE,                                      NICOLA_ME , NICOLA_SO , NICOLA_NE , NICOLA_HO ,  UC(0x30FB)   , _______ ,
-        _______  , _______ ,   LT(5, KC_LGUI) , LT(1,KC_SPC)  , _______   ,                                        TO_DVORAK  , _______  , _______       , _______  , _______
   ),
   [5] = LAYOUT_universal(
     G(KC_TAB), G(KC_Q)  , G(KC_W)  , G(KC_E) , G(KC_R)  , G(KC_T)  ,                                             G(KC_Y)   , G(KC_U)  , G(KC_I)    , G(KC_O)   , G(KC_P)    , _______   ,
