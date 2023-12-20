@@ -229,6 +229,33 @@ combo_t key_combos[] = {
     COMBO(nicola_bo, NICOLA_BO),
 };
 
+static bool gui_shortcut_registered = false;
+static bool ctrl_shortcut_registered = false;
+uint8_t mod_state;
+
+#define HANDLE_DVORAK_KEY(keyname, keycode, keycode_gui)  \
+    case DVRK_##keyname: \
+    { \
+        if (record->event.pressed) { \
+            if (mod_state & MOD_MASK_GUI) { \
+                del_mods(MOD_MASK_GUI); \
+                register_code16(LGUI(keycode_gui)); \
+                set_mods(mod_state); \
+                gui_shortcut_registered = true; \
+                return false; \
+            } \
+            tap_code16(keycode); \
+        } else { \
+            if (gui_shortcut_registered) { \
+                set_mods(mod_state); \
+                unregister_code16(LGUI(keycode_gui));        \
+                gui_shortcut_registered = false; \
+                return false; \
+            } \
+        } \
+        return true; \
+    } \
+
 #define HANDLE_NICOLA_KEY(keyname, keystring) \
     case NICOLA_##keyname: \
         if (record->event.pressed) { \
@@ -236,9 +263,6 @@ combo_t key_combos[] = {
         } \
         return false
 
-static bool gui_shortcut_registered = false;
-static bool ctrl_shortcut_registered = false;
-uint8_t mod_state;
 #define HANDLE_NICOLA_KEY_CTRL(keyname, keystring, keycode_gui, keycode_ctrl) \
     case NICOLA_##keyname: \
     { \
