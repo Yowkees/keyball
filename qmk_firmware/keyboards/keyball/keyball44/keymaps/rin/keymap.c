@@ -273,15 +273,15 @@ uint8_t mod_state;
     } \
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-  static uint16_t lctl_timer;
+  static uint16_t keyhold_timer;
 
   mod_state = get_mods();
   switch (keycode) {
     case LCTL_NICOLA:
       if (record->event.pressed) {
-        lctl_timer = timer_read();
+        keyhold_timer = timer_read();
       } else {
-        if (timer_elapsed(lctl_timer) < TAPPING_TERM) {
+        if (timer_elapsed(keyhold_timer) < TAPPING_TERM) {
           tap_code16(KC_LNG1);
           layer_off(1);
         }
@@ -294,12 +294,12 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       return false;
       case LCTL_T(KC_ESC):
         if (record->event.pressed) {
-          lctl_timer = timer_read();
+          keyhold_timer = timer_read();
           // 通常のLCTLの動作を有効にする
           register_mods(MOD_BIT(KC_LCTL));
         } else {
           unregister_mods(MOD_BIT(KC_LCTL));
-          if (timer_elapsed(lctl_timer) < TAPPING_TERM) {
+          if (timer_elapsed(keyhold_timer) < TAPPING_TERM) {
             // タップされた場合、ESCを送出
             tap_code(KC_ESC);
           }
