@@ -268,13 +268,7 @@ uint8_t mod_state;
     case NICOLA_##keyname: \
     { \
         if (record->event.pressed) { \
-            if (mod_state & MOD_MASK_GUI) { \
-                del_mods(MOD_MASK_GUI); \
-                register_code16(LGUI(keycode_gui)); \
-                set_mods(mod_state); \
-                gui_shortcut_registered = true; \
-                return false; \
-            } else if (mod_state & MOD_MASK_CTRL) { \
+            if  (mod_state & MOD_MASK_CTRL) { \
                 del_mods(MOD_MASK_CTRL); \
                 register_code16(keycode_ctrl); \
                 set_mods(mod_state); \
@@ -282,12 +276,7 @@ uint8_t mod_state;
                 return false; \
             } \
         } else { \
-            if (gui_shortcut_registered) { \
-                set_mods(mod_state); \
-                unregister_code16(LGUI(keycode_gui));        \
-                gui_shortcut_registered = false; \
-                return false; \
-            } else if (ctrl_shortcut_registered) { \
+            if  (ctrl_shortcut_registered) { \
                 set_mods(mod_state); \
                 unregister_code16(keycode_ctrl); \
                 ctrl_shortcut_registered = false; \
