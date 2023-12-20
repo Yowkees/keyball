@@ -38,3 +38,11 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define COMBO_COUNT 30
 
 #define UNICODE_SELECTED_MODES UNICODE_MODE_MACOS
+
+#undef LOCKING_SUPPORT_ENABLE
+#undef LOCKING_RESYNC_ENABLE
+
+#undef NO_ACTION_ONESHOT
+#undef NO_ACTION_TAPPING
+
+#define NO_MUSIC_MODE
