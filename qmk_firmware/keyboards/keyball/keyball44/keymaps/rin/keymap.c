@@ -275,6 +275,7 @@ uint8_t mod_state;
                 ctrl_shortcut_registered = true; \
                 return false; \
             } \
+            SEND_STRING(keystring); \
         } else { \
             if  (ctrl_shortcut_registered) { \
                 unregister_code16(keycode_ctrl); \
@@ -283,7 +284,6 @@ uint8_t mod_state;
                 return false; \
             } \
         } \
-            SEND_STRING(keystring); \
         return true; \
     } \
 
