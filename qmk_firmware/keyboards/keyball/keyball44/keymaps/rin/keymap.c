@@ -325,7 +325,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       HANDLE_NICOLA_KEY(NN, "nn");
       HANDLE_NICOLA_KEY(HI, "hi");
       HANDLE_NICOLA_KEY(SU, "su");
-      HANDLE_NICOLA_KEY_CTRL(FU, "fu", KC_C, LCTL(KC_K));
+      HANDLE_NICOLA_KEY_CTRL(FU, "fu", KC_V, LCTL(KC_K));
       HANDLE_NICOLA_KEY(HE, "he");
       HANDLE_NICOLA_KEY_CTRL(ME, "me", KC_N, LCTL(KC_B));
       HANDLE_NICOLA_KEY_CTRL(SO, "so", KC_M, KC_ENT);
