@@ -277,8 +277,8 @@ uint8_t mod_state;
             } \
         } else { \
             if  (ctrl_shortcut_registered) { \
-                set_mods(mod_state); \
                 unregister_code16(keycode_ctrl); \
+                set_mods(mod_state); \
                 ctrl_shortcut_registered = false; \
                 return false; \
             } \
