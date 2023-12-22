@@ -289,6 +289,7 @@ uint8_t mod_state;
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   static uint16_t lctl_timer;
+  static uint16_t cmd_timer;
 
   mod_state = get_mods();
   switch (keycode) {
@@ -303,18 +304,21 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       }
     case TO_CMD_QWERTY_ESC:
       if (record->event.pressed) {
-        keyhold_timer = timer_read();
+        cmd_timer = timer_read();
 
-        add_mods(MOD_MASK_GUI); \
+        //add_mods(MOD_MASK_GUI);
+        register_code16(KC_LGUI);
         layer_on(1);
+        return true;
       } else {
-        del_mods(MOD_MASK_GUI); \
+        unregister_code16(KC_LGUI);
         layer_off(1);
 
-        if (timer_elapsed(keyhold_timer) < TAPPING_TERM) {
+        if (timer_elapsed(cmd_timer) < TAPPING_TERM) {
           // tap
           tap_code16(KC_ESC);
         }
+        return true;
       }
       return true;
     case TO_DVORAK:
