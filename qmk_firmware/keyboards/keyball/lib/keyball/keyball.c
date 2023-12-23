@@ -459,6 +459,7 @@ void keyball_oled_render_amlinfo(void) {
     oled_write_char((keyball.aml_enabled ? 'o' : 'x'), false);
     oled_write_char(' ', false);
     oled_write(format_4d(keyball.aml_timeout), false);
+    oled_write_P(PSTR("           "), false);
 #endif
 }
 #endif
