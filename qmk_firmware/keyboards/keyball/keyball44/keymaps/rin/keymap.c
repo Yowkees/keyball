@@ -270,8 +270,8 @@ uint8_t mod_state;
         if (record->event.pressed) { \
             if  (mod_state & MOD_MASK_CTRL) { \
                 del_mods(MOD_MASK_CTRL); \
+                send_keyboard_report(); \
                 register_code16(keycode_ctrl); \
-                set_mods(mod_state); \
                 ctrl_shortcut_registered = true; \
                 return false; \
             } \
