@@ -296,8 +296,10 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     case LCTL_NICOLA:
       if (record->event.pressed) {
         lctl_timer = timer_read();
+        register_mods(MOD_BIT(KC_LCTL));
         return false;
       } else {
+        unregister_mods(MOD_BIT(KC_LCTL));
         if (timer_elapsed(lctl_timer) < TAPPING_TERM) {
           tap_code16(KC_LNG1);
           layer_off(1);
