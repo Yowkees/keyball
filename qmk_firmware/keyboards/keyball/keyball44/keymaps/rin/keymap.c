@@ -273,16 +273,18 @@ uint8_t mod_state;
                 register_code16(keycode_ctrl); \
                 ctrl_shortcut_registered = true; \
                 return false; \
+            } else { \
+                SEND_STRING(keystring); \
             } \
-            SEND_STRING(keystring); \
         } else { \
             if  (ctrl_shortcut_registered) { \
                 unregister_code16(keycode_ctrl); \
+                register_code16(KC_LCTL); \
                 ctrl_shortcut_registered = false; \
                 return false; \
             } \
         } \
-        return true; \
+        return false; \
     } \
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
