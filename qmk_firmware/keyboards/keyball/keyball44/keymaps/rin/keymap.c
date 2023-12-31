@@ -29,6 +29,8 @@ enum custom_keycodes {
   LCTL_NICOLA = SAFE_RANGE,
   TO_DVORAK,
   TO_CMD_QWERTY_ESC,
+  NICOLA_LSFT,
+  NICOLA_RSFT,
 // shifted characters with same-side thumb shift
   NICOLA_XA,
   NICOLA_E,
@@ -90,67 +92,67 @@ enum custom_keycodes {
   MID_DOT,
 };
 
-const uint16_t PROGMEM nicola_xa[]     = {TO_CMD_QWERTY_ESC, KC_QUOT, COMBO_END};
-const uint16_t PROGMEM nicola_e[]      = {TO_CMD_QWERTY_ESC, KC_COMM, COMBO_END};
-const uint16_t PROGMEM nicola_ri[]     = {TO_CMD_QWERTY_ESC, KC_DOT,  COMBO_END};
-const uint16_t PROGMEM nicola_xya[]    = {TO_CMD_QWERTY_ESC, KC_P,    COMBO_END};
-const uint16_t PROGMEM nicola_re[]     = {TO_CMD_QWERTY_ESC, KC_Y,    COMBO_END};
-const uint16_t PROGMEM nicola_yo[]     = {RGUI_T(KC_SPC),    KC_F,    COMBO_END};
-const uint16_t PROGMEM nicola_ni[]     = {RGUI_T(KC_SPC),    KC_G,    COMBO_END};
-const uint16_t PROGMEM nicola_ru[]     = {RGUI_T(KC_SPC),    KC_C,    COMBO_END};
-const uint16_t PROGMEM nicola_ma[]     = {RGUI_T(KC_SPC),    KC_R,    COMBO_END};
-const uint16_t PROGMEM nicola_xe[]     = {RGUI_T(KC_SPC),    KC_L,    COMBO_END};
+const uint16_t PROGMEM nicola_xa[]     = {NICOLA_LSFT, KC_QUOT, COMBO_END};
+const uint16_t PROGMEM nicola_e[]      = {NICOLA_LSFT, KC_COMM, COMBO_END};
+const uint16_t PROGMEM nicola_ri[]     = {NICOLA_LSFT, KC_DOT,  COMBO_END};
+const uint16_t PROGMEM nicola_xya[]    = {NICOLA_LSFT, KC_P,    COMBO_END};
+const uint16_t PROGMEM nicola_re[]     = {NICOLA_LSFT, KC_Y,    COMBO_END};
+const uint16_t PROGMEM nicola_yo[]     = {NICOLA_RSFT,    KC_F,    COMBO_END};
+const uint16_t PROGMEM nicola_ni[]     = {NICOLA_RSFT,    KC_G,    COMBO_END};
+const uint16_t PROGMEM nicola_ru[]     = {NICOLA_RSFT,    KC_C,    COMBO_END};
+const uint16_t PROGMEM nicola_ma[]     = {NICOLA_RSFT,    KC_R,    COMBO_END};
+const uint16_t PROGMEM nicola_xe[]     = {NICOLA_RSFT,    KC_L,    COMBO_END};
 
-const uint16_t PROGMEM nicola_wo[]     = {TO_CMD_QWERTY_ESC, KC_A, COMBO_END};
-const uint16_t PROGMEM nicola_a[]      = {TO_CMD_QWERTY_ESC, KC_O, COMBO_END};
-const uint16_t PROGMEM nicola_na[]     = {TO_CMD_QWERTY_ESC, KC_E, COMBO_END};
-const uint16_t PROGMEM nicola_xyu[]    = {TO_CMD_QWERTY_ESC, KC_U, COMBO_END};
-const uint16_t PROGMEM nicola_mo[]     = {TO_CMD_QWERTY_ESC, KC_I, COMBO_END};
-const uint16_t PROGMEM nicola_mi[]     = {RGUI_T(KC_SPC),    KC_D, COMBO_END};
-const uint16_t PROGMEM nicola_o[]      = {RGUI_T(KC_SPC),    KC_H, COMBO_END};
-const uint16_t PROGMEM nicola_no[]     = {RGUI_T(KC_SPC),    KC_T, COMBO_END};
-const uint16_t PROGMEM nicola_xyo[]    = {RGUI_T(KC_SPC),    KC_N, COMBO_END};
-const uint16_t PROGMEM nicola_xtu[]    = {RGUI_T(KC_SPC),    KC_S, COMBO_END};
+const uint16_t PROGMEM nicola_wo[]     = {NICOLA_LSFT, KC_A, COMBO_END};
+const uint16_t PROGMEM nicola_a[]      = {NICOLA_LSFT, KC_O, COMBO_END};
+const uint16_t PROGMEM nicola_na[]     = {NICOLA_LSFT, KC_E, COMBO_END};
+const uint16_t PROGMEM nicola_xyu[]    = {NICOLA_LSFT, KC_U, COMBO_END};
+const uint16_t PROGMEM nicola_mo[]     = {NICOLA_LSFT, KC_I, COMBO_END};
+const uint16_t PROGMEM nicola_mi[]     = {NICOLA_RSFT,    KC_D, COMBO_END};
+const uint16_t PROGMEM nicola_o[]      = {NICOLA_RSFT,    KC_H, COMBO_END};
+const uint16_t PROGMEM nicola_no[]     = {NICOLA_RSFT,    KC_T, COMBO_END};
+const uint16_t PROGMEM nicola_xyo[]    = {NICOLA_RSFT,    KC_N, COMBO_END};
+const uint16_t PROGMEM nicola_xtu[]    = {NICOLA_RSFT,    KC_S, COMBO_END};
 
-const uint16_t PROGMEM nicola_xu[]     = {TO_CMD_QWERTY_ESC, KC_SCLN, COMBO_END};
-const uint16_t PROGMEM nicola_chouon[] = {TO_CMD_QWERTY_ESC, KC_Q,    COMBO_END};
-const uint16_t PROGMEM nicola_ro[]     = {TO_CMD_QWERTY_ESC, KC_J,    COMBO_END};
-const uint16_t PROGMEM nicola_ya[]     = {TO_CMD_QWERTY_ESC, KC_K,    COMBO_END};
-const uint16_t PROGMEM nicola_xi[]     = {TO_CMD_QWERTY_ESC, KC_X,    COMBO_END};
-const uint16_t PROGMEM nicola_nu[]     = {RGUI_T(KC_SPC),    KC_B,    COMBO_END};
-const uint16_t PROGMEM nicola_yu[]     = {RGUI_T(KC_SPC),    KC_M,    COMBO_END};
-const uint16_t PROGMEM nicola_mu[]     = {RGUI_T(KC_SPC),    KC_W,    COMBO_END};
-const uint16_t PROGMEM nicola_wa[]     = {RGUI_T(KC_SPC),    KC_V,    COMBO_END};
-const uint16_t PROGMEM nicola_xo[]     = {RGUI_T(KC_SPC),    KC_Z,    COMBO_END};
+const uint16_t PROGMEM nicola_xu[]     = {NICOLA_LSFT, KC_SCLN, COMBO_END};
+const uint16_t PROGMEM nicola_chouon[] = {NICOLA_LSFT, KC_Q,    COMBO_END};
+const uint16_t PROGMEM nicola_ro[]     = {NICOLA_LSFT, KC_J,    COMBO_END};
+const uint16_t PROGMEM nicola_ya[]     = {NICOLA_LSFT, KC_K,    COMBO_END};
+const uint16_t PROGMEM nicola_xi[]     = {NICOLA_LSFT, KC_X,    COMBO_END};
+const uint16_t PROGMEM nicola_nu[]     = {NICOLA_RSFT,    KC_B,    COMBO_END};
+const uint16_t PROGMEM nicola_yu[]     = {NICOLA_RSFT,    KC_M,    COMBO_END};
+const uint16_t PROGMEM nicola_mu[]     = {NICOLA_RSFT,    KC_W,    COMBO_END};
+const uint16_t PROGMEM nicola_wa[]     = {NICOLA_RSFT,    KC_V,    COMBO_END};
+const uint16_t PROGMEM nicola_xo[]     = {NICOLA_RSFT,    KC_Z,    COMBO_END};
 
-const uint16_t PROGMEM nicola_ga[]     = {RGUI_T(KC_SPC),    KC_COMM, COMBO_END};
-const uint16_t PROGMEM nicola_da[]     = {RGUI_T(KC_SPC),    KC_DOT,  COMBO_END};
-const uint16_t PROGMEM nicola_go[]     = {RGUI_T(KC_SPC),    KC_P,    COMBO_END};
-const uint16_t PROGMEM nicola_za[]     = {RGUI_T(KC_SPC),    KC_Y,    COMBO_END};
-const uint16_t PROGMEM nicola_pa[]     = {TO_CMD_QWERTY_ESC, KC_F,    COMBO_END};
-const uint16_t PROGMEM nicola_di[]     = {TO_CMD_QWERTY_ESC, KC_G,    COMBO_END};
-const uint16_t PROGMEM nicola_gu[]     = {TO_CMD_QWERTY_ESC, KC_C,    COMBO_END};
-const uint16_t PROGMEM nicola_du[]     = {TO_CMD_QWERTY_ESC, KC_R,    COMBO_END};
-const uint16_t PROGMEM nicola_pi[]     = {TO_CMD_QWERTY_ESC, KC_L,    COMBO_END};
+const uint16_t PROGMEM nicola_ga[]     = {NICOLA_RSFT,    KC_COMM, COMBO_END};
+const uint16_t PROGMEM nicola_da[]     = {NICOLA_RSFT,    KC_DOT,  COMBO_END};
+const uint16_t PROGMEM nicola_go[]     = {NICOLA_RSFT,    KC_P,    COMBO_END};
+const uint16_t PROGMEM nicola_za[]     = {NICOLA_RSFT,    KC_Y,    COMBO_END};
+const uint16_t PROGMEM nicola_pa[]     = {NICOLA_LSFT, KC_F,    COMBO_END};
+const uint16_t PROGMEM nicola_di[]     = {NICOLA_LSFT, KC_G,    COMBO_END};
+const uint16_t PROGMEM nicola_gu[]     = {NICOLA_LSFT, KC_C,    COMBO_END};
+const uint16_t PROGMEM nicola_du[]     = {NICOLA_LSFT, KC_R,    COMBO_END};
+const uint16_t PROGMEM nicola_pi[]     = {NICOLA_LSFT, KC_L,    COMBO_END};
 
-const uint16_t PROGMEM nicola_vu[]     = {RGUI_T(KC_SPC),    KC_A, COMBO_END};
-const uint16_t PROGMEM nicola_ji[]     = {RGUI_T(KC_SPC),    KC_O, COMBO_END};
-const uint16_t PROGMEM nicola_de[]     = {RGUI_T(KC_SPC),    KC_E, COMBO_END};
-const uint16_t PROGMEM nicola_ge[]     = {RGUI_T(KC_SPC),    KC_U, COMBO_END};
-const uint16_t PROGMEM nicola_ze[]     = {RGUI_T(KC_SPC),    KC_I, COMBO_END};
-const uint16_t PROGMEM nicola_ba[]     = {TO_CMD_QWERTY_ESC, KC_D, COMBO_END};
-const uint16_t PROGMEM nicola_do[]     = {TO_CMD_QWERTY_ESC, KC_H, COMBO_END};
-const uint16_t PROGMEM nicola_gi[]     = {TO_CMD_QWERTY_ESC, KC_T, COMBO_END};
-const uint16_t PROGMEM nicola_po[]     = {TO_CMD_QWERTY_ESC, KC_N, COMBO_END};
+const uint16_t PROGMEM nicola_vu[]     = {NICOLA_RSFT,    KC_A, COMBO_END};
+const uint16_t PROGMEM nicola_ji[]     = {NICOLA_RSFT,    KC_O, COMBO_END};
+const uint16_t PROGMEM nicola_de[]     = {NICOLA_RSFT,    KC_E, COMBO_END};
+const uint16_t PROGMEM nicola_ge[]     = {NICOLA_RSFT,    KC_U, COMBO_END};
+const uint16_t PROGMEM nicola_ze[]     = {NICOLA_RSFT,    KC_I, COMBO_END};
+const uint16_t PROGMEM nicola_ba[]     = {NICOLA_LSFT, KC_D, COMBO_END};
+const uint16_t PROGMEM nicola_do[]     = {NICOLA_LSFT, KC_H, COMBO_END};
+const uint16_t PROGMEM nicola_gi[]     = {NICOLA_LSFT, KC_T, COMBO_END};
+const uint16_t PROGMEM nicola_po[]     = {NICOLA_LSFT, KC_N, COMBO_END};
 
-const uint16_t PROGMEM nicola_bi[]     = {RGUI_T(KC_SPC),    KC_Q, COMBO_END};
-const uint16_t PROGMEM nicola_zu[]     = {RGUI_T(KC_SPC),    KC_J, COMBO_END};
-const uint16_t PROGMEM nicola_bu[]     = {RGUI_T(KC_SPC),    KC_K, COMBO_END};
-const uint16_t PROGMEM nicola_be[]     = {RGUI_T(KC_SPC),    KC_X, COMBO_END};
-const uint16_t PROGMEM nicola_pu[]     = {TO_CMD_QWERTY_ESC, KC_B, COMBO_END};
-const uint16_t PROGMEM nicola_zo[]     = {TO_CMD_QWERTY_ESC, KC_M, COMBO_END};
-const uint16_t PROGMEM nicola_pe[]     = {TO_CMD_QWERTY_ESC, KC_W, COMBO_END};
-const uint16_t PROGMEM nicola_bo[]     = {TO_CMD_QWERTY_ESC, KC_V, COMBO_END};
+const uint16_t PROGMEM nicola_bi[]     = {NICOLA_RSFT,    KC_Q, COMBO_END};
+const uint16_t PROGMEM nicola_zu[]     = {NICOLA_RSFT,    KC_J, COMBO_END};
+const uint16_t PROGMEM nicola_bu[]     = {NICOLA_RSFT,    KC_K, COMBO_END};
+const uint16_t PROGMEM nicola_be[]     = {NICOLA_RSFT,    KC_X, COMBO_END};
+const uint16_t PROGMEM nicola_pu[]     = {NICOLA_LSFT, KC_B, COMBO_END};
+const uint16_t PROGMEM nicola_zo[]     = {NICOLA_LSFT, KC_M, COMBO_END};
+const uint16_t PROGMEM nicola_pe[]     = {NICOLA_LSFT, KC_W, COMBO_END};
+const uint16_t PROGMEM nicola_bo[]     = {NICOLA_LSFT, KC_V, COMBO_END};
 
 combo_t key_combos[] = {
 // shifted characters with same-side thumb shift
@@ -254,6 +256,20 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 
   mod_state = get_mods();
   switch (keycode) {
+    case NICOLA_LSFT:
+      if (record->event.pressed) {
+        register_code16(TO_CMD_QWERTY_ESC);
+      } else {
+        unregister_code16(TO_CMD_QWERTY_ESC);
+      }
+
+    case NICOLA_RSFT:
+      if (record->event.pressed) {
+        register_code16(RGUI_T(KC_SPC));
+      } else {
+        unregister_code16(RGUI_T(KC_SPC));
+      }
+
     case LCTL_NICOLA:
       if (record->event.pressed) {
         lctl_timer = timer_read();
@@ -410,7 +426,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     LGUI_T(KC_TAB),  KC_QUOT, KC_COMM, KC_DOT, KC_P, KC_Y,                                  KC_F, KC_G, KC_C, KC_R, KC_L, KC_SLSH,
     LCTL_T(KC_ESC),  KC_A,    KC_O,    KC_E,   KC_U, KC_I,                                  KC_D, KC_H, KC_T, KC_N, KC_S, KC_MINS,
     LSFT_T(KC_ESC),  KC_SCLN, KC_Q,    KC_J,   KC_K, KC_X,                                  KC_B, KC_M, KC_W, KC_V, KC_Z, RSFT_T(KC_ENT),
-    LSFT_T(KC_CAPS), KC_LALT, TO_CMD_QWERTY_ESC, LT(2,KC_SPC), LCTL_NICOLA,   TO_DVORAK, RGUI_T(KC_SPC), _______, _______, KC_BTN1
+    LSFT_T(KC_CAPS), KC_LALT, NICOLA_LSFT, LT(2,KC_SPC), LCTL_NICOLA,   TO_DVORAK, NICOLA_RSFT, _______, _______, KC_BTN1
   ),
   [DVORAK] = LAYOUT_universal(
     _______, _______, _______, _______, _______, _______,                                   _______, _______, _______, _______, _______, _______,
