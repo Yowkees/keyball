@@ -245,29 +245,6 @@ uint8_t mod_state;
         } \
         return false
 
-#define HANDLE_NICOLA_KEY_CTRL(keyname, keystring, keycode_gui, keycode_ctrl) \
-    case NICOLA_##keyname: \
-    { \
-        if (record->event.pressed) { \
-            if  (mod_state & MOD_MASK_CTRL) { \
-                unregister_mods(MOD_MASK_CTRL); \
-                register_code16(keycode_ctrl); \
-                ctrl_shortcut_registered = true; \
-                return false; \
-            } else { \
-                SEND_STRING(keystring); \
-            } \
-        } else { \
-            if  (ctrl_shortcut_registered) { \
-                unregister_code16(keycode_ctrl); \
-                register_code16(KC_LCTL); \
-                ctrl_shortcut_registered = false; \
-                return false; \
-            } \
-        } \
-        return false; \
-    } \
-
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   static uint16_t lctl_timer;
   static uint16_t cmd_timer;
@@ -453,12 +430,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     _______  , KC_SLSH  , KC_4     , KC_5    , KC_6  , KC_ASTR ,                                        _______  , _______  , _______  , _______  ,  _______  , _______ ,
     _______  , KC_MINS  , KC_1     , KC_2    , KC_3  , KC_PLUS ,                                        _______  , KC_LEFT  , KC_DOWN  , KC_RIGHT  , _______  , _______ ,
                   KC_0  , KC_0 ,   KC_DOT , KC_ENT  , KC_BSPC   ,                                        KC_EQL  , _______  , _______       , _______  , _______
-  ),
-  [5] = LAYOUT_universal(
-    G(KC_TAB), G(KC_Q)  , G(KC_W)  , G(KC_E) , G(KC_R)  , G(KC_T)  ,                                             G(KC_Y)   , G(KC_U)  , G(KC_I)    , G(KC_O)   , G(KC_P)    , _______   ,
-    _______  , G(KC_A)  , G(KC_S)  , G(KC_D) , G(KC_F)  , G(KC_G)  ,                                             G(KC_H)   , G(KC_J)  , G(KC_K)    , G(KC_L)   , G(KC_SCLN) , G(KC_QUOT),
-    _______  , G(KC_Z)  , G(KC_X)  , G(KC_C) , G(KC_V)  , G(KC_B)  ,                                             G(KC_N)   , G(KC_M)  , G(KC_COMM) , G(KC_DOT) , G(KC_SLSH) , _______   ,
-                   _______ , _______ ,     _______ , _______  , _______  ,                           G(KC_LBRC)  , G(KC_RBRC)  , _______       , _______  , _______
   ),
 };
 // clang-format on
