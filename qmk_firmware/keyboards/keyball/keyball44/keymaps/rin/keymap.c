@@ -284,6 +284,20 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       }
       return false;
 
+    case TO_DVORAK:
+      if (record->event.pressed) {
+        lctl_timer = timer_read();
+        register_mods(MOD_BIT(KC_LCTL));
+        return false;
+      } else {
+        unregister_mods(MOD_BIT(KC_LCTL));
+        if (timer_elapsed(lctl_timer) < TAPPING_TERM) {
+          tap_code16(KC_LNG2);
+          layer_on(DVORAK);
+        }
+      }
+      return false;
+
     case TO_CMD_QWERTY_ESC:
       if (record->event.pressed) {
         cmd_timer = timer_read();
@@ -303,13 +317,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         return true;
       }
       return true;
-
-    case TO_DVORAK:
-      if (record->event.pressed) {
-        tap_code16(KC_LNG2);
-        layer_on(DVORAK);
-      }
-      return false;
 
     case LCTL_T(KC_ESC):
       if (record->event.pressed) {
