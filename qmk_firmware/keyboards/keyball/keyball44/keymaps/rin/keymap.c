@@ -267,6 +267,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         }
       }
       return false;
+
     case TO_CMD_QWERTY_ESC:
       if (record->event.pressed) {
         cmd_timer = timer_read();
@@ -286,6 +287,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         return true;
       }
       return true;
+
     case TO_DVORAK:
       if (record->event.pressed) {
         tap_code16(KC_LNG2);
@@ -305,6 +307,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
           }
         }
         return false; // 他のキーの動作に影響を与えない
+
     HANDLE_DVORAK_NICOLA(QUOT, Q,    ".");
     HANDLE_DVORAK_NICOLA(COMM, W,    "ka");
     HANDLE_DVORAK_NICOLA(DOT,  E,    "ta");
@@ -395,6 +398,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     HANDLE_SHIFTED_NICOLA(ZO, "zo");
     HANDLE_SHIFTED_NICOLA(PE, "pe");
     HANDLE_SHIFTED_NICOLA(BO, "bo");
+
     default:
       return true;
   }
