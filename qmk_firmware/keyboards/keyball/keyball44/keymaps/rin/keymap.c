@@ -230,8 +230,6 @@ combo_t key_combos[] = {
     COMBO(nicola_bo, NICOLA_BO),
 };
 
-static bool gui_shortcut_registered = false;
-static bool ctrl_shortcut_registered = false;
 uint8_t mod_state;
 
 #define HANDLE_DVORAK_KEY(keyname, keycode, keycode_gui)  \
@@ -256,6 +254,29 @@ uint8_t mod_state;
         } \
         return true; \
     } \
+
+#define HANDLE_DVORAK_KEY2(code_dvorak, code_qwerty, nicola_plain) \
+  case KC_##code_dvorak: { \
+      if (record->event.pressed) { \
+          if (mod_state & MOD_MASK_GUI) { \
+              tap_code(KC_##code_qwerty); \
+              return false; \
+          } \
+          if (layer_state_is(0)) { \
+              if (mod_state & MOD_MASK_SHIFT) { \
+                  return true; \
+              } \
+              return false; \
+          } \
+          return true; \
+      } else { \
+          if (layer_state_is(0)) { \
+              send_string(nicola_plain); \
+              return false; \
+          } \
+          return true; \
+      } \
+  } \
 
 #define HANDLE_NICOLA_KEY(keyname, keystring) \
     case NICOLA_##keyname: \
@@ -345,32 +366,38 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         }
         return false; // 他のキーの動作に影響を与えない
       HANDLE_DVORAK_KEY(QUOT, KC_QUOT, KC_Q);
-      HANDLE_NICOLA_KEY(KA, "ka");
-      HANDLE_NICOLA_KEY(TA, "ta");
-      HANDLE_NICOLA_KEY_CTRL(KO, "ko", KC_R, LCTL(KC_P));
-      HANDLE_NICOLA_KEY_CTRL(SA, "sa", KC_T, LCTL(KC_Y));
-      HANDLE_NICOLA_KEY_CTRL(RA, "ra", KC_Y, LCTL(KC_F));
-      HANDLE_NICOLA_KEY(TI, "ti");
-      HANDLE_NICOLA_KEY(KU, "ku");
-      HANDLE_NICOLA_KEY(TU, "tu");
-      HANDLE_NICOLA_KEY_CTRL(U, "u", KC_LEFT, LCTL(KC_A));
-      HANDLE_NICOLA_KEY(SI, "si");
-      HANDLE_NICOLA_KEY_CTRL(TE, "te", KC_D, LCTL(KC_E));
-      HANDLE_NICOLA_KEY(KE, "ke");
-      HANDLE_NICOLA_KEY_CTRL(SE, "se", KC_G, KC_TAB);
-      HANDLE_NICOLA_KEY_CTRL(HA, "ha", KC_H, LCTL(KC_D));
-      HANDLE_NICOLA_KEY_CTRL(TO, "to", KC_J, LCTL(KC_H));
-      HANDLE_NICOLA_KEY_CTRL(KI, "ki", KC_K, LCTL(KC_T));
-      HANDLE_NICOLA_KEY_CTRL(I, "i", KC_L, LCTL(KC_N));
-      HANDLE_NICOLA_KEY(NN, "nn");
-      HANDLE_NICOLA_KEY(HI, "hi");
-      HANDLE_NICOLA_KEY(SU, "su");
-      HANDLE_NICOLA_KEY_CTRL(FU, "fu", KC_V, LCTL(KC_K));
-      HANDLE_NICOLA_KEY(HE, "he");
-      HANDLE_NICOLA_KEY_CTRL(ME, "me", KC_N, LCTL(KC_B));
-      HANDLE_NICOLA_KEY_CTRL(SO, "so", KC_M, KC_ENT);
-      HANDLE_NICOLA_KEY(NE, "ne");
-      HANDLE_NICOLA_KEY(HO, "ho");
+      HANDLE_DVORAK_KEY2(QUOT, Q,    ".");
+      HANDLE_DVORAK_KEY2(COMM, W,    "ka");
+      HANDLE_DVORAK_KEY2(DOT,  E,    "ta");
+      HANDLE_DVORAK_KEY2(P,    R,    "ko");
+      HANDLE_DVORAK_KEY2(Y,    T,    "sa");
+      HANDLE_DVORAK_KEY2(F,    Y,    "ra");
+      HANDLE_DVORAK_KEY2(G,    U,    "ti");
+      HANDLE_DVORAK_KEY2(C,    I,    "ku");
+      HANDLE_DVORAK_KEY2(R,    O,    "tu");
+      HANDLE_DVORAK_KEY2(L,    P,    ",");
+      HANDLE_DVORAK_KEY2(SLSH, LBRC, "dousiyou");
+      HANDLE_DVORAK_KEY2(A,    A,    "u");
+      HANDLE_DVORAK_KEY2(O,    S,    "si");
+      HANDLE_DVORAK_KEY2(E,    D,    "te");
+      HANDLE_DVORAK_KEY2(U,    F,    "ke");
+      HANDLE_DVORAK_KEY2(I,    G,    "se");
+      HANDLE_DVORAK_KEY2(D,    H,    "ha");
+      HANDLE_DVORAK_KEY2(H,    J,    "to");
+      HANDLE_DVORAK_KEY2(T,    K,    "ki");
+      HANDLE_DVORAK_KEY2(N,    L,    "i");
+      HANDLE_DVORAK_KEY2(S,    SCLN, "nn");
+      HANDLE_DVORAK_KEY2(MINS, QUOT, "dousiyou");
+      HANDLE_DVORAK_KEY2(SCLN, Z,    "dousiyou");
+      HANDLE_DVORAK_KEY2(Q,    X,    "hi");
+      HANDLE_DVORAK_KEY2(J,    C,    "su");
+      HANDLE_DVORAK_KEY2(K,    V,    "fu");
+      HANDLE_DVORAK_KEY2(X,    B,    "he");
+      HANDLE_DVORAK_KEY2(B,    N,    "me");
+      HANDLE_DVORAK_KEY2(M,    M,    "so");
+      HANDLE_DVORAK_KEY2(W,    COMM, "ne");
+      HANDLE_DVORAK_KEY2(V,    DOT,  "ho");
+      HANDLE_DVORAK_KEY2(Z,    SLSH, "dousiyou");
       // shifted characters with same-side thumb shift
       HANDLE_NICOLA_KEY(XA,     "xa");
       HANDLE_NICOLA_KEY(E,      "e");
@@ -437,16 +464,16 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 // clang-format off
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [0] = LAYOUT_universal(
-   LGUI_T(KC_TAB), KC_DOT , NICOLA_KA , NICOLA_TA , NICOLA_KO , NICOLA_SA ,                                        NICOLA_RA , NICOLA_TI  ,  NICOLA_KU , NICOLA_TU  ,  KC_COMM , _______ ,
-   LCTL_T(KC_ESC), NICOLA_U   , NICOLA_SI   , NICOLA_TE , NICOLA_KE , NICOLA_SE ,                                NICOLA_HA , NICOLA_TO , NICOLA_KI , NICOLA_I      ,  NICOLA_NN , _______ ,
-   LSFT_T(KC_ESC)  , MID_DOT, NICOLA_HI, NICOLA_SU, NICOLA_FU, NICOLA_HE,                                      NICOLA_ME , NICOLA_SO , NICOLA_NE , NICOLA_HO ,  UC(0x30FB)   , RSFT_T(KC_ENT) ,
-   LSFT_T(KC_CAPS)  , KC_LALT ,   TO_CMD_QWERTY_ESC , LT(2,KC_SPC)  , LCTL_NICOLA  ,                                        TO_DVORAK  , RGUI_T(KC_SPC)  , _______       , _______  , KC_BTN1
+   LGUI_T(KC_TAB),  KC_QUOT, KC_COMM, KC_DOT, KC_P, KC_Y,                                  KC_F, KC_G, KC_C, KC_R, KC_L, KC_SLSH,
+   LCTL_T(KC_ESC),  KC_A,    KC_O,    KC_E,   KC_U, KC_I,                                  KC_D, KC_H, KC_T, KC_N, KC_S, KC_MINS,
+   LSFT_T(KC_ESC),  KC_SCLN, KC_Q,    KC_J,   KC_K, KC_X,                                  KC_B, KC_M, KC_W, KC_V, KC_Z, RSFT_T(KC_ENT),
+   LSFT_T(KC_CAPS), KC_LALT, TO_CMD_QWERTY_ESC, LT(2,KC_SPC), LCTL_NICOLA,   TO_DVORAK, RGUI_T(KC_SPC), _______, _______, KC_BTN1
   ),
   [1] = LAYOUT_universal(
-    _______, DVRK_QUOT, KC_COMM  , KC_DOT   , KC_P     , KC_Y     ,                                        KC_F     , KC_G     , KC_C     , KC_R     , KC_L     , KC_SLSH  ,
-    KC_LCTL,        KC_A     , KC_O     , KC_E     , KC_U     , KC_I     ,                                        KC_D     , KC_H     , KC_T     , KC_N     , KC_S     , KC_MINS  ,
-    LSFT_T(KC_ESC), KC_SCLN  , KC_Q     , KC_J     , KC_K     , KC_X     ,                                        KC_B     , KC_M     , KC_W     , KC_V     , KC_Z     , RSFT_T(KC_ENT),
-       LSFT_T(KC_CAPS), KC_LALT,     _______, LT(1,KC_SPC), _______,                            _______, _______, _______ ,   _______,  KC_BTN1
+   _______, _______, _______, _______, _______, _______,                                   _______, _______, _______, _______, _______, _______,
+   _______, _______, _______, _______, _______, _______,                                   _______, _______, _______, _______, _______, _______,
+   _______, _______, _______, _______, _______, _______,                                   _______, _______, _______, _______, _______, _______,
+   _______, _______, _______, _______, _______,                                                     _______, _______, _______, _______, _______
   ),
 
   [2] = LAYOUT_universal(
