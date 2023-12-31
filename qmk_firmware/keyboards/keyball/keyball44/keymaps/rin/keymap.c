@@ -232,29 +232,6 @@ combo_t key_combos[] = {
 
 uint8_t mod_state;
 
-#define HANDLE_DVORAK_KEY(keyname, keycode, keycode_gui)  \
-    case DVRK_##keyname: \
-    { \
-        if (record->event.pressed) { \
-            if (mod_state & MOD_MASK_GUI) { \
-                del_mods(MOD_MASK_GUI); \
-                register_code16(LGUI(keycode_gui)); \
-                set_mods(mod_state); \
-                gui_shortcut_registered = true; \
-                return false; \
-            } \
-            tap_code16(keycode); \
-        } else { \
-            if (gui_shortcut_registered) { \
-                set_mods(mod_state); \
-                unregister_code16(LGUI(keycode_gui));        \
-                gui_shortcut_registered = false; \
-                return false; \
-            } \
-        } \
-        return true; \
-    } \
-
 #define HANDLE_DVORAK_KEY2(code_dvorak, code_qwerty, nicola_plain) \
   case KC_##code_dvorak: { \
       if (record->event.pressed) { \
@@ -365,7 +342,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
           }
         }
         return false; // 他のキーの動作に影響を与えない
-      HANDLE_DVORAK_KEY(QUOT, KC_QUOT, KC_Q);
       HANDLE_DVORAK_KEY2(QUOT, Q,    ".");
       HANDLE_DVORAK_KEY2(COMM, W,    "ka");
       HANDLE_DVORAK_KEY2(DOT,  E,    "ta");
