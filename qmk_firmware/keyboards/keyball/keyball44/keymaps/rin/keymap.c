@@ -20,6 +20,11 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #include "quantum.h"
 
+enum custom_layers {
+  NICOLA,
+  DVORAK,
+};
+
 enum custom_keycodes {
   LCTL_NICOLA = SAFE_RANGE,
   TO_DVORAK,
@@ -239,7 +244,7 @@ uint8_t mod_state;
               tap_code(KC_##code_qwerty); \
               return false; \
           } \
-          if (layer_state_is(0)) { \
+          if (layer_state_is(NICOLA)) { \
               if (mod_state & MOD_MASK_SHIFT) { \
                   return true; \
               } \
@@ -247,7 +252,7 @@ uint8_t mod_state;
           } \
           return true; \
       } else { \
-          if (layer_state_is(0)) { \
+          if (layer_state_is(NICOLA)) { \
               send_string(nicola_plain); \
               return false; \
           } \
@@ -300,7 +305,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         unregister_mods(MOD_BIT(KC_LCTL));
         if (timer_elapsed(lctl_timer) < TAPPING_TERM) {
           tap_code16(KC_LNG1);
-          layer_off(1);
+          layer_off(DVORAK);
         }
       }
       return false;
@@ -310,11 +315,11 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 
         //add_mods(MOD_MASK_GUI);
         register_code16(KC_LGUI);
-        layer_on(1);
+        layer_on(DVORAK);
         return true;
       } else {
         unregister_code16(KC_LGUI);
-        layer_off(1);
+        layer_off(DVORAK);
 
         if (timer_elapsed(cmd_timer) < TAPPING_TERM) {
           // tap
@@ -326,7 +331,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     case TO_DVORAK:
       if (record->event.pressed) {
         tap_code16(KC_LNG2);
-        layer_on(1);
+        layer_on(DVORAK);
       }
       return false;
       case LCTL_T(KC_ESC):
@@ -439,13 +444,13 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 
 // clang-format off
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
-  [0] = LAYOUT_universal(
+  [NICOLA] = LAYOUT_universal(
    LGUI_T(KC_TAB),  KC_QUOT, KC_COMM, KC_DOT, KC_P, KC_Y,                                  KC_F, KC_G, KC_C, KC_R, KC_L, KC_SLSH,
    LCTL_T(KC_ESC),  KC_A,    KC_O,    KC_E,   KC_U, KC_I,                                  KC_D, KC_H, KC_T, KC_N, KC_S, KC_MINS,
    LSFT_T(KC_ESC),  KC_SCLN, KC_Q,    KC_J,   KC_K, KC_X,                                  KC_B, KC_M, KC_W, KC_V, KC_Z, RSFT_T(KC_ENT),
    LSFT_T(KC_CAPS), KC_LALT, TO_CMD_QWERTY_ESC, LT(2,KC_SPC), LCTL_NICOLA,   TO_DVORAK, RGUI_T(KC_SPC), _______, _______, KC_BTN1
   ),
-  [1] = LAYOUT_universal(
+  [DVORAK] = LAYOUT_universal(
    _______, _______, _______, _______, _______, _______,                                   _______, _______, _______, _______, _______, _______,
    _______, _______, _______, _______, _______, _______,                                   _______, _______, _______, _______, _______, _______,
    _______, _______, _______, _______, _______, _______,                                   _______, _______, _______, _______, _______, _______,
