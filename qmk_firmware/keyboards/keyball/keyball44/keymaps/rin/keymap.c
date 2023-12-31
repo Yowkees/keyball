@@ -232,7 +232,7 @@ combo_t key_combos[] = {
 
 uint8_t mod_state;
 
-#define HANDLE_DVORAK_KEY2(code_dvorak, code_qwerty, nicola_plain) \
+#define HANDLE_DVORAK_NICOLA(code_dvorak, code_qwerty, nicola_plain) \
   case KC_##code_dvorak: { \
       if (record->event.pressed) { \
           if (mod_state & MOD_MASK_GUI) { \
@@ -342,38 +342,38 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
           }
         }
         return false; // 他のキーの動作に影響を与えない
-      HANDLE_DVORAK_KEY2(QUOT, Q,    ".");
-      HANDLE_DVORAK_KEY2(COMM, W,    "ka");
-      HANDLE_DVORAK_KEY2(DOT,  E,    "ta");
-      HANDLE_DVORAK_KEY2(P,    R,    "ko");
-      HANDLE_DVORAK_KEY2(Y,    T,    "sa");
-      HANDLE_DVORAK_KEY2(F,    Y,    "ra");
-      HANDLE_DVORAK_KEY2(G,    U,    "ti");
-      HANDLE_DVORAK_KEY2(C,    I,    "ku");
-      HANDLE_DVORAK_KEY2(R,    O,    "tu");
-      HANDLE_DVORAK_KEY2(L,    P,    ",");
-      HANDLE_DVORAK_KEY2(SLSH, LBRC, "dousiyou");
-      HANDLE_DVORAK_KEY2(A,    A,    "u");
-      HANDLE_DVORAK_KEY2(O,    S,    "si");
-      HANDLE_DVORAK_KEY2(E,    D,    "te");
-      HANDLE_DVORAK_KEY2(U,    F,    "ke");
-      HANDLE_DVORAK_KEY2(I,    G,    "se");
-      HANDLE_DVORAK_KEY2(D,    H,    "ha");
-      HANDLE_DVORAK_KEY2(H,    J,    "to");
-      HANDLE_DVORAK_KEY2(T,    K,    "ki");
-      HANDLE_DVORAK_KEY2(N,    L,    "i");
-      HANDLE_DVORAK_KEY2(S,    SCLN, "nn");
-      HANDLE_DVORAK_KEY2(MINS, QUOT, "dousiyou");
-      HANDLE_DVORAK_KEY2(SCLN, Z,    "dousiyou");
-      HANDLE_DVORAK_KEY2(Q,    X,    "hi");
-      HANDLE_DVORAK_KEY2(J,    C,    "su");
-      HANDLE_DVORAK_KEY2(K,    V,    "fu");
-      HANDLE_DVORAK_KEY2(X,    B,    "he");
-      HANDLE_DVORAK_KEY2(B,    N,    "me");
-      HANDLE_DVORAK_KEY2(M,    M,    "so");
-      HANDLE_DVORAK_KEY2(W,    COMM, "ne");
-      HANDLE_DVORAK_KEY2(V,    DOT,  "ho");
-      HANDLE_DVORAK_KEY2(Z,    SLSH, "dousiyou");
+      HANDLE_DVORAK_NICOLA(QUOT, Q,    ".");
+      HANDLE_DVORAK_NICOLA(COMM, W,    "ka");
+      HANDLE_DVORAK_NICOLA(DOT,  E,    "ta");
+      HANDLE_DVORAK_NICOLA(P,    R,    "ko");
+      HANDLE_DVORAK_NICOLA(Y,    T,    "sa");
+      HANDLE_DVORAK_NICOLA(F,    Y,    "ra");
+      HANDLE_DVORAK_NICOLA(G,    U,    "ti");
+      HANDLE_DVORAK_NICOLA(C,    I,    "ku");
+      HANDLE_DVORAK_NICOLA(R,    O,    "tu");
+      HANDLE_DVORAK_NICOLA(L,    P,    ",");
+      HANDLE_DVORAK_NICOLA(SLSH, LBRC, "dousiyou");
+      HANDLE_DVORAK_NICOLA(A,    A,    "u");
+      HANDLE_DVORAK_NICOLA(O,    S,    "si");
+      HANDLE_DVORAK_NICOLA(E,    D,    "te");
+      HANDLE_DVORAK_NICOLA(U,    F,    "ke");
+      HANDLE_DVORAK_NICOLA(I,    G,    "se");
+      HANDLE_DVORAK_NICOLA(D,    H,    "ha");
+      HANDLE_DVORAK_NICOLA(H,    J,    "to");
+      HANDLE_DVORAK_NICOLA(T,    K,    "ki");
+      HANDLE_DVORAK_NICOLA(N,    L,    "i");
+      HANDLE_DVORAK_NICOLA(S,    SCLN, "nn");
+      HANDLE_DVORAK_NICOLA(MINS, QUOT, "dousiyou");
+      HANDLE_DVORAK_NICOLA(SCLN, Z,    "dousiyou");
+      HANDLE_DVORAK_NICOLA(Q,    X,    "hi");
+      HANDLE_DVORAK_NICOLA(J,    C,    "su");
+      HANDLE_DVORAK_NICOLA(K,    V,    "fu");
+      HANDLE_DVORAK_NICOLA(X,    B,    "he");
+      HANDLE_DVORAK_NICOLA(B,    N,    "me");
+      HANDLE_DVORAK_NICOLA(M,    M,    "so");
+      HANDLE_DVORAK_NICOLA(W,    COMM, "ne");
+      HANDLE_DVORAK_NICOLA(V,    DOT,  "ho");
+      HANDLE_DVORAK_NICOLA(Z,    SLSH, "dousiyou");
       // shifted characters with same-side thumb shift
       HANDLE_NICOLA_KEY(XA,     "xa");
       HANDLE_NICOLA_KEY(E,      "e");
