@@ -241,7 +241,7 @@ uint8_t mod_state;
       } \
   } \
 
-#define HANDLE_NICOLA_KEY(keyname, keystring) \
+#define HANDLE_SHIFTED_NICOLA(keyname, keystring) \
     case NICOLA_##keyname: \
         if (record->event.pressed) { \
             SEND_STRING(keystring); \
@@ -338,63 +338,63 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       HANDLE_DVORAK_NICOLA(V,    DOT,  "ho");
       HANDLE_DVORAK_NICOLA(Z,    SLSH, "dousiyou");
       // shifted characters with same-side thumb shift
-      HANDLE_NICOLA_KEY(XA,     "xa");
-      HANDLE_NICOLA_KEY(E,      "e");
-      HANDLE_NICOLA_KEY(RI,     "ri");
-      HANDLE_NICOLA_KEY(XYA,    "xya");
-      HANDLE_NICOLA_KEY(RE,     "re");
-      HANDLE_NICOLA_KEY(YO,     "yo");
-      HANDLE_NICOLA_KEY(NI,     "ni");
-      HANDLE_NICOLA_KEY(RU,     "ru");
-      HANDLE_NICOLA_KEY(MA,     "ma");
-      HANDLE_NICOLA_KEY(XE,     "xe");
-      HANDLE_NICOLA_KEY(WO,     "wo");
-      HANDLE_NICOLA_KEY(A,      "a");
-      HANDLE_NICOLA_KEY(NA,     "na");
-      HANDLE_NICOLA_KEY(XYU,    "xyu");
-      HANDLE_NICOLA_KEY(MO,     "mo");
-      HANDLE_NICOLA_KEY(MI,     "mi");
-      HANDLE_NICOLA_KEY(O,      "o");
-      HANDLE_NICOLA_KEY(NO,     "no");
-      HANDLE_NICOLA_KEY(XYO,    "xyo");
-      HANDLE_NICOLA_KEY(XTU,    "xtu");
-      HANDLE_NICOLA_KEY(XU,     "xu");
-      HANDLE_NICOLA_KEY(CHOUON, "-");
-      HANDLE_NICOLA_KEY(RO,     "ro");
-      HANDLE_NICOLA_KEY(YA,     "ya");
-      HANDLE_NICOLA_KEY(XI,     "xi");
-      HANDLE_NICOLA_KEY(NU,     "nu");
-      HANDLE_NICOLA_KEY(YU,     "yu");
-      HANDLE_NICOLA_KEY(MU,     "mu");
-      HANDLE_NICOLA_KEY(WA,     "wa");
-      HANDLE_NICOLA_KEY(XO,     "xo");
+      HANDLE_SHIFTED_NICOLA(XA,     "xa");
+      HANDLE_SHIFTED_NICOLA(E,      "e");
+      HANDLE_SHIFTED_NICOLA(RI,     "ri");
+      HANDLE_SHIFTED_NICOLA(XYA,    "xya");
+      HANDLE_SHIFTED_NICOLA(RE,     "re");
+      HANDLE_SHIFTED_NICOLA(YO,     "yo");
+      HANDLE_SHIFTED_NICOLA(NI,     "ni");
+      HANDLE_SHIFTED_NICOLA(RU,     "ru");
+      HANDLE_SHIFTED_NICOLA(MA,     "ma");
+      HANDLE_SHIFTED_NICOLA(XE,     "xe");
+      HANDLE_SHIFTED_NICOLA(WO,     "wo");
+      HANDLE_SHIFTED_NICOLA(A,      "a");
+      HANDLE_SHIFTED_NICOLA(NA,     "na");
+      HANDLE_SHIFTED_NICOLA(XYU,    "xyu");
+      HANDLE_SHIFTED_NICOLA(MO,     "mo");
+      HANDLE_SHIFTED_NICOLA(MI,     "mi");
+      HANDLE_SHIFTED_NICOLA(O,      "o");
+      HANDLE_SHIFTED_NICOLA(NO,     "no");
+      HANDLE_SHIFTED_NICOLA(XYO,    "xyo");
+      HANDLE_SHIFTED_NICOLA(XTU,    "xtu");
+      HANDLE_SHIFTED_NICOLA(XU,     "xu");
+      HANDLE_SHIFTED_NICOLA(CHOUON, "-");
+      HANDLE_SHIFTED_NICOLA(RO,     "ro");
+      HANDLE_SHIFTED_NICOLA(YA,     "ya");
+      HANDLE_SHIFTED_NICOLA(XI,     "xi");
+      HANDLE_SHIFTED_NICOLA(NU,     "nu");
+      HANDLE_SHIFTED_NICOLA(YU,     "yu");
+      HANDLE_SHIFTED_NICOLA(MU,     "mu");
+      HANDLE_SHIFTED_NICOLA(WA,     "wa");
+      HANDLE_SHIFTED_NICOLA(XO,     "xo");
       // shifted characters with opposite-side thumb shift
-      HANDLE_NICOLA_KEY(GA, "ga");
-      HANDLE_NICOLA_KEY(DA, "da");
-      HANDLE_NICOLA_KEY(GO, "go");
-      HANDLE_NICOLA_KEY(ZA, "za");
-      HANDLE_NICOLA_KEY(PA, "pa");
-      HANDLE_NICOLA_KEY(DI, "di");
-      HANDLE_NICOLA_KEY(GU, "gu");
-      HANDLE_NICOLA_KEY(DU, "du");
-      HANDLE_NICOLA_KEY(PI, "pi");
-      HANDLE_NICOLA_KEY(VU, "vu");
-      HANDLE_NICOLA_KEY(JI, "ji");
-      HANDLE_NICOLA_KEY(DE, "de");
-      HANDLE_NICOLA_KEY(GE, "ge");
-      HANDLE_NICOLA_KEY(ZE, "ze");
-      HANDLE_NICOLA_KEY(BA, "ba");
-      HANDLE_NICOLA_KEY(DO, "do");
-      HANDLE_NICOLA_KEY(GI, "gi");
-      HANDLE_NICOLA_KEY(PO, "po");
-      HANDLE_NICOLA_KEY(BI, "bi");
-      HANDLE_NICOLA_KEY(ZU, "zu");
-      HANDLE_NICOLA_KEY(BU, "bu");
-      HANDLE_NICOLA_KEY(BE, "be");
-      HANDLE_NICOLA_KEY(PU, "pu");
-      HANDLE_NICOLA_KEY(ZO, "zo");
-      HANDLE_NICOLA_KEY(PE, "pe");
-      HANDLE_NICOLA_KEY(BO, "bo");
+      HANDLE_SHIFTED_NICOLA(GA, "ga");
+      HANDLE_SHIFTED_NICOLA(DA, "da");
+      HANDLE_SHIFTED_NICOLA(GO, "go");
+      HANDLE_SHIFTED_NICOLA(ZA, "za");
+      HANDLE_SHIFTED_NICOLA(PA, "pa");
+      HANDLE_SHIFTED_NICOLA(DI, "di");
+      HANDLE_SHIFTED_NICOLA(GU, "gu");
+      HANDLE_SHIFTED_NICOLA(DU, "du");
+      HANDLE_SHIFTED_NICOLA(PI, "pi");
+      HANDLE_SHIFTED_NICOLA(VU, "vu");
+      HANDLE_SHIFTED_NICOLA(JI, "ji");
+      HANDLE_SHIFTED_NICOLA(DE, "de");
+      HANDLE_SHIFTED_NICOLA(GE, "ge");
+      HANDLE_SHIFTED_NICOLA(ZE, "ze");
+      HANDLE_SHIFTED_NICOLA(BA, "ba");
+      HANDLE_SHIFTED_NICOLA(DO, "do");
+      HANDLE_SHIFTED_NICOLA(GI, "gi");
+      HANDLE_SHIFTED_NICOLA(PO, "po");
+      HANDLE_SHIFTED_NICOLA(BI, "bi");
+      HANDLE_SHIFTED_NICOLA(ZU, "zu");
+      HANDLE_SHIFTED_NICOLA(BU, "bu");
+      HANDLE_SHIFTED_NICOLA(BE, "be");
+      HANDLE_SHIFTED_NICOLA(PU, "pu");
+      HANDLE_SHIFTED_NICOLA(ZO, "zo");
+      HANDLE_SHIFTED_NICOLA(PE, "pe");
+      HANDLE_SHIFTED_NICOLA(BO, "bo");
     default:
       return true;
   }
