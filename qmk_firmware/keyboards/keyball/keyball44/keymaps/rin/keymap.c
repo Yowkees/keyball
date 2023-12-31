@@ -221,19 +221,22 @@ uint8_t mod_state;
           if (mod_state & MOD_MASK_GUI) { \
               tap_code(KC_##code_qwerty); \
               return false; \
-          } \
-          if (layer_state_is(NICOLA)) { \
-              if (mod_state & MOD_MASK_SHIFT) { \
-                  return true; \
+          } else if (layer_state_is(NICOLA)) { \
+              if (mod_state) { \
+                  if (MOD_MASK_SHIFT) { \
+                      return true; \
+                  } \
+                  if (MOD_MASK_CTRL) { \
+                      return true; \
+                  } \
+              } else { \
+                  send_string(nicola_plain); \
+                  return false; \
               } \
-              return false; \
+          } else { \
+              return true; \
           } \
-          return true; \
       } else { \
-          if (layer_state_is(NICOLA)) { \
-              send_string(nicola_plain); \
-              return false; \
-          } \
           return true; \
       } \
   } \
