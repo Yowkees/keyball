@@ -310,19 +310,20 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         layer_on(DVORAK);
       }
       return false;
-      case LCTL_T(KC_ESC):
-        if (record->event.pressed) {
-          lctl_timer = timer_read();
-          // 通常のLCTLの動作を有効にする
-          register_mods(MOD_BIT(KC_LCTL));
-        } else {
-          unregister_mods(MOD_BIT(KC_LCTL));
-          if (timer_elapsed(lctl_timer) < TAPPING_TERM) {
-            // タップされた場合、ESCを送出
-            tap_code(KC_ESC);
-          }
+
+    case LCTL_T(KC_ESC):
+      if (record->event.pressed) {
+        lctl_timer = timer_read();
+        // 通常のLCTLの動作を有効にする
+        register_mods(MOD_BIT(KC_LCTL));
+      } else {
+        unregister_mods(MOD_BIT(KC_LCTL));
+        if (timer_elapsed(lctl_timer) < TAPPING_TERM) {
+          // タップされた場合、ESCを送出
+          tap_code(KC_ESC);
         }
-        return false; // 他のキーの動作に影響を与えない
+      }
+      return false; // 他のキーの動作に影響を与えない
 
     HANDLE_DVORAK_NICOLA(QUOT, Q,    ".");
     HANDLE_DVORAK_NICOLA(COMM, W,    "ka");
