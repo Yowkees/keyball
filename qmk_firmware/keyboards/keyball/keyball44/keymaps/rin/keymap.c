@@ -26,8 +26,7 @@ enum custom_layers {
 };
 
 enum custom_keycodes {
-  LCTL_NICOLA = SAFE_RANGE,
-  LCTL_DVORAK,
+  LCTL_LANG = SAFE_RANGE,
   TO_CMD_QWERTY_ESC,
   NICOLA_LSFT,
   NICOLA_RSFT,
@@ -270,22 +269,13 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         unregister_code16(RGUI_T(KC_SPC));
       }
 
-    case LCTL_NICOLA:
+    case LCTL_LANG:
       if (record->event.pressed) {
-        lctl_timer = timer_read();
-        register_mods(MOD_BIT(KC_LCTL));
-        return false;
-      } else {
-        unregister_mods(MOD_BIT(KC_LCTL));
-        if (timer_elapsed(lctl_timer) < TAPPING_TERM) {
+        if (get_mods() & MOD_MASK_SHIFT) {
           tap_code16(KC_LNG1);
           layer_off(DVORAK);
+          return false;
         }
-      }
-      return false;
-
-    case LCTL_DVORAK:
-      if (record->event.pressed) {
         lctl_timer = timer_read();
         register_mods(MOD_BIT(KC_LCTL));
         return false;
@@ -305,7 +295,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         //add_mods(MOD_MASK_GUI);
         register_code16(KC_LGUI);
         layer_on(DVORAK);
-        return true;
+        return false;
       } else {
         unregister_code16(KC_LGUI);
         layer_off(DVORAK);
@@ -432,8 +422,8 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [NICOLA] = LAYOUT_universal(
     LGUI_T(KC_TAB),  KC_QUOT, KC_COMM, KC_DOT, KC_P, KC_Y,                                  KC_F, KC_G, KC_C, KC_R, KC_L, KC_SLSH,
-    LCTL_DVORAK,     KC_A,    KC_O,    KC_E,   KC_U, KC_I,                                  KC_D, KC_H, KC_T, KC_N, KC_S, KC_MINS,
-    LSFT_T(KC_ESC),  KC_SCLN, KC_Q,    KC_J,   KC_K, KC_X,                                  KC_B, KC_M, KC_W, KC_V, KC_Z, RSFT_T(LCTL_NICOLA),
+    LCTL_LANG,       KC_A,    KC_O,    KC_E,   KC_U, KC_I,                                  KC_D, KC_H, KC_T, KC_N, KC_S, KC_MINS,
+    LSFT_T(KC_ESC),  KC_SCLN, KC_Q,    KC_J,   KC_K, KC_X,                                  KC_B, KC_M, KC_W, KC_V, KC_Z, KC_RSFT,
     LSFT_T(KC_CAPS), KC_LALT, NICOLA_LSFT, LT(2,KC_SPC), LT(2,KC_ENT),              KC_ENT, NICOLA_RSFT, _______, _______, KC_BTN1
   ),
   [DVORAK] = LAYOUT_universal(
