@@ -51,6 +51,27 @@ bool process_record_user(uint16_t keycode, keyrecord_t* record) {
     }
 
     switch (keycode) {
+        case KC_BTN1:
+            local_mouse_report.buttons = MOUSE_BTN1;
+            if (!record->event.pressed) {
+                local_mouse_report.buttons = 0;
+            }
+            return false;
+            break;
+        case KC_BTN2:
+            local_mouse_report.buttons = MOUSE_BTN2;
+            if (!record->event.pressed) {
+                local_mouse_report.buttons = 0;
+            }
+            return false;
+            break;
+        case KC_BTN3:
+            local_mouse_report.buttons = MOUSE_BTN3;
+            if (!record->event.pressed) {
+                local_mouse_report.buttons = 0;
+            }
+            return false;
+            break;
         case LOWER:
             if (record->event.pressed) {
                 layer_on(_LOWER);
