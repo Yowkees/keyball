@@ -48,6 +48,13 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #    define KEYBALL_SCROLLSNAP_TENSION_THRESHOLD 12
 #endif
 
+/// Specify SROM ID to be uploaded PMW3360DW (optical sensor).  It will be
+/// enabled high CPI setting or so.  Valid valus are 0x04 or 0x81.  Define this
+/// in your config.h to be enable.  Please note that using this option will
+/// increase the firmware size by more than 4KB.
+//#define KEYBALL_PMW3360_UPLOAD_SROM_ID 0x04
+//#define KEYBALL_PMW3360_UPLOAD_SROM_ID 0x81
+
 //////////////////////////////////////////////////////////////////////////////
 // Constants
 
