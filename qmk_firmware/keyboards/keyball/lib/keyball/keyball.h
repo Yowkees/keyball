@@ -140,8 +140,8 @@ typedef struct {
     keypos_t       last_pos;
     report_mouse_t last_mouse;
 
-    // It needs only the lower 8 bits of each key code to show on OLED.
-    uint8_t pressing_kc[KEYBALL_OLED_MAX_PRESSING_KEYCODES];
+    // Buffer to indicate pressing keys.
+    char pressing_keys[KEYBALL_OLED_MAX_PRESSING_KEYCODES + 1];
 } keyball_t;
 
 typedef enum {
