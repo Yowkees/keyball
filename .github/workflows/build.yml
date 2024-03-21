@@ -61,7 +61,7 @@ jobs:
     - run: qmk compile -j 4 -kb keyball/${{ matrix.keyboard }} -km ${{ matrix.keymap }}
 
     - name: Archive firmwares
-      uses: actions/upload-artifact@v3
+      uses: actions/upload-artifact@v4
       with:
         name: ${{ matrix.keyboard }}-firmwares
         path: __qmk__/*.hex
@@ -74,19 +74,19 @@ jobs:
 
     steps:
 
-    - uses: actions/download-artifact@v3
+    - uses: actions/download-artifact@v4
       with: { name: keyball39-firmwares }
 
-    - uses: actions/download-artifact@v3
+    - uses: actions/download-artifact@v4
       with: { name: keyball44-firmwares }
 
-    - uses: actions/download-artifact@v3
+    - uses: actions/download-artifact@v4
       with: { name: keyball61-firmwares }
 
-    - uses: actions/download-artifact@v3
+    - uses: actions/download-artifact@v4
       with: { name: keyball46-firmwares }
 
-    - uses: actions/download-artifact@v3
+    - uses: actions/download-artifact@v4
       with: { name: one47-firmwares }
 
     - name: List size of firmwares
