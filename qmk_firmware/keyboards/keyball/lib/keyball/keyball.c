@@ -172,9 +172,9 @@ static void motion_to_mouse_move(keyball_motion_t *m, report_mouse_t *r, bool is
 static void motion_to_mouse_scroll(keyball_motion_t *m, report_mouse_t *r, bool is_left) {
     // consume motion of trackball.
     uint8_t div = keyball_get_scroll_div() - 1;
-    int16_t x   = m->x >> div;
+    int16_t x   = m->x / (1 << div);
     m->x -= x << div;
-    int16_t y = m->y >> div;
+    int16_t y = m->y / (1 << div);
     m->y -= y << div;
 
     // apply to mouse report.
