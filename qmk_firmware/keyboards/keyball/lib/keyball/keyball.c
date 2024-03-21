@@ -23,6 +23,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "keyball.h"
 #include "drivers/pmw3360/pmw3360.h"
 
+#include <string.h>
+
 const uint8_t CPI_DEFAULT    = KEYBALL_CPI_DEFAULT / 100;
 const uint8_t CPI_MAX        = pmw3360_MAXCPI + 1;
 const uint8_t SCROLL_DIV_MAX = 7;
@@ -40,6 +42,8 @@ keyball_t keyball = {
 
     .scroll_mode = false,
     .scroll_div  = 0,
+
+    .pressing_keys = {' ', ' ', ' ', 0},
 };
 
 //////////////////////////////////////////////////////////////////////////////
@@ -385,15 +389,18 @@ void keyball_oled_render_ballinfo(void) {
 
 void keyball_oled_render_keyinfo(void) {
 #ifdef OLED_ENABLE
-    // Format: `Key :  R{row}  C{col} K{kc}  '{name}`
+    // Format: `Key :  R{row}  C{col} K{kc} {name}{name}{name}`
     //
     // Where `kc` is lower 8 bit of keycode.
-    // Where `name` is readable label for `kc`, valid between 4 and 56.
+    // Where `name`s are readable labels for pressing keys, valid between 4 and 56.
+    //
+    // `row`, `col`, and `kc` indicates the last processed key,
+    // but `name`s indicate unreleased keys in best effort.
     //
     // It is aligned to fit with output of keyball_oled_render_ballinfo().
     // For example:
     //
-    //     Key :  R2  C3 K06  'c
+    //     Key :  R2  C3 K06 abc
     //     Ball:   0   0   0   0
     //
     uint8_t keycode = keyball.last_kc;
@@ -402,18 +409,14 @@ void keyball_oled_render_keyinfo(void) {
     oled_write_char(to_1x(keyball.last_pos.row), false);
     oled_write_P(PSTR("  C"), false);
     oled_write_char(to_1x(keyball.last_pos.col), false);
-    if (keycode) {
-        oled_write_P(PSTR(" K"), false);
-        oled_write_char(to_1x(keycode >> 4), false);
-        oled_write_char(to_1x(keycode), false);
-    }
-    if (keycode >= 4 && keycode < 57) {
-        oled_write_P(PSTR("  '"), false);
-        char name = pgm_read_byte(code_to_name + keycode - 4);
-        oled_write_char(name, false);
-    } else {
-        oled_advance_page(true);
-    }
+    oled_write_P(PSTR(" K"), false);
+    oled_write_char(to_1x(keycode >> 4), false);
+    oled_write_char(to_1x(keycode), false);
+
+    oled_write_char(' ', false);
+
+    // Draw pressing keys.
+    oled_write(keyball.pressing_keys, false);
 #endif
 }
 
@@ -505,10 +508,32 @@ void housekeeping_task_kb(void) {
 }
 #endif
 
+static void pressing_keys_update(uint16_t keycode, keyrecord_t *record) {
+    // Process only valid keycodes.
+    if (keycode >= 4 || keycode < 57) {
+        char value = pgm_read_byte(code_to_name + keycode - 4);
+        char where = ' ';
+        if (!record->event.pressed) {
+            // Swap `value` and `where` when releasing.
+            where = value;
+            value = ' ';
+        }
+        // Rewrite the last `where` of pressing_keys to `value` .
+        for (int i = KEYBALL_OLED_MAX_PRESSING_KEYCODES - 1; i >= 0; i--) {
+            if (keyball.pressing_keys[i] == where) {
+                keyball.pressing_keys[i] = value;
+                break;
+            }
+        }
+    }
+}
+
 bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
     // store last keycode, row, and col for OLED
     keyball.last_kc  = keycode;
     keyball.last_pos = record->event.key;
+
+    pressing_keys_update(keycode, record);
 
     if (!process_record_user(keycode, record)) {
         return false;

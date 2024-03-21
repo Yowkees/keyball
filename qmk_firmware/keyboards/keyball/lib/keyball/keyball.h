@@ -74,6 +74,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #    define KEYBALL_MODEL 44
 #endif
 
+#define KEYBALL_OLED_MAX_PRESSING_KEYCODES 3
+
 //////////////////////////////////////////////////////////////////////////////
 // Types
 
@@ -137,6 +139,9 @@ typedef struct {
     uint16_t       last_kc;
     keypos_t       last_pos;
     report_mouse_t last_mouse;
+
+    // Buffer to indicate pressing keys.
+    char pressing_keys[KEYBALL_OLED_MAX_PRESSING_KEYCODES + 1];
 } keyball_t;
 
 typedef enum {
