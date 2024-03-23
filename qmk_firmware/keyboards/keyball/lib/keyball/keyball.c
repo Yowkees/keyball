@@ -516,7 +516,7 @@ void housekeeping_task_kb(void) {
 
 static void pressing_keys_update(uint16_t keycode, keyrecord_t *record) {
     // Process only valid keycodes.
-    if (keycode >= 4 || keycode < 57) {
+    if (keycode >= 4 && keycode < 57) {
         char value = pgm_read_byte(code_to_name + keycode - 4);
         char where = ' ';
         if (!record->event.pressed) {
