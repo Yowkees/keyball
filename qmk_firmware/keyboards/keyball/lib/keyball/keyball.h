@@ -112,7 +112,7 @@ typedef union {
         uint8_t sdiv : 3;  // scroll divider
 #ifdef POINTING_DEVICE_AUTO_MOUSE_ENABLE
         uint8_t amle : 1;  // automatic mouse layer enabled
-        uint8_t amlto : 4; // automatic mouse layer timeout
+        uint16_t amlto : 5; // automatic mouse layer timeout
 #endif
     };
 } keyball_config_t;
@@ -145,10 +145,6 @@ typedef struct {
 
     uint32_t scroll_snap_last;
     int8_t   scroll_snap_tension_h;
-
-#ifdef POINTING_DEVICE_AUTO_MOUSE_ENABLE
-    uint8_t aml_timeout;
-#endif
 
     uint16_t       last_kc;
     keypos_t       last_pos;
@@ -208,16 +204,3 @@ uint8_t keyball_get_cpi(void);
 
 // TODO: document
 void keyball_set_cpi(uint8_t cpi);
-
-#ifdef POINTING_DEVICE_AUTO_MOUSE_ENABLE
-
-// This function is used to get the current timeout value for the automatic mouse layer (AML).
-// The returned value is the number of milliseconds the system will wait before automatically activating the mouse layer.
-// The return value is a number between 0 and 15, which corresponds to a range between 250ms and 950ms in intervals of 50ms.
-uint8_t keyball_get_aml_timeout(void);
-
-// This function is used to set the automatic mouse layer (AML) timeout value.
-// The argument is a number between 0 and 15, which corresponds to a range between 250ms and 950ms in intervals of 50ms.
-// This value sets how long (in milliseconds) the system should wait before automatically activating the mouse layer when a key is pressed.
-void keyball_set_aml_timeout(uint8_t timeout);
-#endif
