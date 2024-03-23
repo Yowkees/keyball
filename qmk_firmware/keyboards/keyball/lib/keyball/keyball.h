@@ -95,11 +95,11 @@ enum keyball_keycodes {
     SCRL_DVI = QK_KB_8, // Increment scroll divider
     SCRL_DVD = QK_KB_9, // Decrement scroll divider
 
-#ifdef POINTING_DEVICE_AUTO_MOUSE_ENABLE
+    // Auto mouse layer control keycodes.
+    // Only works when POINTING_DEVICE_AUTO_MOUSE_ENABLE is defined.
     AML_TO   = QK_KB_10, // Toggle automatic mouse layer
     AML_I50  = QK_KB_11, // Increment automatic mouse layer timeout
     AML_D50  = QK_KB_12, // Decrement automatic mouse layer timeout
-#endif
 
     // User customizable 32 keycodes.
     KEYBALL_SAFE_RANGE = QK_USER_0,

@@ -28,10 +28,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 const uint8_t CPI_DEFAULT    = KEYBALL_CPI_DEFAULT / 100;
 const uint8_t CPI_MAX        = pmw3360_MAXCPI + 1;
 const uint8_t SCROLL_DIV_MAX = 7;
-#ifdef POINTING_DEVICE_AUTO_MOUSE_ENABLE
+
 const uint16_t AML_TIMEOUT_DEFAULT = 9;
 const uint16_t AML_TIMEOUT_MAX     = 15;
-#endif
 
 keyball_t keyball = {
     .this_have_ball = false,
