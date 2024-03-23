@@ -49,7 +49,6 @@ keyball_t keyball = {
     .pressing_keys = {' ', ' ', ' ', 0},
 
 #ifdef POINTING_DEVICE_AUTO_MOUSE_ENABLE
-    .aml_enabled = 0,
     .aml_timeout = 0,
 #endif
 };
@@ -468,7 +467,7 @@ void keyball_oled_render_amlinfo(void) {
     //     AML:o 5
     //
     oled_write_P(PSTR("AML:"), false);
-    oled_write_char((keyball.aml_enabled ? 'o' : 'x'), false);
+    oled_write_char((get_auto_mouse_enable() ? 'o' : 'x'), false);
     oled_write_char(' ', false);
     oled_write(format_4d(keyball.aml_timeout), false);
     oled_write_P(PSTR("           "), false);
@@ -514,10 +513,6 @@ void keyball_set_cpi(uint8_t cpi) {
 }
 
 #ifdef POINTING_DEVICE_AUTO_MOUSE_ENABLE
-void keyball_set_aml_enabled(bool enabled) {
-    keyball.aml_enabled = enabled;
-    set_auto_mouse_enable(enabled);
-}
 
 // This method returns current timeout value.
 // It will return 1 to 15.
@@ -567,7 +562,7 @@ void keyboard_post_init_kb(void) {
         keyball_set_cpi(c.cpi);
         keyball_set_scroll_div(c.sdiv);
 #ifdef POINTING_DEVICE_AUTO_MOUSE_ENABLE
-        keyball_set_aml_enabled(c.amle);
+        set_auto_mouse_enable(c.amle);
         keyball_set_aml_timeout(c.amlto);
 #endif
     }
@@ -653,7 +648,7 @@ bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
                     .cpi   = keyball.cpi_value,
                     .sdiv  = keyball.scroll_div,
 #ifdef POINTING_DEVICE_AUTO_MOUSE_ENABLE
-                    .amle  = keyball.aml_enabled,
+                    .amle  = get_auto_mouse_enable(),
                     .amlto = keyball.aml_timeout,
 #endif
                 };
@@ -685,7 +680,7 @@ bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
 
 #ifdef POINTING_DEVICE_AUTO_MOUSE_ENABLE
             case AML_TO:
-                keyball_set_aml_enabled(!keyball.aml_enabled);
+                set_auto_mouse_enable(!get_auto_mouse_enable());
                 break;
             case AML_I50:
                 add_aml_timeout(1);

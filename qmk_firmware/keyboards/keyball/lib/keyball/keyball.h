@@ -147,7 +147,6 @@ typedef struct {
     int8_t   scroll_snap_tension_h;
 
 #ifdef POINTING_DEVICE_AUTO_MOUSE_ENABLE
-    bool aml_enabled;
     uint8_t aml_timeout;
 #endif
 
@@ -211,10 +210,6 @@ uint8_t keyball_get_cpi(void);
 void keyball_set_cpi(uint8_t cpi);
 
 #ifdef POINTING_DEVICE_AUTO_MOUSE_ENABLE
-// This function is used to enable or disable the automatic mouse layer (AML).
-// When it is enabled (true), the mouse layer will be activated automatically based on a set timeout.
-// When it is disabled (false), the user will need to manually activate the mouse layer.
-void keyball_set_aml_enabled(bool enabled);
 
 // This function is used to get the current timeout value for the automatic mouse layer (AML).
 // The returned value is the number of milliseconds the system will wait before automatically activating the mouse layer.
