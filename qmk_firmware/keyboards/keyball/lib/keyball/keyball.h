@@ -74,7 +74,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #    define KEYBALL_MODEL 44
 #endif
 
-#define KEYBALL_OLED_MAX_PRESSING_KEYCODES 3
+#define KEYBALL_OLED_MAX_PRESSING_KEYCODES 6
 
 //////////////////////////////////////////////////////////////////////////////
 // Types
@@ -95,6 +95,12 @@ enum keyball_keycodes {
     SCRL_DVI = QK_KB_8, // Increment scroll divider
     SCRL_DVD = QK_KB_9, // Decrement scroll divider
 
+    // Auto mouse layer control keycodes.
+    // Only works when POINTING_DEVICE_AUTO_MOUSE_ENABLE is defined.
+    AML_TO   = QK_KB_10, // Toggle automatic mouse layer
+    AML_I50  = QK_KB_11, // Increment automatic mouse layer timeout
+    AML_D50  = QK_KB_12, // Decrement automatic mouse layer timeout
+
     // User customizable 32 keycodes.
     KEYBALL_SAFE_RANGE = QK_USER_0,
 };
@@ -103,7 +109,11 @@ typedef union {
     uint32_t raw;
     struct {
         uint8_t cpi : 7;
-        uint8_t sdiv : 3; // scroll divider
+        uint8_t sdiv : 3;  // scroll divider
+#ifdef POINTING_DEVICE_AUTO_MOUSE_ENABLE
+        uint8_t amle : 1;  // automatic mouse layer enabled
+        uint16_t amlto : 5; // automatic mouse layer timeout
+#endif
     };
 } keyball_config_t;
 

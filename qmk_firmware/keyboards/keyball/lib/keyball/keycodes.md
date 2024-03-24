@@ -18,6 +18,9 @@
 | `SCRL_MO`  | `Kb 7`          | `0x7e07` | Enable scroll mode when pressing                                  |
 | `SCRL_DVI` | `Kb 8`          | `0x7e08` | Increase scroll divider (max D7 = 1/128) <- Most Scroll slow      |
 | `SCRL_DVD` | `Kb 9`          | `0x7e09` | Decrease scroll divider (min 0 = 1/1) <- Most Scroll fast         |
+| `AML_TO`   | `Kb 10`         | `0x7e0a` | Toggle automatic mouse layer                                      |
+| `AML_I50`  | `Kb 11`         | `0x7e0b` | Increase 50ms automatic mouse layer timeout(max 15=950ms)         |
+| `AML_D50`  | `Kb 12`         | `0x7e0c` | Decrease 50ms automatic mouse layer timeout(min 1=250ms)          |
 
 <a id="japanese"></a>
 ## 特殊キーコード
@@ -34,3 +37,7 @@
 | `SCRL_MO`  | `Kb 7`          | `0x7e07` | キーを押している間、スクロールモードになります                    |
 | `SCRL_DVI` | `Kb 8`          | `0x7e08` | スクロール除数を１つ上げます(max D7 = 1/128)←最もスクロール遅い   |
 | `SCRL_DVD` | `Kb 9`          | `0x7e09` | スクロール除数を１つ下げます(min D0 = 1/1)←最もスクロール速い     |
+| `AML_TO`   | `Kb 10`         | `0x7e0a` | 自動マウスレイヤーをトグルします。                                 |
+| `AML_I50`  | `Kb 11`         | `0x7e0b` | 自動マウスレイヤーのタイムアウトを50msec増やします(max 15=950ms)   |
+| `AML_D50`  | `Kb 12`         | `0x7e0c` | 自動マウスレイヤーのタイムアウトを50msec減らします(min 1=250ms)    |
+
