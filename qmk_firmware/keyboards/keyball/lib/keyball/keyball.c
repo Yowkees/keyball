@@ -579,6 +579,16 @@ static void pressing_keys_update(uint16_t keycode, keyrecord_t *record) {
     }
 }
 
+#ifdef POINTING_DEVICE_AUTO_MOUSE_ENABLE
+bool is_mouse_record_kb(uint16_t keycode, keyrecord_t* record) {
+    switch (keycode) {
+        case SCRL_MO:
+            return true;
+    }
+    return is_mouse_record_user(keycode, record);
+}
+#endif
+
 bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
     // store last keycode, row, and col for OLED
     keyball.last_kc  = keycode;
@@ -609,7 +619,9 @@ bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
 
         case SCRL_MO:
             keyball_set_scroll_mode(record->event.pressed);
-            return false;
+            // process_auto_mouse may use this in future, if changed order of
+            // processes.
+            return true;
     }
 
     // process events which works on pressed only.
