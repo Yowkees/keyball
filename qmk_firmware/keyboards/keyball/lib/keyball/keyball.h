@@ -55,6 +55,15 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 //#define KEYBALL_PMW3360_UPLOAD_SROM_ID 0x04
 //#define KEYBALL_PMW3360_UPLOAD_SROM_ID 0x81
 
+/// Defining this macro keeps two functions intact: keycode_config() and
+/// mod_config() in keycode_config.c.
+///
+/// These functions customize the magic key code and are useless if the magic
+/// key code is disabled.  Therefore, Keyball automatically disables it.
+/// However, there may be cases where you still need these functions even after
+/// disabling the magic key code. In that case, define this macro.
+//#define KEYBALL_KEEP_MAGIC_FUNCTIONS
+
 //////////////////////////////////////////////////////////////////////////////
 // Constants
 
