@@ -46,6 +46,15 @@ __attribute__((weak)) bool oled_task_user(void) {
 }
 
 __attribute__((weak)) oled_rotation_t oled_init_user(oled_rotation_t rotation) {
+    // Logo needs to be rotated 180 degrees.
+    //
+    // A typical OLED has a narrow margin on the left side near the origin, and
+    // a wide margin on the right side. The Keyball logo consists of three
+    // lines. If the logo is displayed on an OLED consisting of four lines, the
+    // margin on the right side will be too large and the balance is not good.
+    //
+    // Additionally, by rotating it, the left side of the logo will be above
+    // the OLED screen, giving it a natural look.
     return !is_keyboard_master() ? OLED_ROTATION_180 : rotation;
 }
 
