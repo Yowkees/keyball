@@ -20,7 +20,7 @@ AUDIO_ENABLE = no           # Audio output
 CUSTOM_MATRIX = lite
 SRC += lib/duplexmatrix/duplexmatrix.c
 
-# Split keyboard.
+# Keyball61 is split keyboard.
 SPLIT_KEYBOARD = yes
 
 # Optical sensor driver for trackball.
@@ -49,4 +49,5 @@ SRC += lib/keyball/keyball.c
 
 # Disable other features to squeeze firmware size
 SPACE_CADET_ENABLE = no
+GRAVE_ESC_ENABLE = no
 MAGIC_ENABLE = no
