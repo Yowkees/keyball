@@ -8,8 +8,8 @@
 
 | Keycode    | Value on Remap  | Hex      | Description                                                       |
 |:-----------|:----------------|:---------|:------------------------------------------------------------------|
-| `KBC_RST`  | `Kb 0`          | `0x7e00` | Reset Keyball configuration                                       |
-| `KBC_SAVE` | `Kb 1`          | `0x7e01` | Persist Keyball configuration to EEPROM                           |
+| `KBC_RST`  | `Kb 0`          | `0x7e00` | Reset Keyball configuration[^1]                                   |
+| `KBC_SAVE` | `Kb 1`          | `0x7e01` | Persist Keyball configuration[^1] to EEPROM                       |
 | `CPI_I100` | `Kb 2`          | `0x7e02` | Increase 100 CPI (max 12000)                                      |
 | `CPI_D100` | `Kb 3`          | `0x7e03` | Decrease 100 CPI (min 100)                                        |
 | `CPI_I1K`  | `Kb 4`          | `0x7e04` | Increase 1000 CPI (max 12000)                                     |
@@ -22,13 +22,15 @@
 | `AML_I50`  | `Kb 11`         | `0x7e0b` | Increase 50ms automatic mouse layer timeout(max 15=950ms)         |
 | `AML_D50`  | `Kb 12`         | `0x7e0c` | Decrease 50ms automatic mouse layer timeout(min 1=250ms)          |
 
+[^1]: CPI, scroll divider, automatic mouse layer's enable/disable, and automatic mouse layer's timeout.
+
 <a id="japanese"></a>
 ## 特殊キーコード
 
 | キーコード | Remap上での表記 | 値       | 説明                                                              |
 |:-----------|:----------------|:---------|:------------------------------------------------------------------|
-| `KBC_RST`  | `Kb 0`          | `0x7e00` | Keyball設定のリセット                                             |
-| `KBC_SAVE` | `Kb 1`          | `0x7e01` | 現在のKeyball設定をEEPROMに保存します                             |
+| `KBC_RST`  | `Kb 0`          | `0x7e00` | Keyball設定[^2]のリセット                                         |
+| `KBC_SAVE` | `Kb 1`          | `0x7e01` | 現在のKeyball設定[^2]をEEPROMに保存します                         |
 | `CPI_I100` | `Kb 2`          | `0x7e02` | CPIを100増加させます(最大:12000)                                  |
 | `CPI_D100` | `Kb 3`          | `0x7e03` | CPIを100減少させます(最小:100)                                    |
 | `CPI_I1K`  | `Kb 4`          | `0x7e04` | CPIを1000増加させます(最大:12000)                                 |
@@ -37,7 +39,8 @@
 | `SCRL_MO`  | `Kb 7`          | `0x7e07` | キーを押している間、スクロールモードになります                    |
 | `SCRL_DVI` | `Kb 8`          | `0x7e08` | スクロール除数を１つ上げます(max D7 = 1/128)←最もスクロール遅い   |
 | `SCRL_DVD` | `Kb 9`          | `0x7e09` | スクロール除数を１つ下げます(min D0 = 1/1)←最もスクロール速い     |
-| `AML_TO`   | `Kb 10`         | `0x7e0a` | 自動マウスレイヤーをトグルします。                                 |
-| `AML_I50`  | `Kb 11`         | `0x7e0b` | 自動マウスレイヤーのタイムアウトを50msec増やします(max 15=950ms)   |
-| `AML_D50`  | `Kb 12`         | `0x7e0c` | 自動マウスレイヤーのタイムアウトを50msec減らします(min 1=250ms)    |
+| `AML_TO`   | `Kb 10`         | `0x7e0a` | 自動マウスレイヤーをトグルします。                                |
+| `AML_I50`  | `Kb 11`         | `0x7e0b` | 自動マウスレイヤーのタイムアウトを50msec増やします(max 15=950ms)  |
+| `AML_D50`  | `Kb 12`         | `0x7e0c` | 自動マウスレイヤーのタイムアウトを50msec減らします(min 1=250ms)   |
 
+[^2]: CPI、スクロール除数、自動マウスレイヤーのON/OFF状態、及び自動マウスレイヤのタイムアウト
