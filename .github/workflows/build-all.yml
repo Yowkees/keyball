@@ -1,6 +1,27 @@
-name: Build all firmwares rev.2
+name: Build all firmwares
 
-on: [ push, workflow_call ]
+on:
+  push:
+    paths:
+      - 'qmk_firmware/keyboards/keyball/**.mk'
+      - 'qmk_firmware/keyboards/keyball/**.c'
+      - 'qmk_firmware/keyboards/keyball/**.h'
+      - 'qmk_firmware/keyboards/keyball/**.json'
+      - '.github/**.yml'
+    tags-ignore:
+      - '*'
+    branches:
+      - '*'
+
+  pull_request:
+    paths:
+      - 'qmk_firmware/keyboards/keyball/**.mk'
+      - 'qmk_firmware/keyboards/keyball/**.c'
+      - 'qmk_firmware/keyboards/keyball/**.h'
+      - 'qmk_firmware/keyboards/keyball/**.json'
+      - '.github/**.yml'
+
+  workflow_call: {}
 
 jobs:
 

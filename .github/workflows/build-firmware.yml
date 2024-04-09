@@ -19,7 +19,7 @@ jobs:
 
   build:
 
-    name: Build firmware for ${{ inputs.keyboard }} w/ ${{ inputs.keymap }}
+    name: Build a firmware ${{ inputs.keyboard }}:${{ inputs.keymap }}
 
     runs-on: ubuntu-latest
     container:
