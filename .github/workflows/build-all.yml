@@ -3,11 +3,11 @@ name: Build all firmwares
 on:
   push:
     paths:
+      - 'qmk_firmware/keyboards/keyball/**.mk'
       - 'qmk_firmware/keyboards/keyball/**.c'
       - 'qmk_firmware/keyboards/keyball/**.h'
       - 'qmk_firmware/keyboards/keyball/**.json'
-      - '.github/actions/setup-qmk/**.yml'
-      - '.github/workflows/build*.yml'
+      - '.github/**.yml'
     tags-ignore:
       - '*'
     branches:
@@ -15,11 +15,11 @@ on:
 
   pull_request:
     paths:
+      - 'qmk_firmware/keyboards/keyball/**.mk'
       - 'qmk_firmware/keyboards/keyball/**.c'
       - 'qmk_firmware/keyboards/keyball/**.h'
       - 'qmk_firmware/keyboards/keyball/**.json'
-      - '.github/actions/setup-qmk/**.yml'
-      - '.github/workflows/build*.yml'
+      - '.github/**.yml'
 
   workflow_call: {}
 
@@ -41,30 +41,11 @@ jobs:
           - keyboard: keyball46
             keymap:   via_Both
 
-    name: Build ${{ matrix.keyboard }} w/ ${{ matrix.keymap }}
-
-    runs-on: ubuntu-latest
-    container:
-      image: ghcr.io/qmk/qmk_cli:latest
-
-    steps:
-
-    - name: Checkout source
-      uses: actions/checkout@v4
-
-    - name: Checkout qmk_firmware
-      uses: ./.github/actions/checkout-qmk_firmware
-
-    - name: Install a link to own source
-      run: ln -s $(pwd)/qmk_firmware/keyboards/keyball __qmk__/keyboards/keyball
-
-    - run: qmk compile -j 4 -kb keyball/${{ matrix.keyboard }} -km ${{ matrix.keymap }}
-
-    - name: Archive built firmware
-      uses: actions/upload-artifact@v4
-      with:
-        name: ${{ matrix.keyboard }}-${{ matrix.keymap }}-firmware
-        path: __qmk__/*.hex
+    uses: ./.github/workflows/build-firmware.yml
+    with:
+      qmk_version: '0.22.14'
+      keyboard:    ${{ matrix.keyboard }}
+      keymap:      ${{ matrix.keymap }}
 
   check-size:
     name: Check size
