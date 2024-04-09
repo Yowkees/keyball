@@ -696,3 +696,25 @@ bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
 
     return true;
 }
+
+// Disable functions keycode_config() and mod_config() in keycode_config.c to
+// reduce size.  These functions are provided for customizing magic keycode.
+// These two functions are mostly unnecessary if `MAGIC_KEYCODE_ENABLE = no` is
+// set.
+//
+// If `MAGIC_KEYCODE_ENABLE = no` and you want to keep these two functions as
+// they are, define the macro KEYBALL_KEEP_MAGIC_FUNCTIONS.
+//
+// See: https://docs.qmk.fm/#/squeezing_avr?id=magic-functions
+//
+#if !defined(MAGIC_KEYCODE_ENABLE) && !defined(KEYBALL_KEEP_MAGIC_FUNCTIONS)
+
+uint16_t keycode_config(uint16_t keycode) {
+    return keycode;
+}
+
+uint8_t mod_config(uint8_t mod) {
+    return mod;
+}
+
+#endif
