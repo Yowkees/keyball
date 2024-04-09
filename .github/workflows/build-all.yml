@@ -20,7 +20,6 @@ jobs:
           - keyboard: keyball46
             keymap:   via_Both
 
-    name: Build ${{ matrix.keyboard }} w/ ${{ matrix.keymap }}
     uses: ./.github/workflows/build-firmware.yml
     with:
       qmk_version: '0.22.14'
