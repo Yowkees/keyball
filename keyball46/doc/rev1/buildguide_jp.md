@@ -125,7 +125,7 @@ Keyball46の組み立てには下記の工具が必要です。
 ### 2-2．ファームウェア
 
 Keyball46を動作させるには、ご購入いただいたProMicroへのファームウェアの書き込みが必要です。
-すでにビルド済みのファームウェアがダウンロードできますので、ProMicroへの書き込みソフト『QMK Toolbox』だけ準備できればKeyball46を使用できます。QMK Toolboxについては [Corneのファームウェア](https://github.com/foostan/crkbd/blob/master/doc/firmware_jp.md) の記事に簡潔にまとめられていますのでリンク先前半の説明を読んでQMK Toolboxを準備しておいてください。  
+すでにビルド済みのファームウェアがダウンロードできますので、ProMicroへの書き込みソフト『QMK Toolbox』だけ準備できればKeyball46を使用できます。QMK Toolboxについては [Corneのファームウェア](https://github.com/foostan/crkbd/blob/fbb146fe372ce8b2b1543ced67367bf19e910945/doc/firmware_jp.md#qmk-toolbox-%E3%81%AE%E3%83%80%E3%82%A6%E3%83%B3%E3%83%AD%E3%83%BC%E3%83%89) の記事に簡潔にまとめられていますのでリンク先前半の説明を読んでQMK Toolboxを準備しておいてください。  
 
 書き込みについてはこの後の[3-6章](#3-6promicroの書き込みと動作確認)でテスト用のファームウェアの書き込み、[１０章](#１０正規ファームウェアの書き込み)で製品版ファームウェアの書き込みについて詳しく説明しています。
 
