@@ -207,16 +207,38 @@ static void motion_to_mouse_scroll(keyball_motion_t *m, report_mouse_t *r, bool 
 #endif
 
 #if KEYBALL_SCROLLSNAP_ENABLE
-    // scroll snap.
+    // update scroll_snap_last
     uint32_t now = timer_read32();
     if (r->h != 0 || r->v != 0) {
         keyball.scroll_snap_last = now;
-    } else if (TIMER_DIFF_32(now, keyball.scroll_snap_last) >= KEYBALL_SCROLLSNAP_RESET_TIMER) {
-        keyball.scroll_snap_tension_h = 0;
     }
-    if (abs(keyball.scroll_snap_tension_h) < KEYBALL_SCROLLSNAP_TENSION_THRESHOLD) {
-        keyball.scroll_snap_tension_h += y;
+    
+    // change scroll snap mode
+    if (keyball.scroll_snap_mode == 0) {
+        if (abs(r->v) >= KEYBALL_SCROLLSNAP_TENSION_THRESHOLD_1ST) {
+            keyball.scroll_snap_mode += 1;
+        }
+        if (abs(r->h) >= KEYBALL_SCROLLSNAP_TENSION_THRESHOLD_1ST) {
+            keyball.scroll_snap_mode += 2;
+        }
+    } else if (keyball.scroll_snap_mode == 1) {
+        if (abs(r->h) >= KEYBALL_SCROLLSNAP_TENSION_THRESHOLD_2ND) {
+            keyball.scroll_snap_mode = 3;
+        }
+    } else if (keyball.scroll_snap_mode == 2) {
+        if (abs(r->v) >= KEYBALL_SCROLLSNAP_TENSION_THRESHOLD_2ND) {
+            keyball.scroll_snap_mode = 3;
+        }
+    }
+    if (r->h == 0 && r->v == 0 && TIMER_DIFF_32(now, keyball.scroll_snap_last) >= KEYBALL_SCROLLSNAP_RESET_TIMER) {
+        keyball.scroll_snap_mode = 0;
+    }
+    
+    // process scroll snap
+    if (keyball.scroll_snap_mode == 1) {
         r->h = 0;
+    } else if (keyball.scroll_snap_mode == 2) {
+        r->v = 0;
     }
 #endif
 }
