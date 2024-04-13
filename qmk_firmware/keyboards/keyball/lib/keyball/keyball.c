@@ -207,10 +207,10 @@ static void motion_to_mouse_scroll(keyball_motion_t *m, report_mouse_t *r, bool 
 #endif
 
 #if KEYBALL_SCROLLSNAP_ENABLE
-    // update scroll_snap_last
+    // update prev_scroll_time
     uint32_t now = timer_read32();
     if (r->h != 0 || r->v != 0) {
-        keyball.scroll_snap_last = now;
+        keyball.prev_scroll_time = now;
     }
     
     // change scroll snap mode
@@ -230,7 +230,7 @@ static void motion_to_mouse_scroll(keyball_motion_t *m, report_mouse_t *r, bool 
             keyball.scroll_snap_mode = 3;
         }
     }
-    if (r->h == 0 && r->v == 0 && TIMER_DIFF_32(now, keyball.scroll_snap_last) >= KEYBALL_SCROLLSNAP_RESET_TIMER) {
+    if (r->h == 0 && r->v == 0 && TIMER_DIFF_32(now, keyball.prev_scroll_time) >= KEYBALL_SCROLLSNAP_RESET_TIMER) {
         keyball.scroll_snap_mode = 0;
     }
     
