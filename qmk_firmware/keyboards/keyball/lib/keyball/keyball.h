@@ -175,6 +175,22 @@ typedef enum {
 extern keyball_t keyball;
 
 //////////////////////////////////////////////////////////////////////////////
+// Hook points
+
+/// keyball_on_adjust_layout is called when the keyboard layout adjustted
+void keyball_on_adjust_layout(keyball_adjust_t v);
+
+/// keyball_on_apply_motion_to_mouse_move applies trackball's motion m to r as
+/// mouse movement.
+/// You can change the default algorithm by override this function.
+void keyball_on_apply_motion_to_mouse_move(keyball_motion_t *m, report_mouse_t *r, bool is_left);
+
+/// keyball_on_apply_motion_to_mouse_scroll applies trackball's motion m to r
+/// as mouse scroll.
+/// You can change the default algorithm by override this function.
+void keyball_on_apply_motion_to_mouse_scroll(keyball_motion_t *m, report_mouse_t *r, bool is_left);
+
+//////////////////////////////////////////////////////////////////////////////
 // Public API functions
 
 /// keyball_oled_render_ballinfo renders ball information to OLED.
