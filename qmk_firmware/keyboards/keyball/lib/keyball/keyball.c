@@ -206,8 +206,9 @@ __attribute__((weak)) void keyball_on_apply_motion_to_mouse_scroll(keyball_motio
 #    error("unknown Keyball model")
 #endif
 
+    // Scroll snapping
 #if KEYBALL_SCROLLSNAP_ENABLE == 1
-    // scroll snap (behavior up to 1.3.2)
+    // Old behavior up to 1.3.2)
     uint32_t now = timer_read32();
     if (r->h != 0 || r->v != 0) {
         keyball.scroll_snap_last = now;
@@ -219,6 +220,7 @@ __attribute__((weak)) void keyball_on_apply_motion_to_mouse_scroll(keyball_motio
         r->h = 0;
     }
 #elif KEYBALL_SCROLLSNAP_ENABLE == 2
+    // New behavior
     switch (keyball.scrollsnap_mode) {
         case KEYBALL_SCROLLSNAP_MODE_VERTICAL:
             r->h = 0;

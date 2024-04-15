@@ -1,5 +1,9 @@
 # Keyball Core Function Library
 
+## Scroll snap mode
+
+TODO
+
 ## MEMO
 
 This section contains notes regarding the specifications of this library.
@@ -11,9 +15,21 @@ please make pull requests to share it us.
 
 ## Scroll Snap Spec
 
-デフォルトで有効になっているスクロールスナップ機能は、
-ボールによるスクロールを垂直方向に制限(スナップ)している。
 この機能は config.h に `#define KEYBALL_SCROLLSNAP_ENABLE 0` を書き加えることで無効化できる。
+
+トラックボールによるスクロールの方向を制限するのがスクロールスナップ。
+現在のスクロールスナップには3つのモードがある。
+
+* 垂直方向にスナップ (デフォルト)
+* 水平方向にスナップ
+* スナップしない自由スクロール
+
+以上を `SSNP_VER`, `SSNP_HOR`, `SSNP_FRE` の独自キーコードを用いて手動で切り替える。
+
+### up to 1.3.2
+
+初期状態でトラックボールによるスクロールを垂直方向に制限(スナップ)している。
+この振る舞いは config.h に `#define KEYBALL_SCROLLSNAP_ENABLE 1` を書き加えることで有効化できる。
 
 この機能はスナップモードとフリーモードから構成される。
 初期状態はスナップモードで、このモードではスクロール方向は垂直に制限される。

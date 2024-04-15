@@ -105,8 +105,8 @@ enum keyball_keycodes {
     SCRL_DVI = QK_KB_8, // Increment scroll divider
     SCRL_DVD = QK_KB_9, // Decrement scroll divider
 
-    SSNP_VER = QK_KB_13, // Set scroll snap mode as horizontal
-    SSNP_HOR = QK_KB_14, // Set scroll snap mode as vertical
+    SSNP_VER = QK_KB_13, // Set scroll snap mode as vertical
+    SSNP_HOR = QK_KB_14, // Set scroll snap mode as horizontal
     SSNP_FRE = QK_KB_15, // Set scroll snap mode as disable (free scroll)
 
     // Auto mouse layer control keycodes.
@@ -230,20 +230,43 @@ bool keyball_get_scroll_mode(void);
 /// keyball_set_scroll_mode modify scroll mode.
 void keyball_set_scroll_mode(bool mode);
 
-/// TODO: document
+/// keyball_get_scrollsnap_mode gets current scroll snap mode.
 keyball_scrollsnap_mode_t keyball_get_scrollsnap_mode(void);
 
-/// TODO: document
+/// keyball_set_scrollsnap_mode change scroll snap mode.
 void keyball_set_scrollsnap_mode(keyball_scrollsnap_mode_t mode);
 
-// TODO: document
+/// keyball_get_scroll_div gets current scroll divider.
+/// See also keyball_set_scroll_div for the scroll divider's detail.
 uint8_t keyball_get_scroll_div(void);
 
-// TODO: document
+/// keyball_set_scroll_div changes scroll divider.
+///
+/// The scroll divider is the number that divides the raw value when applying
+/// trackball motion to scrolling.  The CPI value of the trackball is very
+/// high, so if you apply it to scrolling as is, it will scroll too much.
+/// In order to adjust the scroll amount to be appropriate, it is applied after
+/// dividing it by a scroll divider.  The actual denominator is determined by
+/// the following formula:
+///
+///   denominator = 2 ^ (div - 1) ^2
+///
+/// Valid values are between 1 and 7, KEYBALL_SCROLL_DIV_DEFAULT is used when 0
+/// is specified.
 void keyball_set_scroll_div(uint8_t div);
 
-// TODO: document
+/// keyball_get_cpi gets current CPI of trackball.
+/// The actual CPI value is the returned value +1 and multiplied by 100:
+///
+///     CPI = (v + 1) * 100
 uint8_t keyball_get_cpi(void);
 
-// TODO: document
+/// keyball_set_cpi changes CPI of trackball.
+/// Valid values are between 0 to 119, and the actual CPI value is the set
+/// value +1 and multiplied by 100:
+///
+///     CPI = (v + 1) * 100
+///
+/// In addition, if you do not upload SROM, the maximum value will be limited
+/// to 34 (3500CPI).
 void keyball_set_cpi(uint8_t cpi);
