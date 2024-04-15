@@ -221,14 +221,14 @@ __attribute__((weak)) void keyball_on_apply_motion_to_mouse_scroll(keyball_motio
     }
 #elif KEYBALL_SCROLLSNAP_ENABLE == 2
     // New behavior
-    switch (keyball.scrollsnap_mode) {
+    switch (keyball_get_scrollsnap_mode()) {
         case KEYBALL_SCROLLSNAP_MODE_VERTICAL:
             r->h = 0;
             break;
         case KEYBALL_SCROLLSNAP_MODE_HORIZONTAL:
             r->v = 0;
             break;
-        case KEYBALL_SCROLLSNAP_MODE_FREE:
+        default:
             // pass by without doing anything
             break;
     }
@@ -411,8 +411,23 @@ void keyball_oled_render_ballinfo(void) {
     oled_write(format_4d(keyball_get_cpi()) + 1, false);
     oled_write_P(PSTR("00 "), false);
 
-    // indicate scroll mode: on/off
+    // indicate scroll snap mode: "VT" (vertical), "HN" (horiozntal), and "SCR" (free)
+#if 1 && KEYBALL_SCROLLSNAP_ENABLE == 2
+    switch (keyball_get_scrollsnap_mode()) {
+        case KEYBALL_SCROLLSNAP_MODE_VERTICAL:
+            oled_write_P(PSTR("VT"), false);
+            break;
+        case KEYBALL_SCROLLSNAP_MODE_HORIZONTAL:
+            oled_write_P(PSTR("HO"), false);
+            break;
+        default:
+            oled_write_P(PSTR("\xBE\xBF"), false);
+            break;
+    }
+#else
     oled_write_P(PSTR("\xBE\xBF"), false);
+#endif
+    // indicate scroll mode: on/off
     if (keyball.scroll_mode) {
         oled_write_P(LFSTR_ON, false);
     } else {
@@ -570,7 +585,6 @@ void keyboard_post_init_kb(void) {
         set_auto_mouse_timeout(c.amlto == 0 ? AUTO_MOUSE_TIME : (c.amlto + 1) * AML_TIMEOUT_QU);
 #endif
 #if KEYBALL_SCROLLSNAP_ENABLE == 2
-        keyball.scrollsnap_mode = c.ssnap;
         keyball_set_scrollsnap_mode(c.ssnap);
 #endif
     }
@@ -709,7 +723,7 @@ bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
             case SSNP_HOR:
                 keyball_set_scrollsnap_mode(KEYBALL_SCROLLSNAP_MODE_HORIZONTAL);
                 break;
-            case SSNP_VER:
+            case SSNP_VRT:
                 keyball_set_scrollsnap_mode(KEYBALL_SCROLLSNAP_MODE_VERTICAL);
                 break;
             case SSNP_FRE:

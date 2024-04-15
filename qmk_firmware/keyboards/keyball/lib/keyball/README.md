@@ -24,7 +24,7 @@ please make pull requests to share it us.
 * 水平方向にスナップ
 * スナップしない自由スクロール
 
-以上を `SSNP_VER`, `SSNP_HOR`, `SSNP_FRE` の独自キーコードを用いて手動で切り替える。
+以上を `SSNP_VRT`, `SSNP_HOR`, `SSNP_FRE` の独自キーコードを用いて手動で切り替える。
 
 ### up to 1.3.2
 

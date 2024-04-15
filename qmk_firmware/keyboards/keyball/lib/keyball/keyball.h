@@ -105,7 +105,7 @@ enum keyball_keycodes {
     SCRL_DVI = QK_KB_8, // Increment scroll divider
     SCRL_DVD = QK_KB_9, // Decrement scroll divider
 
-    SSNP_VER = QK_KB_13, // Set scroll snap mode as vertical
+    SSNP_VRT = QK_KB_13, // Set scroll snap mode as vertical
     SSNP_HOR = QK_KB_14, // Set scroll snap mode as horizontal
     SSNP_FRE = QK_KB_15, // Set scroll snap mode as disable (free scroll)
 
