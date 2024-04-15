@@ -206,8 +206,8 @@ __attribute__((weak)) void keyball_on_apply_motion_to_mouse_scroll(keyball_motio
 #    error("unknown Keyball model")
 #endif
 
-#if KEYBALL_SCROLLSNAP_ENABLE
-    // scroll snap.
+#if KEYBALL_SCROLLSNAP_ENABLE == 1
+    // scroll snap (behavior up to 1.3.2)
     uint32_t now = timer_read32();
     if (r->h != 0 || r->v != 0) {
         keyball.scroll_snap_last = now;
@@ -217,6 +217,18 @@ __attribute__((weak)) void keyball_on_apply_motion_to_mouse_scroll(keyball_motio
     if (abs(keyball.scroll_snap_tension_h) < KEYBALL_SCROLLSNAP_TENSION_THRESHOLD) {
         keyball.scroll_snap_tension_h += y;
         r->h = 0;
+    }
+#elif KEYBALL_SCROLLSNAP_ENABLE == 2
+    switch (keyball.scrollsnap_mode) {
+        case KEYBALL_SCROLLSNAP_MODE_VERTICAL:
+            r->h = 0;
+            break;
+        case KEYBALL_SCROLLSNAP_MODE_HORIZONTAL:
+            r->v = 0;
+            break;
+        case KEYBALL_SCROLLSNAP_MODE_FREE:
+            // pass by without doing anything
+            break;
     }
 #endif
 }
@@ -496,6 +508,20 @@ void keyball_set_scroll_mode(bool mode) {
     keyball.scroll_mode = mode;
 }
 
+keyball_scrollsnap_mode_t keyball_get_scrollsnap_mode(void) {
+#if KEYBALL_SCROLLSNAP_ENABLE == 2
+    return keyball.scrollsnap_mode;
+#else
+    return 0;
+#endif
+}
+
+void keyball_set_scrollsnap_mode(keyball_scrollsnap_mode_t mode) {
+#if KEYBALL_SCROLLSNAP_ENABLE == 2
+    keyball.scrollsnap_mode = mode;
+#endif
+}
+
 uint8_t keyball_get_scroll_div(void) {
     return keyball.scroll_div == 0 ? KEYBALL_SCROLL_DIV_DEFAULT : keyball.scroll_div;
 }
@@ -540,6 +566,10 @@ void keyboard_post_init_kb(void) {
 #ifdef POINTING_DEVICE_AUTO_MOUSE_ENABLE
         set_auto_mouse_enable(c.amle);
         set_auto_mouse_timeout(c.amlto == 0 ? AUTO_MOUSE_TIME : (c.amlto + 1) * AML_TIMEOUT_QU);
+#endif
+#if KEYBALL_SCROLLSNAP_ENABLE == 2
+        keyball.scrollsnap_mode = c.ssnap;
+        keyball_set_scrollsnap_mode(c.ssnap);
 #endif
     }
 
@@ -643,6 +673,9 @@ bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
                     .amle  = get_auto_mouse_enable(),
                     .amlto = (get_auto_mouse_timeout() / AML_TIMEOUT_QU) - 1,
 #endif
+#if KEYBALL_SCROLLSNAP_ENABLE == 2
+                    .ssnap = keyball_get_scrollsnap_mode(),
+#endif
                 };
                 eeconfig_update_kb(c.raw);
             } break;
@@ -669,6 +702,18 @@ bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
             case SCRL_DVD:
                 add_scroll_div(-1);
                 break;
+
+#if KEYBALL_SCROLLSNAP_ENABLE == 2
+            case SSNP_HOR:
+                keyball_set_scrollsnap_mode(KEYBALL_SCROLLSNAP_MODE_HORIZONTAL);
+                break;
+            case SSNP_VER:
+                keyball_set_scrollsnap_mode(KEYBALL_SCROLLSNAP_MODE_VERTICAL);
+                break;
+            case SSNP_FRE:
+                keyball_set_scrollsnap_mode(KEYBALL_SCROLLSNAP_MODE_FREE);
+                break;
+#endif
 
 #ifdef POINTING_DEVICE_AUTO_MOUSE_ENABLE
             case AML_TO:

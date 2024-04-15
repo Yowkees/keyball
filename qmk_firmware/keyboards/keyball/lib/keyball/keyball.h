@@ -36,8 +36,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #    define KEYBALL_SCROLLBALL_INHIVITOR 50
 #endif
 
+/// To disable scroll snap feature, define 0 in your config.h
 #ifndef KEYBALL_SCROLLSNAP_ENABLE
-#    define KEYBALL_SCROLLSNAP_ENABLE 1
+#    define KEYBALL_SCROLLSNAP_ENABLE 2
 #endif
 
 #ifndef KEYBALL_SCROLLSNAP_RESET_TIMER
@@ -104,6 +105,10 @@ enum keyball_keycodes {
     SCRL_DVI = QK_KB_8, // Increment scroll divider
     SCRL_DVD = QK_KB_9, // Decrement scroll divider
 
+    SSNP_VER = QK_KB_13, // Set scroll snap mode as horizontal
+    SSNP_HOR = QK_KB_14, // Set scroll snap mode as vertical
+    SSNP_FRE = QK_KB_15, // Set scroll snap mode as disable (free scroll)
+
     // Auto mouse layer control keycodes.
     // Only works when POINTING_DEVICE_AUTO_MOUSE_ENABLE is defined.
     AML_TO   = QK_KB_10, // Toggle automatic mouse layer
@@ -123,6 +128,9 @@ typedef union {
         uint8_t amle : 1;  // automatic mouse layer enabled
         uint16_t amlto : 5; // automatic mouse layer timeout
 #endif
+#if KEYBALL_SCROLLSNAP_ENABLE == 2
+        uint8_t ssnap : 2; // scroll snap mode
+#endif
     };
 } keyball_config_t;
 
@@ -136,6 +144,12 @@ typedef struct {
 } keyball_motion_t;
 
 typedef uint8_t keyball_cpi_t;
+
+typedef enum {
+    KEYBALL_SCROLLSNAP_MODE_VERTICAL   = 0,
+    KEYBALL_SCROLLSNAP_MODE_HORIZONTAL = 1,
+    KEYBALL_SCROLLSNAP_MODE_FREE       = 2,
+} keyball_scrollsnap_mode_t;
 
 typedef struct {
     bool this_have_ball;
@@ -152,8 +166,12 @@ typedef struct {
     uint32_t scroll_mode_changed;
     uint8_t  scroll_div;
 
+#if KEYBALL_SCROLLSNAP_ENABLE == 1
     uint32_t scroll_snap_last;
     int8_t   scroll_snap_tension_h;
+#elif KEYBALL_SCROLLSNAP_ENABLE == 2
+    keyball_scrollsnap_mode_t scrollsnap_mode;
+#endif
 
     uint16_t       last_kc;
     keypos_t       last_pos;
@@ -211,6 +229,12 @@ bool keyball_get_scroll_mode(void);
 
 /// keyball_set_scroll_mode modify scroll mode.
 void keyball_set_scroll_mode(bool mode);
+
+/// TODO: document
+keyball_scrollsnap_mode_t keyball_get_scrollsnap_mode(void);
+
+/// TODO: document
+void keyball_set_scrollsnap_mode(keyball_scrollsnap_mode_t mode);
 
 // TODO: document
 uint8_t keyball_get_scroll_div(void);
