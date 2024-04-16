@@ -2,7 +2,22 @@
 
 ## Scroll snap mode
 
-TODO
+When scrolling with the trackball, the scroll direction is restricted.
+This restriction is called "scroll snap".
+
+The direction of restriction can be changed using special key codes.
+You can also release this restriction.
+It is called as "scroll snap mode"
+The current mode is displayed on the OLED.
+
+There are 3 modes for scroll snap.
+
+1. Vertical (default): key code is `SSNP_VRT`, indicated as `VT`.
+2. Horizontal: key code is `SSNP_HOR`, indicated as `HO`.
+3. Free: key code is `SSNP_FRE`, indicated as `SCR`.
+
+The scroll snap mode at startup is vertical,
+but you can change it by saving the current mode with `KBC_SAVE`
 
 ## MEMO
 
@@ -13,7 +28,7 @@ If you would like to read it in English, please request a translation via issue 
 Of course you can translate it for us. If you translate it,
 please make pull requests to share it us.
 
-## Scroll Snap Spec
+### Scroll Snap Spec
 
 この機能は config.h に `#define KEYBALL_SCROLLSNAP_ENABLE 0` を書き加えることで無効化できる。
 
@@ -26,7 +41,7 @@ please make pull requests to share it us.
 
 以上を `SSNP_VRT`, `SSNP_HOR`, `SSNP_FRE` の独自キーコードを用いて手動で切り替える。
 
-### up to 1.3.2
+#### up to 1.3.2
 
 初期状態でトラックボールによるスクロールを垂直方向に制限(スナップ)している。
 この振る舞いは config.h に `#define KEYBALL_SCROLLSNAP_ENABLE 1` を書き加えることで有効化できる。
@@ -48,7 +63,7 @@ please make pull requests to share it us.
 #define KEYBALL_SCROLLSNAP_RESET_TIMER 200
 ```
 
-### History of Scroll Snap
+#### History of Scroll Snap
 
 もともとは自由にスクロールできるようにしていた。
 しかし思ったよりもボールの感度が高く一定方向だけに動かすのが難しく、
@@ -69,7 +84,7 @@ please make pull requests to share it us.
 先の読み捨てにより、垂直方向のスクロールがワンテンポ遅れ、体験を大幅に損なうことが明らかになった。
 この解決のためモード: 初期は垂直のみ、後に自由スクロールする、を導入した。
 
-## Scroll Divider / スクロール除数
+### Scroll Divider / スクロール除数
 
 Keyballのセンサーは感度がとても高い。
 そのため生の値をスクロール量としてしまうとスクロール操作がとても難しくなった。
@@ -89,7 +104,7 @@ $n$ の初期値は 4 で 1/8 になることを意味する。
 この値は config.h で `KEYBALL_SCROLL_DIV_DEFAULT` マクロを定義することで変更できる。
 これを0にすることは考慮していないので設定しないこと。
 
-## Scroll Inhivitor
+### Scroll Inhivitor
 
 トラックボールの移動量をポインタに適用するかスクロールに適用するか、
 Keyballは内部にスクロールモードという名のモードで管理している。
