@@ -80,6 +80,13 @@ layer_state_t layer_state_set_user(layer_state_t state) {
     return state;
 }
 
+/**
+ * https://docs.qmk.fm/#/feature_pointing_device?id=pointing-device-auto-mouse
+ */
+void pointing_device_init_user(void) {
+    set_auto_mouse_enable(true);
+}
+
 #ifdef OLED_ENABLE
 
 #    include "lib/oledkit/oledkit.h"
