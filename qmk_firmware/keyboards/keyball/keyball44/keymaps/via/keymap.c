@@ -51,9 +51,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
   // Arrow Key and Window Control Key Layer
   [3] = LAYOUT_universal(
-    _______   , XXXXXXX      , C(A(KC_RGHT)), C(A(KC_ENT)), C(A(KC_LEFT)), XXXXXXX       ,                XXXXXXX      , G(KC_C)      , KC_UP        , G(KC_V)      , S(G(KC_V))  , TO(4)       ,
-    _______   , XXXXXXX      , G(KC_LBRC)   , XXXXXXX     , G(KC_RBRC)   , XXXXXXX       ,                XXXXXXX      , KC_RIGHT     , KC_DOWN      , KC_LEFT      , XXXXXXX     , _______     ,
-    _______   , C(KC_L)      , C(KC_A)      , C(KC_C)     , C(KC_E)      , XXXXXXX       ,                XXXXXXX      , C(KC_RGHT)   , C(KC_UP)     , C(KC_LEFT)   , XXXXXXX     , _______     ,
+    _______   , XXXXXXX      , C(A(KC_LEFT)), C(A(KC_ENT)), C(A(KC_RGHT)), XXXXXXX       ,                XXXXXXX      , G(KC_C)      , KC_UP        , G(KC_V)      , S(G(KC_V))  , TO(4)       ,
+    _______   , XXXXXXX      , G(KC_LBRC)   , XXXXXXX     , G(KC_RBRC)   , XXXXXXX       ,                XXXXXXX      , KC_LEFT      , KC_DOWN      , KC_RGHT     , XXXXXXX     , _______     ,
+    _______   , C(KC_L)      , C(KC_A)      , C(KC_C)     , C(KC_E)      , XXXXXXX       ,                XXXXXXX      , C(KC_LEFT)   , C(KC_UP)     , C(KC_RGHT)   , XXXXXXX     , _______     ,
                 _______      , _______      , _______      , _______     , _______       , _______      , _______      , XXXXXXX      , XXXXXXX      , _______
   ),
 
@@ -67,7 +67,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
   // Keyball Key Layer
   [5] = LAYOUT_universal(
-    _______   , KBC_RST      , KBC_SAVE     , CPI_I100    , CPI_D100    , CPI_I1K       ,                 CPI_D1K      , SCRL_TO      , SCRL_MO      , SCRL_DVI     , SCRL_DVD    , TO(1)       ,
+    _______   , KBC_RST      , KBC_SAVE     , CPI_I100    , CPI_D100    , CPI_I1K       ,                 CPI_D1K      , SCRL_TO      , SCRL_MO      , SCRL_DVI     , SCRL_DVD    , _______     ,
     _______   , AML_TO       , AML_I50      , AML_D50     , SSNP_VRT    , SSNP_HOR      ,                 SSNP_FRE     , XXXXXXX      , XXXXXXX      , XXXXXXX      , XXXXXXX     , _______     ,
     _______   , XXXXXXX      , XXXXXXX      , XXXXXXX     , XXXXXXX     , XXXXXXX       ,                 XXXXXXX      , XXXXXXX      , XXXXXXX      , XXXXXXX      , XXXXXXX     , _______     ,
                 _______      , _______      , _______     , _______     , _______       , _______       , _______      , XXXXXXX      , XXXXXXX      , _______

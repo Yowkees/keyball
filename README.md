@@ -1,48 +1,25 @@
-# Keyball Series
+# 概要
 
-![Keyball61](./keyball61/doc/rev1/images/kb61_001.jpg)
+keyball44を個人設定用に最適化したリポジトリです。
+mac OSに特化した設定になります。
 
-Keyball series is keyboard family which have 100% track ball.
+# 機能
 
-Keyboards in the family are:
+コードの差分は以下から以下から確認出来ます。
 
-* Available
-    * Keyball39: split + 39 keys + a track ball
-    * Keyball44: split + 44 keys + a track ball
-    * Keyball61: split + 61 keys + a track ball
-* Unavailable
-    * Keyball46 (first one!)
-    * One47
+<https://github.com/Yowkees/keyball/compare/main...kajiiiro:keyball:main>
 
-## Where to Buy
+公式との機能差分は以下です。
 
-|Keyboard   |Yushakobo / 遊舎工房                       |Shirogane Lab / 白金ラボ                                   |
-|-----------|-------------------------------------------|-----------------------------------------------------------|
-|Keyball39  |<https://shop.yushakobo.jp/products/5357>  |<https://shirogane-lab.net/items/64b8f8693ee3fd0045280190> |
-|Keyball44  |N/A                                        |<https://shirogane-lab.net/items/64b7a006eb6dbe00346cd0c5> |
-|Keyball61  |<https://shop.yushakobo.jp/products/5358>  |<https://shirogane-lab.net/items/64b8ed191435c1002bc4cd30> |
-
-## Build Guide
-
-*   Keyball39:
-    [English/英語](/keyball39/doc/rev1/buildguide_en.md),
-    [日本語/Japanese (ピンヘッダ版)](./keyball39/doc/rev1/buildguide_jp.md),
-    [日本語/Japanese (コンスルー版)](./keyball39/doc/rev1/buildguide_jp_conth.md)
-*   Keyball44: ~~English/英語~~ (Sorry, unavailable),
-    [日本語/Japanese (ピンヘッダ版)](./keyball44/doc/rev1/buildguide_jp.md),
-    [日本語/Japanese (コンスルー版)](./keyball44/doc/rev1/buildguide_jp_conth.md)
-*   Keyball46:
-    [English/英語](./keyball46/doc/rev1/buildguide_en.md),
-    [日本語/Japanese](./keyball46/doc/rev1/buildguide_jp.md)
-*   Keyball61:
-    [English/英語](./keyball61/doc/rev1/buildguide_en.md),
-    [日本語/Japanese (ピンヘッダ版)](./keyball61/doc/rev1/buildguide_jp.md),
-    [日本語/Japanese (コンスルー版)](./keyball61/doc/rev1/buildguide_jp_conth.md)
-
-## Firmware
-
-See [document for firmware source code](./qmk_firmware/keyboards/keyball/readme.md).
-
-### Pre-compiled Firmwares
-
-(TO BE DOCUMENTED)
+- keyball44以外のkeymapフォルダを削除
+- keyball44以外のテスト、ビルド等が実行されないように
+- レイヤーを7つに増加
+  - `AUTO_MOUSE_DEFAULT_LAYER` を設定
+- スクロールレイヤーの廃止
+  - `layer_state_set_user` の削除
+- トラックパッドと動作を合わせるためにスクロールを反転 `keyball_on_apply_motion_to_mouse_scroll` 関数の `r->h, r->v` に設定する値の符号を反転
+- 自動マウスレイヤー切り替えをデフォルトonに設定
+  - `pointing_device_init_user` 関数内で `set_auto_mouse_enable` の呼び出し
+- その他の微調整
+  - スクロール感度
+  - タップとみなされる時間の調整 `TAPPING_TERM` を短く(200 -> 100)
