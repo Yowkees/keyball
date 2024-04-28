@@ -4,27 +4,21 @@ on:
   workflow_dispatch:
     inputs:
       keyboard:
-        description: 'Keyboard'
+        description: "Keyboard"
         required: true
         type: choice
         options:
-        - keyball39
-        - keyball44
-        - keyball61
-        - keyball46
-        - one47
+          - keyball44
       keymap:
-        description: 'Keymap'
+        description: "Keymap"
         required: true
         type: string
-        default: 'default'
+        default: "default"
 
 jobs:
-
   build:
-
     uses: ./.github/workflows/build-firmware.yml
     with:
-      qmk_version: '0.22.14'
-      keyboard:    ${{ inputs.keyboard }}
-      keymap:      ${{ inputs.keymap }}
+      qmk_version: "0.22.14"
+      keyboard: ${{ inputs.keyboard }}
+      keymap: ${{ inputs.keymap }}
