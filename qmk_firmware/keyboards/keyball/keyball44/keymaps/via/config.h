@@ -41,6 +41,3 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define DYNAMIC_KEYMAP_LAYER_COUNT 7
 
 #define AUTO_MOUSE_TIME 300
-
-#define PS2_MOUSE_INVERT_H
-#define PS2_MOUSE_INVERT_V
