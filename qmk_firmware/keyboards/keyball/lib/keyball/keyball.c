@@ -193,12 +193,8 @@ __attribute__((weak)) void keyball_on_apply_motion_to_mouse_scroll(keyball_motio
 
     // apply to mouse report.
 #if KEYBALL_MODEL == 61 || KEYBALL_MODEL == 39 || KEYBALL_MODEL == 147 || KEYBALL_MODEL == 44
-    r->h = clip2int8(y);
-    r->v = -clip2int8(x);
-    if (is_left) {
-        r->h = -r->h;
-        r->v = -r->v;
-    }
+    r->h = -clip2int8(y);
+    r->v = clip2int8(x);
 #elif KEYBALL_MODEL == 46
     r->h = clip2int8(x);
     r->v = clip2int8(y);
