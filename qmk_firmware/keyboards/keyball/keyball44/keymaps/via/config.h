@@ -46,4 +46,4 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #define KEYBALL_SCROLLSNAP_ENABLE 0
 
-#define TAPPING_TERM  150
+#define TAPPING_TERM 150
