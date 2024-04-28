@@ -41,3 +41,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define DYNAMIC_KEYMAP_LAYER_COUNT 7
 
 #define AUTO_MOUSE_TIME 300
+
+#define KEYBALL_SCROLL_DIV_DEFAULT 5
+
+#define KEYBALL_SCROLLSNAP_ENABLE 0

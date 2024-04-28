@@ -29,7 +29,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [0] = LAYOUT_universal(
     KC_ESC    , KC_Q         , KC_W         , KC_E         , KC_R         , KC_T         ,                KC_Y         , KC_U         , KC_I         , KC_O         , KC_P         , TO(1)       ,
     KC_TAB    , LT(4,KC_A)   , KC_S         , SFT_T(KC_D)  , KC_F         , KC_G         ,                KC_H         , KC_J         , SFT_T(KC_K)  , KC_L         , LT(3,KC_MINS), TO(0)       ,
-    KC_LNG2   , KC_Z         , KC_X         , KC_C         , KC_V         , KC_B         ,                KC_N         , KC_M         , KC_COMM      , KC_DOT       , KC_SLSH      , KC_LNG2     ,
+    KC_LNG2   , KC_Z         , KC_X         , KC_C         , KC_V         , KC_B         ,                KC_N         , KC_M         , KC_COMM      , KC_DOT       , KC_SLSH      , KC_LNG1     ,
                 KC_LCTL      , KC_LALT      , GUI_T(KC_SPC), MO(1)        , MO(2)        , KC_BSPC      , GUI_T(KC_ENT), XXXXXXX      , XXXXXXX      , PS_SELECT
   ),
 
@@ -67,7 +67,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
   // Keyball Key Layer
   [5] = LAYOUT_universal(
-    _______   , KBC_RST      , KBC_SAVE     , CPI_I100    , CPI_D100    , CPI_I1K       ,                 CPI_D1K      , SCRL_TO      , SCRL_MO      , SCRL_DVI     , SCRL_DVD    , TO(6)       ,
+    _______   , KBC_RST      , KBC_SAVE     , CPI_I100    , CPI_D100    , CPI_I1K       ,                 CPI_D1K      , SCRL_TO      , SCRL_MO      , SCRL_DVI     , SCRL_DVD    , TO(1)       ,
     _______   , AML_TO       , AML_I50      , AML_D50     , SSNP_VRT    , SSNP_HOR      ,                 SSNP_FRE     , XXXXXXX      , XXXXXXX      , XXXXXXX      , XXXXXXX     , _______     ,
     _______   , XXXXXXX      , XXXXXXX      , XXXXXXX     , XXXXXXX     , XXXXXXX       ,                 XXXXXXX      , XXXXXXX      , XXXXXXX      , XXXXXXX      , XXXXXXX     , _______     ,
                 _______      , _______      , _______     , _______     , _______       , _______       , _______      , XXXXXXX      , XXXXXXX      , _______
@@ -75,8 +75,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
   // Mouse Key Layer
   [6] = LAYOUT_universal(
-    _______   , _______      , _______      , _______     , _______     , _______       ,                 XXXXXXX      , XXXXXXX      , XXXXXXX      , XXXXXXX      , XXXXXXX     , TO(1)       ,
-    _______   , _______      , _______      , _______     , _______     , _______       ,                 XXXXXXX      , KC_MS_BTN1   , KC_MS_BTN3   , KC_MS_BTN2   , XXXXXXX     , _______     ,
+    _______   , _______      , _______      , _______     , _______     , _______       ,                 XXXXXXX      , XXXXXXX      , XXXXXXX      , XXXXXXX      , XXXXXXX     , _______     ,
+    _______   , _______      , _______      , _______     , _______     , _______       ,                 XXXXXXX      , KC_MS_BTN1   , SCRL_MO      , KC_MS_BTN2   , XXXXXXX     , _______     ,
     _______   , _______      , _______      , _______     , _______     , _______       ,                 XXXXXXX      , XXXXXXX      , XXXXXXX      , XXXXXXX      , XXXXXXX     , _______     ,
                 _______      , _______      , _______     , _______     , _______       , _______       , _______      , XXXXXXX      , XXXXXXX      , _______
   ),
