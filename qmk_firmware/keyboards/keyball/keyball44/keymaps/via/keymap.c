@@ -23,11 +23,21 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 // 矩形選択のプリントスクリーン
 #define PS_SELECT C(S(G(KC_4)))
 
+// https://docs.qmk.fm/#/feature_tap_dance?id=simple-example
+enum {
+    TD_ESC,
+};
+
+tap_dance_action_t tap_dance_actions[] = {
+    // Tap once for Escape, twice for Caps Lock
+    [TD_ESC] = ACTION_TAP_DANCE_DOUBLE(KC_ESC, KC_CAPS),
+};
+
 // clang-format off
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   // Default (VIA) Keymap
   [0] = LAYOUT_universal(
-    KC_ESC    , KC_Q         , KC_W         , KC_E         , KC_R         , KC_T         ,                KC_Y         , KC_U         , KC_I         , KC_O         , KC_P         , TO(1)       ,
+    TD(TD_ESC), KC_Q         , KC_W         , KC_E         , KC_R         , KC_T         ,                KC_Y         , KC_U         , KC_I         , KC_O         , KC_P         , TO(1)       ,
     KC_TAB    , LT(4,KC_A)   , KC_S         , SFT_T(KC_D)  , KC_F         , KC_G         ,                KC_H         , KC_J         , SFT_T(KC_K)  , KC_L         , LT(3,KC_MINS), TO(0)       ,
     KC_LNG2   , KC_Z         , KC_X         , KC_C         , KC_V         , KC_B         ,                KC_N         , KC_M         , KC_COMM      , KC_DOT       , KC_SLSH      , KC_LNG1     ,
                 KC_LCTL      , KC_LALT      , GUI_T(KC_SPC), MO(1)        , MO(2)        , KC_BSPC      , GUI_T(KC_ENT), XXXXXXX      , XXXXXXX      , PS_SELECT
