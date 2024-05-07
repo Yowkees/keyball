@@ -20,6 +20,6 @@ mac OSに特化した設定になります。
 - トラックパッドと動作を合わせるためにスクロールを反転 `keyball_on_apply_motion_to_mouse_scroll` 関数の `r->h, r->v` に設定する値の符号を反転
 - 自動マウスレイヤー切り替えをデフォルトonに設定
   - `pointing_device_init_user` 関数内で `set_auto_mouse_enable` の呼び出し
+- タップダンスによるEscの2回押しでCapslockを利用できるように設定
 - その他の微調整
   - スクロール感度
-  - タップとみなされる時間の調整 `TAPPING_TERM` を短く(200 -> 100)
