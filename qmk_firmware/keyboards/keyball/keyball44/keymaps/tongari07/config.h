@@ -47,7 +47,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define TRACKBALL_SCROLL_DIVIDER 30
 
 // Time until layer switch key is enabled
-#define TAPPING_TERM 150
+#define TAPPING_TERM 180
 
 // Add layer
 #define DYNAMIC_KEYMAP_LAYER_COUNT 5
