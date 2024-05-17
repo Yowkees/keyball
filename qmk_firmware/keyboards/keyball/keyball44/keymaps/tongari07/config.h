@@ -44,8 +44,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 // Time layer remains active after activation
 #define AUTO_MOUSE_TIME 450
 
-#define TRACKBALL_SCROLL_DIVIDER 30
-
 // Time until layer switch key is enabled
 #define TAPPING_TERM 180
 
@@ -55,4 +53,4 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 // Mouse speed
 #define KEYBALL_CPI_DEFAULT 400
 // Scroll speed
-#define KEYBALL_SCROLL_DIV_DEFAULT 10
+#define KEYBALL_SCROLL_DIV_DEFAULT 5
