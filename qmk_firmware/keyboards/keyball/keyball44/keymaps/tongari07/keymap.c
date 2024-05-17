@@ -33,7 +33,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [1] = LAYOUT_universal(
     _______ ,  S(KC_5)   , S(KC_3)    , S(KC_SLASH)   ,  KC_GRAVE   , S(KC_4)    ,                                         _______    , S(KC_LEFT_BRACKET)    , S(KC_RIGHT_BRACKET)    , S(KC_GRAVE)    , S(KC_MINUS)   , _______   ,
     _______ ,  S(KC_2) , S(KC_SEMICOLON)  , S(KC_1)   , KC_QUOTE   , S(KC_QUOTE)   ,                                         S(KC_6)  , S(KC_9)  , S(KC_0)    , S(KC_COMM)  , S(KC_DOT)  , _______   ,
-    _______ ,  S(KC_7) , KC_SEMICOLON  , KC_BACKSLASH , S(KC_SLASH)  , S(KC_8)  ,                                         S(KC_BACKSLASH)  , KC_LEFT_BRACKET  , KC_RIGHT_BRACKET  , KC_COMM  , KC_DOT  , _______  ,
+    _______ ,  S(KC_7) , KC_SEMICOLON  , KC_BACKSLASH , KC_SLASH  , S(KC_8)  ,                                         S(KC_BACKSLASH)  , KC_LEFT_BRACKET  , KC_RIGHT_BRACKET  , KC_COMM  , KC_DOT  , _______  ,
                   _______  , _______ , _______  ,         _______  , _______  ,                   _______  , _______  , _______       , _______  , _______
   ),
 
@@ -95,7 +95,3 @@ void oledkit_render_info_user(void) {
     keyball_oled_render_layerinfo();
 }
 #endif
-
-void pointing_device_init_user(void) {
-    set_auto_mouse_enable(true);         // always required before the auto mouse feature will work
-}
