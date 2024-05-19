@@ -42,7 +42,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define POINTING_DEVICE_AUTO_MOUSE_ENABLE
 #define AUTO_MOUSE_DEFAULT_LAYER 4
 // Time layer remains active after activation
-#define AUTO_MOUSE_TIME 450
+#define AUTO_MOUSE_TIME 1000
 
 // Time until layer switch key is enabled
 #define TAPPING_TERM 180
