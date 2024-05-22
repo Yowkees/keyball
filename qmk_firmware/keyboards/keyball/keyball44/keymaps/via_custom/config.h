@@ -35,5 +35,20 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #define TAP_CODE_DELAY 5
 
+#define TAPPING_TERM 150
+
+// #define DYNAMIC_KEYMAP_LAYER_COUNT 7
+
+#define DYNAMIC_KEYMAP_LAYER_COUNT 5
 #define POINTING_DEVICE_AUTO_MOUSE_ENABLE
-#define AUTO_MOUSE_DEFAULT_LAYER 1
+// Time layer remains active after activation
+#define AUTO_MOUSE_TIME 250
+// #define AUTO_MOUSE_TIME 450
+
+#define _LAYER_HOME_LAYER 0
+#define _LAYER_NUMBER_LAYER 1
+#define _LAYER_SYMBOL_LAYER 2
+#define _LAYER_MOUSE_CLICK_LAYER 3
+#define _LAYER_MOUSE_SCROLL_LAYER 4
+
+#define AUTO_MOUSE_DEFAULT_LAYER _LAYER_MOUSE_CLICK_LAYER
