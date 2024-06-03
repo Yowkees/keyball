@@ -53,7 +53,7 @@ The Keyball44 has one Trackball that can be attached on Right or Left side.
 
 Included parts in the Keyball44 Standard Kit are the following
 
-*If your kit includes 12P pinsockets and pinheaders instead of 12P conthru pinheaders , please see [this buildguide](https://github.com/Yowkees/keyball/blob/main/keyball44/doc/rev1/buildguide_en_pinheader.md#1-1).
+*If your kit includes 12P conthru pinheaders instead of 12P pinsockets, please see [this buildguide](https://github.com/Yowkees/keyball/blob/main/keyball44/doc/rev1/buildguide_en.md#1-1).
 
 | Name | Number | Note |
 |:-|:-|:-|
@@ -72,7 +72,7 @@ Included parts in the Keyball44 Standard Kit are the following
 | Small head screw M1.7 | 2 pcs ||
 | TRRS Jack | 2 pcs ||
 | Tact Switch | 2 pcs ||
-| Straight Conthrough pin (12-pin) | 4 sets | |
+| Pinheader and Pinsockets for ProMicro (12 pin) | 4 sets | |
 | Diodes (Surface mounting type) | more 50 pcs ||
 | Kailh PCB Socket for Cherry MX | more 44 pcs ||
 | Kailh PCB Socket for choc | 5 pcs | For Thumb low-profile modification |
@@ -80,7 +80,7 @@ Included parts in the Keyball44 Standard Kit are the following
 | Pin header for OLED (4 pin) | 2 pcs ||
 | Pin socket for OLED (4 pin) | 2 pcs ||
 | Spacer M2 7mm | more 14 pcs ||
-| Spacer M2 9mm | 4 pcs ||
+| Spacer M2 11mm | 4 pcs ||
 | Spacer M2 4mm | 4 pcs | For Thumb low-profile modification |
 | Screws M2 3.5mm | more 36 pcs + ||
 | Cushion rubber | 10 pcs ||
@@ -333,23 +333,33 @@ Insert the component from the [front side] and solder the [back side] as shown i
 ProMicro by soldering using pin sockets and pin headers for ProMicro,Facilitates replacement in the event of ProMicro failure.
 【The pin headers included with ProMicro are not used】
 
-If 12P pin headers + pin sockets were included instead of 12P Conthrough for ProMicro[【here】](https://github.com/Yowkees/keyball/blob/main/keyball44/doc/rev1/buildguide_en_pinheader.md#3-7promicro%E3%81%A8OLED%E3%81%AE%E3%81%AF%E3%82%93%E3%81%A0%E4%BB%98%E3%81%91)Please use this build guide.
+If 12P Conthrough were included instead of pin headers + pin sockets for ProMicro[【here】](https://github.com/Yowkees/keyball/blob/main/keyball44/doc/rev1/buildguide_en.md#3-7promicro%E3%81%A8OLED%E3%81%AE%E3%81%AF%E3%82%93%E3%81%A0%E4%BB%98%E3%81%91)Please use this build guide.
 
 First, insert the Conthrough pin headers on【TOP FACE】 of board.
 
 Insert the conslue so that it fits the square frame of the silk. If the black frame of the silk is out of alignment with the conslue, the hole to insert is wrong.
 
-![61](images/kb44_056.jpg)
+![61](images/kb44_052.jpg)
 
-Insert the conthlue so that it fits the square frame of the silk. If the black frame of the silk is out of alignment with the conslue, the hole to insert is wrong.
+Secure the pin socket with masking tape or other means to prevent it from floating or falling out.
 
-![62](images/kb44_058.jpg)
+![62](images/kb44_054.jpg)
 
-![63](images/kb44_059.jpg)
+Turn the board over and solder on the [back side] and fix the pin sockets.
+If you are worried about the parts floating, secure them with masking tape or other means and solder them.
 
-Insert the ProMicro into the inserted spring-loaded pin headers pin.  
-Keep this state, and Solder ONLY the ProMicro side.
-"Soldering while inserted" prevents the spring-loaded pin headers are installed at unexpected angle.
+Note that too much solder (too long working time) when soldering a pin socket may cause solder to flow inside the pin socket and prevent the pin header from sticking.
+
+When solder is felt being sucked into the through-hole, soldering of that terminal should be completed and the next terminal should be moved on.
+
+![63](images/kb44_055.jpg)
+
+Once soldered, insert the 12-pin header into the 12-pin socket.[Do not use the pin headers included with ProMicro] Use the pin headers in the same bag as the pin sockets (the height of the parts is different)] Insert them properly all the way to the back.
+
+![64](images/kb44_057.jpg)
+
+Insert the ProMicro into the inserted pin header.  
+Solder the ProMicro side as shown in the photo below.
 
 ![65](images/kb44_060.jpg)
 
