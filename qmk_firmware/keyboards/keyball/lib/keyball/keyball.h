@@ -179,6 +179,7 @@ typedef struct {
 
     uint16_t auto_mouse_layer_timeout;
     layer_state_t last_layer_state;
+    uint16_t total_mouse_movement;
 
     // Buffer to indicate pressing keys.
     char pressing_keys[KEYBALL_OLED_MAX_PRESSING_KEYCODES + 1];
@@ -275,5 +276,5 @@ uint8_t keyball_get_cpi(void);
 void keyball_set_cpi(uint8_t cpi);
 
 #ifdef POINTING_DEVICE_AUTO_MOUSE_ENABLE
-void keyball_keep_auto_mouse_layer_if_needed(layer_state_t state);
+void keyball_handle_auto_mouse_layer_change(layer_state_t state);
 #endif

@@ -33,7 +33,7 @@ const uint16_t AML_TIMEOUT_MIN = 100;
 const uint16_t AML_TIMEOUT_MAX = 1000;
 const uint16_t AML_TIMEOUT_QU  = 50;   // Quantization Unit
 
-const int16_t AML_ACTIVATE_THRESHOLD = 4;
+const uint16_t AML_ACTIVATE_THRESHOLD = 50;
 
 static const char BL = '\xB0'; // Blank indicator character
 static const char LFSTR_ON[] PROGMEM = "\xB2\xB3";
@@ -54,6 +54,7 @@ keyball_t keyball = {
     .scroll_div  = 0,
 
     .last_layer_state = 0,
+    .total_mouse_movement = 0,
 
     .pressing_keys = { BL, BL, BL, BL, BL, BL, 0 },
 };
@@ -285,24 +286,25 @@ static uint16_t get_auto_mouse_keep_time(void) {
 #endif
 }
 
-static int16_t movement_size_of(report_mouse_t *rep) {
+static uint16_t movement_size_of(report_mouse_t *rep) {
     return abs(rep->x) + abs(rep->y);
 }
 
-static void extend_auto_mouse_timeout_by_motion(report_mouse_t *rep) {
-    int16_t movement_size = movement_size_of(rep);
-    // extend auto mouse timeout if mouse is moving,
-    // but ignore it if the movement is small
-    if (get_auto_mouse_timeout() != get_auto_mouse_keep_time() && AML_ACTIVATE_THRESHOLD < movement_size) {
-        set_auto_mouse_timeout(get_auto_mouse_keep_time());
-    }
-}
-
-// override qmk function
+// override qmk function:
+//  https://github.com/qmk/qmk_firmware/blob/0.22.14/quantum/pointing_device/pointing_device_auto_mouse.c#L208-L221
 // activate auto mouse layer when mouse movement exceeds the threshold.
 bool auto_mouse_activation(report_mouse_t mouse_report) {
-    int16_t movement_size = movement_size_of(&mouse_report);
-    return AML_ACTIVATE_THRESHOLD < movement_size || mouse_report.buttons;
+    keyball.total_mouse_movement += movement_size_of(&mouse_report);
+    if (AML_ACTIVATE_THRESHOLD < keyball.total_mouse_movement) {
+        keyball.total_mouse_movement = 0;
+        if (get_auto_mouse_timeout() != get_auto_mouse_keep_time()) {
+            // keep AML if mouse is moving with "short timeout".
+            set_auto_mouse_timeout(get_auto_mouse_keep_time());
+        }
+        return true;
+    } else {
+        return mouse_report.buttons;
+    }
 }
 #endif
 
@@ -322,12 +324,6 @@ report_mouse_t pointing_device_driver_get_report(report_mouse_t rep) {
         // modify mouse report by PMW3360 motion.
         motion_to_mouse(&keyball.this_motion, &rep, is_keyboard_left(), keyball.scroll_mode);
         motion_to_mouse(&keyball.that_motion, &rep, !is_keyboard_left(), keyball.scroll_mode ^ keyball.this_have_ball);
-#ifdef POINTING_DEVICE_AUTO_MOUSE_ENABLE
-        // reset auto mouse timeout to auto_mouse_keep_time if mouse is moving on auto mouse layer.
-        if (layer_state_is(AUTO_MOUSE_DEFAULT_LAYER)) {
-            extend_auto_mouse_timeout_by_motion(&rep);
-        }
-#endif
         // store mouse report for OLED.
         keyball.last_mouse = rep;
     }
@@ -611,10 +607,15 @@ void keyball_set_cpi(uint8_t cpi) {
 }
 
 #ifdef POINTING_DEVICE_AUTO_MOUSE_ENABLE
-void keyball_keep_auto_mouse_layer_if_needed(layer_state_t state) {
+void keyball_handle_auto_mouse_layer_change(layer_state_t state) {
     layer_state_t last_state = keyball.last_layer_state;
-    if (layer_state_cmp(last_state, AUTO_MOUSE_DEFAULT_LAYER) && !layer_state_cmp(state, AUTO_MOUSE_DEFAULT_LAYER)) {
+    // go into AML
+    if (!layer_state_cmp(last_state, AUTO_MOUSE_DEFAULT_LAYER) && layer_state_cmp(state, AUTO_MOUSE_DEFAULT_LAYER)) {
+        keyball.total_mouse_movement = 0;
+    } // go out AML
+    else if (layer_state_cmp(last_state, AUTO_MOUSE_DEFAULT_LAYER) && !layer_state_cmp(state, AUTO_MOUSE_DEFAULT_LAYER)) {
         set_auto_mouse_timeout(get_auto_mouse_keep_time());
+        keyball.total_mouse_movement = 0;
     }
     keyball.last_layer_state = state;
 }
@@ -711,8 +712,9 @@ bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
 
 #ifdef POINTING_DEVICE_AUTO_MOUSE_ENABLE
     // reduce auto mouse timeout if mouse key is pressed.
-    if (is_mouse_record_kb(keycode, record) || IS_MOUSEKEY(keycode)) {
+    if ((is_mouse_record_kb(keycode, record) || IS_MOUSEKEY(keycode)) && record->event.pressed) {
         set_auto_mouse_timeout(keyball_get_auto_mouse_timeout());
+        keyball.total_mouse_movement = 0;
     }
 #endif
 
