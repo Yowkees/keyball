@@ -235,7 +235,38 @@ __attribute__((weak)) void keyball_on_apply_motion_to_mouse_scroll(keyball_motio
 #endif
 }
 
+// --------------------------------------------------
+// from X
+// https://x.com/mass_0X00/status/1824373363604853180
+// --------------------------------------------------
+static void adjust_mouse_speed(keyball_motion_t *m) {
+    int16_t movement_size = abs(m->x) + abs(m->y);
+
+    float speed_multiplier = 1.0;
+    if (movement_size > 60) {
+        speed_multiplier = 3.0;
+    } else if (movement_size > 30) {
+        speed_multiplier = 1.5;
+    } else if (movement_size > 5) {
+        speed_multiplier = 1.0;
+    } else if (movement_size > 4) {
+        speed_multiplier = 0.9;
+    } else if (movement_size > 3) {
+        speed_multiplier = 0.7;
+    } else if (movement_size > 2) {
+        speed_multiplier = 0.5;
+    } else if (movement_size > 1) {
+        speed_multiplier = 0.2;
+    } else {
+        // NOP
+    }
+
+    m->x = clip2int8((int16_t)(m->x * speed_multiplier));
+    m->y = clip2int8((int16_t)(m->y * speed_multiplier));
+}
+
 static void motion_to_mouse(keyball_motion_t *m, report_mouse_t *r, bool is_left, bool as_scroll) {
+    adjust_mouse_speed(m);
     if (as_scroll) {
         keyball_on_apply_motion_to_mouse_scroll(m, r, is_left);
     } else {
