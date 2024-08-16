@@ -1,0 +1,29 @@
+
+# ビルドとProMicroへのflash手順
+
+(*) QMK_MSYSのセットアップについては省略
+
+1. keyballのリポジトリクローン
+$ git clone https://github.com/suijinn/keyball.git keyball
+
+
+2. qmk_firmwareのリポジトリクローン
+   対応しているバージョンに注意
+$ git clone https://github.com/qmk/qmk_firmware.git --depth 1 --recurse-submodules --shallow-submodules -b 0.22.14 qmk
+
+3. keyball→qmkへのシンボリックリンクを貼る
+mklink /D %USERPROFILE%\qmk\keyboards\keyball %USERPROFILE%\keyball\qmk_firmware\keyboards\keyball
+
+4. 編集する。keymapはkeyball44/my_keymap/以下を使う。
+
+5. ビルド&flash
+$ qmk flash -kb keyball/keyball44 -km my_keymap
+
+-----
+
+# 参考
+
+* keyball qmkのReadme
+  https://github.com/Yowkees/keyball/blob/main/qmk_firmware/keyboards/keyball/readme.md
+* 環境構築
+  https://note.com/yinouet1001/n/n54e6d3dc243a
