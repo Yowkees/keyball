@@ -266,10 +266,10 @@ static void adjust_mouse_speed(keyball_motion_t *m) {
 }
 
 static void motion_to_mouse(keyball_motion_t *m, report_mouse_t *r, bool is_left, bool as_scroll) {
-    adjust_mouse_speed(m);
     if (as_scroll) {
         keyball_on_apply_motion_to_mouse_scroll(m, r, is_left);
     } else {
+        adjust_mouse_speed(m);
         keyball_on_apply_motion_to_mouse_move(m, r, is_left);
     }
 }
