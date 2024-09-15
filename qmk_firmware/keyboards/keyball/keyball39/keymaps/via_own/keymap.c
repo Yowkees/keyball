@@ -87,7 +87,7 @@ layer_state_t layer_state_set_user(layer_state_t state) {
 }
 
 #ifdef TAP_DANCE_ENABLE
-qk_tap_dance_action_t tap_dance_actions[] = {
+tap_dance_action_t tap_dance_actions[] = {
   [ESC_CTL]     = ACTION_TAP_DANCE_FN_ADVANCED(NULL,esc_finished, esc_reset)
 };
 #endif
