@@ -1,3 +1,5 @@
+#include "quantum.h"
+
 typedef struct {
   bool is_press_action;
   int state;
