@@ -20,6 +20,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #include "quantum.h"
 #include "tap_dance.h"
+#include "layer_lighting.h"
 
 #ifdef TAP_DANCE_ENABLE
 //Tap dance enums
@@ -64,34 +65,41 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 layer_state_t layer_state_set_user(layer_state_t state) {
     // Auto enable scroll mode when the highest layer is 3
     keyball_set_scroll_mode(get_highest_layer(state) == 3);
-
-    // state = update_tri_layer_state(state, 1, 2, 3)
-
-    uint8_t layer = biton32(state);
-    switch (layer) {
-        case 0:
-            rgblight_sethsv(HSV_PURPLE);
-            break;
-        case 1:
-            rgblight_sethsv(HSV_AZURE);
-            break;
-        case 2:
-            rgblight_sethsv(HSV_GREEN);
-            break;
-        case 3:
-            rgblight_sethsv(HSV_RED);
-            break;
-    }
-
     return state;
 }
 
+// Layer lighting
+#ifdef RGBLIGHT_ENABLE
+void keyboard_post_init_user(void) {
+    rgblight_layers = light_layers;
+}
+
+bool led_update_user(led_t led_state) {
+    rgblight_set_layer_state(4, led_state.caps_lock);
+    return true;
+}
+
+layer_state_t default_layer_state_set_user(layer_state_t state) {
+    rgblight_set_layer_state(0, layer_state_cmp(state, 0));
+    return state;
+}
+
+layer_state_t layer_state_set_user(layer_state_t state) {
+    rgblight_set_layer_state(1, layer_state_cmp(state, 1));
+    rgblight_set_layer_state(2, layer_state_cmp(state, 2));
+    rgblight_set_layer_state(3, layer_state_cmp(state, 3));
+    return state;
+}
+#endif
+
+// Tap dance
 #ifdef TAP_DANCE_ENABLE
 tap_dance_action_t tap_dance_actions[] = {
   [ESC_CTL]     = ACTION_TAP_DANCE_FN_ADVANCED(NULL,esc_finished, esc_reset)
 };
 #endif
 
+// OLED
 #ifdef OLED_ENABLE
 
 #    include "lib/oledkit/oledkit.h"
