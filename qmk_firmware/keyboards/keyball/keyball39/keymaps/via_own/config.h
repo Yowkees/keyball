@@ -39,7 +39,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 // #define AUTO_MOUSE_DEFAULT_LAYER 1
 
 #define OLED_TIMEOUT 30000 // ミリ秒
-#define TAPPING_TERM 100 // ミリ秒
+#define TAPPING_TERM 150 // ミリ秒
 #define HOLD_ON_OTHER_KEY_PRESS
 
 // #define KEYBALL_CPI_DEFAULT 1100 // マウス速度 (default: 500)
