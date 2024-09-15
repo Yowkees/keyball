@@ -13,8 +13,8 @@ enum {
   TRIPLE_HOLD = 7
 };
 
-int cur_dance (qk_tap_dance_state_t *state);
+int cur_dance (tap_dance_state_t *state);
 
 //for the x tap dance. Put it here so it can be used in any keymap
-void esc_finished (qk_tap_dance_state_t *state, void *user_data);
-void esc_reset (qk_tap_dance_state_t *state, void *user_data);
+void esc_finished (tap_dance_state_t *state, void *user_data);
+void esc_reset (tap_dance_state_t *state, void *user_data);

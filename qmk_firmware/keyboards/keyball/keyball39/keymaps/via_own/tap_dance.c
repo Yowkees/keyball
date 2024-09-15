@@ -25,7 +25,7 @@
  * For the third point, there does exist the 'DOUBLE_SINGLE_TAP', however this is not fully tested
  *
  */
-int cur_dance (qk_tap_dance_state_t *state) {
+int cur_dance (tap_dance_state_t *state) {
   if (state->count == 1) {
     if (state->interrupted || !state->pressed)  return SINGLE_TAP;
     //key has not been interrupted, but they key is still held. Means you want to send a 'HOLD'.
@@ -57,7 +57,7 @@ static tap esc_tap_state = {
   .state = 0
 };
 
-void esc_finished (qk_tap_dance_state_t *state, void *user_data) {
+void esc_finished (tap_dance_state_t *state, void *user_data) {
   esc_tap_state.state = cur_dance(state);
   switch (esc_tap_state.state) {
     case SINGLE_TAP: register_code(KC_ESC); break;
@@ -71,7 +71,7 @@ void esc_finished (qk_tap_dance_state_t *state, void *user_data) {
   },
 }
 
-void esc_reset (qk_tap_dance_state_t *state, void *user_data) {
+void esc_reset (tap_dance_state_t *state, void *user_data) {
   switch (esc_tap_state.state) {
     case SINGLE_TAP: unregister_code(KC_ESC); break;
     case SINGLE_HOLD: unregister_code(KC_LCTRL); break;
