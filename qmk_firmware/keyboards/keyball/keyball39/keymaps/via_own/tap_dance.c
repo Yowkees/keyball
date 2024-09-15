@@ -65,7 +65,7 @@ void esc_finished (tap_dance_state_t *state, void *user_data) {
   esc_tap_state.state = cur_dance(state);
   switch (esc_tap_state.state) {
     case SINGLE_TAP: register_code(KC_ESC); break;
-    case SINGLE_HOLD: register_code(KC_LCTRL); break;
+    case SINGLE_HOLD: register_code(KC_LCTL); break;
     case DOUBLE_TAP: register_code(KC_ESC); break;
     case DOUBLE_HOLD: register_code(KC_LALT); break;
     case DOUBLE_SINGLE_TAP: register_code(KC_ESC); unregister_code(KC_ESC); register_code(KC_ESC); break;
@@ -78,7 +78,7 @@ void esc_finished (tap_dance_state_t *state, void *user_data) {
 void esc_reset (tap_dance_state_t *state, void *user_data) {
   switch (esc_tap_state.state) {
     case SINGLE_TAP: unregister_code(KC_ESC); break;
-    case SINGLE_HOLD: unregister_code(KC_LCTRL); break;
+    case SINGLE_HOLD: unregister_code(KC_LCTL); break;
     case DOUBLE_TAP: unregister_code(KC_ESC); break;
     case DOUBLE_HOLD: unregister_code(KC_LALT);
     case DOUBLE_SINGLE_TAP: unregister_code(KC_ESC);
