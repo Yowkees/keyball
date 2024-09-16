@@ -1,10 +1,5 @@
 #include "quantum.h"
 
-typedef struct {
-    bool is_press_action;
-    td_state_t state;
-} td_tap_t;
-
 typedef enum {
     TD_NONE,
     TD_UNKNOWN,
@@ -16,6 +11,11 @@ typedef enum {
     TD_TRIPLE_TAP,
     TD_TRIPLE_HOLD
 } td_state_t;
+
+typedef struct {
+    bool is_press_action;
+    td_state_t state;
+} td_tap_t;
 
 td_state_t cur_dance (tap_dance_state_t *state);
 
