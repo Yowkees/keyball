@@ -11,7 +11,7 @@ const rgblight_segment_t PROGMEM layer_0[] = RGBLIGHT_LAYER_SEGMENTS(
 );
 
 const rgblight_segment_t PROGMEM layer_1[] = RGBLIGHT_LAYER_SEGMENTS(
-    {0, MAX_LEDS, HSV_AZURE}
+    {0, MAX_LEDS, HSV_CYAN}
 );
 
 const rgblight_segment_t PROGMEM layer_2[] = RGBLIGHT_LAYER_SEGMENTS(
