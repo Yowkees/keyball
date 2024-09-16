@@ -124,7 +124,6 @@ void lclick_finished (tap_dance_state_t *state, void *user_data) {
             break;
         default: break;
     }
-    lclick_tap_state.state = TD_NONE;
 }
 
 void lclick_reset (tap_dance_state_t *state, void *user_data) {
@@ -159,7 +158,6 @@ void rclick_finished (tap_dance_state_t *state, void *user_data) {
             break;
         default: break;
     }
-    rclick_tap_state.state = TD_NONE;
 }
 
 void rclick_reset (tap_dance_state_t *state, void *user_data) {
