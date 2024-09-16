@@ -76,7 +76,7 @@ void keyboard_post_init_user(void) {
 
 bool led_update_user(led_t led_state) {
     rgblight_set_layer_state(1, led_state.caps_lock);
-    return false;
+    return true;
 }
 
 layer_state_t default_layer_state_set_user(layer_state_t state) {
