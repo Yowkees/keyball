@@ -43,4 +43,4 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define HOLD_ON_OTHER_KEY_PRESS
 
 #define KEYBALL_CPI_DEFAULT 400 // マウス速度 (default: 500)
-#define KEYBALL_SCROLL_DIV_DEFAULT // スクロール速度 (default: 4)
+#define KEYBALL_SCROLL_DIV_DEFAULT 3 // スクロール速度 (default: 4)
