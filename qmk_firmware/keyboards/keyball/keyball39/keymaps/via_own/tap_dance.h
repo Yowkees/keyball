@@ -24,3 +24,6 @@ void esc_reset (tap_dance_state_t *state, void *user_data);
 
 void lclick_finished (tap_dance_state_t *state, void *user_data);
 void lclick_reset (tap_dance_state_t *state, void *user_data);
+
+void rclick_finished (tap_dance_state_t *state, void *user_data);
+void rclick_reset (tap_dance_state_t *state, void *user_data);
