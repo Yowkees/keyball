@@ -117,7 +117,7 @@ void lclick_finished (tap_dance_state_t *state, void *user_data) {
     lclick_tap_state.state = cur_dance(state);
     switch (lclick_tap_state.state) {
         case TD_SINGLE_TAP:
-            register_code(MS_BTN1);
+            register_code(KC_BTN1);
             break;
         case TD_DOUBLE_HOLD:
             layer_on(_DEFAULT_LAYER);
@@ -130,7 +130,7 @@ void lclick_finished (tap_dance_state_t *state, void *user_data) {
 void lclick_reset (tap_dance_state_t *state, void *user_data) {
     switch (lclick_tap_state.state) {
         case TD_SINGLE_TAP:
-            unregister_code(MS_BTN1);
+            unregister_code(KC_BTN1);
             break;
         case TD_DOUBLE_HOLD:
             layer_off(_DEFAULT_LAYER);
@@ -150,12 +150,12 @@ void rclick_finished (tap_dance_state_t *state, void *user_data) {
     rclick_tap_state.state = cur_dance(state);
     switch (rclick_tap_state.state) {
         case TD_SINGLE_TAP:
-            register_code(MS_BTN2);
+            register_code(KC_BTN2);
             break;
         case TD_DOUBLE_TAP:
             register_code(KC_LCTL);
             register_code(KC_LSFT);
-            register_code(MS_BTN1);
+            register_code(KC_BTN1);
             break;
         default: break;
     }
@@ -165,10 +165,10 @@ void rclick_finished (tap_dance_state_t *state, void *user_data) {
 void rclick_reset (tap_dance_state_t *state, void *user_data) {
     switch (rclick_tap_state.state) {
         case TD_SINGLE_TAP:
-            unregister_code(MS_BTN2);
+            unregister_code(KC_BTN2);
             break;
         case TD_DOUBLE_TAP:
-            unregister_code(MS_BTN1);
+            unregister_code(KC_BTN1);
             unregister_code(KC_LSFT);
             unregister_code(KC_LCTL);
             break;
