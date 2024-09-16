@@ -540,7 +540,7 @@ void keyball_set_scrollsnap_mode(keyball_scrollsnap_mode_t mode) {
 }
 
 uint8_t keyball_get_scroll_div(void) {
-    return keyball.scroll_div == 0 ? KEYBALL_SCROLL_DIV_DEFAULT : keyball.scroll_div;
+    return keyball.scroll_div == 0 ? KEYBALL_SCROLL_DIV_DEFAULT : (true ? keyball.scroll_div : 0);
 }
 
 void keyball_set_scroll_div(uint8_t div) {
