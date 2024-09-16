@@ -33,6 +33,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 //#    define RGBLIGHT_EFFECT_TWINKLE
 #endif
 
+#define RGBLIGHT_LAYERS
+
 #define TAP_CODE_DELAY 5
 
 // #define POINTING_DEVICE_AUTO_MOUSE_ENABLE
