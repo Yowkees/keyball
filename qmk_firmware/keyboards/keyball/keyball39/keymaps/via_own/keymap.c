@@ -62,14 +62,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 };
 // clang-format on
 
-layer_state_t layer_state_set_user(layer_state_t state) {
-    // Auto enable scroll mode when the highest layer is 3
-    keyball_set_scroll_mode(get_highest_layer(state) == 3);
-    return state;
-}
-
 // Layer lighting
-#ifdef RGBLIGHT_LAYERS
 void keyboard_post_init_user(void) {
     rgblight_layers = light_layers;
 }
@@ -85,12 +78,14 @@ layer_state_t default_layer_state_set_user(layer_state_t state) {
 }
 
 layer_state_t layer_state_set_user(layer_state_t state) {
+    // Auto enable scroll mode when the highest layer is 3
+    keyball_set_scroll_mode(get_highest_layer(state) == 3);
+
     rgblight_set_layer_state(2, layer_state_cmp(state, 1));
     rgblight_set_layer_state(3, layer_state_cmp(state, 2));
     rgblight_set_layer_state(4, layer_state_cmp(state, 3));
     return state;
 }
-#endif
 
 // Tap dance
 #ifdef TAP_DANCE_ENABLE
