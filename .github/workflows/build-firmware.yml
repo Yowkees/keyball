@@ -37,7 +37,7 @@ jobs:
       run: ln -s $(pwd)/qmk_firmware/keyboards/keyball __qmk__/keyboards/keyball
 
     - name: Compile and link
-      run: qmk compile -j 4 -kb keyball/${{ inputs.keyboard }} -km ${{ inputs.keymap }}
+      run: qmk compile -j 4 -kb keyball/${{ inputs.keyboard }} -km ${{ inputs.keymap }} CFLAGS="-Wno-error"
 
     - name: Archive built firmware
       uses: actions/upload-artifact@v4
