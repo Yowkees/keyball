@@ -24,8 +24,8 @@ const rgblight_segment_t PROGMEM layer_3[] = RGBLIGHT_LAYER_SEGMENTS(
 
 const rgblight_segment_t* const PROGMEM light_layers[] = {
     layer_0,
-    capslock_layer
+    capslock_layer,
     layer_1,
     layer_2,
-    layer_3,
+    layer_3
 };
