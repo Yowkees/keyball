@@ -39,7 +39,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     KC_Q     , KC_W     , KC_E     , KC_R     , KC_T     ,                            KC_Y     , KC_U     , KC_I     , KC_O     , KC_P     ,
     KC_A     , KC_S     , KC_D     , KC_F     , KC_G     ,                            KC_H     , KC_J     , KC_K     , KC_L     , KC_DOT  ,
     KC_Z     , KC_X     , KC_C     , KC_V     , KC_B     ,                            KC_N     , KC_M     , KC_BTN1 , LT(3,KC_BTN2)   , KC_COMM  ,
-    TD(ESC_CTL)  , KC_LGUI  , _______  ,LT(3,KC_TAB),LT(1,KC_SPC),LT(2,KC_DELETE),                 LT(1,KC_ENT),LT(1,KC_BSPC),_______,_______,_______, TD(ESC_CTL)
+    TD(ESC_CTL)  , KC_LGUI  , _______  ,LT(3,KC_TAB),LT(1,KC_SPC),LT(2,KC_DELETE),                 LT(1,KC_ENT),LT(2,KC_BSPC),_______,_______,_______, TD(ESC_CTL)
   ),
 
   [_OPERATION_LAYER] = LAYOUT_universal(
@@ -87,19 +87,10 @@ layer_state_t layer_state_set_user(layer_state_t state) {
     rgblight_set_layer_state(LAYER_LIGHTING_OPERATION, layer_state_cmp(state, _OPERATION_LAYER));
     rgblight_set_layer_state(LAYER_LIGHTING_SYMBOL, layer_state_cmp(state, _SYMBOL_LAYER));
 
-    if (layer_state_cmp(state, _MOUSE_LAYER)) {
-        switch (keyball_get_scrollsnap_mode()) {
-            case KEYBALL_SCROLLSNAP_MODE_VERTICAL:
-                rgblight_set_layer_state(LAYER_LIGHTING_MOUSE_VRT, true);
-                break;
-            case KEYBALL_SCROLLSNAP_MODE_HORIZONTAL:
-                rgblight_set_layer_state(LAYER_LIGHTING_MOUSE_HOR, true);
-                break;
-            default:
-                rgblight_set_layer_state(LAYER_LIGHTING_MOUSE_FRE, true);
-                break;
-        }
-    }
+    keyball_scrollsnap_mode_t mode = keyball_get_scrollsnap_mode();
+    rgblight_set_layer_state(LAYER_LIGHTING_MOUSE_VRT, layer_state_cmp(state, _MOUSE_LAYER) && (mode == KEYBALL_SCROLLSNAP_MODE_VERTICAL));
+    rgblight_set_layer_state(LAYER_LIGHTING_MOUSE_HOR, layer_state_cmp(state, _MOUSE_LAYER) && (mode == KEYBALL_SCROLLSNAP_MODE_HORIZONTAL));
+    rgblight_set_layer_state(LAYER_LIGHTING_MOUSE_FRE, layer_state_cmp(state, _MOUSE_LAYER) && (mode == KEYBALL_SCROLLSNAP_MODE_FREE));
     return state;
 }
 

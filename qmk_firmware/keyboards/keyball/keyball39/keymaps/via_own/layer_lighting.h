@@ -11,11 +11,11 @@ const rgblight_segment_t PROGMEM default_layer[] = RGBLIGHT_LAYER_SEGMENTS(
 );
 
 const rgblight_segment_t PROGMEM operation_layer[] = RGBLIGHT_LAYER_SEGMENTS(
-    {0, MAX_LEDS, HSV_AZURE}
+    {0, MAX_LEDS, HSV_BLUE}
 );
 
 const rgblight_segment_t PROGMEM symbol_layer[] = RGBLIGHT_LAYER_SEGMENTS(
-    {0, MAX_LEDS, HSV_CORAL}
+    {0, MAX_LEDS, HSV_GOLD}
 );
 
 const rgblight_segment_t PROGMEM mouse_layer_vrt[] = RGBLIGHT_LAYER_SEGMENTS(
@@ -34,7 +34,7 @@ enum layer_lighting_number {
     LAYER_LIGHTING_DEFAULT = 0,
     LAYER_LIGHTING_CAPSLOCK,
     LAYER_LIGHTING_MOUSE_VRT,
-    LAYER_LIGHTING_MOUSE_HOR,
+    LAYER_LIGHTING_MOUSE_HOR
     LAYER_LIGHTING_MOUSE_FRE,
     LAYER_LIGHTING_OPERATION,
     LAYER_LIGHTING_SYMBOL,
