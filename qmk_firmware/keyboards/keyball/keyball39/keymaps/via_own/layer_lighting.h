@@ -30,17 +30,15 @@ const rgblight_segment_t PROGMEM mouse_layer_fre[] = RGBLIGHT_LAYER_SEGMENTS(
     {0, MAX_LEDS, HSV_PINK}
 );
 
-namespace LAYER_LIGHTING{
-    enum layer_lighting_number {
-        DEFAULT = 0,
-        CAPSLOCK,
-        MOUSE_VRT,
-        MOUSE_HOR,
-        MOUSE_FRE
-        OPERATION,
-        SYMBOL,
-    };
-}
+enum layer_lighting_number {
+    LAYER_LIGHTING_DEFAULT = 0,
+    LAYER_LIGHTING_CAPSLOCK,
+    LAYER_LIGHTING_MOUSE_VRT,
+    LAYER_LIGHTING_MOUSE_HOR,
+    LAYER_LIGHTING_MOUSE_FRE,
+    LAYER_LIGHTING_OPERATION,
+    LAYER_LIGHTING_SYMBOL,
+};
 
 
 const rgblight_segment_t* const PROGMEM light_layers[] = {

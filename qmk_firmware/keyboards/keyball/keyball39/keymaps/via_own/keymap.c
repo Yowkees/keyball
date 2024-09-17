@@ -71,12 +71,12 @@ void keyboard_post_init_user(void) {
 }
 
 bool led_update_user(led_t led_state) {
-    rgblight_set_layer_state(LAYER_LIGHTING::CAPSLOCK, led_state.caps_lock);
+    rgblight_set_layer_state(LAYER_LIGHTING_CAPSLOCK, led_state.caps_lock);
     return true;
 }
 
 layer_state_t default_layer_state_set_user(layer_state_t state) {
-    rgblight_set_layer_state(LAYER_LIGHTING::DEFAULT, layer_state_cmp(state, _DEFAULT_LAYER));
+    rgblight_set_layer_state(LAYER_LIGHTING_DEFAULT, layer_state_cmp(state, _DEFAULT_LAYER));
     return state;
 }
 
@@ -84,19 +84,19 @@ layer_state_t layer_state_set_user(layer_state_t state) {
     // Auto enable scroll mode when the highest layer is 3
     keyball_set_scroll_mode(get_highest_layer(state) == _MOUSE_LAYER);
 
-    rgblight_set_layer_state(LAYER_LIGHTING::OPERATION, layer_state_cmp(state, _OPERATION_LAYER));
-    rgblight_set_layer_state(LAYER_LIGHTING::SYMBOL, layer_state_cmp(state, _SYMBOL_LAYER));
+    rgblight_set_layer_state(LAYER_LIGHTING_OPERATION, layer_state_cmp(state, _OPERATION_LAYER));
+    rgblight_set_layer_state(LAYER_LIGHTING_SYMBOL, layer_state_cmp(state, _SYMBOL_LAYER));
 
     if (layer_state_cmp(state, _MOUSE_LAYER)) {
         switch (keyball_get_scrollsnap_mode()) {
             case KEYBALL_SCROLLSNAP_MODE_VERTICAL:
-                rgblight_set_layer_state(LAYER_LIGHTING::MOUSE_VRT, true);
+                rgblight_set_layer_state(LAYER_LIGHTING_MOUSE_VRT, true);
                 break;
             case KEYBALL_SCROLLSNAP_MODE_HORIZONTAL:
-                rgblight_set_layer_state(LAYER_LIGHTING::MOUSE_HOR, true);
+                rgblight_set_layer_state(LAYER_LIGHTING_MOUSE_HOR, true);
                 break;
             default:
-                rgblight_set_layer_state(LAYER_LIGHTING::MOUSE_FRE, true);
+                rgblight_set_layer_state(LAYER_LIGHTING_MOUSE_FRE, true);
                 break;
         }
     }
