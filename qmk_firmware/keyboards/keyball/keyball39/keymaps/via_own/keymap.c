@@ -28,7 +28,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #ifdef TAP_DANCE_ENABLE
 //Tap dance enums
 enum {
-  ESC_CTL = 0
+  CTL_ALT = 0
 };
 #endif
 
@@ -39,7 +39,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     KC_Q     , KC_W     , KC_E     , KC_R     , KC_T     ,                            KC_Y     , KC_U     , KC_I     , KC_O     , KC_P     ,
     KC_A     , KC_S     , KC_D     , KC_F     , KC_G     ,                            KC_H     , KC_J     , KC_K     , KC_L     , KC_DOT  ,
     KC_Z     , KC_X     , KC_C     , KC_V     , KC_B     ,                            KC_N     , KC_M     , KC_BTN1 , LT(3,KC_BTN2)   , KC_COMM  ,
-    TD(ESC_CTL)  , KC_LGUI  , _______  ,LT(3,KC_TAB),LT(1,KC_SPC),LT(2,KC_DELETE),                 LT(1,KC_ENT),LT(2,KC_BSPC),_______,_______,_______, TD(ESC_CTL)
+    TD(CTL_ALT)  , KC_LGUI  , KC_ESC  ,LT(3,KC_TAB),LT(1,KC_SPC),LT(2,KC_DELETE),                 LT(1,KC_ENT),LT(2,KC_BSPC),_______,_______,_______, TD(ESC_CTL)
   ),
 
   [_OPERATION_LAYER] = LAYOUT_universal(
@@ -97,7 +97,7 @@ layer_state_t layer_state_set_user(layer_state_t state) {
 // Tap dance
 #ifdef TAP_DANCE_ENABLE
 tap_dance_action_t tap_dance_actions[] = {
-  [ESC_CTL]     = ACTION_TAP_DANCE_FN_ADVANCED(NULL,esc_finished, esc_reset)
+  [CTL_ALT]     = ACTION_TAP_DANCE_FN_ADVANCED(NULL,ctlalt_finished, ctlalt_reset)
 };
 #endif
 

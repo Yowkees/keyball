@@ -58,24 +58,24 @@ static td_tap_t esc_tap_state = {
     .state = TD_NONE
 };
 
-void esc_finished (tap_dance_state_t *state, void *user_data) {
+void ctlalt_finished (tap_dance_state_t *state, void *user_data) {
     esc_tap_state.state = cur_dance(state);
     switch (esc_tap_state.state) {
         case TD_SINGLE_TAP:
-            register_code(KC_ESC);
+            register_code(KC_LCTL);
             break;
         case TD_SINGLE_HOLD:
             register_code(KC_LCTL);
             break;
         case TD_DOUBLE_TAP:
-            register_code(KC_ESC);
+            register_code(KC_LALT);
             break;
         case TD_DOUBLE_HOLD:
             register_code(KC_LALT);
             break;
         case TD_DOUBLE_SINGLE_TAP:
-            tap_code(KC_ESC);
-            register_code(KC_ESC);
+            tap_code(KC_LALT);
+            register_code(KC_LALT);
             break;
         default: break;
         //Last case is for fast typing. Assuming your key is `f`:
@@ -84,22 +84,22 @@ void esc_finished (tap_dance_state_t *state, void *user_data) {
     }
 }
 
-void esc_reset (tap_dance_state_t *state, void *user_data) {
+void ctlalt_reset (tap_dance_state_t *state, void *user_data) {
     switch (esc_tap_state.state) {
         case TD_SINGLE_TAP:
-            unregister_code(KC_ESC);
+            unregister_code(KC_LCTL);
             break;
         case TD_SINGLE_HOLD:
             unregister_code(KC_LCTL);
             break;
         case TD_DOUBLE_TAP:
-            unregister_code(KC_ESC);
+            unregister_code(KC_LALT);
             break;
         case TD_DOUBLE_HOLD:
             unregister_code(KC_LALT);
             break;
         case TD_DOUBLE_SINGLE_TAP:
-            unregister_code(KC_ESC);
+            unregister_code(KC_LALT);
             break;
         default:
             break;

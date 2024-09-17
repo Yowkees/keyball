@@ -19,8 +19,8 @@ typedef struct {
 
 td_state_t cur_dance (tap_dance_state_t *state);
 
-void esc_finished (tap_dance_state_t *state, void *user_data);
-void esc_reset (tap_dance_state_t *state, void *user_data);
+void ctlalt_finished (tap_dance_state_t *state, void *user_data);
+void ctlalt_reset (tap_dance_state_t *state, void *user_data);
 
 void lclick_finished (tap_dance_state_t *state, void *user_data);
 void lclick_reset (tap_dance_state_t *state, void *user_data);
