@@ -28,9 +28,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #ifdef TAP_DANCE_ENABLE
 //Tap dance enums
 enum {
-  ESC_CTL = 0,
-  LCLICK_MLAYER,
-  RCLICK_NEWTAB
+  ESC_CTL = 0
 };
 #endif
 
@@ -39,30 +37,30 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   // keymap for default (VIA)
   [_DEFAULT_LAYER] = LAYOUT_universal(
     KC_Q     , KC_W     , KC_E     , KC_R     , KC_T     ,                            KC_Y     , KC_U     , KC_I     , KC_O     , KC_P     ,
-    KC_A     , KC_S     , KC_D     , KC_F     , KC_G     ,                            KC_H     , KC_J     , KC_K     , KC_L     , KC_MINS  ,
-    KC_Z     , KC_X     , KC_C     , KC_V     , KC_B     ,                            KC_N     , KC_M     , TD(LCLICK_MLAYER)  , TD(RCLICK_NEWTAB)   , KC_SLSH  ,
-    TD(ESC_CTL)  , KC_LGUI  , KC_LALT  ,LSFT_T(KC_LNG2),LT(1,KC_SPC),LT(3,KC_LNG1),KC_BSPC,LT(2,KC_ENT),LSFT_T(KC_LNG2),_______,_______, TD(ESC_CTL)
+    KC_A     , KC_S     , KC_D     , KC_F     , KC_G     ,                            KC_H     , KC_J     , KC_K     , KC_L     , KC_DOT  ,
+    KC_Z     , KC_X     , KC_C     , KC_V     , KC_B     ,                            KC_N     , KC_M     , KC_BTN1 , LT(3,KC_BTN2)   , KC_COMM  ,
+    TD(ESC_CTL)  , KC_LGUI  , _______  ,LT(3,KC_TAB),LT(1,KC_SPC),LT(2,KC_DELETE),                 LT(1,KC_ENT),LT(1,KC_BSPC),_______,_______,_______, TD(ESC_CTL)
   ),
 
   [_OPERATION_LAYER] = LAYOUT_universal(
-    KC_F1    , KC_F2    , KC_F3    , KC_F4    , KC_RBRC  ,                            KC_F6    , KC_F7    , KC_F8    , KC_F9    , KC_F10   ,
-    KC_F5    , KC_EXLM  , S(KC_6)  ,S(KC_INT3), S(KC_8)  ,                           S(KC_INT1), KC_BTN1  , KC_PGUP  , KC_BTN2  , KC_SCLN  ,
-    S(KC_EQL),S(KC_LBRC),S(KC_7)   , S(KC_2)  ,S(KC_RBRC),                            KC_LBRC  , KC_DLR   , KC_PGDN  , KC_BTN3  , KC_F11   ,
-    KC_INT1  , KC_EQL   , S(KC_3)  , _______  , _______  , _______  ,      TO(2)    , TO(0)    , _______  , KC_RALT  , KC_RGUI  , KC_F12
+    _______  , KC_7  , KC_8 , KC_9 , S(KC_SCLN) ,                           C(KC_HOME) , C(KC_PGDN) , C(KC_PGUP) , C(KC_END), _______   ,
+    KC_0     , KC_4  , KC_5 , KC_6 , KC_MINUS   ,                           KC_LEFT, KC_DOWN  , KC_UP  , KC_RIGHT  , _______  ,
+    _______  , KC_1  , KC_2 , KC_3 , KC_DOT     ,                           KC_HOME  , KC_PGDN   , KC_PGUP  , KC_END  , _______   ,
+    TD(ESC_CTL)  , _______   , _______  , _______  , _______  , _______  ,               _______  ,_______ , _______  , _______  , _______  , TD(ESC_CTL)
   ),
 
   [_SYMBOL_LAYER] = LAYOUT_universal(
-    KC_TAB   , KC_7     , KC_8     , KC_9     , KC_MINS  ,                            KC_NUHS  , _______  , KC_BTN3  , _______  , KC_BSPC  ,
-   S(KC_QUOT), KC_4     , KC_5     , KC_6     ,S(KC_SCLN),                            S(KC_9)  , KC_BTN1  , KC_UP    , KC_BTN2  , KC_QUOT  ,
-    KC_SLSH  , KC_1     , KC_2     , KC_3     ,S(KC_MINS),                           S(KC_NUHS), KC_LEFT  , KC_DOWN  , KC_RGHT  , _______  ,
-    KC_ESC   , KC_0     , KC_DOT   , KC_DEL   , KC_ENT   , KC_BSPC  ,      _______  , _______  , _______  , _______  , _______  , _______
+    KC_GRV    , S(KC_4) , S(KC_5) , S(KC_7)   , S(KC_BSLS),                            S(KC_MINUS) , S(KC_LBRC)  , S(KC_RBRC)  , S(KC_COMM)  , S(KC_DOT)  ,
+    S(KC_2)   , S(KC_3) , S(KC_8) , S(KC_EQL) , KC_EQL    ,                            KC_MINUS    , S(KC_9)  , S(KC_0)  , S(KC_SCLN)  , KC_SCLN  ,
+    S(KC_GRV) , S(KC_6) , KC_BSLS , S(KC_1)   , S(KC_SLSH),                            KC_SLSH     , KC_LBRC  , KC_RBRC  , KC_QUOT  , S(KC_QUOT)  ,
+    TD(ESC_CTL) , _______ , _______ , _______ , _______   , _______  ,      _______  , _______  , _______  , _______  , _______  , TD(ESC_CTL)
   ),
 
   [_MOUSE_LAYER] = LAYOUT_universal(
-    RGB_TOG  , AML_TO   , AML_I50  , AML_D50  , _______  ,                            _______  , _______  , SSNP_HOR , SSNP_VRT , SSNP_FRE ,
-    RGB_MOD  , RGB_HUI  , RGB_SAI  , RGB_VAI  , SCRL_DVI ,                            _______  , _______  , _______  , _______  , _______  ,
-    RGB_RMOD , RGB_HUD  , RGB_SAD  , RGB_VAD  , SCRL_DVD ,                            CPI_D1K  , CPI_D100 , CPI_I100 , CPI_I1K  , KBC_SAVE ,
-    QK_BOOT  , KBC_RST  , _______  , _______  , _______  , _______  ,      _______  , _______  , _______  , _______  , KBC_RST  , QK_BOOT
+    KC_CAPS  , KC_F7   , KC_F8  , KC_F9  , KC_F11  ,                            SSNP_VRT  , SSNP_HOR  , SSNP_FRE , _______ , _______ ,
+    KC_F10  , KC_F4  , KC_F5  , KC_F6  , KC_F12 ,                            _______  , _______  , _______  , _______  , _______  ,
+    _______ , KC_F1  , KC_F2  , KC_F3  , KC_PSCR ,                            _______  , C(KC_T) , C(KC_W) , _______  , RCS(KC_T) ,
+    TD(ESC_CTL)  , _______  , _______  , _______  , _______  , _______  ,      _______  , _______  , _______  , _______  , _______ , TD(ESC_CTL)
   ),
 };
 // clang-format on
@@ -73,12 +71,12 @@ void keyboard_post_init_user(void) {
 }
 
 bool led_update_user(led_t led_state) {
-    rgblight_set_layer_state(1, led_state.caps_lock);
+    rgblight_set_layer_state(LAYER_LIGHTING::CAPSLOCK, led_state.caps_lock);
     return true;
 }
 
 layer_state_t default_layer_state_set_user(layer_state_t state) {
-    rgblight_set_layer_state(0, layer_state_cmp(state, _DEFAULT_LAYER));
+    rgblight_set_layer_state(LAYER_LIGHTING::DEFAULT, layer_state_cmp(state, _DEFAULT_LAYER));
     return state;
 }
 
@@ -86,18 +84,29 @@ layer_state_t layer_state_set_user(layer_state_t state) {
     // Auto enable scroll mode when the highest layer is 3
     keyball_set_scroll_mode(get_highest_layer(state) == _MOUSE_LAYER);
 
-    rgblight_set_layer_state(2, layer_state_cmp(state, _OPERATION_LAYER));
-    rgblight_set_layer_state(3, layer_state_cmp(state, _SYMBOL_LAYER));
-    rgblight_set_layer_state(4, layer_state_cmp(state, _MOUSE_LAYER));
+    rgblight_set_layer_state(LAYER_LIGHTING::OPERATION, layer_state_cmp(state, _OPERATION_LAYER));
+    rgblight_set_layer_state(LAYER_LIGHTING::SYMBOL, layer_state_cmp(state, _SYMBOL_LAYER));
+
+    if (layer_state_cmp(state, _MOUSE_LAYER)) {
+        switch (keyball_get_scrollsnap_mode()) {
+            case KEYBALL_SCROLLSNAP_MODE_VERTICAL:
+                rgblight_set_layer_state(LAYER_LIGHTING::MOUSE_VRT, true);
+                break;
+            case KEYBALL_SCROLLSNAP_MODE_HORIZONTAL:
+                rgblight_set_layer_state(LAYER_LIGHTING::MOUSE_HOR, true);
+                break;
+            default:
+                rgblight_set_layer_state(LAYER_LIGHTING::MOUSE_FRE, true);
+                break;
+        }
+    }
     return state;
 }
 
 // Tap dance
 #ifdef TAP_DANCE_ENABLE
 tap_dance_action_t tap_dance_actions[] = {
-  [ESC_CTL]     = ACTION_TAP_DANCE_FN_ADVANCED(NULL,esc_finished, esc_reset),
-  [LCLICK_MLAYER] = ACTION_TAP_DANCE_FN_ADVANCED(NULL,lclick_finished, lclick_reset),
-  [RCLICK_NEWTAB] = ACTION_TAP_DANCE_FN_ADVANCED(NULL,rclick_finished, rclick_reset),
+  [ESC_CTL]     = ACTION_TAP_DANCE_FN_ADVANCED(NULL,esc_finished, esc_reset)
 };
 #endif
 

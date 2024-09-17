@@ -6,36 +6,49 @@ const rgblight_segment_t PROGMEM capslock_layer[] = RGBLIGHT_LAYER_SEGMENTS(
     {0, MAX_LEDS, HSV_RED}
 );
 
-const rgblight_segment_t PROGMEM layer_0[] = RGBLIGHT_LAYER_SEGMENTS(
+const rgblight_segment_t PROGMEM default_layer[] = RGBLIGHT_LAYER_SEGMENTS(
     {0, MAX_LEDS, HSV_PURPLE}
 );
 
-const rgblight_segment_t PROGMEM layer_1[] = RGBLIGHT_LAYER_SEGMENTS(
-    {0, MAX_LEDS, HSV_CYAN}
+const rgblight_segment_t PROGMEM operation_layer[] = RGBLIGHT_LAYER_SEGMENTS(
+    {0, MAX_LEDS, HSV_AZURE}
 );
 
-const rgblight_segment_t PROGMEM layer_2[] = RGBLIGHT_LAYER_SEGMENTS(
-    {0, MAX_LEDS, HSV_GOLD}
+const rgblight_segment_t PROGMEM symbol_layer[] = RGBLIGHT_LAYER_SEGMENTS(
+    {0, MAX_LEDS, HSV_CORAL}
 );
 
-const rgblight_segment_t PROGMEM layer_3_vrt[] = RGBLIGHT_LAYER_SEGMENTS(
-    {0, MAX_LEDS, HSV_SPRINGGREEN}
+const rgblight_segment_t PROGMEM mouse_layer_vrt[] = RGBLIGHT_LAYER_SEGMENTS(
+    {0, MAX_LEDS, HSV_GREEN}
 );
 
-const rgblight_segment_t PROGMEM layer_3_hor[] = RGBLIGHT_LAYER_SEGMENTS(
+const rgblight_segment_t PROGMEM mouse_layer_hor[] = RGBLIGHT_LAYER_SEGMENTS(
     {0, MAX_LEDS, HSV_ORANGE}
 );
 
-const rgblight_segment_t PROGMEM layer_3_fre[] = RGBLIGHT_LAYER_SEGMENTS(
+const rgblight_segment_t PROGMEM mouse_layer_fre[] = RGBLIGHT_LAYER_SEGMENTS(
     {0, MAX_LEDS, HSV_PINK}
 );
 
+namespace LAYER_LIGHTING{
+    enum layer_lighting_number {
+        DEFAULT = 0,
+        CAPSLOCK,
+        MOUSE_VRT,
+        MOUSE_HOR,
+        MOUSE_FRE
+        OPERATION,
+        SYMBOL,
+    };
+}
+
+
 const rgblight_segment_t* const PROGMEM light_layers[] = {
-    layer_0,
+    default_layer,
     capslock_layer,
-    layer_1,
-    layer_2,
-    layer_3_vrt,
-    layer_3_hor,
-    layer_3_fre
+    mouse_layer_vrt,
+    mouse_layer_hor,
+    mouse_layer_fre,
+    operation_layer,
+    symbol_layer
 };
