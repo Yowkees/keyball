@@ -39,28 +39,28 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     KC_Q     , KC_W     , KC_E     , KC_R     , KC_T     ,                            KC_Y     , KC_U     , KC_I     , KC_O     , KC_P     ,
     KC_A     , KC_S     , KC_D     , KC_F     , KC_G     ,                            KC_H     , KC_J     , KC_K     , KC_L     , KC_DOT  ,
     KC_Z     , KC_X     , KC_C     , KC_V     , KC_B     ,                            KC_N     , KC_M     , KC_BTN1 , LT(3,KC_BTN2)   , KC_COMM  ,
-    TD(CTL_ALT)  , KC_LGUI  , KC_ESC  ,LT(3,KC_TAB),LT(1,KC_SPC),LT(2,KC_DELETE),                 LT(1,KC_ENT),LT(2,KC_BSPC),_______,_______,_______, TD(ESC_CTL)
+    TD(CTL_ALT)  , KC_LGUI  , KC_ESC  ,LT(3,KC_TAB),LT(1,KC_SPC),LT(2,KC_DELETE),                 LT(1,KC_ENT),LT(2,KC_BSPC),_______,_______,_______, TD(CTL_ALT)
   ),
 
   [_OPERATION_LAYER] = LAYOUT_universal(
     _______  , KC_7  , KC_8 , KC_9 , S(KC_SCLN) ,                           C(KC_HOME) , C(KC_PGDN) , C(KC_PGUP) , C(KC_END), _______   ,
     KC_0     , KC_4  , KC_5 , KC_6 , KC_MINUS   ,                           KC_LEFT, KC_DOWN  , KC_UP  , KC_RIGHT  , _______  ,
     _______  , KC_1  , KC_2 , KC_3 , KC_DOT     ,                           KC_HOME  , KC_PGDN   , KC_PGUP  , KC_END  , _______   ,
-    TD(ESC_CTL)  , _______   , _______  , _______  , _______  , _______  ,               _______  ,_______ , _______  , _______  , _______  , TD(ESC_CTL)
+    TD(CTL_ALT)  , _______   , _______  , _______  , _______  , _______  ,               _______  ,_______ , _______  , _______  , _______  , TD(CTL_ALT)
   ),
 
   [_SYMBOL_LAYER] = LAYOUT_universal(
     KC_GRV    , S(KC_4) , S(KC_5) , S(KC_7)   , S(KC_BSLS),                            S(KC_MINUS) , S(KC_LBRC)  , S(KC_RBRC)  , S(KC_COMM)  , S(KC_DOT)  ,
     S(KC_2)   , S(KC_3) , S(KC_8) , S(KC_EQL) , KC_EQL    ,                            KC_MINUS    , S(KC_9)  , S(KC_0)  , S(KC_SCLN)  , KC_SCLN  ,
     S(KC_GRV) , S(KC_6) , KC_BSLS , S(KC_1)   , S(KC_SLSH),                            KC_SLSH     , KC_LBRC  , KC_RBRC  , KC_QUOT  , S(KC_QUOT)  ,
-    TD(ESC_CTL) , _______ , _______ , _______ , _______   , _______  ,      _______  , _______  , _______  , _______  , _______  , TD(ESC_CTL)
+    TD(CTL_ALT) , _______ , _______ , _______ , _______   , _______  ,      _______  , _______  , _______  , _______  , _______  , TD(CTL_ALT)
   ),
 
   [_MOUSE_LAYER] = LAYOUT_universal(
     KC_CAPS  , KC_F7   , KC_F8  , KC_F9  , KC_F11  ,                            SSNP_VRT  , SSNP_HOR  , SSNP_FRE , _______ , _______ ,
     KC_F10  , KC_F4  , KC_F5  , KC_F6  , KC_F12 ,                            _______  , _______  , _______  , _______  , _______  ,
     _______ , KC_F1  , KC_F2  , KC_F3  , KC_PSCR ,                            _______  , C(KC_T) , C(KC_W) , _______  , RCS(KC_T) ,
-    TD(ESC_CTL)  , _______  , _______  , _______  , _______  , _______  ,      _______  , _______  , _______  , _______  , _______ , TD(ESC_CTL)
+    TD(CTL_ALT)  , _______  , _______  , _______  , _______  , _______  ,      _______  , _______  , _______  , _______  , _______ , TD(CTL_ALT)
   ),
 };
 // clang-format on
