@@ -28,7 +28,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #ifdef TAP_DANCE_ENABLE
 //Tap dance enums
 enum {
-  CTL_ALT = 0
+  CTL_ALT = 0,
+  ENTER_LAYER
 };
 #endif
 
@@ -97,7 +98,8 @@ layer_state_t layer_state_set_user(layer_state_t state) {
 // Tap dance
 #ifdef TAP_DANCE_ENABLE
 tap_dance_action_t tap_dance_actions[] = {
-  [CTL_ALT]     = ACTION_TAP_DANCE_FN_ADVANCED(NULL,ctlalt_finished, ctlalt_reset)
+  [CTL_ALT]     = ACTION_TAP_DANCE_FN_ADVANCED(NULL,ctlalt_finished, ctlalt_reset),
+  [ENTER_LAYER] = ACTION_TAP_DANCE_FN_ADVANCED(NULL,enter_layer_finished, enter_layer_reset)
 };
 #endif
 

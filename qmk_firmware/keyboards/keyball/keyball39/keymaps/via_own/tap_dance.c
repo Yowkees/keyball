@@ -110,44 +110,49 @@ void ctlalt_reset (tap_dance_state_t *state, void *user_data) {
 }
 
 // Left Click Mouse Layer
-static td_tap_t lclick_tap_state = {
+static td_tap_t enter_layer_tap_state = {
     .is_press_action = true,
     .state = TD_NONE
 };
 
-void lclick_finished (tap_dance_state_t *state, void *user_data) {
-    lclick_tap_state.state = cur_dance(state);
-    switch (lclick_tap_state.state) {
+void enter_layer_finished (tap_dance_state_t *state, void *user_data) {
+    enter_layer_tap_state.state = cur_dance(state);
+    switch (enter_layer_tap_state.state) {
         case TD_SINGLE_TAP:
-            tap_code(KC_BTN1);
+            register_code(KC_ENT);
             break;
         case TD_SINGLE_HOLD:
-            register_code(KC_BTN1);
+            layer_on(_OPERATION_LAYER);
             break;
         case TD_DOUBLE_TAP:
-            tap_code(KC_BTN1);
-            tap_code(KC_BTN1);
+            tap_code(KC_ENT);
+            register_code(KC_ENT);
             break;
         case TD_DOUBLE_HOLD:
-            layer_on(_MOUSE_LAYER);
+            register_code(KC_LGUI);
+            layer_on(_OPERATION_LAYER);
             break;
         default:
             break;
     }
 }
 
-void lclick_reset (tap_dance_state_t *state, void *user_data) {
-    switch (lclick_tap_state.state) {
+void enter_layer_reset (tap_dance_state_t *state, void *user_data) {
+    switch (enter_layer_tap_state.state) {
+        case TD_SINGLE_TAP:
+        case TD_DOUBLE_TAP:
+            unregister_code(KC_ENT);
         case TD_SINGLE_HOLD:
-            unregister_code(KC_BTN1);
+            layer_off(_OPERATION_LAYER);
             break;
         case TD_DOUBLE_HOLD:
-            layer_off(_MOUSE_LAYER);
+            unregister_code(KC_LGUI);
+            layer_off(_OPERATION_LAYER);
             break;
         default:
             break;
     }
-    lclick_tap_state.state = TD_NONE;
+    enter_layer_tap_state.state = TD_NONE;
 }
 
 // RIGHT Click New tab
