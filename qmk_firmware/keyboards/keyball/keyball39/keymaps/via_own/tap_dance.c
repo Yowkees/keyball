@@ -69,7 +69,7 @@ void ctlalt_finished (tap_dance_state_t *state, void *user_data) {
             register_code(KC_LCTL);
             break;
         case TD_DOUBLE_TAP:
-            register_code(KC_LALT);
+            register_code(KC_ESC);
             break;
         case TD_DOUBLE_HOLD:
             register_code(KC_LALT);
@@ -95,7 +95,7 @@ void ctlalt_reset (tap_dance_state_t *state, void *user_data) {
             unregister_code(KC_LCTL);
             break;
         case TD_DOUBLE_TAP:
-            unregister_code(KC_LALT);
+            unregister_code(KC_ESC);
             break;
         case TD_DOUBLE_HOLD:
             unregister_code(KC_LALT);

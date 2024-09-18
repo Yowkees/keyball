@@ -28,7 +28,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #ifdef TAP_DANCE_ENABLE
 //Tap dance enums
 enum {
-  CTL_ALT = 0,
+  CTL_ALT = 0,  // 0x5700
   ENTER_LAYER
 };
 #endif
@@ -40,7 +40,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     KC_Q     , KC_W     , KC_E     , KC_R     , KC_T     ,                            KC_Y     , KC_U     , KC_I     , KC_O     , KC_P     ,
     KC_A     , KC_S     , KC_D     , KC_F     , KC_G     ,                            KC_H     , KC_J     , KC_K     , KC_L     , KC_DOT  ,
     KC_Z     , KC_X     , KC_C     , KC_V     , KC_B     ,                            KC_N     , KC_M     , KC_BTN1 , LT(3,KC_BTN2)   , KC_COMM  ,
-    TD(CTL_ALT)  , KC_LGUI  , KC_ESC  ,LT(3,KC_TAB),LT(1,KC_SPC),LT(2,KC_DELETE),                 LT(1,KC_ENT),LT(2,KC_BSPC),_______,_______,_______, TD(CTL_ALT)
+    TD(CTL_ALT)  , KC_LGUI  , KC_LSFT  ,LT(3,KC_TAB),LT(1,KC_SPC),LT(2,KC_DELETE),                 TD(ENTER_LAYER),LT(2,KC_BSPC),_______,_______,_______, CW_TOGG
   ),
 
   [_OPERATION_LAYER] = LAYOUT_universal(
@@ -58,10 +58,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   ),
 
   [_MOUSE_LAYER] = LAYOUT_universal(
-    KC_CAPS  , KC_F7   , KC_F8  , KC_F9  , KC_F11  ,                            SSNP_VRT  , SSNP_HOR  , SSNP_FRE , _______ , _______ ,
-    KC_F10  , KC_F4  , KC_F5  , KC_F6  , KC_F12 ,                            _______  , _______  , _______  , _______  , _______  ,
+    KC_CAPS  , KC_F7   , KC_F8  , KC_F9  , KC_F11  ,                            _______  , _______  , _______ , _______ , QK_BOOT ,
+    KC_F10  , KC_F4  , KC_F5  , KC_F6  , KC_F12 ,                            _______  , C(KC_PGUP)  , C(KC_PGDN)  , SSNP_CYC  , _______  ,
     _______ , KC_F1  , KC_F2  , KC_F3  , KC_PSCR ,                            RCS(KC_T)  , C(KC_T) , C(KC_W) , _______  , RCS(KC_BTN1) ,
-    TD(CTL_ALT)  , _______  , _______  , _______  , _______  , _______  ,      KC_BTN5  , KC_BTN4  , _______  , _______  , _______ , TD(CTL_ALT)
+    TD(CTL_ALT)  , _______  , _______  , SSNP_VRT  , SSNP_HOR  , SSNP_FRE  ,      KC_BTN5  , KC_BTN4  , _______  , _______  , _______ , TD(CTL_ALT)
   ),
 };
 // clang-format on

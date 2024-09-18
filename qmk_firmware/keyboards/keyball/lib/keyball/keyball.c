@@ -729,6 +729,9 @@ bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
             case SSNP_FRE:
                 keyball_set_scrollsnap_mode(KEYBALL_SCROLLSNAP_MODE_FREE);
                 break;
+            case SSNP_CYC:
+                keyball_set_scrollsnap_mode((keyball_get_scrollsnap_mode() + 1) % (KEYBALL_SCROLLSNAP_MODE_FREE + 1));
+                break;
 #endif
 
 #ifdef POINTING_DEVICE_AUTO_MOUSE_ENABLE
