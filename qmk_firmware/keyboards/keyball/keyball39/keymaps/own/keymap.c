@@ -100,7 +100,8 @@ layer_state_t layer_state_set_user(layer_state_t state) {
 #ifdef TAP_DANCE_ENABLE
 tap_dance_action_t tap_dance_actions[] = {
   [CTL_ALT]     = ACTION_TAP_DANCE_FN_ADVANCED(NULL,ctlalt_finished, ctlalt_reset),
-  [ENTER_LAYER] = ACTION_TAP_DANCE_FN_ADVANCED(NULL,enter_layer_finished, enter_layer_reset)
+  [ENTER_LAYER] = ACTION_TAP_DANCE_FN_ADVANCED(NULL,enter_layer_finished, enter_layer_reset),
+  [Q_ESC]       = ACTION_TAP_DANCE_FN_ADVANCED(NULL,q_esc_finished, q_esc_reset),
 };
 #endif
 
