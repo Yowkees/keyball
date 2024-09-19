@@ -29,7 +29,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 //Tap dance enums
 enum {
   CTL_ALT = 0,  // 0x5700
-  ENTER_LAYER
+  ENTER_LAYER,
+  Q_ESC
 };
 #endif
 
@@ -37,7 +38,7 @@ enum {
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   // keymap for default (VIA)
   [_DEFAULT_LAYER] = LAYOUT_universal(
-    KC_Q     , KC_W     , KC_E     , KC_R     , KC_T     ,                            KC_Y     , KC_U     , KC_I     , KC_O     , KC_P     ,
+    TD(Q_ESC)     , KC_W     , KC_E     , KC_R     , KC_T     ,                            KC_Y     , KC_U     , KC_I     , KC_O     , KC_P     ,
     KC_A     , KC_S     , KC_D     , KC_F     , KC_G     ,                            KC_H     , KC_J     , KC_K     , KC_L     , KC_DOT  ,
     KC_Z     , KC_X     , KC_C     , KC_V     , KC_B     ,                            KC_N     , KC_M     , KC_BTN1 , LT(3,KC_BTN2)   , KC_COMM  ,
     TD(CTL_ALT)  , KC_LGUI  , KC_LSFT  ,LT(3,KC_TAB),LT(1,KC_SPC),LT(2,KC_DELETE),                 TD(ENTER_LAYER),LT(2,KC_BSPC),_______,_______,_______, CW_TOGG

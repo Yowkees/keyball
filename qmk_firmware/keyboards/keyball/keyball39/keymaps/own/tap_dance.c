@@ -62,14 +62,15 @@ void ctlalt_finished (tap_dance_state_t *state, void *user_data) {
     esc_tap_state.state = cur_dance(state);
     switch (esc_tap_state.state) {
         case TD_SINGLE_TAP:
-            register_code(KC_LCTL);
-            register_code(KC_SPC);
+            tap_code(AS_ON);
+            register_code(KC_LNG1);
             break;
         case TD_SINGLE_HOLD:
             register_code(KC_LCTL);
             break;
         case TD_DOUBLE_TAP:
-            register_code(KC_ESC);
+            tap_code(AS_OFF);
+            register_code(KC_LNG2);
             break;
         case TD_DOUBLE_HOLD:
             register_code(KC_LALT);
@@ -156,41 +157,47 @@ void enter_layer_reset (tap_dance_state_t *state, void *user_data) {
 }
 
 // RIGHT Click New tab
-static td_tap_t rclick_tap_state = {
+static td_tap_t q_esc_tap_state = {
     .is_press_action = true,
     .state = TD_NONE
 };
 
-void rclick_finished (tap_dance_state_t *state, void *user_data) {
-    rclick_tap_state.state = cur_dance(state);
-    switch (rclick_tap_state.state) {
+void q_esc_finished (tap_dance_state_t *state, void *user_data) {
+    q_esc_tap_state.state = cur_dance(state);
+    switch (q_esc_tap_state.state) {
         case TD_SINGLE_TAP:
         case TD_SINGLE_HOLD:
-            register_code(KC_BTN2);
+            register_code(KC_Q);
             break;
         case TD_DOUBLE_TAP:
-            register_code(KC_LCTL);
-            register_code(KC_LSFT);
-            register_code(KC_BTN1);
+            register_code(KC_ESC);
             break;
-        default: break;
+        case TD_DOUBLE_HOLD:
+            register_code(KC_ESC);
+            break;
+        case TD_DOUBLE_SINGLE_TAP:
+            tap_code(KC_Q);
+            register_code(KC_Q);
+            break;
+        default:
+            break;
     }
 }
 
-void rclick_reset (tap_dance_state_t *state, void *user_data) {
-    switch (rclick_tap_state.state) {
+void q_esc_reset (tap_dance_state_t *state, void *user_data) {
+    switch (q_esc_tap_state.state) {
         case TD_SINGLE_TAP:
         case TD_SINGLE_HOLD:
-            unregister_code(KC_BTN2);
+        case TD_DOUBLE_SINGLE_TAP:
+            unregister_code(KC_Q);
             break;
         case TD_DOUBLE_TAP:
-            unregister_code(KC_BTN1);
-            unregister_code(KC_LSFT);
-            unregister_code(KC_LCTL);
+        case TD_DOUBLE_HOLD:
+            unregister_code(KC_ESC);
             break;
         default: break;
     }
-    rclick_tap_state.state = TD_NONE;
+    q_esc_tap_state.state = TD_NONE;
 }
 
 

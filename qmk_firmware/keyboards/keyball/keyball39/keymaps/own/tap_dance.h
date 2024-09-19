@@ -25,5 +25,5 @@ void ctlalt_reset (tap_dance_state_t *state, void *user_data);
 void enter_layer_finished (tap_dance_state_t *state, void *user_data);
 void enter_layer_reset (tap_dance_state_t *state, void *user_data);
 
-void rclick_finished (tap_dance_state_t *state, void *user_data);
-void rclick_reset (tap_dance_state_t *state, void *user_data);
+void q_esc_finished (tap_dance_state_t *state, void *user_data);
+void q_esc_reset (tap_dance_state_t *state, void *user_data);
