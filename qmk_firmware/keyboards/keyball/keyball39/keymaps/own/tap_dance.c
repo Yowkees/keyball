@@ -69,7 +69,7 @@ void ctlalt_finished (tap_dance_state_t *state, void *user_data) {
             register_code(KC_LCTL);
             break;
         case TD_DOUBLE_TAP:
-            auto_shift_disable();
+            autoshift_disable();
             register_code(KC_LNG2);
             break;
         case TD_DOUBLE_HOLD:
