@@ -89,14 +89,13 @@ void ctlalt_finished (tap_dance_state_t *state, void *user_data) {
 void ctlalt_reset (tap_dance_state_t *state, void *user_data) {
     switch (esc_tap_state.state) {
         case TD_SINGLE_TAP:
-            unregister_code(KC_SPC);
-            unregister_code(KC_LCTL);
+            unregister_code(KC_LNG1);
             break;
         case TD_SINGLE_HOLD:
             unregister_code(KC_LCTL);
             break;
         case TD_DOUBLE_TAP:
-            unregister_code(KC_ESC);
+            unregister_code(KC_LNG2);
             break;
         case TD_DOUBLE_HOLD:
             unregister_code(KC_LALT);
