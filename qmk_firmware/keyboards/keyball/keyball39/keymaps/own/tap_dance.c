@@ -63,14 +63,14 @@ void ctlalt_finished (tap_dance_state_t *state, void *user_data) {
     switch (esc_tap_state.state) {
         case TD_SINGLE_TAP:
             autoshift_enable();
-            register_code(KC_LNG1);
+            register_code(KC_LNG2);
             break;
         case TD_SINGLE_HOLD:
             register_code(KC_LCTL);
             break;
         case TD_DOUBLE_TAP:
             autoshift_disable();
-            register_code(KC_LNG2);
+            register_code(KC_LNG1);
             break;
         case TD_DOUBLE_HOLD:
             register_code(KC_LALT);
