@@ -41,7 +41,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 // #define AUTO_MOUSE_DEFAULT_LAYER 1
 
 #define OLED_TIMEOUT 3000 // ミリ秒
-#define TAPPING_TERM 200 // ミリ秒
+#define TAPPING_TERM 150 // ミリ秒
 #define HOLD_ON_OTHER_KEY_PRESS
 
 #define AUTO_SHIFT_TIMEOUT 250
