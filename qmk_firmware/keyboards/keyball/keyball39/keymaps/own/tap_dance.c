@@ -99,7 +99,7 @@ void lang1_mouse_layer_finished (tap_dance_state_t *state, void *user_data) {
     lang1_mouse_layer_state.state = cur_dance(state);
     switch (lang1_mouse_layer_state.state) {
         case TD_SINGLE_TAP:
-            autoshift_enable();
+            autoshift_disable();
             register_code(KC_LNG1);
             break;
         case TD_SINGLE_HOLD:
