@@ -61,7 +61,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [_MOUSE_LAYER] = LAYOUT_universal(
     KC_F5  , KC_F6   , KC_F7  , KC_F8  , KC_F9  ,                            _______  , _______  , _______ , _______ , QK_BOOT ,
     KC_F10 , KC_F1  , KC_F2  , KC_F3  , KC_F4 ,                            SSNP_CYC  , C(KC_PGUP)  , C(KC_PGDN)  , _______  , _______  ,
-    _______ , _______  , _______  , KC_F11  , KC_F12 ,                            RCS(KC_T)  , C(KCT) , C(KC_W) , _______  , RCS(KC_BTN1) ,
+    _______ , _______  , _______  , KC_F11  , KC_F12 ,                            RCS(KC_T)  , C(KC_T) , C(KC_W) , _______  , RCS(KC_BTN1) ,
     KC_LCTL  , _______  , _______  , _______  , _______  , KC_DELETE  ,      KC_BTN5  , KC_BTN4  , _______  , _______  , _______ , SCRL_TO
   ),
 };
