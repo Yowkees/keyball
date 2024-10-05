@@ -52,32 +52,21 @@ td_state_t cur_dance(tap_dance_state_t *state) {
     } else return TD_UNKNOWN;
 }
 
-// ESC Control ALT
-static td_tap_t esc_tap_state = {
+// set LANG1 and enable auto shift
+static td_tap_t lang2_ctl_state = {
     .is_press_action = true,
     .state = TD_NONE
 };
 
-void ctlalt_finished (tap_dance_state_t *state, void *user_data) {
-    esc_tap_state.state = cur_dance(state);
-    switch (esc_tap_state.state) {
+void lang2_ctl_finished (tap_dance_state_t *state, void *user_data) {
+    lang2_ctl_state.state = cur_dance(state);
+    switch (lang2_ctl_state.state) {
         case TD_SINGLE_TAP:
             autoshift_enable();
             register_code(KC_LNG2);
             break;
         case TD_SINGLE_HOLD:
             register_code(KC_LCTL);
-            break;
-        case TD_DOUBLE_TAP:
-            autoshift_disable();
-            register_code(KC_LNG1);
-            break;
-        case TD_DOUBLE_HOLD:
-            register_code(KC_LALT);
-            break;
-        case TD_DOUBLE_SINGLE_TAP:
-            tap_code(KC_LALT);
-            register_code(KC_LALT);
             break;
         default: break;
         //Last case is for fast typing. Assuming your key is `f`:
@@ -86,115 +75,53 @@ void ctlalt_finished (tap_dance_state_t *state, void *user_data) {
     }
 }
 
-void ctlalt_reset (tap_dance_state_t *state, void *user_data) {
-    switch (esc_tap_state.state) {
+void lang2_ctl_reset (tap_dance_state_t *state, void *user_data) {
+    switch (lang2_ctl_state.state) {
         case TD_SINGLE_TAP:
             unregister_code(KC_LNG2);
             break;
         case TD_SINGLE_HOLD:
             unregister_code(KC_LCTL);
             break;
-        case TD_DOUBLE_TAP:
-            unregister_code(KC_LNG1);
-            break;
-        case TD_DOUBLE_HOLD:
-            unregister_code(KC_LALT);
-            break;
-        case TD_DOUBLE_SINGLE_TAP:
-            unregister_code(KC_LALT);
-            break;
         default:
             break;
-  }
-  esc_tap_state.state = TD_NONE;
+    }
+    lang2_ctl_state.state = TD_NONE;
 }
 
-// Left Click Mouse Layer
-static td_tap_t enter_layer_tap_state = {
+// set LANG2 and disable auto shift
+static td_tap_t lang1_mouse_layer_state = {
     .is_press_action = true,
     .state = TD_NONE
 };
 
-void enter_layer_finished (tap_dance_state_t *state, void *user_data) {
-    enter_layer_tap_state.state = cur_dance(state);
-    switch (enter_layer_tap_state.state) {
+void lang1_mouse_layer_finished (tap_dance_state_t *state, void *user_data) {
+    lang1_mouse_layer_state.state = cur_dance(state);
+    switch (lang1_mouse_layer_state.state) {
         case TD_SINGLE_TAP:
-            register_code(KC_ENT);
+            autoshift_enable();
+            register_code(KC_LNG1);
             break;
         case TD_SINGLE_HOLD:
-            layer_on(_OPERATION_LAYER);
-            break;
-        case TD_DOUBLE_TAP:
-            tap_code(KC_ENT);
-            register_code(KC_ENT);
-            break;
-        case TD_DOUBLE_HOLD:
-            register_code(KC_LGUI);
-            layer_on(_OPERATION_LAYER);
-            break;
-        default:
-            break;
-    }
-}
-
-void enter_layer_reset (tap_dance_state_t *state, void *user_data) {
-    switch (enter_layer_tap_state.state) {
-        case TD_SINGLE_TAP:
-        case TD_DOUBLE_TAP:
-            unregister_code(KC_ENT);
-        case TD_SINGLE_HOLD:
-            layer_off(_OPERATION_LAYER);
-            break;
-        case TD_DOUBLE_HOLD:
-            unregister_code(KC_LGUI);
-            layer_off(_OPERATION_LAYER);
-            break;
-        default:
-            break;
-    }
-    enter_layer_tap_state.state = TD_NONE;
-}
-
-// RIGHT Click New tab
-static td_tap_t shift_esc_tap_state = {
-    .is_press_action = true,
-    .state = TD_NONE
-};
-
-void shift_esc_finished (tap_dance_state_t *state, void *user_data) {
-    shift_esc_tap_state.state = cur_dance(state);
-    switch (shift_esc_tap_state.state) {
-        case TD_SINGLE_TAP:
-            register_code(KC_ESC);
-            break;
-        case TD_DOUBLE_TAP:
-        case TD_DOUBLE_SINGLE_TAP:
-            tap_code(KC_ESC);
-            register_code(KC_ESC);
-            break;
-        case TD_SINGLE_HOLD:
-        case TD_DOUBLE_HOLD:
-            register_code(KC_LSFT);
-            break;
-        default:
-            break;
-    }
-}
-
-void shift_esc_reset (tap_dance_state_t *state, void *user_data) {
-    switch (shift_esc_tap_state.state) {
-        case TD_SINGLE_TAP:
-        case TD_DOUBLE_TAP:
-        case TD_DOUBLE_SINGLE_TAP:
-            unregister_code(KC_ESC);
-            break;
-        case TD_SINGLE_HOLD:
-        case TD_DOUBLE_HOLD:
-            unregister_code(KC_LSFT);
+            layer_on(_MOUSE_LAYER);
             break;
         default: break;
+        //Last case is for fast typing. Assuming your key is `f`:
+        //For example, when typing the word `buffer`, and you want to make sure that you send `ff` and not `Esc`.
+        //In order to type `ff` when typing fast, the next character will have to be hit within the `TAPPING_TERM`, which by default is 200ms.
     }
-    shift_esc_tap_state.state = TD_NONE;
 }
 
-
+void lang1_mouse_layer_reset (tap_dance_state_t *state, void *user_data) {
+    switch (lang1_mouse_layer_state.state) {
+        case TD_SINGLE_TAP:
+            unregister_code(KC_LNG1);
+            break;
+        case TD_SINGLE_HOLD:
+            layer_off(_MOUSE_LAYER);
+            break;
+        default:
+            break;
+    }
+    lang1_mouse_layer_state.state = TD_NONE;
+}

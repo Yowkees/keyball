@@ -19,11 +19,8 @@ typedef struct {
 
 td_state_t cur_dance (tap_dance_state_t *state);
 
-void ctlalt_finished (tap_dance_state_t *state, void *user_data);
-void ctlalt_reset (tap_dance_state_t *state, void *user_data);
+void lang1_mouse_layer_finished (tap_dance_state_t *state, void *user_data);
+void lang1_mouse_layer_reset (tap_dance_state_t *state, void *user_data);
 
-void enter_layer_finished (tap_dance_state_t *state, void *user_data);
-void enter_layer_reset (tap_dance_state_t *state, void *user_data);
-
-void shift_esc_finished (tap_dance_state_t *state, void *user_data);
-void shift_esc_reset (tap_dance_state_t *state, void *user_data);
+void lang2_ctl_finished (tap_dance_state_t *state, void *user_data);
+void lang2_ctl_reset (tap_dance_state_t *state, void *user_data);

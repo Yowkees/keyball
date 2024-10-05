@@ -28,9 +28,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #ifdef TAP_DANCE_ENABLE
 //Tap dance enums
 enum {
-  CTL_ALT = 0,  // 0x5700
-  ENTER_LAYER,
-  SHIFT_ESC
+  LANG1_MOUSE_LAYER = 0,  // 0x5700
+  LANG2_CTL
 };
 #endif
 
@@ -40,29 +39,30 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [_DEFAULT_LAYER] = LAYOUT_universal(
     KC_Q     , KC_W     , KC_E     , KC_R     , KC_T     ,                            KC_Y     , KC_U     , KC_I     , KC_O     , KC_P     ,
     KC_A     , KC_S     , KC_D     , KC_F     , KC_G     ,                            KC_H     , KC_J     , KC_K     , KC_L     , KC_DOT  ,
-    KC_Z     , KC_X     , KC_C     , KC_V     , KC_B     ,                            KC_N     , KC_M     , KC_BTN1 , LT(3,KC_BTN2)   , KC_COMM  ,
-    TD(CTL_ALT)  , KC_LGUI  , TD(SHIFT_ESC)  ,LT(3,KC_TAB),LT(1,KC_SPC),LT(2,KC_DELETE),                 TD(ENTER_LAYER),LT(2,KC_BSPC),_______,_______,_______, CW_TOGG
+    KC_Z     , KC_X     , KC_C     , KC_V     , KC_B     ,                            KC_N     , KC_M     , KC_BTN1 , LT(_MOUSE_LAYER,KC_BTN2)   , KC_COMM  ,
+    TD(LANG2_CTL)  , KC_LGUI  , LSFT_T(KC_ESC)  ,LT(_OPERATION_LAYER,KC_TAB),LT(_SYMBOL_LAYER,KC_SPC),TD(LANG1_MOUSE_LAYER),                 LT(_OPERATION_LAYER, KC_ENT),LT(_SYMBOL_LAYER,KC_BSPC),_______,_______,_______, RALT_T(CW_TOGG)
   ),
 
   [_OPERATION_LAYER] = LAYOUT_universal(
-    _______  , KC_7  , KC_8 , KC_9 , S(KC_SCLN) ,                           C(KC_HOME) , C(KC_PGDN) , C(KC_PGUP) , C(KC_END), _______   ,
-    KC_0     , KC_4  , KC_5 , KC_6 , KC_MINUS   ,                           KC_LEFT, KC_DOWN  , KC_UP  , KC_RIGHT  , _______  ,
-    _______  , KC_1  , KC_2 , KC_3 , KC_DOT     ,                           KC_HOME  , KC_PGDN   , KC_PGUP  , KC_END  , _______   ,
-    TD(CTL_ALT)  , _______   , _______  , _______  , _______  , _______  ,               _______  ,_______ , _______  , _______  , _______  , TD(CTL_ALT)
+    KC_5  , KC_6  , KC_7 , KC_8 , KC_9 ,                           C(KC_HOME) , C(KC_PGDN) , C(KC_PGUP) , C(KC_END), _______   ,
+    KC_0  , KC_1  , KC_2 , KC_3 , KC_4   ,                           KC_LEFT, KC_DOWN  , KC_UP  , KC_RIGHT  , KC_RALT  ,
+    _______  , KC_1  , KC_2 , KC_3 , KC_DOT     ,                           KC_HOME  , KC_PGDN   , KC_PGUP  , KC_END  , KC_LGUI   ,
+    KC_LCTL  , _______   , _______  , _______  , KC_BTN2  , _______  ,               _______  ,_______ , _______  , _______  , _______  , KC_RALT
   ),
+
 
   [_SYMBOL_LAYER] = LAYOUT_universal(
     KC_GRV    , S(KC_4) , S(KC_5) , S(KC_7)   , S(KC_BSLS),                            S(KC_MINUS) , S(KC_LBRC)  , S(KC_RBRC)  , S(KC_COMM)  , S(KC_DOT)  ,
     S(KC_2)   , S(KC_3) , S(KC_8) , S(KC_EQL) , KC_EQL    ,                            KC_MINUS    , S(KC_9)  , S(KC_0)  , S(KC_SCLN)  , KC_SCLN  ,
     S(KC_GRV) , S(KC_6) , KC_BSLS , S(KC_1)   , S(KC_SLSH),                            KC_SLSH     , KC_LBRC  , KC_RBRC  , KC_QUOT  , S(KC_QUOT)  ,
-    TD(CTL_ALT) , _______ , _______ , _______ , _______   , _______  ,      _______  , _______  , _______  , _______  , _______  , TD(CTL_ALT)
+    KC_LCTL , _______ , _______ , _______ , _______   , _______  ,      _______  , _______  , _______  , _______  , _______  , KC_RALT
   ),
 
   [_MOUSE_LAYER] = LAYOUT_universal(
-    KC_CAPS  , KC_F7   , KC_F8  , KC_F9  , KC_F11  ,                            _______  , _______  , _______ , _______ , QK_BOOT ,
-    KC_F10  , KC_F4  , KC_F5  , KC_F6  , KC_F12 ,                            SSNP_CYC  , C(KC_PGUP)  , C(KC_PGDN)  , _______  , _______  ,
-    _______ , KC_F1  , KC_F2  , KC_F3  , KC_PSCR ,                            RCS(KC_T)  , C(KC_T) , C(KC_W) , _______  , RCS(KC_BTN1) ,
-    TD(CTL_ALT)  , _______  , _______  , _______  , _______  , _______  ,      KC_BTN5  , KC_BTN4  , _______  , _______  , _______ , SCRL_TO
+    KC_F5  , KC_F6   , KC_F7  , KC_F8  , KC_F9  ,                            _______  , _______  , _______ , _______ , QK_BOOT ,
+    KC_F10 , KC_F1  , KC_F2  , KC_F3  , KC_F4 ,                            SSNP_CYC  , C(KC_PGUP)  , C(KC_PGDN)  , _______  , _______  ,
+    _______ , _______  , _______  , KC_F11  , KC_F12 ,                            RCS(KC_T)  , C(KCT) , C(KC_W) , _______  , RCS(KC_BTN1) ,
+    KC_LCTL  , _______  , _______  , _______  , _______  , KC_DELETE  ,      KC_BTN5  , KC_BTN4  , _______  , _______  , _______ , SCRL_TO
   ),
 };
 // clang-format on
@@ -99,9 +99,8 @@ layer_state_t layer_state_set_user(layer_state_t state) {
 // Tap dance
 #ifdef TAP_DANCE_ENABLE
 tap_dance_action_t tap_dance_actions[] = {
-  [CTL_ALT]     = ACTION_TAP_DANCE_FN_ADVANCED(NULL,ctlalt_finished, ctlalt_reset),
-  [ENTER_LAYER] = ACTION_TAP_DANCE_FN_ADVANCED(NULL,enter_layer_finished, enter_layer_reset),
-  [SHIFT_ESC]       = ACTION_TAP_DANCE_FN_ADVANCED(NULL,shift_esc_finished, shift_esc_reset),
+  [LANG1_MOUSE_LAYER] = ACTION_TAP_DANCE_FN_ADVANCED(NULL,lang1_mouse_layer_finished, lang1_mouse_layer_reset),
+  [LANG2_CTL] = ACTION_TAP_DANCE_FN_ADVANCED(NULL,lang2_ctl_finished, lang2_ctl_reset),
 };
 #endif
 
