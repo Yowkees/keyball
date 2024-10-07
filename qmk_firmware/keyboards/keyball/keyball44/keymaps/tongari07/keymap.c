@@ -27,12 +27,12 @@ enum custom_keycodes {
 
 enum layer_number {
   _MAC_LAYER = 0,
+  _WIN_LAYER,
+  _GAME_LAYER
   _SYMBOL_LAYER,
   _OS_LAYER,
   _NUM_LAYER,
   _MOUSE_LAYER,
-  _WIN_LAYER,
-  _GAME_LAYER
 };
 
 // clang-format off
@@ -43,6 +43,23 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     KC_LSFT   , KC_A     , KC_S     , KC_D     , KC_F     , KC_G     ,                                        KC_H     , KC_J     , KC_K     , KC_L     , KC_P  ,  KC_EQUAL ,
     KC_LALT  , KC_Z     , KC_X     , KC_C     , KC_V     , KC_B     ,                                        KC_B     , KC_N     , KC_M,KC_COMM  , KC_DOT   , S(KC_EQUAL) ,
               SWITCH_LAYER,KC_NO,LT(1, KC_SPC)     ,KC_LEFT_GUI,LT(3,KC_LNG2),                  KC_LNG1,MO(2), KC_NO,     KC_NO  , MO(3)
+  ),
+
+  // default keymap for Windows OS
+  [_WIN_LAYER] = LAYOUT_universal(
+    GUI_T(KC_TAB)   , KC_Q     , KC_W     , KC_E     , KC_R     , KC_T     ,                                        KC_Y     , KC_U     , KC_I     , KC_O     , KC_MINUS     , S(KC_MINUS)   ,
+    KC_LEFT_SHIFT   , KC_A     , KC_S     , KC_D     , KC_F     , KC_G     ,                                        KC_H     , KC_J     , KC_K     , KC_L     , KC_P  ,  KC_EQUAL ,
+    KC_LEFT_ALT  , KC_Z     , KC_X     , KC_C     , KC_V     , KC_B     ,                                        KC_B     , KC_N     , KC_M,KC_COMM  , KC_DOT   , S(KC_EQUAL) ,
+              SWITCH_LAYER,KC_NO,LT(1, KC_SPC)     ,KC_LEFT_CTRL,LT(3,KC_LANGUAGE_2),                  KC_LANGUAGE_1,MO(2), KC_NO,     KC_NO  , MO(3)
+  ),
+
+
+  // keymap for Gaming mode
+  [_GAME_LAYER] = LAYOUT_universal(
+    GUI_T(KC_TAB)   , KC_T     , KC_Q     , KC_W     , KC_E     , KC_R     ,                                        KC_Y     , KC_U     , KC_I     , KC_O     , KC_MINUS     , S(KC_MINUS)   ,
+    KC_LEFT_SHIFT   , KC_G     , KC_A     , KC_S     , KC_D     , KC_F     ,                                        KC_H     , KC_J     , KC_K     , KC_L     , KC_P  ,  KC_EQUAL ,
+    KC_LEFT_ALT  , KC_B     , KC_Z     , KC_X     , KC_C     , KC_V     ,                                        KC_B     , KC_N     , KC_M,KC_COMM  , KC_DOT   , S(KC_EQUAL) ,
+              SWITCH_LAYER,MO(1),KC_SPC     ,KC_LEFT_CTRL,LT(3,KC_LANGUAGE_2),                  KC_LANGUAGE_1,MO(2), KC_NO,     KC_NO  , MO(3)
   ),
 
   [_SYMBOL_LAYER] = LAYOUT_universal(
@@ -71,23 +88,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     _______  , _______  , _______  , _______  , _______  , _______ ,                                        _______  , KC_MS_BTN1  , KC_MS_BTN2  , _______ , _______  , _______  ,
     _______ , _______  , _______  , _______  , _______  , _______ ,                                        _______  , KC_MS_BTN4 , KC_MS_BTN5 , _______  , _______  , _______ ,
                   _______  , _______  , _______  ,        _______  , _______  ,                   _______  , _______  , _______       , _______  , _______
-  ),
-
-  // default keymap for Windows OS
-  [_WIN_LAYER] = LAYOUT_universal(
-    GUI_T(KC_TAB)   , KC_Q     , KC_W     , KC_E     , KC_R     , KC_T     ,                                        KC_Y     , KC_U     , KC_I     , KC_O     , KC_MINUS     , S(KC_MINUS)   ,
-    KC_LEFT_SHIFT   , KC_A     , KC_S     , KC_D     , KC_F     , KC_G     ,                                        KC_H     , KC_J     , KC_K     , KC_L     , KC_P  ,  KC_EQUAL ,
-    KC_LEFT_ALT  , KC_Z     , KC_X     , KC_C     , KC_V     , KC_B     ,                                        KC_B     , KC_N     , KC_M,KC_COMM  , KC_DOT   , S(KC_EQUAL) ,
-              SWITCH_LAYER,KC_NO,LT(1, KC_SPC)     ,KC_LEFT_CTRL,LT(3,KC_LANGUAGE_2),                  KC_LANGUAGE_1,MO(2), KC_NO,     KC_NO  , MO(3)
-  ),
-
-
-  // keymap for Gaming mode
-  [_GAME_LAYER] = LAYOUT_universal(
-    GUI_T(KC_TAB)   , KC_T     , KC_Q     , KC_W     , KC_E     , KC_R     ,                                        KC_Y     , KC_U     , KC_I     , KC_O     , KC_MINUS     , S(KC_MINUS)   ,
-    KC_LEFT_SHIFT   , KC_G     , KC_A     , KC_S     , KC_D     , KC_F     ,                                        KC_H     , KC_J     , KC_K     , KC_L     , KC_P  ,  KC_EQUAL ,
-    KC_LEFT_ALT  , KC_B     , KC_Z     , KC_X     , KC_C     , KC_V     ,                                        KC_B     , KC_N     , KC_M,KC_COMM  , KC_DOT   , S(KC_EQUAL) ,
-              SWITCH_LAYER,MO(1),KC_SPC     ,KC_LEFT_CTRL,LT(3,KC_LANGUAGE_2),                  KC_LANGUAGE_1,MO(2), KC_NO,     KC_NO  , MO(3)
   ),
 };
 // clang-format on
