@@ -28,6 +28,11 @@ const uint16_t MOUSE_LAYER = 4;
 const uint16_t WIN_LAYER = 5;
 const uint16_t GAME_LAYER = 6;
 
+// Customize keycodes
+enum custom_keycodes {
+  SWITCH_LAYER
+};
+
 // clang-format off
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   // default keymap for Mac OS
@@ -84,11 +89,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   ),
 };
 // clang-format on
-
-// Customize keycodes
-enum custom_keycodes {
-   SWITCH_LAYER
-};
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   switch (keycode) {
