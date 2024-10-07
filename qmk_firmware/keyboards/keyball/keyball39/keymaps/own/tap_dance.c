@@ -125,3 +125,32 @@ void lang1_mouse_layer_reset (tap_dance_state_t *state, void *user_data) {
     }
     lang1_mouse_layer_state.state = TD_NONE;
 }
+
+static td_tap_t cw_alt_state = {
+    .is_press_action = true,
+    .state = TD_NONE
+};
+
+void cw_alt_finished (tap_dance_state_t *state, void *user_data) {
+    cw_alt_state.state = cur_dance(state);
+    switch (cw_alt_state.state) {
+        case TD_SINGLE_TAP:
+            caps_word_on();
+            break;
+        case TD_SINGLE_HOLD:
+            register_code(KC_LALT);
+            break;
+        default: break;
+    }
+}
+
+void cw_alt_reset (tap_dance_state_t *state, void *user_data) {
+    switch (cw_alt_state.state) {
+        case TD_SINGLE_HOLD:
+            unregister_code(KC_LALT);
+            break;
+        default:
+            break;
+    }
+    cw_alt_state.state = TD_NONE;
+}
