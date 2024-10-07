@@ -86,6 +86,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 // clang-format on
 
 // Customize keycodes
+enum custom_keycodes {
+   SWITCH_LAYER
+};
+
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   switch (keycode) {
     case SWITCH_LAYER:
@@ -98,6 +102,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
           layer_on(MAC_LAYER);
         }
       }
+    default:
       return true; // Process all other keycodes normally
   }
 }
