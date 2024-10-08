@@ -42,7 +42,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     LCTL_T(KC_TAB)   , KC_Q     , KC_W     , KC_E     , KC_R     , KC_T     ,                                        KC_Y     , KC_U     , KC_I     , KC_O     , KC_MINUS     , S(KC_MINUS)   ,
     KC_LSFT   , KC_A     , KC_S     , KC_D     , KC_F     , KC_G     ,                                        KC_H     , KC_J     , KC_K     , KC_L     , KC_P  ,  KC_EQUAL ,
     KC_LALT  , KC_Z     , KC_X     , KC_C     , KC_V     , KC_B     ,                                        KC_B     , KC_N     , KC_M,KC_COMM  , KC_DOT   , S(KC_EQUAL) ,
-              SWITCH_LAYER,KC_NO,LT(1, KC_SPC)     ,KC_LEFT_GUI,LT(3,KC_LNG2),                  KC_LNG1,MO(2), KC_NO,     KC_NO  , MO(3)
+              SWITCH_LAYER,KC_NO,LT(_SYMBOL_LAYER, KC_SPC)     ,KC_LEFT_GUI,LT(_NUM_LAYER,KC_LNG2),                  KC_LNG1,MO(_OS_LAYER), KC_NO,     KC_NO  , MO(_NUM_LAYER)
   ),
 
   // default keymap for Windows OS
@@ -50,7 +50,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     GUI_T(KC_TAB)   , KC_Q     , KC_W     , KC_E     , KC_R     , KC_T     ,                                        KC_Y     , KC_U     , KC_I     , KC_O     , KC_MINUS     , S(KC_MINUS)   ,
     KC_LEFT_SHIFT   , KC_A     , KC_S     , KC_D     , KC_F     , KC_G     ,                                        KC_H     , KC_J     , KC_K     , KC_L     , KC_P  ,  KC_EQUAL ,
     KC_LEFT_ALT  , KC_Z     , KC_X     , KC_C     , KC_V     , KC_B     ,                                        KC_B     , KC_N     , KC_M,KC_COMM  , KC_DOT   , S(KC_EQUAL) ,
-              SWITCH_LAYER,KC_NO,LT(1, KC_SPC)     ,KC_LEFT_CTRL,LT(3,KC_LANGUAGE_2),                  KC_LANGUAGE_1,MO(2), KC_NO,     KC_NO  , MO(3)
+              SWITCH_LAYER,KC_NO,LT(_SYMBOL_LAYER, KC_SPC)     ,KC_LEFT_CTRL,LT(_NUM_LAYER,KC_LANGUAGE_2),                  KC_LANGUAGE_1,MO(_OS_LAYER), KC_NO,     KC_NO  , MO(_NUM_LAYER)
   ),
 
 
@@ -59,7 +59,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     GUI_T(KC_TAB)   , KC_T     , KC_Q     , KC_W     , KC_E     , KC_R     ,                                        KC_Y     , KC_U     , KC_I     , KC_O     , KC_MINUS     , S(KC_MINUS)   ,
     KC_LEFT_SHIFT   , KC_G     , KC_A     , KC_S     , KC_D     , KC_F     ,                                        KC_H     , KC_J     , KC_K     , KC_L     , KC_P  ,  KC_EQUAL ,
     KC_LEFT_ALT  , KC_B     , KC_Z     , KC_X     , KC_C     , KC_V     ,                                        KC_B     , KC_N     , KC_M,KC_COMM  , KC_DOT   , S(KC_EQUAL) ,
-              SWITCH_LAYER,MO(1),KC_SPC     ,KC_LEFT_CTRL,LT(3,KC_LANGUAGE_2),                  KC_LANGUAGE_1,MO(2), KC_NO,     KC_NO  , MO(3)
+              SWITCH_LAYER,MO(_SYMBOL_LAYER),KC_SPC     ,KC_LEFT_CTRL,LT(_NUM_LAYER,KC_LANGUAGE_2),                  KC_LANGUAGE_1,MO(_OS_LAYER), KC_NO,     KC_NO  , MO(_NUM_LAYER)
   ),
 
   [3] = LAYOUT_universal(
@@ -112,12 +112,12 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 
 layer_state_t layer_state_set_user(layer_state_t state) {
       switch(get_highest_layer(remove_auto_mouse_layer(state, true))) {
-        case 2:
-            // Finish auto mouse layer when the highest layer is 2
+        case _OS_LAYER:
+            // Finish auto mouse layer when the highest layer is _OS_LAYER
             state = remove_auto_mouse_layer(state, false);
             break;
-        case 3:
-            // Auto enable scroll mode when the highest layer is 3
+        case _NUM_LAYER:
+            // Auto enable scroll mode when the highest layer is _NUM_LAYER
             // remove_auto_mouse_target must be called to adjust state *before* setting enable
             state = remove_auto_mouse_layer(state, false);
             set_auto_mouse_enable(false);
