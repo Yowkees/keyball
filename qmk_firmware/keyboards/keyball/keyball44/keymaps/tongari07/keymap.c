@@ -102,7 +102,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
           layer_off(_WIN_LAYER);
           layer_on(_GAME_LAYER);
         } else if (layer_state_is(_GAME_LAYER)) {
-          layer_on(_MAC_LAYER);
+          layer_off(_GAME_LAYER);
         }
       }
     default:
