@@ -28,7 +28,7 @@ enum custom_keycodes {
 enum layer_number {
   _MAC_LAYER = 0,
   _WIN_LAYER,
-  _GAME_LAYER
+  _GAME_LAYER,
   _SYMBOL_LAYER,
   _OS_LAYER,
   _NUM_LAYER,
