@@ -42,7 +42,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     LCTL_T(KC_TAB)   , KC_Q     , KC_W     , KC_E     , KC_R     , KC_T     ,                                        KC_Y     , KC_U     , KC_I     , KC_O     , KC_MINUS     , S(KC_MINUS)   ,
     KC_LSFT   , KC_A     , KC_S     , KC_D     , KC_F     , KC_G     ,                                        KC_H     , KC_J     , KC_K     , KC_L     , KC_P  ,  KC_EQUAL ,
     KC_LALT  , KC_Z     , KC_X     , KC_C     , KC_V     , KC_B     ,                                        KC_B     , KC_N     , KC_M,KC_COMM  , KC_DOT   , S(KC_EQUAL) ,
-              SWITCH_LAYER,KC_NO,LT(_SYMBOL_LAYER, KC_SPC)     ,KC_LEFT_GUI,LT(_NUM_LAYER,KC_LNG2),                  KC_LNG1,MO(_OS_LAYER), KC_NO,     KC_NO  , MO(_NUM_LAYER)
+              SWITCH_LAYER,KC_NO,LT(3, KC_SPC)     ,KC_LEFT_GUI,LT(5,KC_LNG2),                  KC_LNG1,MO(4), KC_NO,     KC_NO  , MO(5)
   ),
 
   // default keymap for Windows OS
@@ -50,7 +50,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     GUI_T(KC_TAB)   , KC_Q     , KC_W     , KC_E     , KC_R     , KC_T     ,                                        KC_Y     , KC_U     , KC_I     , KC_O     , KC_MINUS     , S(KC_MINUS)   ,
     KC_LEFT_SHIFT   , KC_A     , KC_S     , KC_D     , KC_F     , KC_G     ,                                        KC_H     , KC_J     , KC_K     , KC_L     , KC_P  ,  KC_EQUAL ,
     KC_LEFT_ALT  , KC_Z     , KC_X     , KC_C     , KC_V     , KC_B     ,                                        KC_B     , KC_N     , KC_M,KC_COMM  , KC_DOT   , S(KC_EQUAL) ,
-              SWITCH_LAYER,KC_NO,LT(_SYMBOL_LAYER, KC_SPC)     ,KC_LEFT_CTRL,LT(_NUM_LAYER,KC_LANGUAGE_2),                  KC_LANGUAGE_1,MO(_OS_LAYER), KC_NO,     KC_NO  , MO(_NUM_LAYER)
+              SWITCH_LAYER,KC_NO,LT(3, KC_SPC)     ,KC_LEFT_CTRL,LT(5,KC_LANGUAGE_2),                  KC_LANGUAGE_1,MO(4), KC_NO,     KC_NO  , MO(5)
   ),
 
 
@@ -59,11 +59,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     GUI_T(KC_TAB)   , KC_T     , KC_Q     , KC_W     , KC_E     , KC_R     ,                                        KC_Y     , KC_U     , KC_I     , KC_O     , KC_MINUS     , S(KC_MINUS)   ,
     KC_LEFT_SHIFT   , KC_G     , KC_A     , KC_S     , KC_D     , KC_F     ,                                        KC_H     , KC_J     , KC_K     , KC_L     , KC_P  ,  KC_EQUAL ,
     KC_LEFT_ALT  , KC_B     , KC_Z     , KC_X     , KC_C     , KC_V     ,                                        KC_B     , KC_N     , KC_M,KC_COMM  , KC_DOT   , S(KC_EQUAL) ,
-              SWITCH_LAYER,MO(_SYMBOL_LAYER),KC_SPC     ,KC_LEFT_CTRL,LT(_NUM_LAYER,KC_LANGUAGE_2),                  KC_LANGUAGE_1,MO(_OS_LAYER), KC_NO,     KC_NO  , MO(_NUM_LAYER)
+              SWITCH_LAYER,MO(3),KC_SPC     ,KC_LEFT_CTRL,LT(5,KC_LANGUAGE_2),                  KC_LANGUAGE_1,MO(4), KC_NO,     KC_NO  , MO(5)
   ),
 
   [3] = LAYOUT_universal(
-    _______ ,  S(KC_5)   , S(KC_3)    , S(KC_SLASH)   ,  KC_GRAVE   , S(KC_4)    ,                                         _______    , S(KC_LEFT_BRACKET)    , S(KC_RIGHT_BRACKET)    , S(KC_GRAVE)    , S(KC_MINUS)   , _______   ,
+    _______ ,  S(KC_5)   , S(KC_3)    , S(KC_SLASH)   ,  KC_GRAVE   , S(KC_4)    ,                                         _______    , S(KC_LEFT_BRACKET)    , S(KC_RIGHT_BRACKET)    , S(KC_GRAVE)    , S(KC_MINUS)   , _______   , 
     _______ ,  S(KC_2) , S(KC_SEMICOLON)  , S(KC_1)   , KC_QUOTE   , S(KC_QUOTE)   ,                                         S(KC_6)  , S(KC_9)  , S(KC_0)    , S(KC_COMM)  , S(KC_DOT)  , _______   ,
     _______ ,  S(KC_7) , KC_SEMICOLON  , KC_BACKSLASH , KC_SLASH  , S(KC_8)  ,                                         S(KC_BACKSLASH)  , KC_LEFT_BRACKET  , KC_RIGHT_BRACKET  , KC_COMM  , KC_DOT  , _______  ,
                   _______  , _______ , _______  ,         _______  , _______  ,                   _______  , _______  , _______       , _______  , _______
