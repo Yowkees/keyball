@@ -20,7 +20,7 @@ AUDIO_ENABLE = no           # Audio output
 CUSTOM_MATRIX = lite
 SRC += lib/duplexmatrix/duplexmatrix.c
 
-# Non-split keyboard.
+# One47 is non-split keyboard.
 SPLIT_KEYBOARD = no
 
 # Optical sensor driver for trackball.
@@ -34,9 +34,8 @@ MOUSEKEY_ENABLE = no
 
 # Enabled only one of RGBLIGHT and RGB_MATRIX if necessary.
 RGBLIGHT_ENABLE = no        # Enable RGBLIGHT
-RGBLIGHT_DRIVER = WS2812
 RGB_MATRIX_ENABLE = no      # Enable RGB_MATRIX (not work yet)
-RGB_MATRIX_DRIVER = WS2812
+RGB_MATRIX_DRIVER = ws2812
 
 # Do not enable SLEEP_LED_ENABLE. it uses the same timer as BACKLIGHT_ENABLE
 SLEEP_LED_ENABLE = no       # Breathing sleep LED during USB suspend
@@ -50,4 +49,5 @@ SRC += lib/keyball/keyball.c
 
 # Disable other features to squeeze firmware size
 SPACE_CADET_ENABLE = no
+GRAVE_ESC_ENABLE = no
 MAGIC_ENABLE = no

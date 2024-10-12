@@ -11,37 +11,39 @@ Keyball39 is a 40% split keyboard with integrated 100% useful thumb trackball.
 
 ## [Contents of Build Guide for Keyball39]
 
-  - [1. Parts Check](#1)
-    - [1-1. Items included in the kit](#1-1)
-    - [1-2. Parts to be prepared by the customer before assembly](#1-2)
-    - [1-3. Parts and options that can be installed after assembly](#1-3)
-  - [2. Preparation](#2)
-    - [2-1. Required Tools](#2-1)
-  - [3. Mounting](#3)
-    - [3-1. Before Soldering](#3-1)
-    - [3-2. Soldering the Diodes](#3-2)
-    - [3-3. Soldering the key socket](#3-3)
-    - [3-4. Soldering Jumpers](#3-4)
-    - [3-5. 4 pin sockets, TRRS socket, tact switch](#3-5)
-    - [3-6. Soldering ProMicro](#3-6)
-    - [3-7. Writing and operation check of ProMicro](#3-7)
-    - [3-8. Soldering LEDs (option)](#3-8)
-  - [4. Assemble the ball reader board](#4)
-    - [4-1. Soldering the sensor](#4-1)
-    - [4-2. Soldering the L-shaped spring-loaded pin headers](#4-2)
-  - [5. Solder the left-hand side left-right jumper](#5)
-  - [6. Cut the top plate (option)](#6)
-  - [7. Assembly](#7)
-    - [7-1. Install the protection plate](#7-1)
-    - [7-2. Assemble the Top Plate](#7-2)
-    - [7-3. Assemble the Bottom Plate](#7-3)
-  - [8. Trackball Installation](#8)
-    - [8-1. Insert ball reader board](#8-1)
-    - [8-2. Assemble the trackball case](#8-2)
-    - [8-3. Trackball Case Installation](#8-3)
-  - [9. Finishing](#9)
-  - [10. Write the official firmware](#10)
-  - [11. How to use Keyball](#11)
+- [Build Guide for Keyball39](#build-guide-for-keyball39)
+  - [\[Contents of Build Guide for Keyball39\]](#contents-of-build-guide-for-keyball39)
+  - [1. Parts Check](#1-parts-check)
+    - [1-1. Items included in the kit](#1-1-items-included-in-the-kit)
+    - [1-2. Parts to be prepared by customers themselves before assembly](#1-2-parts-to-be-prepared-by-customers-themselves-before-assembly)
+    - [1-3. Parts and options that can be installed even after assembled.](#1-3-parts-and-options-that-can-be-installed-even-after-assembled)
+  - [2. Preparation](#2-preparation)
+    - [2-1. Required tools](#2-1-required-tools)
+  - [3. Mounting parts](#3-mounting-parts)
+    - [3-1．Before soldering](#3-1before-soldering)
+    - [3-2. Soldering the diodes](#3-2-soldering-the-diodes)
+    - [3-3．Soldering the key socket](#3-3soldering-the-key-socket)
+    - [3-4．Soldering the jumpers](#3-4soldering-the-jumpers)
+    - [3-5．4-pin Socket, TRRS Socket, Tact Switch](#3-54-pin-socket-trrs-socket-tact-switch)
+    - [3-6．Soldering the ProMicro](#3-6soldering-the-promicro)
+    - [3-7．3-7．Writing firmware to ProMicro and Electric checking](#3-73-7writing-firmware-to-promicro-and-electric-checking)
+    - [3-8．Soldering the LEDs (optional)](#3-8soldering-the-leds-optional)
+  - [4. Assemble the ball-reading board](#4-assemble-the-ball-reading-board)
+  - [4-1．Soldering the optical sensor](#4-1soldering-the-optical-sensor)
+    - [4-2．Soldering the L-shaped conthrough pin header](#4-2soldering-the-l-shaped-conthrough-pin-header)
+  - [5．Solder the left/right decision jumper on the left hand side](#5solder-the-leftright-decision-jumper-on-the-left-hand-side)
+  - [6. Cutting of top plate](#6-cutting-of-top-plate)
+  - [7. Assembly](#7-assembly)
+    - [7-1. Mounting the Protection Plates](#7-1-mounting-the-protection-plates)
+    - [7-2. Assembling the top plates](#7-2-assembling-the-top-plates)
+    - [7-3. Assembling the bottom plates](#7-3-assembling-the-bottom-plates)
+  - [8. Trackball installation](#8-trackball-installation)
+    - [8-1. Insert the trackball reading board](#8-1-insert-the-trackball-reading-board)
+    - [8-2. Assemble the trackball case](#8-2-assemble-the-trackball-case)
+    - [8-3. Trackball case installation](#8-3-trackball-case-installation)
+  - [9. Total finish](#9-total-finish)
+  - [10. Write the regular firmware](#10-write-the-regular-firmware)
+  - [11. How to use Keyball](#11-how-to-use-keyball)
 
 <a id="1"></a>
 ## 1. Parts Check
@@ -231,14 +233,16 @@ The PCB socket for the thumb keys can be just either a CherryMX compatible socke
 You need to short the jumpers to control the OLED module and trackball sensor.
 
 The jumper is soldered on __【Back Side Only】__.  
-"Back Side Only" is indicated, and there are 【4 points】 on each side  right and left board.  
+"Back Side Only" is indicated, and there are 【12 points】 on both of right and left board.  
 You can bridge the pads by heating them with an iron tip to melt the solder.
+
+![40](images/kb39_037.jpg)
 
 If the solder is not fresh enough, the surface tension will drop and it will not bridge properly.
 In this case, remove the solder and add more fresh solder or flux and try again.
 If successfully bridged, it will look like the photo below.
 
-![41](images/kb39_036.jpg)
+![41](images/kb39_038.jpg)
 
 You may find a few more jumpers, but these will be explained later.
 
@@ -388,8 +392,7 @@ Put a masking tape on the component to prevent it from floating and solder it fr
 
 ![97](images/kb39_084.jpg)
 
-Next, solder the four jumpers on the signal lines for the optical sensor.
-There is a jumper near the conthrough pin header you just soldered, so solder it 【BACK SIDE ONLY】 and short it as shown in the photo below.
+After Soldering from back side it will be below picture
 
 ![97](images/kb39_085.jpg)
 
@@ -400,13 +403,13 @@ The standard firmware of the Keyball39 has an automatic left/right detection fun
 
 If you look at the left hand side board from the back, you will see a silk __[LEFT]__ in the red circle in the photo below. Please solder this Jumper.
 
-![140](images/kb39_086.jpg)
+![140](images/kb39_086b.jpg)
 
 If the trackball is placed on the left hand side, the position is slightly different, and the LEFT jumper is in the position shown in the photo below.
 
 Be sure to place the jumper on the 【LEFT SIDE】 of the board ONLY.
 
-![141](images/kb39_087.jpg)
+![141](images/kb39_087b.jpg)
 
 This completes the soldering process.
 
@@ -572,18 +575,7 @@ The latest firmware for Keyball39 is available at [Github repository](https://gi
    - The USB cable can be plugged in either left or right. However, since the keymap is written to the ProMicro on the side where the USB cable is plugged in, please review the keymap when replacing the cable for the first time.
    - There are Special keys for Keyball users as below list. It is located on Layer 3. These key codes can be used for switching Cursor action to Scroll or Changing CPI and Speed of Scroll.
 
-| Keycode | Value on Remap | Description |
-|:-|:-|:-|
-| `KBC_RST` | `0x5DA5` | Reset Keyball configuration |
-| `KBC_SAVE` | `0x5DA6` | Persist Keyball configuration to EEPROM |
-| `CPI_I100` | `0x5DA7` | Increase 100 CPI (max 12000) |
-| `CPI_D100` | `0x5DA8` | Decrease 100 CPI (min 100) |
-| `CPI_I1K` | `0x5DA9` | Increase 1000 CPI (max 12000) |
-| `CPI_D1K` | `0x5DAA` | Decrease 1000 CPI (min 100) |
-| `SCRL_TO` | `0x5DAB` | Toggle scroll mode |
-| `SCRL_MO` | `0x5DAC` | Enable scroll mode when pressing |
-| `SCRL_DVI` | `0x5DAD` | Increase scroll divider (max D7 = 1/128) <- Most Scroll slow |
-| `SCRL_DVD` | `0x5DAE` | Decrease scroll divider (min 0 = 1/1) <- Most Scroll fast  |
+See [Special Keycode](../../../qmk_firmware/keyboards/keyball/lib/keyball/keycodes.md#english) also.
 
 
 
@@ -591,4 +583,3 @@ This concludes the Keyball39 build guide.
 If you have any questions or problems with Keyball39, please post them to the Github repository [Yowkees/keyball Discussions](https://github.com/Yowkees/keyball/discussions). We'll get back to you as soon as possible.
 
 Thank you very much. @Yowkees 2022
-

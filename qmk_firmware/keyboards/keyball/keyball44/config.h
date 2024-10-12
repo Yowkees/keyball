@@ -18,15 +18,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #pragma once
 
-#include "config_common.h"
-
-// USB Device descriptor parameters
-#define VENDOR_ID           0x5957      // "YW" = Yowkees
-#define PRODUCT_ID          0x0400      
-#define DEVICE_VER          0x0001
-#define MANUFACTURER        Yowkees
-#define PRODUCT             Keyball44
-
 // Key matrix parameters
 #define MATRIX_ROWS         (4 * 2)  // split keyboard
 #define MATRIX_COLS         6
@@ -40,12 +31,19 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define SOFT_SERIAL_PIN         D2
 #define SPLIT_HAND_MATRIX_GRID  F7, D4
 #define SPLIT_USB_DETECT
-#define SPLIT_USB_TIMEOUT       500
+#ifdef OLED_ENABLE
+#    define SPLIT_OLED_ENABLE
+#endif
+
+// If your PC does not recognize Keyball, try setting this macro. This macro
+// increases the firmware size by 200 bytes, so it is disabled by default, but
+// it has been reported to work well in such cases.
+//#define SPLIT_WATCHDOG_ENABLE
 
 #define SPLIT_TRANSACTION_IDS_KB KEYBALL_GET_INFO, KEYBALL_GET_MOTION, KEYBALL_SET_CPI
 
 // RGB LED settings
-#define RGB_DI_PIN          D3
+#define WS2812_DI_PIN       D3
 #ifdef RGBLIGHT_ENABLE
 #    define RGBLED_NUM      60
 #    define RGBLED_SPLIT    { 30, 30 }  // (30 + 29)
@@ -67,7 +65,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #endif
 
 #ifndef OLED_FONT_H
-#    define OLED_FONT_H "keyboards/keyball/lib/glcdfont.c"
+#    define OLED_FONT_H "keyboards/keyball/lib/logofont/logofont.c"
+#    define OLED_FONT_START 32
+#    define OLED_FONT_END 195
 #endif
 
 #if !defined(LAYER_STATE_8BIT) && !defined(LAYER_STATE_16BIT) && !defined(LAYER_STATE_32BIT)
@@ -77,5 +77,3 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 // To squeeze firmware size
 #undef LOCKING_SUPPORT_ENABLE
 #undef LOCKING_RESYNC_ENABLE
-#define NO_ACTION_MACRO
-#define NO_ACTION_FUNCTION

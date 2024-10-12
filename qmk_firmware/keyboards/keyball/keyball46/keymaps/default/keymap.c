@@ -34,10 +34,10 @@ enum keymap_layers {
 #define KC_R_ENT    LT(_RAISE, KC_ENT)
 
 // shift_t
-#define KC_S_EN     LSFT_T(KC_LANG2)
+#define KC_S_EN     LSFT_T(KC_LNG2)
 
 // original
-#define KC_A_JA     LT(_BALL, KC_LANG1)     // cmd or adjust
+#define KC_A_JA     LT(_BALL, KC_LNG1)      // cmd or adjust
 #define KC_AL_CP    MT(MOD_LALT, KC_CAPS)   // alt or caps lock
 #define KC_G_BS     MT(MOD_LGUI, KC_BSPC)   // command or back space
 #define KC_G_DEL    MT(MOD_LGUI, KC_DEL)    // command or delete
@@ -86,13 +86,13 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
   [_BALL] = LAYOUT_right_ball(
   //,-----------------------------------------------------.                    ,-----------------------------------------------------.
-      RGB_TOG, _______, _______, _______, _______, _______,                      RGB_M_P, RGB_M_B, RGB_M_R,RGB_M_SW,RGB_M_SN, RGB_M_K,
+      RGB_TOG, AML_TO , AML_I50, AML_D50, _______, _______,                      _______, _______, _______,SSNP_HOR,SSNP_VRT,SSNP_FRE,
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
-      RGB_MOD, RGB_HUI, RGB_SAI, RGB_VAI, _______, _______,                      RGB_M_X, RGB_M_G, RGB_M_T,RGB_M_TW, _______, _______,
+      RGB_MOD, RGB_HUI, RGB_SAI, RGB_VAI, _______, _______,                      _______, _______, _______, _______, _______, _______,
   //|--------+--------+--------+--------+--------+--------'                    |--------+--------+--------+--------+--------+--------|
      RGB_RMOD, RGB_HUD, RGB_SAD, RGB_VAD, _______,                               _______, CPI_D1K,CPI_D100,CPI_I100, CPI_I1K,KBC_SAVE,
   //|--------+--------+--------+--------+--------+-------+--------.            `--------+--------+--------+--------+--------+--------|
-        RESET, EEP_RST,    _______,    _______,   _______, _______,                _______,SCRL_DVD,       SCRL_DVI, _______, KBC_RST
+      QK_BOOT, EE_CLR ,    _______,    _______,   _______, _______,                _______,SCRL_DVD,       SCRL_DVI, _______, KBC_RST
   //`--------+--------'  `--------'  `--------' `--------+--------'              `--------+--------'      `--------+--------+--------'
   ),
 
@@ -112,26 +112,6 @@ layer_state_t layer_state_set_user(layer_state_t state) {
 void oledkit_render_info_user(void) {
     keyball_oled_render_keyinfo();
     keyball_oled_render_ballinfo();
-
-    const char *n;
-    switch (get_highest_layer(layer_state)) {
-        case _QWERTY:
-            n = PSTR("Default");
-            break;
-        case _RAISE:
-            n = PSTR("Raise");
-            break;
-        case _LOWER:
-            n = PSTR("Lower");
-            break;
-        case _BALL:
-            n = PSTR("Adjust");
-            break;
-        default:
-            n = PSTR("Undefined");
-            break;
-    }
-    oled_write_P(PSTR("Layer: "), false);
-    oled_write_ln_P(n, false);
+    keyball_oled_render_layerinfo();
 }
 #endif

@@ -232,18 +232,20 @@ The PCB socket for the thumb keys can be just either a CherryMX compatible socke
 You need to short the jumpers to control the OLED module and trackball sensor.
 
 The jumper is soldered on __【Back Side Only】__.  
-"Back Side Only" is indicated, and there are 【4 points】 on each side  right and left board.  
+"Back Side Only" is indicated, and there are 【total 12 points】 on right and left board.  
 You can bridge the pads by heating them with an iron tip to melt the solder.
 
 ![40](images/kb61_035.jpg)
 
+In below picture, I soldered left 2 jumpers successfully.
 If the solder is not fresh enough, the surface tension will drop and it will not bridge properly.
 In this case, remove the solder and add more fresh solder or flux and try again.
-If successfully bridged, it will look like the photo below.
 
-![41](images/kb61_036.jpg)
+![41](images/kb61_033.jpg)
 
-You may find a few more jumpers, but these will be explained later.
+If successfully bridged 12 pads, it will look like the photo below.
+
+![42](images/kb61_034.jpg)
 
 <a id="3-5"></a>
 ### 3-5．4-pin Socket, TRRS Socket, Tact Switch
@@ -385,18 +387,17 @@ If the direction of the lens and IC match, the two pins of the lens should be ab
 
 <a id="4-2"></a>
 ### 4-2．Soldering the L-shaped conthrough pin header
-Next, attach the L-shaped spring-loaded pin headers to the right-hand board __【TOP FACE】__.  
+Next, attach the L-shaped spring-loaded 7pin headers to the right-hand board __【TOP FACE】__.  
 The L-shaped spring-loaded pin headers also have a direction, and should be installed in the same way as in the picture below.  
 Solder the one straight pins that does not have a U-shape.
 
 ![96](images/kb61_083.jpg)
 
-Put a masking tape on the component to prevent it from floating and solder it from BACK side.
+Put a masking tape on the component to prevent it from floating.
 
 ![97](images/kb61_084.jpg)
 
-Next, solder the four jumpers on the signal lines for the optical sensor.
-There is a jumper near the conthrough pin header you just soldered, so solder it 【BACK SIDE ONLY】 and short it as shown in the photo below.
+And solder it from back side.
 
 ![97](images/kb61_085.jpg)
 
@@ -407,13 +408,13 @@ The standard firmware of the Keyball61 has an automatic left/right detection fun
 
 If you look at the left hand side board from the back, you will see a silk __[LEFT]__ in the red circle in the photo below. Please solder this Jumper.
 
-![140](images/kb61_086.jpg)
+![140](images/kb61_086_2.jpg)
 
 If the trackball is placed on the left hand side, the position is slightly different, and the LEFT jumper is in the position shown in the photo below.
 
 Be sure to place the jumper on the 【LEFT SIDE】 of the board ONLY.
 
-![141](images/kb61_087.jpg)
+![141](images/kb61_087_2.jpg)
 
 This completes the soldering process.
 
@@ -576,18 +577,7 @@ The latest firmware for Keyball61 is available at [Github repository](https://gi
    - The USB cable can be plugged in either left or right. However, since the keymap is written to the ProMicro on the side where the USB cable is plugged in, please review the keymap when replacing the cable for the first time.
    - There are Special keys for Keyball users as below list. It is located on Layer 3. These key codes can be used for switching Cursor action to Scroll or Changing CPI and Speed of Scroll.
 
-| Keycode | Value on Remap | Description |
-|:-|:-|:-|
-| `KBC_RST` | `0x5DA5` | Reset Keyball configuration |
-| `KBC_SAVE` | `0x5DA6` | Persist Keyball configuration to EEPROM |
-| `CPI_I100` | `0x5DA7` | Increase 100 CPI (max 12000) |
-| `CPI_D100` | `0x5DA8` | Decrease 100 CPI (min 100) |
-| `CPI_I1K` | `0x5DA9` | Increase 1000 CPI (max 12000) |
-| `CPI_D1K` | `0x5DAA` | Decrease 1000 CPI (min 100) |
-| `SCRL_TO` | `0x5DAB` | Toggle scroll mode |
-| `SCRL_MO` | `0x5DAC` | Enable scroll mode when pressing |
-| `SCRL_DVI` | `0x5DAD` | Increase scroll divider (max D7 = 1/128) <- Most Scroll slow |
-| `SCRL_DVD` | `0x5DAE` | Decrease scroll divider (min 0 = 1/1) <- Most Scroll fast  |
+See [Special Keycode](../../../qmk_firmware/keyboards/keyball/lib/keyball/keycodes.md#english) also.
 
 
 

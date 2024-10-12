@@ -1,9 +1,18 @@
 {
-    "keyboard_name": "Keyball46 rev1",
+    "usb": {
+        "vid": "0x5957",
+        "pid": "0x0001",
+        "device_version": "1.0.0"
+    },
+    "manufacturer": "Yowkees",
+    "keyboard_name": "Keyball46",
     "url": "",
     "maintainer": "Yowkees",
     "width": 17.5,
     "height": 4.5,
+    "rgblight": {
+        "driver": "ws2812"
+    },
     "layouts": {
         "LAYOUT_right_ball": {
             "layout": [
@@ -105,7 +114,7 @@
                 {"label":"R35", "x":14.5, "y":3.05}
             ]
         },
-        "LAYOUT_double_ball": {
+        "LAYOUT_double_balls": {
             "layout": [
                 {"label":"L00", "x":0, "y":1.18},
                 {"label":"L01", "x":1, "y":1.03},
