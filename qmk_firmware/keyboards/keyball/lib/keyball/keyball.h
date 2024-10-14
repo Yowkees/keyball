@@ -256,17 +256,17 @@ uint8_t keyball_get_scroll_div(void);
 void keyball_set_scroll_div(uint8_t div);
 
 /// keyball_get_cpi gets current CPI of trackball.
-/// The actual CPI value is the returned value +1 and multiplied by 100:
+/// The actual CPI value is the returned value multiplied by 100:
 ///
-///     CPI = (v + 1) * 100
+///     CPI = v * 100
 uint8_t keyball_get_cpi(void);
 
 /// keyball_set_cpi changes CPI of trackball.
-/// Valid values are between 0 to 119, and the actual CPI value is the set
-/// value +1 and multiplied by 100:
+/// Valid values are 0 to 120. If it is 0, KEYBALL_CPI_DEFAULT will be used,
+/// otherwise the actual CPI value will be the set value multiplied by 100:
 ///
-///     CPI = (v + 1) * 100
+///     CPI = v * 100
 ///
 /// In addition, if you do not upload SROM, the maximum value will be limited
-/// to 34 (3500CPI).
+/// to 35 (3500CPI).
 void keyball_set_cpi(uint8_t cpi);
