@@ -97,26 +97,26 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
       KC_Q            , KC_W    , KC_E     , KC_R         , KC_T          ,                                KC_Y         , KC_U   , KC_I     , KC_O          , KC_P,
       SFT_T(KC_A)     , KC_S    , KC_D     , KC_F         , KC_G          ,                                KC_H         , KC_J   , KC_K     , SFT_T(KC_L)   , LT(4,KC_TAB),
       CTL_T(KC_Z)     , KC_X    , KC_C     , KC_V         , KC_B          ,                                KC_N         , KC_M   , KC_COMMA , LT(3,KC_DOT)  , LT(4,KC_COLN),
-      LT(3,KC_LANG2)  , KC_LGUI , KC_LALT  , LT(1,KC_TAB) , LT(2,KC_SPACE), CTL_T(KC_ESC),        KC_BSPC, ALT_T(KC_ENT), _______, _______  , _______       , LT(3,KC_LANG1)
+      LT(3,KC_LNG2)  , KC_LGUI , KC_LALT  , LT(1,KC_TAB) , LT(2,KC_SPACE), CTL_T(KC_ESC),        KC_BSPC, ALT_T(KC_ENT), _______, _______  , _______       , LT(3,KC_LNG1)
     ),
 
     [1] = LAYOUT_universal(
       S(KC_1)  , S(KC_2)  , S(KC_3)  , S(KC_4)  , S(KC_5)  ,                                 KC_INS   , KC_7    , KC_8     , KC_9     , KC_MINUS ,
-      KC_LSHIFT, S(KC_6)  , S(KC_8)  , S(KC_7)  , _______  ,                                 _______  , KC_4    , KC_5     , KC_6     , KC_EQUAL ,
+      KC_LSFT  , S(KC_6)  , S(KC_8)  , S(KC_7)  , _______  ,                                 _______  , KC_4    , KC_5     , KC_6     , KC_EQUAL ,
       _______  , _______  , _______  , _______  , _______  ,                                 _______  , KC_1    , KC_2     , KC_3     , KC_KP_ENTER,
       _______  , _______  , _______  , _______  , _______  , _______  ,             KC_DEL , KC_0     ,_______  , _______  , _______  , _______
     ),
 
     [2] = LAYOUT_universal(
       KC_F2    , KC_F3       , LGUI(KC_UP)  , KC_F4        , KC_F5  ,                        KC_F10     , KC_F11   , KC_UP     , KC_F12      , KC_GRAVE,
-      KC_LSHIFT, LSG(KC_LEFT), LGUI(KC_DOWN), LSG(KC_RIGHT), _______,                        _______    , KC_LEFT  , KC_DOWN   , KC_RIGHT    , KC_EQUAL,
-      KC_LCTRL , _______     , _______      , _______      , _______,                        LCA(KC_F11), KC_HOME  , KC_PAGE_UP, KC_PAGE_DOWN, KC_END  ,
+      KC_LSFT  , LSG(KC_LEFT), LGUI(KC_DOWN), LSG(KC_RIGHT), _______,                        _______    , KC_LEFT  , KC_DOWN   , KC_RIGHT    , KC_EQUAL,
+      KC_LCTL  , _______     , _______      , _______      , _______,                        LCA(KC_F11), KC_HOME  , KC_PAGE_UP, KC_PAGE_DOWN, KC_END  ,
       _______  , _______     , _______      , _______      , _______, _______,      _______, _______    , _______  , _______   , _______     , _______
     ),
 
     [3] = LAYOUT_universal(
-      _______    ,  KC_QUOTE  , S(KC_QUOTE), _______    , _______  ,                            _______  , S(KC_LBRC), S(KC_RBRC), LSG(KC_S), KC_PSCREEN,
-      MKC_CLKTH_I, MKC_CLKTH_D, CPI_I100   , CPI_D100   , KBC_SAVE ,                            _______  , S(KC_9)   , S(KC_0)   , _______  , KC_BSLASH,
+      _______    ,  KC_QUOTE  , S(KC_QUOTE), _______    , _______  ,                            _______  , S(KC_LBRC), S(KC_RBRC), LSG(KC_S), KC_PSCR,
+      MKC_CLKTH_I, MKC_CLKTH_D, CPI_I100   , CPI_D100   , KBC_SAVE ,                            _______  , S(KC_9)   , S(KC_0)   , _______  , KC_BSLS,
       _______    , _______    , SCRL_DVI   , SCRL_DVD   , _______  ,                            _______  , KC_LBRC   , KC_RBRC   , _______  , KC_SLASH,
       _______    , _______    , _______    , _______    , _______  , _______  ,      _______  , _______  , _______   , _______   , _______  , _______
     ),
@@ -132,7 +132,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
       _______  , _______  , _______  , _______  , _______  ,                            _______  , SCRL_DVI , CPI_I100 , _______  , RGB_TOG  ,
       _______  , _______  , _______  , _______  , _______  ,                            SCRL_DVD , CPI_D100 , _______  , _______  , _______  ,
       _______  , _______  , _______  , _______  , _______  ,                            _______  , _______  , _______  , _______  , _______  ,
-      _______  , _______  , _______  , _______  , _______  , _______  ,        RESET  , KBC_RST  , _______  , _______  , _______  , _______
+      _______  , _______  , _______  , _______  , _______  , _______  ,       _______ , KBC_RST  , _______  , _______  , _______  , _______
     ),
 
     [6] = LAYOUT_universal(

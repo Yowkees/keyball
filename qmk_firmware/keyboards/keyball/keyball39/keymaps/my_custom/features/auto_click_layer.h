@@ -45,7 +45,7 @@ int16_t mouse_record_threshold = 30;  // ポインターの動きを一時的に
 int16_t mouse_move_count_ratio = 5;   // ポインターの動きを再生する際の移動フレームの係数
 
 // Modifierが絡むときの挙動が理想とは違ったので、一旦コメントアウト
-// const uint16_t ignore_disable_mouse_layer_keys[] = {KC_LANG1, KC_LANG2}; // この配列で指定されたキーはマウスレイヤー中に押下してもマウスレイヤーを解除しない
+// const uint16_t ignore_disable_mouse_layer_keys[] = {KC_LNG1, KC_LNG2}; // この配列で指定されたキーはマウスレイヤー中に押下してもマウスレイヤーを解除しない
 
 int16_t mouse_movement;
 

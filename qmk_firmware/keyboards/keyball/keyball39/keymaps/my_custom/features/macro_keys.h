@@ -32,7 +32,7 @@ enum custom_keycodes {
     KC_DOUBLE_CLICK_BTN1,                         // (0x5DB0): 1タップでダブルクリックできるBTN1
     KC_TRIPLE_CLICK_BTN1,                         // (0x5DB1): 1タップでトリプルクリックできるBTN1
     SFT_T_G_KC_A,                                 // (0x5DB2):
-    SFT_T_S_KC_SCOLON,                            // (0x5DB3):
+    SFT_T_S_KC_SCLN,                            // (0x5DB3):
     COMBO_BRC,                                    // (0x5DB5):
     COMBO_select_BRC,                             // (0x5DB5):
     COMBO_S9_S0,                                  // (0x5DB5):
@@ -136,7 +136,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
           enable_click_layer();
         } else if (get_highest_layer(layer_state) == 3) {
           // キーダウン時:
-          register_code(KC_LCTRL);
+          register_code(KC_LCTL);
           is_ctrl_active = true;
           // tap_code(KC_TAB);
           enable_click_layer();
@@ -146,8 +146,8 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     }
 
       // 上位レイヤーから下位レイヤーへ移動できるようにする
-      //   case LT(1, KC_LANG2):
-      //   case LT(1, KC_LANG1):
+      //   case LT(1, KC_LNG2):
+      //   case LT(1, KC_LNG1):
       //   case LT(2, KC_V):
       //   case S(KC_8): {
       //     // int16_t hlayer = get_highest_layer(layer_state);
@@ -158,7 +158,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       //       previous_layer = get_highest_layer(layer_state);  // 現在の最上位レイヤーを記録
       //       layer_off(previous_layer);                        // 現在のレイヤーをオフにする
 
-      //       if (keycode == LT(1, KC_LANG2) || keycode == LT(1, KC_LANG1)) {
+      //       if (keycode == LT(1, KC_LNG2) || keycode == LT(1, KC_LNG1)) {
       //         layer_on(1);
       //       } else if (keycode == LT(2, KC_V) || keycode == S(KC_8)) {
       //         layer_on(2);
@@ -166,17 +166,17 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       //     } else {
       //       // キーアップ時:
       //       layer_on(previous_layer);  // 前のレイヤーをオンにする
-      //       if (keycode == LT(1, KC_LANG2) || keycode == LT(1, KC_LANG1)) {
+      //       if (keycode == LT(1, KC_LNG2) || keycode == LT(1, KC_LNG1)) {
       //         layer_off(1);
       //       } else if (keycode == LT(2, KC_V) || keycode == S(KC_8)) {
       //         layer_off(2);
       //       }
       //       if (timer_elapsed(lt_timer) < TAPPING_TERM) {
       //         // タッピングタイム内に放された場合はタップ動作
-      //         if (keycode == LT(1, KC_LANG2)) {
-      //           tap_code(KC_LANG2);
-      //         } else if (keycode == LT(1, KC_LANG1)) {
-      //           tap_code(KC_LANG1);
+      //         if (keycode == LT(1, KC_LNG2)) {
+      //           tap_code(KC_LNG2);
+      //         } else if (keycode == LT(1, KC_LNG1)) {
+      //           tap_code(KC_LNG1);
       //         } else if (keycode == LT(2, KC_V)) {
       //           tap_code(KC_V);
       //         } else if (keycode == S(KC_8)) {
@@ -189,18 +189,18 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       //     return false;
       // }
 
-      static bool is_lt1_lang2_pressed = false;  // LT(1, KC_LANG2)の状態を追跡
-      static bool is_lt1_lang1_pressed = false;  // LT(1, KC_LANG1)の状態を追跡
+      static bool is_lt1_lang2_pressed = false;  // LT(1, KC_LNG2)の状態を追跡
+      static bool is_lt1_lang1_pressed = false;  // LT(1, KC_LNG1)の状態を追跡
 
       // 上位レイヤーから下位レイヤーへ移動できるようにする
-    case LT(1, KC_LANG2):  // レイヤー1へのキー
-    case LT(1, KC_LANG1):  // レイヤー1へのキー
+    case LT(1, KC_LNG2):  // レイヤー1へのキー
+    case LT(1, KC_LNG1):  // レイヤー1へのキー
       if (record->event.pressed) {
         click_timer = timer_read();
         is_lt1_pressed = true;
-        if (keycode == LT(1, KC_LANG2)) {
+        if (keycode == LT(1, KC_LNG2)) {
           is_lt1_lang2_pressed = true;
-        } else if (keycode == LT(1, KC_LANG1)) {
+        } else if (keycode == LT(1, KC_LNG1)) {
           is_lt1_lang1_pressed = true;
         }
         layer_on(1);  // レイヤー1をオンにする
@@ -213,9 +213,9 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         }
       } else {
         is_lt1_pressed = false;
-        if (keycode == LT(1, KC_LANG2)) {
+        if (keycode == LT(1, KC_LNG2)) {
           is_lt1_lang2_pressed = false;
-        } else if (keycode == LT(1, KC_LANG1)) {
+        } else if (keycode == LT(1, KC_LNG1)) {
           is_lt1_lang1_pressed = false;
         }
         if (!is_lt1_lang2_pressed && !is_lt1_lang1_pressed) {
@@ -229,12 +229,12 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 
         if (timer_elapsed(click_timer) < TAPPING_TERM) {
           // タッピングタイム内に放された場合はタップ動作
-          if (keycode == LT(1, KC_LANG2)) {
-            tap_code(KC_LANG2);
+          if (keycode == LT(1, KC_LNG2)) {
+            tap_code(KC_LNG2);
             // is_eisuu = true;
             is_kana = false;
-          } else if (keycode == LT(1, KC_LANG1)) {
-            tap_code(KC_LANG1);
+          } else if (keycode == LT(1, KC_LNG1)) {
+            tap_code(KC_LNG1);
             is_kana = true;
           }
         }
@@ -308,7 +308,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         }
 
         if (is_ctrl_active) {
-          unregister_code(KC_LCTRL);
+          unregister_code(KC_LCTL);
           is_ctrl_active = false;
         }
       }
@@ -316,7 +316,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 
       // SFT_Tのカスタムキーコード
     case SFT_T_G_KC_A:
-    case SFT_T_S_KC_SCOLON:
+    case SFT_T_S_KC_SCLN:
       if (record->event.pressed) {
         // キーが押されたとき
         click_timer = timer_read();
@@ -330,8 +330,8 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
           if (keycode == SFT_T_G_KC_A) {
             tap_code16(G(KC_A));
           }
-          if (keycode == SFT_T_S_KC_SCOLON) {
-            tap_code16(S(KC_SCOLON));
+          if (keycode == SFT_T_S_KC_SCLN) {
+            tap_code16(S(KC_SCLN));
           }
         }
       }
@@ -340,10 +340,10 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       // コンボ
     case COMBO_MINUS_SPACE:
       if (record->event.pressed) {
-        tap_code(KC_LANG2);  //
+        tap_code(KC_LNG2);  //
         tap_code(KC_MINUS);  // -　を送信
         tap_code(KC_SPACE);  //  スペース を送信
-        tap_code(KC_LANG1);  //
+        tap_code(KC_LNG1);  //
       }
       return false;
 
@@ -465,7 +465,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     // 以下スワイプジェスチャー
     // クリックすると state が SWIPE になり、離したら NONE になる
     case CMD_T(KC_SPACE):
-    case SFT_T(KC_LANG2):
+    case SFT_T(KC_LNG2):
     case ALT_T(KC_F13): {
       if (record->event.pressed) {
         // キーダウン時

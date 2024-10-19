@@ -43,11 +43,11 @@ KC_TAB		Tab	✔	✔	✔
 KC_SPACE	KC_SPC	Spacebar	✔	✔	✔
 KC_MINUS	KC_MINS	- と _	✔	✔	✔
 KC_EQUAL	KC_EQL	= と +	✔	✔	✔
-KC_LBRACKET	KC_LBRC	[ と {	✔	✔	✔
-KC_RBRACKET	KC_RBRC	] と }	✔	✔	✔
+KC_LBRC	KC_LBRC	[ と {	✔	✔	✔
+KC_RBRC	KC_RBRC	] と }	✔	✔	✔
 KC_BSLASH	KC_BSLS	\ と |	✔	✔	✔
 KC_NONUS_HASH	KC_NUHS	Non-US # と ~	✔	✔	✔
-KC_SCOLON	KC_SCLN	; と :	✔	✔	✔
+KC_SCLN	KC_SCLN	; と :	✔	✔	✔
 KC_QUOTE	KC_QUOT	' と "	✔	✔	✔
 KC_GRAVE	KC_GRV, KC_ZKHK	` と ~, JIS 全角/半角	✔	✔	✔
 KC_COMMA	KC_COMM	, と <	✔	✔	✔
@@ -140,15 +140,15 @@ KC_INT6		JIS テンキー ,			✔
 KC_INT7		International 7			
 KC_INT8		International 8			
 KC_INT9		International 9			
-KC_LANG1	KC_HAEN	ハングル/英語			✔
-KC_LANG2	KC_HANJ	韓文漢字			✔
-KC_LANG3		JIS カタカナ			✔
-KC_LANG4		JIS ひらがな			✔
-KC_LANG5		JIS 全角/半角			✔
-KC_LANG6		Language 6			
-KC_LANG7		Language 7			
-KC_LANG8		Language 8
-KC_LANG9		Language 9			
+KC_LNG1	KC_HAEN	ハングル/英語			✔
+KC_LNG2	KC_HANJ	韓文漢字			✔
+KC_LNG3		JIS カタカナ			✔
+KC_LNG4		JIS ひらがな			✔
+KC_LNG5		JIS 全角/半角			✔
+KC_LNG6		Language 6			
+KC_LNG7		Language 7			
+KC_LNG8		Language 8
+KC_LNG9		Language 9			
 KC_ALT_ERASE	KC_ERAS	Alternate Erase			
 KC_SYSREQ		SysReq/Attention			
 KC_CANCEL		Cancel			
@@ -161,7 +161,7 @@ KC_OPER		Oper
 KC_CLEAR_AGAIN		Clear/Again			
 KC_CRSEL		CrSel/Props			
 KC_EXSEL		ExSel			
-KC_LCTRL	KC_LCTL	左 Control	✔	✔	✔
+KC_LCTL	KC_LCTL	左 Control	✔	✔	✔
 KC_LSHIFT	KC_LSFT	左 Shift	✔	✔	✔
 KC_LALT	KC_LOPT	左 Alt (Option)	✔	✔	✔
 KC_LGUI	KC_LCMD, KC_LWIN	左 GUI (Windows/Command/Meta key)	✔	✔	✔

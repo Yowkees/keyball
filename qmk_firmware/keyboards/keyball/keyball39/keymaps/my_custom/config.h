@@ -48,7 +48,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 // ファームウェアのサイズを削減
 #define NO_ACTION_ONESHOT  // 392バイト
 
-#define IGNORE_MOD_TAP_INTERRUPT  // 10バイト
 // #define TAPPING_FORCE_HOLD  // 34バイト
 // 下記三つで444バイト
 #define TAPPING_TERM 175
