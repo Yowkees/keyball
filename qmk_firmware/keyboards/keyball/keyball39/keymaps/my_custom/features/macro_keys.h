@@ -28,20 +28,20 @@
  */
 
 enum custom_keycodes {
-    KC_BACK_TO_LAYER0_BTN1 = KEYBALL_SAFE_RANGE,  // (0x5DAF): レイヤー0に遷移できるBTN1
-    KC_DOUBLE_CLICK_BTN1,                         // (0x5DB0): 1タップでダブルクリックできるBTN1
-    KC_TRIPLE_CLICK_BTN1,                         // (0x5DB1): 1タップでトリプルクリックできるBTN1
-    SFT_T_G_KC_A,                                 // (0x5DB2):
-    SFT_T_S_KC_SCLN,                            // (0x5DB3):
-    COMBO_BRC,                                    // (0x5DB5):
-    COMBO_select_BRC,                             // (0x5DB5):
-    COMBO_S9_S0,                                  // (0x5DB5):
-    COMBO_select_S9_S0,                           // (0x5DB5):
-    COMBO_S_BRC,                                  // (0x5DB5):
-    COMBO_select_S_BRC,                           // (0x5DB5):
-    COMBO_sumitsuki_BRC,                          // (0x5DB5):
-    COMBO_select_sumitsuki_BRC,                   // (0x5DB5):
-    COMBO_MINUS_SPACE,                            // (0x5DB5):
+    KC_BACK_TO_LAYER0_BTN1 = KEYBALL_SAFE_RANGE,  // (0x7E40): レイヤー0に遷移できるBTN1
+    KC_DOUBLE_CLICK_BTN1,                         // (0x7E41): 1タップでダブルクリックできるBTN1
+    KC_TRIPLE_CLICK_BTN1,                         // (0x7E42): 1タップでトリプルクリックできるBTN1
+    SFT_T_G_KC_A,                                 // (0x7E43):
+    SFT_T_S_KC_SCLN,                              // (0x7E44):
+    COMBO_BRC,                                    // (0x7E45):
+    COMBO_select_BRC,                             // (0x7E46):
+    COMBO_S9_S0,                                  // (0x7E47):
+    COMBO_select_S9_S0,                           // (0x7E48):
+    COMBO_S_BRC,                                  // (0x7E49):
+    COMBO_select_S_BRC,                           // (0x7E4A):
+    COMBO_sumitsuki_BRC,                          // (0x7E4B):
+    COMBO_select_sumitsuki_BRC,                   // (0x7E4C):
+    COMBO_MINUS_SPACE,                            // (0x7E4D):
 
     MKC_CLKTH_I,                                  // マウスレイヤーに移る際の移動値閾値を増加
     MKC_CLKTH_D,                                  // マウスレイヤーに移る際の移動値閾値を減少
