@@ -1,0 +1,7 @@
+---
+BasedOnStyle: Google
+BreakBeforeBraces: Attach
+SpacesBeforeTrailingComments: 2
+SortIncludes: false
+ColumnLimit: 0
+SpacesInContainers: true
