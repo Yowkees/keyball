@@ -5,7 +5,7 @@
 When scrolling with the trackball, the scroll direction is restricted.
 This restriction is called "scroll snap".
 
-The direction of restriction can be changed using special key codes.
+The direction of restriction can be changed using [special key codes](keycodes.md#english).
 You can also release this restriction.
 It is called as "scroll snap mode"
 The current mode is displayed on the OLED.
@@ -39,7 +39,7 @@ please make pull requests to share it us.
 * 水平方向にスナップ
 * スナップしない自由スクロール
 
-以上を `SSNP_VRT`, `SSNP_HOR`, `SSNP_FRE` の独自キーコードを用いて手動で切り替える。
+以上を `SSNP_VRT`, `SSNP_HOR`, `SSNP_FRE` の[独自キーコード](keycodes.md#japanese)を用いて手動で切り替える。
 
 #### up to 1.3.2
 
