@@ -330,8 +330,11 @@ Insert the component from the [front side] and solder the [back side] as shown i
 
 <a id="3-7"></a>
 ### 3-7．Soldering of ProMicro and OLED
-ProMicro by soldering using pin sockets and pin headers for ProMicro,Facilitates replacement in the event of ProMicro failure.
+
+The ProMicro can be replaced by soldering with the spring-loaded (Conthrough) pin headers pins shown in the photo below. The spring-loaded pin headers pins have mounting directions, so please look at the photo carefully.
 【The pin headers included with ProMicro are not used】
+
+![60](images/kb39_050.jpg)
 
 If 12P pin headers + pin sockets were included instead of 12P Conthrough for ProMicro[【here】](https://github.com/Yowkees/keyball/blob/main/keyball44/doc/rev1/buildguide_en_pinheader.md#3-7promicro%E3%81%A8OLED%E3%81%AE%E3%81%AF%E3%82%93%E3%81%A0%E4%BB%98%E3%81%91)Please use this build guide.
 
