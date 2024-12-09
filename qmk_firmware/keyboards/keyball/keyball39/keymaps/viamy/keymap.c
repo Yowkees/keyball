@@ -20,6 +20,16 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #include "quantum.h"
 
+enum custom_keycodes {
+  KC_MY_BTN0 = KEYBALL_SAFE_RANGE,  // Remap上では 0x5DAF（レイヤー0に遷移できるBTN1）
+  KC_MY_BTN1,                       // Remap上では 0x5DB0
+  KC_MY_BTN2,                       // Remap上では 0x5DB1
+  KC_MY_BTN3,                       // Remap上では 0x5DB2
+  KC_GESTURE1,                      // Remap上では 0x5DB3（ジェスチャーボタン1）
+  KC_GESTURE2,                      // Remap上では 0x5DB4（ジェスチャーボタン2）
+  KC_GESTURE3,                      // Remap上では 0x5DB5（ジェスチャーボタン3）
+};
+
 #include "features/functions.h"
 #include "features/swipe_gesture.h"
 #include "features/auto_click_layer.h"
