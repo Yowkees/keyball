@@ -74,7 +74,7 @@ report_mouse_t pointing_device_task_user(report_mouse_t mouse_report) {
 
         // マウスの移動が閾値を超えた場合、スワイプを処理
         if (my_abs(current_x) >= SWIPE_THRESHOLD || my_abs(current_y) >= SWIPE_THRESHOLD) {
-          rgblight_sethsv(HSV_PINK);                    // LEDをピンクに変更
+//          rgblight_sethsv(HSV_PINK);                    // LEDをピンクに変更
           process_swipe_gesture(current_x, current_y);  // スワイプジェスチャを処理
           is_swiped = true;
 
@@ -124,7 +124,7 @@ report_mouse_t pointing_device_task_user(report_mouse_t mouse_report) {
         break;
 
       case SWIPE:
-        rgblight_sethsv(HSV_SPRINGGREEN);  // LEDをスプリング・グリーンに変更
+//        rgblight_sethsv(HSV_SPRINGGREEN);  // LEDをスプリング・グリーンに変更
         break;
 
       case SWIPING:
