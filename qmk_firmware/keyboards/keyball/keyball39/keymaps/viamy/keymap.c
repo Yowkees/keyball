@@ -22,7 +22,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #include "utils/functions.h"
 
-#include "features/swipe_gesture.h"
+//#include "features/swipe_gesture.h"
 #include "features/auto_click_layer.h"
 //#include "features/macro_keys.h"
 
