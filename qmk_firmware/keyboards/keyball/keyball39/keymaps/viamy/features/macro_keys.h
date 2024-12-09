@@ -360,78 +360,8 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
           wait_ms(130);         // 0.1秒（1300ミリ秒）待機
           tap_code(KC_RIGHT);
         }
-
-        // KC_RIGHT を送信
-        // if (keycode == COMBO_select_BRC || keycode == COMBO_select_S9_S0) {
-        //   wait_ms(100);  // 1秒（1000ミリ秒）待機
-        //   tap_code(KC_RIGHT);
-        // }
-
-        // if (keycode == COMBO_select_BRC) {
-        //   if (keycode == COMBO_select_BRC) {
-        //     tap_code16(G(KC_X));  // カット
-        //     tap_code(KC_LBRC);    // 「　を送信
-
-        //     // かなの場合にKC_ENTを送信
-        //     if (is_kana) {
-        //       tap_code(KC_ENT);
-        //     }
-
-        //     tap_code16(G(KC_V));  // ペースト
-        //     wait_ms(1000);        // 1秒（1000ミリ秒）待機
-
-        //     tap_code(KC_RBRC);  //  」 を送信
-
-        //     // かなの場合にKC_ENTを送信
-        //     if (is_kana) {
-        //       tap_code(KC_ENT);
-        //     }
-        //   }
-        // }
       }
       return false;
-
-      // karabinerでのコンボ用
-      // case CUSTOM_S9:
-      //   if (record->event.pressed) {
-      //     register_code(KC_LSFT);
-      //     register_code(KC_9);
-      //   } else {
-      //     unregister_code(KC_9);
-      //     unregister_code(KC_LSFT);
-      //   }
-      //   return false;
-      // case CUSTOM_S0:
-      //   if (record->event.pressed) {
-      //     register_code(KC_LSFT);
-      //     register_code(KC_0);
-      //   } else {
-      //     unregister_code(KC_0);
-      //     unregister_code(KC_LSFT);
-      //   }
-      //   return false;
-
-      // case select_BRC: {
-      //   if (record->event.pressed) {
-      //     register_code16(G(KC_X));
-      //     register_code(KC_LBRC);
-      //     register_code(KC_ENT);
-      //     register_code16(G(KC_V));
-      //     register_code(KC_RBRC);
-      //     register_code(KC_ENT);
-      //   } else {
-      //   }
-      //   return false;
-      // }
-
-      // case CMD_SCRL: {
-      //   if (record->event.pressed) {
-      //     register_code16(G(SCRL_MO));
-      //   } else {
-      //     unregister_code16(G(SCRL_MO));
-      //   }
-      //   return false;
-      // }
 
     // 以下スワイプジェスチャー
     // クリックすると state が SWIPE になり、離したら NONE になる
@@ -465,66 +395,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         return true;
       }
     }
-
-      // MOD系
-      // case KC_LCMD:
-      // case KC_LALT:
-      //   if (record->event.pressed)
-      //   {
-      //     // キーダウン時
-      //     state = SWIPE;
-      //     register_code(keycode);
-      //   }
-      //   else
-      //   {
-      //     // キーアップ時
-      //     clear_mods();
-      //     disable_click_layer();
-      //     is_repeat = false;
-      //   }
-      //   return false;
-
-      // TAP系
-      // case KC_F:
-      // case KC_D:
-      // case KC_S:
-      // uint16_t alt_tab_timer = 0;
-
-      // TAP系（キーリピートあり）
-      // case LT(2, KC_ESC):
-      //   if (record->event.pressed)
-      //   {
-      //     // キーダウン時
-      //     state = SWIPE;
-      //     tap_code(keycode);
-      //   }
-      //   else
-      //   {
-      //     // キーアップ時
-      //     if (is_swiped == true)
-      //     {
-      //       tap_code(KC_BSPC);
-      //     }
-      //     disable_click_layer();
-      //     is_repeat = false;
-      //     is_swiped = false;
-      //   }
-      //   return false;
-
-      // TAP系（フリック風）
-      // case KC_S:
-      //   if (record->event.pressed)
-      //   {
-      //     // キーダウン時
-      //     state = SWIPE;
-      //     tap_code(keycode);
-      //   }
-      //   else
-      //   {
-      //     // キーアップ時
-      //     disable_click_layer();
-      //   }
-      //   return false;
 
     // その他のキーコードの場合
     default:
