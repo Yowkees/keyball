@@ -33,6 +33,10 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 //#    define RGBLIGHT_EFFECT_TWINKLE
 //#endif
 
+#define COMBO_COUNT 9
+
+#define KEYBALL_SCROLLSNAP_ENABLE 0  // scrollsnapをオフにする
+
 #define TAP_CODE_DELAY 5
 #define DYNAMIC_KEYMAP_LAYER_COUNT 7
 
@@ -43,9 +47,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define AUTO_MOUSE_DEFAULT_LAYER 1
 
 // ファームウェアのサイズを削減
-//#define NO_ACTION_ONESHOT  // 392バイト
+#define NO_ACTION_ONESHOT  // 392バイト
 
-//#define IGNORE_MOD_TAP_INTERRUPT  // 10バイト
+#define IGNORE_MOD_TAP_INTERRUPT  // 10バイト
 // #define TAPPING_FORCE_HOLD  // 34バイト
 // 下記三つで444バイト
 #define TAPPING_TERM 175
