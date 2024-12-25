@@ -21,7 +21,7 @@ jobs:
 
     name: Build a firmware ${{ inputs.keyboard }}:${{ inputs.keymap }}
 
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-22.04
     container:
       image: ghcr.io/qmk/qmk_cli:latest
 
@@ -35,6 +35,9 @@ jobs:
 
     - name: Install a link to own source
       run: ln -s $(pwd)/qmk_firmware/keyboards/keyball __qmk__/keyboards/keyball
+
+    - name: Install missing python modules
+      run: /usr/bin/python3 -m pip install -r __qmk__/requirements.txt
 
     - name: Compile and link
       run: qmk compile -j 4 -kb keyball/${{ inputs.keyboard }} -km ${{ inputs.keymap }}
