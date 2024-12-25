@@ -38,7 +38,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   // Default (VIA) Keymap
   [0] = LAYOUT_universal(
     XXXXXXX   , KC_Q         , KC_W         , KC_E         , KC_R         , KC_T         ,                KC_Y         , KC_U         , KC_I         , KC_O         , KC_P         , TO(1)       ,
-    XXXXXXX   , KC_A         , KC_S         , LT(5,KC_D)   , KC_F         , KC_G         ,                KC_H         , KC_J         , LT(4,KC_K)   , KC_L         , KC_MINS      , TO(0)       ,
+    XXXXXXX   , KC_A         , KC_S         , LT(5,KC_D)   , GUI_T(KC_F)  , KC_G         ,                KC_H         , KC_J         , LT(4,KC_K)   , KC_L         , KC_MINS      , TO(0)       ,
     XXXXXXX   , KC_Z         , KC_X         , KC_C         , KC_V         , KC_B         ,                KC_N         , KC_M         , KC_COMM      , KC_DOT       , KC_SLSH      , TO(3)       ,
                 KC_LCTL      , KC_LALT      , SFT_T(KC_SPC), LT(1,KC_LNG2), LT(2,KC_LNG1), LT(3,KC_BSPC), GUI_T(KC_ENT), XXXXXXX      , XXXXXXX      , PS_SELECT
   ),
@@ -62,7 +62,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   // Arrow Key and Window Control Key Layer
   [3] = LAYOUT_universal(
     _______   , XXXXXXX      , C(A(KC_LEFT)), C(A(KC_ENT)), C(A(KC_RGHT)), XXXXXXX       ,                XXXXXXX      , XXXXXXX      , KC_UP        , XXXXXXX      , XXXXXXX     , TO(4)       ,
-    _______   , XXXXXXX      , G(KC_LBRC)   , G(KC_ENT)   , G(KC_RBRC)   , XXXXXXX       ,                XXXXXXX      , KC_LEFT      , KC_DOWN      , KC_RGHT      , XXXXXXX     , _______     ,
+    _______   , XXXXXXX      , G(KC_LBRC)   , XXXXXXX     , G(KC_RBRC)   , XXXXXXX       ,                XXXXXXX      , KC_LEFT      , KC_DOWN      , KC_RGHT      , XXXXXXX     , _______     ,
     _______   , XXXXXXX      , C(KC_LEFT)   , C(KC_UP)    , C(KC_RGHT)   , XXXXXXX       ,                XXXXXXX      , KC_TAB       , KC_ESC       , S(KC_TAB)    , XXXXXXX     , _______     ,
                 _______      , _______      , _______     , _______      , _______       , _______      , _______      , XXXXXXX      , XXXXXXX      , _______
   ),
