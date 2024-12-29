@@ -31,7 +31,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   ),
 
   [1] = LAYOUT_universal(
-    KC_AT    , KC_7    , KC_8    , KC_9    , KC_QUOT  ,                            KC_LCBR    ,   KC_EQL  , KC_TILD    , KC_PIPE    ,  KC_CBR  ,
+    KC_AT    , KC_7    , KC_8    , KC_9    , KC_QUOT  ,                            KC_LCBR    ,   KC_EQL  , KC_TILD    , KC_PIPE    ,  KC_RCBR  ,
     KC_EXLM    , KC_4    , KC_5     , KC_6    , KC_DQUO  ,                           KC_LPRN, KC_PLUS  , KC_UNDS  , KC_SCLN     , KC_RPRN  ,
     S(KC_SLSH) , KC_1    , KC_2     , KC_3    , KC_EQL,                            KC_LBRC  , KC_ASTR   , KC_PERC  , KC_COLN  , KC_RBRC   ,
     KC_DLR  , KC_0   , S(KC_MIN)  , _______  , _______  , _______  ,      TO(2)    , TO(0)   , _______  , KC_RALT  , KC_RGUI  , KC_HASH
@@ -78,7 +78,7 @@ void oledkit_render_info_user(void) {
 #endif
 
 const uint16_t PROGMEM combo1[] = {LT(1,KC_ENT), LT(2,KC_LNG1), COMBO_END};
-const uint16_t PROGMEM combo2[] = {KC_PIPE, KC_CBR, COMBO_END};
+const uint16_t PROGMEM combo2[] = {KC_PIPE, KC_RCBR, COMBO_END};
 combo_t key_combos[] = {
     COMBO(combo1, TT(4)),
     COMBO(combo2, KC_BSLS),
