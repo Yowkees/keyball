@@ -39,7 +39,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
   [2] = LAYOUT_universal(
     KC_PSCR   , KC_F7     , KC_F8     , KC_F9     , KC_LSFT,                     KC_ESC  , SSNP_VRT  , SSNP_HOR  , SSNP_FRE  , KC_BSPC  ,
-   KC_TAB , KC_F4     , KC_F5     , KC_F6     , KC_LCTL,                           SCRL_TO  , KC_BTN1  , KC_UP    , KC_BTN2  , TO(2) 
+   KC_TAB , KC_F4     , KC_F5     , KC_F6     , KC_LCTL,                           SCRL_TO  , KC_BTN1  , KC_UP    , KC_BTN2  , TO(2) ,
     KC_LSFT  , KC_F1     , KC_F2     , KC_F3     , KC_LGUI ,                           KC_HOME, KC_LEFT  , KC_DOWN  , KC_RGHT  , KC_END ,
     KC_LCTL   , KC_LGUI     , KC_LALT   , KC_DEL   , KC_ENT   , KC_BSPC  ,      TO(1)  , TO(0)  , _______  , _______  , _______  , RSFT_T(KC_ESC)
   ),
