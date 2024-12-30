@@ -24,31 +24,31 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   // keymap for default (VIA)
   [0] = LAYOUT_universal(
-    KC_Q     , KC_W     , KC_E     , KC_R     , KC_W     ,                            KC_Y     , KC_U     , KC_I     , KC_O     , KC_P     ,
+    KC_Q     , KC_W     , KC_E     , KC_R     , KC_T     ,                            KC_Y     , KC_U     , KC_I     , KC_O     , KC_P     ,
     KC_A     , KC_S     , KC_D     , KC_F     , KC_G     ,                            KC_H     , KC_J     , KC_K     , KC_L     , KC_MINS  ,
     KC_Z     , KC_X     , KC_C     , KC_V     , KC_B     ,                            KC_N     , KC_M     , KC_COMM  , KC_DOT   , KC_SLSH  ,
-    KC_LCTL  , LGUI_T(KC_TAB)  , KC_LALT  ,LSFT_T(KC_LNG2),LT(3,KC_SPC),LT(2,KC_LNG1),KC_BSPC,LT(1,KC_ENT),LSFT_T(KC_LNG2),KC_RALT,KC_RGUI, RSFT_T(KC_ESC)
+    LCTL_T(KC_TAB)  , KC_LGUI  , KC_LALT  ,LSFT_T(KC_SPC),LT(3,KC_ENT),LT(2,KC_BSCP),LT(1,KC_LNG1),KC_LNG2,LSFT_T(KC_LNG2),KC_RALT,KC_RGUI, RSFT_T(KC_ESC)
   ),
 
   [1] = LAYOUT_universal(
-    KC_AT    , KC_7    , KC_8    , KC_9    , KC_QUOT  ,                            KC_LCBR    ,   KC_EQL  , KC_TILD    , KC_PIPE    ,  KC_RCBR  ,
-    KC_EXLM    , KC_4    , KC_5     , KC_6    , KC_DQUO  ,                           KC_LPRN, KC_PLUS  , KC_UNDS  , KC_SCLN     , KC_RPRN  ,
-    S(KC_SLSH) , KC_1    , KC_2     , KC_3    , KC_EQL,                            KC_LBRC  , KC_ASTR   , KC_PERC  , KC_COLN  , KC_RBRC   ,
-    KC_DLR  , KC_0   , S(KC_MINS)  , _______  , _______  , _______  ,      TO(2)    , TO(0)   , _______  , KC_RALT  , KC_RGUI  , KC_HASH
+    KC_LBRC    , KC_7    , KC_8    , KC_9    , S(KC_2)  ,                            S(KC_RBRC)    ,   S(KC_MINS)  , KC_TILD    , S(JU_BSLS)    ,  S(KC_BSLS)  ,
+    KC_EXLM    , KC_4    , KC_5     , KC_6    , S(KC_7)  ,                           S(KC_8), S(KC_SCLN)  , KC_MINS  , KC_SCLN     , S(KC_9)  ,
+    S(KC_SLSH) , KC_1    , KC_2     , KC_3    , KC_EQL,                            KC_RBRC  , KC_DQUO   , KC_PERC  , S(KC_QUOT)  , KC_BSLS   ,
+    KC_DLR  , KC_0   , S(KC_INT1)  , _______  , _______  , TO(2)  ,       _______   , TO(0)   , _______  , KC_RALT  , KC_RGUI  , KC_HASH
   ),
 
   [2] = LAYOUT_universal(
     KC_PSCR   , KC_F7     , KC_F8     , KC_F9     , KC_LSFT,                     KC_ESC  , SSNP_VRT  , SSNP_HOR  , SSNP_FRE  , KC_BSPC  ,
-   KC_TAB , KC_F4     , KC_F5     , KC_F6     , KC_LCTL,                           SCRL_TO  , KC_BTN1  , KC_UP    , KC_BTN2  , KC_QUOT  ,
+   KC_TAB , KC_F4     , KC_F5     , KC_F6     , KC_LCTL,                           SCRL_TO  , KC_BTN1  , KC_UP    , KC_BTN2  , TO(2)  ,
     KC_LSFT  , KC_F1     , KC_F2     , KC_F3     , KC_LGUI ,                           KC_HOME, KC_LEFT  , KC_DOWN  , KC_RGHT  , KC_END ,
-    KC_LCTL   , KC_0     , KC_LALT   , KC_DEL   , KC_ENT   , KC_BSPC  ,      _______  , _______  , _______  , _______  , _______  , KC_ESC
+    KC_LCTL   , KC_LGUI     , KC_LALT   , KC_DEL   , KC_ENT   , KC_BSPC  ,      TO(1)  , TO(0)  , _______  , _______  , _______  , RSFT_T(KC_ESC)
   ),
 
   [3] = LAYOUT_universal(
-    RGB_TOG  , AML_TO   , AML_I50  , AML_D50  , _______  ,                            _______  , _______  , SSNP_HOR , SSNP_VRT , SSNP_FRE ,
-    RGB_MOD  , RGB_HUI  , RGB_SAI  , RGB_VAI  , SCRL_DVI ,                            _______  , _______  , _______  , _______  , _______  ,
-    RGB_RMOD , RGB_HUD  , RGB_SAD  , RGB_VAD  , SCRL_DVD ,                            CPI_D1K  , CPI_D100 , CPI_I100 , CPI_I1K  , KBC_SAVE ,
-    QK_BOOT  , KBC_RST  , _______  , _______  , _______  , _______  ,      _______  , _______  , _______  , _______  , KBC_RST  , QK_BOOT
+    _______  , _______   , _______  , _______  , _______  ,                            _______  , _______  , _______ , _______ , _______ ,
+    _______  , _______  , _______  , _______  , _______ ,                            _______  , _______  , _______  , _______  , _______  ,
+    _______ , _______  , _______  , _______  , _______ ,                            _______  , _______ , _______ , _______ , ________ ,
+    _______  , _______  , _______  , _______  , _______  , _______  ,      _______  , _______  , _______  , _______  , _______  , _______
   ),
 
   [4] = LAYOUT_universal(
