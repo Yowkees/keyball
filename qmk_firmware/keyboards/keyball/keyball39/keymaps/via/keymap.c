@@ -27,11 +27,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     KC_Q     , KC_W     , KC_E     , KC_R     , KC_T     ,                            KC_Y     , KC_U     , KC_I     , KC_O     , KC_P     ,
     KC_A     , KC_S     , KC_D     , KC_F     , KC_G     ,                            KC_H     , KC_J     , KC_K     , KC_L     , KC_MINS  ,
     KC_Z     , KC_X     , KC_C     , KC_V     , KC_B     ,                            KC_N     , KC_M     , KC_COMM  , KC_DOT   , KC_SLSH  ,
-    LCTL_T(KC_TAB)  , KC_LGUI  , KC_LALT  ,LSFT_T(KC_SPC),LT(3,KC_ENT),LT(2,KC_BSCP),LT(1,KC_LNG1),KC_LNG2,LSFT_T(KC_LNG2),KC_RALT,KC_RGUI, RSFT_T(KC_ESC)
+    LCTL_T(KC_TAB)  , KC_LGUI  , KC_LALT  ,LSFT_T(KC_SPC),LT(3,KC_ENT),LT(2,KC_BSPC),LT(1,KC_LNG1),KC_LNG2,LSFT_T(KC_LNG2),KC_RALT,KC_RGUI, RSFT_T(KC_ESC)
   ),
 
   [1] = LAYOUT_universal(
-    KC_LBRC    , KC_7    , KC_8    , KC_9    , S(KC_2)  ,                            S(KC_RBRC)    ,   S(KC_MINS)  , KC_TILD    , S(JU_BSLS)    ,  S(KC_BSLS)  ,
+    KC_LBRC    , KC_7    , KC_8    , KC_9    , S(KC_2)  ,                            S(KC_RBRC)    ,   S(KC_MINS)  , KC_TILD    , S(KC_INT3)    ,  S(KC_BSLS)  ,
     KC_EXLM    , KC_4    , KC_5     , KC_6    , S(KC_7)  ,                           S(KC_8), S(KC_SCLN)  , KC_MINS  , KC_SCLN     , S(KC_9)  ,
     S(KC_SLSH) , KC_1    , KC_2     , KC_3    , KC_EQL,                            KC_RBRC  , KC_DQUO   , KC_PERC  , S(KC_QUOT)  , KC_BSLS   ,
     KC_DLR  , KC_0   , S(KC_INT1)  , _______  , _______  , TO(2)  ,       _______   , TO(0)   , _______  , KC_RALT  , KC_RGUI  , KC_HASH
@@ -47,7 +47,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [3] = LAYOUT_universal(
     _______  , _______   , _______  , _______  , _______  ,                            _______  , _______  , _______ , _______ , _______ ,
     _______  , _______  , _______  , _______  , _______ ,                            _______  , _______  , _______  , _______  , _______  ,
-    _______ , _______  , _______  , _______  , _______ ,                            _______  , _______ , _______ , _______ , ________ ,
+    _______ , _______  , _______  , _______  , _______ ,                            _______  , _______ , _______ , _______ , _______ ,
     _______  , _______  , _______  , _______  , _______  , _______  ,      _______  , _______  , _______  , _______  , _______  , _______
   ),
 
