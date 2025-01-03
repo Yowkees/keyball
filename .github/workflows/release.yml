@@ -9,11 +9,11 @@ jobs:
 
   build:
     name: Build firmwares
-    uses: ./.github/workflows/build.yml
+    uses: ./.github/workflows/build-all.yml
 
   deploy:
     name: Deploy firmwares
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-22.04
     needs:
     - build
 
@@ -46,7 +46,7 @@ jobs:
       run: ls -l *.zip
 
     - name: Release
-      uses: softprops/action-gh-release@v1
+      uses: softprops/action-gh-release@v2
       with:
         draft: true
         prerelease: ${{ contains(github.ref_name, '-alpha.') || contains(github.ref_name, '-beta.') }}

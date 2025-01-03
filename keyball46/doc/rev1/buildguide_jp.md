@@ -125,7 +125,7 @@ Keyball46の組み立てには下記の工具が必要です。
 ### 2-2．ファームウェア
 
 Keyball46を動作させるには、ご購入いただいたProMicroへのファームウェアの書き込みが必要です。
-すでにビルド済みのファームウェアがダウンロードできますので、ProMicroへの書き込みソフト『QMK Toolbox』だけ準備できればKeyball46を使用できます。QMK Toolboxについては [Corneのファームウェア](https://github.com/foostan/crkbd/blob/master/doc/firmware_jp.md) の記事に簡潔にまとめられていますのでリンク先前半の説明を読んでQMK Toolboxを準備しておいてください。  
+すでにビルド済みのファームウェアがダウンロードできますので、ProMicroへの書き込みソフト『QMK Toolbox』だけ準備できればKeyball46を使用できます。QMK Toolboxについては [Corneのファームウェア](https://github.com/foostan/crkbd/blob/fbb146fe372ce8b2b1543ced67367bf19e910945/doc/firmware_jp.md#qmk-toolbox-%E3%81%AE%E3%83%80%E3%82%A6%E3%83%B3%E3%83%AD%E3%83%BC%E3%83%89) の記事に簡潔にまとめられていますのでリンク先前半の説明を読んでQMK Toolboxを準備しておいてください。  
 
 書き込みについてはこの後の[3-6章](#3-6promicroの書き込みと動作確認)でテスト用のファームウェアの書き込み、[１０章](#１０正規ファームウェアの書き込み)で製品版ファームウェアの書き込みについて詳しく説明しています。
 
@@ -585,7 +585,7 @@ Keyball46の最新ファームウェアは[Githubのリポジトリ](https://git
 
 <a id="anchor11"></a>
 ## １１．Keyballの使い方♪ 
-   - トラックボールはレイヤー３に切り替わっている間は上下左右スクロールに変わります
+   - トラックボールはレイヤー３に切り替わっている間は[上下左右スクロール](../../../qmk_firmware/keyboards/keyball/lib/keyball/README.md#scroll-snap-spec)に変わります
    - [Remap](https://remap-keys.app/configure)に対応していますので、簡単にキーマップの確認・変更・書込みが可能です
    - USBケーブルは左右どちらに差しても使用できます。ただしキーマップはUSBケーブルを差した側のProMicroへ書き込まれるため、初めて差し替えた場合にはキーマップを見直してください
    - Keyballシリーズ用に特別に用意されたキーコードがレイヤー３に配置されています。トラックボールをスクロールに変化させたり、カーソル速度やスクロール速度変更に使用できます。
