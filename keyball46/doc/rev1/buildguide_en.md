@@ -124,7 +124,7 @@ You will need the following tools to assemble the Keyball46.
 ### 2-2. Firmware
 
 In order to run the Keyball46, you need to write the firmware to the ProMicros you purchased.
-For more information about QMK Toolbox, please refer to [Corne's Firmware](https://github.com/foostan/crkbd/blob/master/doc/firmware_en.md) about QMK Toolbox, please read the first half of the link and prepare QMK Toolbox.  
+For more information about QMK Toolbox, please refer to [Corne's Firmware](https://github.com/foostan/crkbd/blob/fbb146fe372ce8b2b1543ced67367bf19e910945/doc/firmware_en.md#download-qmk-toolbox) about QMK Toolbox, please read the first half of the link and prepare QMK Toolbox.  
 
 For more information on writing firmware, see [Chapter 3-6](#3-6) for writing test firmware, and [Chapter 10](#10) for writing production firmware.
 

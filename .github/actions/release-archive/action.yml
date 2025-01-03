@@ -13,10 +13,11 @@ runs:
   using: 'composite'
   steps:
 
-  - name: Download artifact
-    uses: actions/download-artifact@v3
+  - name: Download artifacts
+    uses: actions/download-artifact@v4
     with:
-      name: ${{ inputs.name }}-firmwares
+      pattern: ${{ inputs.name }}-*-firmware
+      merge-multiple: true
 
   - name: Archive firmwares
     shell: bash

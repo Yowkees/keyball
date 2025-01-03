@@ -37,7 +37,7 @@ enum keymap_layers {
 #define KC_S_EN     LSFT_T(KC_LNG2)
 
 // original
-#define KC_A_JA     LT(_BALL, KC_LNG1)     // cmd or adjust
+#define KC_A_JA     LT(_BALL, KC_LNG1)      // cmd or adjust
 #define KC_AL_CP    MT(MOD_LALT, KC_CAPS)   // alt or caps lock
 #define KC_G_BS     MT(MOD_LGUI, KC_BSPC)   // command or back space
 #define KC_G_DEL    MT(MOD_LGUI, KC_DEL)    // command or delete
@@ -86,13 +86,13 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
   [_BALL] = LAYOUT_left_ball(
   //,-----------------------------------------------------.                    ,-----------------------------------------------------.
-      RGB_TOG, _______, _______, _______, _______, _______,                      RGB_M_P, RGB_M_B, RGB_M_R,RGB_M_SW,RGB_M_SN, RGB_M_K,
+      RGB_TOG, AML_TO , AML_I50, AML_D50, _______, _______,                      _______, _______, _______,SSNP_HOR,SSNP_VRT,SSNP_FRE,
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
-      RGB_MOD, RGB_HUI, RGB_SAI, RGB_VAI, _______, _______,                      RGB_M_X, RGB_M_G, RGB_M_T,RGB_M_TW, _______, _______,
+      RGB_MOD, RGB_HUI, RGB_SAI, RGB_VAI, _______, _______,                      _______, _______, _______, _______, _______, _______,
   //|--------+--------+--------+--------+--------+--------|                    `--------+--------+--------+--------+--------+--------|
      RGB_RMOD, RGB_HUD, RGB_SAD, RGB_VAD, _______, _______,                               CPI_D1K,CPI_D100,CPI_I100, CPI_I1K,KBC_SAVE,
   //|--------+--------+--------+--------+--------+--------'            ,--------+-------+--------+--------+--------+--------+--------|
-        QK_BOOT, EE_CLR, _______,        _______, _______,                _______, _______,  SCRL_DVD,   SCRL_DVI,    _______, KBC_RST
+      QK_BOOT, EE_CLR , _______,        _______, _______,                _______, _______,  SCRL_DVD,   SCRL_DVI,    _______, KBC_RST
   //`--------+--------+--------'      `--------+--------'              `--------+--------' `--------'  `--------'  `--------+--------'
   ),
 

@@ -19,7 +19,7 @@ Keyboards in the family are:
 |Keyboard   |Yushakobo / 遊舎工房                       |Shirogane Lab / 白金ラボ                                   |
 |-----------|-------------------------------------------|-----------------------------------------------------------|
 |Keyball39  |<https://shop.yushakobo.jp/products/5357>  |<https://shirogane-lab.net/items/64b8f8693ee3fd0045280190> |
-|Keyball44  |N/A                                        |<https://shirogane-lab.net/items/64b7a006eb6dbe00346cd0c5> |
+|Keyball44  |<https://shop.yushakobo.jp/products/8337>  |<https://shirogane-lab.net/items/64b7a006eb6dbe00346cd0c5> |
 |Keyball61  |<https://shop.yushakobo.jp/products/5358>  |<https://shirogane-lab.net/items/64b8ed191435c1002bc4cd30> |
 
 ## Build Guide
