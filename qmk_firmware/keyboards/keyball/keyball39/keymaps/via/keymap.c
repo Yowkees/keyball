@@ -77,7 +77,7 @@ void oledkit_render_info_user(void) {
 }
 #endif
 
-const uint16_t PROGMEM combo1[] = {LT(1,KC_LNG1), LT(2,KC_BSPC), COMBO_END};
+const uint16_t PROGMEM combo1[] = {LT(1,KC_LNG2), LT(2,KC_BSPC), COMBO_END};
 const uint16_t PROGMEM combo2[] = {KC_PIPE, KC_RCBR, COMBO_END};
 combo_t key_combos[] = {
     COMBO(combo1, TT(4)),
