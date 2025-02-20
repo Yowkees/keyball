@@ -72,3 +72,21 @@ void oledkit_render_info_user(void) {
     keyball_oled_render_layerinfo();
 }
 #endif
+
+#ifdef COMBO_ENABLE
+#include "combo.h"
+
+// コンボの識別子
+enum combos {
+  COMBO_ESC,  // Q + W を押すとESC
+  COMBO_COUNT
+};
+
+// コンボとなるキーの配列
+const uint16_t PROGMEM combo_esc[] = {KC_Q, KC_W, COMBO_END};
+
+// コンボキーの配列
+combo_t key_combos[COMBO_COUNT] = {
+  COMBO(combo_esc, KC_ESC)
+};
+#endif
