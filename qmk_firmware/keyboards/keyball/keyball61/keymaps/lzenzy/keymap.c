@@ -94,21 +94,15 @@ void oledkit_render_info_user(void) {
 #ifdef COMBO_ENABLE
 #include "combo.h"
 
-#define COMBO_TERM 150  // 150ms に増やす（デフォルトは50～200）
+#define COMBO_TERM 150
 #undef COMBO_MUST_TAP_PERFECT
 #define IGNORE_MOD_TAP_INTERRUPT
 
-// コンボの識別子
-enum combos {
-  COMBO_ESC,  // Q + W を押すとESC
-  COMBO_COUNT
+const uint16_t PROGMEM esc_combo[] = {KC_J, KC_K, COMBO_END};
+const uint16_t PROGMEM tab_combo[] = {KC_Q, KC_W, COMBO_END};
+combo_t key_combos[] = {
+    COMBO(esc_combo, KC_ESC),
+    COMBO(tab_combo, KC_TAB),
 };
 
-// コンボとなるキーの配列
-const uint16_t PROGMEM combo_esc[] = {KC_Q, KC_W, COMBO_END};
-
-// コンボキーの配列
-combo_t key_combos[COMBO_COUNT] = {
-  COMBO(combo_esc, KC_ESC)
-};
 #endif
