@@ -51,3 +51,4 @@ SRC += lib/keyball/keyball.c
 SPACE_CADET_ENABLE = no
 GRAVE_ESC_ENABLE = no
 MAGIC_ENABLE = no
+COMBO_ENABLE = yes
