@@ -74,7 +74,6 @@ void oledkit_render_info_user(void) {
 #endif
 
 #ifdef COMBO_ENABLE
-#include "combo.h"
 
 // コンボとなるキーの配列[
 const uint16_t PROGMEM combo_esc[] = {KC_J, KC_K, COMBO_END};
