@@ -84,6 +84,6 @@ const uint16_t PROGMEM combo_bs[] = {KC_O, KC_P, COMBO_END};
 combo_t key_combos[] = {
   COMBO(combo_esc, KC_ESC),
   COMBO(combo_tab, KC_TAB),
-  COMBO(combo_tab, KC_BSPC)
+  COMBO(combo_bs, KC_BSPC)
 };
 #endif
