@@ -7,3 +7,5 @@ VIA_ENABLE = yes
 COMBO_ENABLE = yes
 
 CAPS_WORD_ENABLE = yes
+
+AUDIO_ENABLE = yes
