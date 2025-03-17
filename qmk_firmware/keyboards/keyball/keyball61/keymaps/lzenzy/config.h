@@ -38,3 +38,5 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define POINTING_DEVICE_AUTO_MOUSE_ENABLE
 #define AUTO_MOUSE_DEFAULT_LAYER 2
 #define DYNAMIC_KEYMAP_LAYER_COUNT 5
+#define COMBO_ONLY_FROM_LAYER 0
+#define BOTH_SHIFTS_TURNS_ON_CAPS_WORD
