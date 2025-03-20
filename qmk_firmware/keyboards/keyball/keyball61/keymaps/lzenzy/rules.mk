@@ -4,6 +4,6 @@ OLED_ENABLE = yes
 
 VIA_ENABLE = yes
 
-COMBO_ENABLE = yes
+COMBO_ENABLE = no
 
 CAPS_WORD_ENABLE = yes
