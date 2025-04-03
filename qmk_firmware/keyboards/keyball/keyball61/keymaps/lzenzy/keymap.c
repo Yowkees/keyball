@@ -88,13 +88,13 @@ layer_state_t layer_state_set_user(layer_state_t state) {
 const uint16_t PROGMEM combo_esc[] = {KC_J, KC_K, COMBO_END};
 const uint16_t PROGMEM combo_tab[] = {KC_Q, KC_W, COMBO_END};
 const uint16_t PROGMEM combo_bs[] = {KC_O, KC_P, COMBO_END};
-const uint16_t PROGMEM jd_combo[] = {KC_J, KC_D, COMBO_END};
+// const uint16_t PROGMEM jd_combo[] = {KC_J, KC_D, COMBO_END};
 
 // コンボキーの配列
 combo_t key_combos[] = {
   COMBO(combo_esc, KC_ESC),
   COMBO(combo_tab, KC_TAB),
   COMBO(combo_bs, KC_BSPC),
-  COMBO(jd_combo, QK_CAPS_WORD_TOGGLE)
+//  COMBO(jd_combo, QK_CAPS_WORD_TOGGLE)
 };
 #endif
