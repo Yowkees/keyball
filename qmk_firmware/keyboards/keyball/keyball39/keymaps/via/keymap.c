@@ -25,16 +25,16 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   // keymap for default (VIA)
   [0] = LAYOUT_universal(
     KC_Q     , KC_W     , KC_E     , KC_R     , KC_T     ,                            KC_Y     , KC_U     , KC_I     , KC_O     , KC_P     ,
-    KC_A     , KC_S     , KC_D     , KC_F     , KC_G     ,                            KC_H     , KC_J     , KC_K     , KC_L     , KC_MINS  ,
+    KC_A     , KC_S     , KC_D     , KC_F     , KC_G     ,                            KC_H     , KC_J     , RCTL_T(KC_K) , RWIN_T(KC_L)    , KC_MINS  ,
     KC_Z     , KC_X     , KC_C     , KC_V     , KC_B     ,                            KC_N     , KC_M     , KC_COMM  , KC_DOT   , KC_SLSH  ,
-    LCTL_T(KC_TAB)  , KC_LGUI  , KC_LALT  ,LSFT_T(KC_BSPC),LT(3,KC_ENT),LT(2,KC_SPC),LT(1,KC_LNG2),KC_LNG2,LSFT_T(KC_LNG1),KC_RALT,KC_RGUI, RSFT_T(KC_ESC)
+    LCTL_T(KC_TAB), KC_LGUI, KC_LALT,KC_BSPC  , KC_ENT   ,KC_SPC,   LT(1,KC_LNG1)   , RSFT_T(KC_LNG2), _______, _______,_______, RSFT_T(KC_ESC)
   ),
 
   [1] = LAYOUT_universal(
     KC_1    , KC_2     , KC_3    , KC_LBRC   , S(KC_2)  ,                            S(KC_RBRC)    ,   KC_INT1  , S(KC_6)    , S(KC_INT3)    ,  S(KC_BSLS)  ,
     KC_4    , KC_5     , KC_6    , KC_EXLM   ,  S(KC_7)  ,                           S(KC_8), S(KC_SCLN)  , S(KC_INT1)  , KC_SCLN     , S(KC_9)  ,
     KC_7    , KC_8     , KC_9    , KC_DLR    ,  KC_EQL,                            KC_RBRC  , KC_DQUO   , KC_PERC  , KC_QUOT  , KC_BSLS   ,
-    KC_0    , KC_HASH  , S(KC_EQL)  , _______  , _______  , TO(2)  ,       _______   , TO(0)   , _______  , KC_RALT  , KC_RGUI  , S(KC_LBRC)
+    KC_0    , KC_HASH  , S(KC_EQL)  , _______  , TO(2)  , KC_SPC ,       _______   , TO(0)   , _______  , KC_RALT  , KC_RGUI  , S(KC_LBRC)
   ),
 
   [2] = LAYOUT_universal(
@@ -44,14 +44,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     KC_F10   , KC_F11     , KC_F12   , KC_BSPC   , KC_ENT   , KC_LCTL  ,      TO(1)  , TO(0)  , _______  , _______  , _______  , RSFT_T(KC_ESC)
   ),
 
-  [3] = LAYOUT_universal(
-    _______  , _______   , _______  , _______  , _______  ,                            _______  , _______  , _______ , _______ , _______ ,
-    _______  , _______  , _______  , _______  , _______ ,                            _______  , _______  , _______  , _______  , _______  ,
-    _______ , _______  , _______  , _______  , _______ ,                            _______  , _______ , _______ , _______ , _______ ,
-    _______  , _______  , _______  , _______  , _______  , _______  ,      _______  , _______  , _______  , _______  , _______  , _______
-  ),
 
-  [4] = LAYOUT_universal(
+  [3] = LAYOUT_universal(
     RGB_TOG  , AML_TO   , AML_I50  , AML_D50  , _______  ,                            _______  , _______  , SSNP_HOR , SSNP_VRT , SSNP_FRE ,
     RGB_MOD  , RGB_HUI  , RGB_HUI  , RGB_VAI  , SCRL_DVI ,                            _______  , _______  , _______  , _______  , _______  ,
     RGB_RMOD , RGB_HUD  , RGB_SAD  , RGB_VAD  , SCRL_DVD ,                            CPI_D1K  , CPI_D100 , CPI_I100 , CPI_I1K  , KBC_SAVE ,
@@ -78,8 +72,8 @@ void oledkit_render_info_user(void) {
 #endif
 
 const uint16_t PROGMEM combo1[] = {LT(1,KC_LNG2), LT(2,KC_BSPC), COMBO_END};
-const uint16_t PROGMEM combo2[] = {KC_PIPE, KC_RCBR, COMBO_END};
+const uint16_t PROGMEM combo2[] = {S(KC_INT3), S(KC_BSLS), COMBO_END};
 combo_t key_combos[] = {
-    COMBO(combo1, TT(4)),
+    COMBO(combo1, TT(3)),
     COMBO(combo2, KC_BSLS),
 };
