@@ -88,12 +88,12 @@ ON_NAMI,
 OT_TASU,
 OY_YAMA,
 OK_KAKE,
-ucomma_UP,
-CV_DOWN,
+LU_UP,
+XC_DOWN,
 IA_LEFT,
 AO_RIGHT,
-TN_BTN1, 
-NS_BTN2, 
+TN_BTN1,
+NS_BTN2,
 WR_BTN4,
 RY_BTN5,
 TS_BTN3
@@ -114,8 +114,8 @@ const uint16_t PROGMEM my_on[] = {KC_O, KC_N, COMBO_END};
 const uint16_t PROGMEM my_ot[] = {KC_O, KC_T, COMBO_END};
 const uint16_t PROGMEM my_oy[] = {KC_O, KC_Y, COMBO_END};
 const uint16_t PROGMEM my_ok[] = {KC_O, KC_K, COMBO_END};
-const uint16_t PROGMEM my_ucomma[] = {KC_U, KC_COMMA, COMBO_END};
-const uint16_t PROGMEM my_cv[] = {KC_C, KC_V, COMBO_END};
+const uint16_t PROGMEM my_lu[] = {KC_L, KC_U, COMBO_END};
+const uint16_t PROGMEM my_xc[] = {KC_X, KC_C, COMBO_END};
 const uint16_t PROGMEM my_ia[] = {KC_I, KC_A, COMBO_END};
 const uint16_t PROGMEM my_ao[] = {KC_A, KC_O, COMBO_END};
 const uint16_t PROGMEM my_tn[] = {KC_T, KC_N, COMBO_END};
@@ -154,9 +154,9 @@ combo_t key_combos[] = {
 
 [OK_KAKE] = COMBO(my_ok, LSFT(KC_8)),
 
-[UCOMMA_UP] = COMBO(my_ucomma, KC_UP),
+[LU_UP] = COMBO(my_lu, KC_UP),
 
-[CV_DOWN] = COMBO(my_cv, KC_DOWN),
+[XC_DOWN] = COMBO(my_xc, KC_DOWN),
 
 [IA_LEFT] = COMBO(my_ia, KC_LEFT),
 
