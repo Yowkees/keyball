@@ -91,10 +91,9 @@ CV_DOWN,
 IA_LEFT,
 NS_RIGHT,
 TN_BTN1, 
-NS_BTN2,
-TN_BTN4,
-NS_BTN5,
-NS_BTN3
+WR_BTN4,
+RY_BTN5,
+TS_BTN3
   
 const uint16_t PROGMEM my_tq[] = {KC_T, KC_Q, COMBO_END};
 const uint16_t PROGMEM my_os[] = {KC_O, KC_S, COMBO_END};
@@ -155,7 +154,7 @@ combo_t key_combos[] = {
 
 [OK_KAKE] = COMBO(my_ok, LSFT(KC_8)),
 
-[UCOMMA_UP] = COMBO(my_uCOMMA, KC_UP),
+[UCOMMA_UP] = COMBO(my_UCOMMA, KC_UP),
 
 [CV_DOWN] = COMBO(my_cv, KC_DOWN),
 
@@ -167,11 +166,11 @@ combo_t key_combos[] = {
 
 [NS_BTN2] = COMBO(my_ns, KC_BTN2),
 
-[TN_BTN4] = COMBO(my_wr, KC_BTN4),
+[WR_BTN4] = COMBO(my_wr, KC_BTN4),
 
-[NS_BTN5] = COMBO(my_ry, KC_BTN5),
+[RY_BTN5] = COMBO(my_ry, KC_BTN5),
 
-[NS_BTN3] = COMBO(my_ts, KC_BTN3),
+[TS_BTN3] = COMBO(my_ts, KC_BTN3),
 
 };
 
