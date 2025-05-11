@@ -75,23 +75,41 @@ void oledkit_render_info_user(void) {
 enum combos{
 
 TQ_QUES,
+
 OS_SING,
+
 OW_DOUB,
+
 OB_BOU,
+
 OP_PER,
+
 OD_DOL,
+
 TU_UNDER,
+
 TA_AND,
+
 OH_HUSH,
+
 TE_EXCL,
+
 ON_NAMI,
+
 OT_TASU,
+
 OY_YAMA,
+
 OK_KAKE,
+
 WR_UP,
+
 DM_DOWN,
+
 TN_LEFT,
+
 NS_RIGHT,
+
 };
 
 const uint16_t PROGMEM my_tq[] = {KC_T, KC_Q, COMBO_END};
@@ -108,33 +126,71 @@ const uint16_t PROGMEM my_on[] = {KC_O, KC_N, COMBO_END};
 const uint16_t PROGMEM my_ot[] = {KC_O, KC_T, COMBO_END};
 const uint16_t PROGMEM my_oy[] = {KC_O, KC_Y, COMBO_END};
 const uint16_t PROGMEM my_ok[] = {KC_O, KC_K, COMBO_END};
-const uint16_t PROGMEM my_wr[] = {KC_W, KC_R, COMBO_END};
-const uint16_t PROGMEM my_dm[] = {KC_D, KC_M, COMBO_END};
-const uint16_t PROGMEM my_tn[] = {KC_T, KC_N, COMBO_END};
-const uint16_t PROGMEM my_ns[] = {KC_N, KC_S, COMBO_END};
+const uint16_t PROGMEM my_wr[] = {KC_u, KC_,, COMBO_END};
+const uint16_t PROGMEM my_dm[] = {KC_c, KC_v, COMBO_END};
+const uint16_t PROGMEM my_ia[] = {KC_i, KC_a, COMBO_END};
+const uint16_t PROGMEM my_ns[] = {KC_a, KC_o, COMBO_END};
+
+const uint16_t PROGMEM my_tn[] = {KC_t, KC_n, COMBO_END};
+
+const uint16_t PROGMEM my_ns[] = {KC_n, KC_s, COMBO_END};
+
+const uint16_t PROGMEM my_wr[] = {KC_w, KC_r, COMBO_END};
+
+const uint16_t PROGMEM my_ry[] = {KC_r, KC_y, COMBO_END};
+
+const uint16_t PROGMEM my_ts[] = {KC_t, KC_s, COMBO_END};
 
 combo_t key_combos[] = {
+
 [TQ_QUES] = COMBO(my_tq, KC_QUES),
+
 [OS_SING] = COMBO(my_os, KC_QUOT),
+
 [OW_DOUB] = COMBO(my_ow, KC_DQUO),
+
 [OB_BOU] = COMBO(my_ob, KC_PIPE),
+
 [OP_PER] = COMBO(my_op, KC_PERC),
+
 [OD_DOL] = COMBO(my_od, KC_DLR),
+
 [TU_UNDER] = COMBO(my_tu, LSFT(KC_MINS)),
+
 [TA_AND] = COMBO(my_ta, KC_AMPR),
+
 [OH_HUSH] = COMBO(my_oh, KC_HASH),
+
 [TE_EXCL] = COMBO(my_te, KC_EXLM),
+
 [ON_NAMI] = COMBO(my_on, KC_TILD),
+
 [OT_TASU] = COMBO(my_ot, KC_PLUS),
+
 [OY_YAMA] = COMBO(my_oy, KC_CIRC),
+
 [OK_KAKE] = COMBO(my_ok, LSFT(KC_8)),
-[WR_UP] = COMBO(my_wr, KC_UP),
-[DM_DOWN] = COMBO(my_dm, KC_DOWN),
-[TN_LEFT] = COMBO(my_tn, KC_BTN1),
-[NS_RIGHT] = COMBO(my_ns, KC_RGHT),
+
+[WR_UP] = COMBO(my_u,, KC_UP),
+
+[DM_DOWN] = COMBO(my_cv, KC_DOWN),
+
+[IA_LEFT] = COMBO(my_ia, KC_LEFT),
+
+[NS_RIGHT] = COMBO(my_ao, KC_RGHT),
+
+[TN_**BTN1**] = COMBO(my_tn, KC_**BTN1**),
+
+[NS_**BTN2**] = COMBO(my_ns, KC_**BTN2**),
+
+[TN_**BTN4**] = COMBO(my_wr, KC_**BTN4**),
+
+[NS_**BTN5**] = COMBO(my_ry, KC_**BTN5**),
+
+[NS_**BTN3**] = COMBO(my_ts, KC_**BTN3**),
 
 };
 
-#endif
+#endift
 
 
