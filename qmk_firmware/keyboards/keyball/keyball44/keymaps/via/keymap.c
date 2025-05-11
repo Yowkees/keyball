@@ -112,41 +112,24 @@ NS_RIGHT,
 
 };
 
-const uint16_t PROGMEM my_jq[] = {KC_T, KC_Q, COMBO_END};
-
-const uint16_t PROGMEM my_js[] = {KC_O, KC_S, COMBO_END};
-
-const uint16_t PROGMEM my_jw[] = {KC_O, KC_W, COMBO_END};
-
-const uint16_t PROGMEM my_jb[] = {KC_O, KC_B, COMBO_END};
-
-const uint16_t PROGMEM my_fp[] = {KC_O, KC_P, COMBO_END};
-
-const uint16_t PROGMEM my_jd[] = {KC_O, KC_D, COMBO_END};
-
-const uint16_t PROGMEM my_fu[] = {KC_T, KC_U, COMBO_END};
-
-const uint16_t PROGMEM my_ja[] = {KC_T, KC_A, COMBO_END};
-
-const uint16_t PROGMEM my_fh[] = {KC_O, KC_H, COMBO_END};
-
-const uint16_t PROGMEM my_je[] = {KC_T, KC_E, COMBO_END};
-
-const uint16_t PROGMEM my_fn[] = {KC_O, KC_N, COMBO_END};
-
-const uint16_t PROGMEM my_jt[] = {KC_O, KC_T, COMBO_END};
-
-const uint16_t PROGMEM my_fy[] = {KC_O, KC_Y, COMBO_END};
-
-const uint16_t PROGMEM my_fk[] = {KC_O, KC_K, COMBO_END};
-
-const uint16_t PROGMEM my_ui[] = {KC_W, KC_R, COMBO_END};
-
-const uint16_t PROGMEM my_mco[] = {KC_D, KC_M, COMBO_END};
-
-const uint16_t PROGMEM my_jk[] = {KC_T, KC_N, COMBO_END};
-
-const uint16_t PROGMEM my_kl[] = {KC_N, KC_S, COMBO_END};
+const uint16_t PROGMEM my_tq[] = {KC_T, KC_Q, COMBO_END};
+const uint16_t PROGMEM my_os[] = {KC_O, KC_S, COMBO_END};
+const uint16_t PROGMEM my_ow[] = {KC_O, KC_W, COMBO_END};
+const uint16_t PROGMEM my_ob[] = {KC_O, KC_B, COMBO_END};
+const uint16_t PROGMEM my_op[] = {KC_O, KC_P, COMBO_END};
+const uint16_t PROGMEM my_od[] = {KC_O, KC_D, COMBO_END};
+const uint16_t PROGMEM my_tu[] = {KC_T, KC_U, COMBO_END};
+const uint16_t PROGMEM my_ta[] = {KC_T, KC_A, COMBO_END};
+const uint16_t PROGMEM my_oh[] = {KC_O, KC_H, COMBO_END};
+const uint16_t PROGMEM my_te[] = {KC_T, KC_E, COMBO_END};
+const uint16_t PROGMEM my_on[] = {KC_O, KC_N, COMBO_END};
+const uint16_t PROGMEM my_ot[] = {KC_O, KC_T, COMBO_END};
+const uint16_t PROGMEM my_oy[] = {KC_O, KC_Y, COMBO_END};
+const uint16_t PROGMEM my_ok[] = {KC_O, KC_K, COMBO_END};
+const uint16_t PROGMEM my_wr[] = {KC_W, KC_R, COMBO_END};
+const uint16_t PROGMEM my_dm[] = {KC_D, KC_M, COMBO_END};
+const uint16_t PROGMEM my_tn[] = {KC_T, KC_N, COMBO_END};
+const uint16_t PROGMEM my_ns[] = {KC_N, KC_S, COMBO_END};
 
 combo_t key_combos[] = {
 
