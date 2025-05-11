@@ -78,4 +78,4 @@ combo_t key_combos[] = {
 };
 #endif
 
-#define DYNAMIC_KEYMAP_LAYER_COUNT 5 
+
