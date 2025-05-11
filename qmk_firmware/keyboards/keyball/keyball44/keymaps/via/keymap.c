@@ -72,6 +72,30 @@ void oledkit_render_info_user(void) {
 
 #ifdef COMBO_ENABLE
 
+TQ_QUES,
+OS_SING,
+OW_DOUB,
+OB_BOU,
+OP_PER,
+OD_DOL,
+TU_UNDER,
+TA_AND,
+OH_HUSH,
+TE_EXCL,
+ON_NAMI,
+OT_TASU,
+OY_YAMA,
+OK_KAKE,
+WR_UP,
+CV_DOWN,
+IA_LEFT,
+NS_RIGHT,
+TN_BTN1, 
+NS_BTN2,
+TN_BTN4,
+NS_BTN5,
+NS_BTN3
+  
 const uint16_t PROGMEM my_tq[] = {KC_T, KC_Q, COMBO_END};
 const uint16_t PROGMEM my_os[] = {KC_O, KC_S, COMBO_END};
 const uint16_t PROGMEM my_ow[] = {KC_O, KC_W, COMBO_END};
