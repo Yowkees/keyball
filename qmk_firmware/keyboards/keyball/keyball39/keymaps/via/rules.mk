@@ -1,4 +1,4 @@
-RGBLIGHT_ENABLE = yes
+RGBLIGHT_ENABLE = no  # 約2800bytes
 
 OLED_ENABLE = yes
 
