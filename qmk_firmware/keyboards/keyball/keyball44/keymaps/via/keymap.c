@@ -72,6 +72,8 @@ void oledkit_render_info_user(void) {
 
 #ifdef COMBO_ENABLE
 
+enum combos{
+
 TQ_QUES,
 OS_SING,
 OW_DOUB,
@@ -94,7 +96,9 @@ TN_BTN1,
 WR_BTN4,
 RY_BTN5,
 TS_BTN3
-  
+
+};
+
 const uint16_t PROGMEM my_tq[] = {KC_T, KC_Q, COMBO_END};
 const uint16_t PROGMEM my_os[] = {KC_O, KC_S, COMBO_END};
 const uint16_t PROGMEM my_ow[] = {KC_O, KC_W, COMBO_END};
