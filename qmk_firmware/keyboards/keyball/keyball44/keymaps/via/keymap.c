@@ -71,69 +71,123 @@ void oledkit_render_info_user(void) {
 #endif
 
 #ifdef COMBO_ENABLE
+
 enum combos{
-JQ_QUES,
-JS_SING,
-JW_DOUB,
-JB_BOU,
-FP_PER,
-JD_DOL,
-FU_UNDER,
-JA_AND,
-FH_HUSH,
-JE_EXCL,
-FN_NAMI,
-JT_TASU,
-FY_YAMA,
-FK_KAKE,
-UI_UP,
-MC_DOWN,
-JK_LEFT,
-KL_RIGHT,
-FD_LAYER,
+
+TQ_QUES,
+
+OS_SING,
+
+OW_DOUB,
+
+OB_BOU,
+
+OP_PER,
+
+OD_DOL,
+
+TU_UNDER,
+
+TA_AND,
+
+OH_HUSH,
+
+TE_EXCL,
+
+ON_NAMI,
+
+OT_TASU,
+
+OY_YAMA,
+
+OK_KAKE,
+
+WR_UP,
+
+DM_DOWN,
+
+TN_LEFT,
+
+NS_RIGHT,
+
 };
 
-const uint16_t PROGMEM my_jq[] = {KC_J, KC_Q, COMBO_END};
-const uint16_t PROGMEM my_js[] = {KC_J, KC_S, COMBO_END};
-const uint16_t PROGMEM my_jw[] = {KC_J, KC_W, COMBO_END};
-const uint16_t PROGMEM my_jb[] = {KC_J, KC_B, COMBO_END};
-const uint16_t PROGMEM my_fp[] = {KC_F, KC_P, COMBO_END};
-const uint16_t PROGMEM my_jd[] = {KC_J, KC_D, COMBO_END};
-const uint16_t PROGMEM my_fu[] = {KC_F, KC_U, COMBO_END};
-const uint16_t PROGMEM my_ja[] = {KC_J, KC_A, COMBO_END};
-const uint16_t PROGMEM my_fh[] = {KC_F, KC_H, COMBO_END};
-const uint16_t PROGMEM my_je[] = {KC_J, KC_E, COMBO_END};
-const uint16_t PROGMEM my_fn[] = {KC_F, KC_N, COMBO_END};
-const uint16_t PROGMEM my_jt[] = {KC_J, KC_T, COMBO_END};
-const uint16_t PROGMEM my_fy[] = {KC_F, KC_Y, COMBO_END};
-const uint16_t PROGMEM my_fk[] = {KC_F, KC_K, COMBO_END};
-const uint16_t PROGMEM my_ui[] = {KC_U, KC_I, COMBO_END};
-const uint16_t PROGMEM my_mco[] = {KC_M, KC_COMM, COMBO_END};
-const uint16_t PROGMEM my_jk[] = {KC_J, KC_K, COMBO_END};
-const uint16_t PROGMEM my_kl[] = {KC_K, KC_L, COMBO_END};
-const uint16_t PROGMEM my_fd[] = {KC_F, KC_D, COMBO_END};
+const uint16_t PROGMEM my_jq[] = {KC_T, KC_Q, COMBO_END};
+
+const uint16_t PROGMEM my_js[] = {KC_O, KC_S, COMBO_END};
+
+const uint16_t PROGMEM my_jw[] = {KC_O, KC_W, COMBO_END};
+
+const uint16_t PROGMEM my_jb[] = {KC_O, KC_B, COMBO_END};
+
+const uint16_t PROGMEM my_fp[] = {KC_O, KC_P, COMBO_END};
+
+const uint16_t PROGMEM my_jd[] = {KC_O, KC_D, COMBO_END};
+
+const uint16_t PROGMEM my_fu[] = {KC_T, KC_U, COMBO_END};
+
+const uint16_t PROGMEM my_ja[] = {KC_T, KC_A, COMBO_END};
+
+const uint16_t PROGMEM my_fh[] = {KC_O, KC_H, COMBO_END};
+
+const uint16_t PROGMEM my_je[] = {KC_T, KC_E, COMBO_END};
+
+const uint16_t PROGMEM my_fn[] = {KC_O, KC_N, COMBO_END};
+
+const uint16_t PROGMEM my_jt[] = {KC_O, KC_T, COMBO_END};
+
+const uint16_t PROGMEM my_fy[] = {KC_O, KC_Y, COMBO_END};
+
+const uint16_t PROGMEM my_fk[] = {KC_O, KC_K, COMBO_END};
+
+const uint16_t PROGMEM my_ui[] = {KC_W, KC_R, COMBO_END};
+
+const uint16_t PROGMEM my_mco[] = {KC_D, KC_M, COMBO_END};
+
+const uint16_t PROGMEM my_jk[] = {KC_T, KC_N, COMBO_END};
+
+const uint16_t PROGMEM my_kl[] = {KC_N, KC_S, COMBO_END};
 
 combo_t key_combos[] = {
-[JQ_QUES] = COMBO(my_jq, KC_QUES),
-[JS_SING] = COMBO(my_js, KC_QUOT),
-[JW_DOUB] = COMBO(my_jw, KC_DQUO),
-[JB_BOU] = COMBO(my_jb, KC_PIPE),
-[FP_PER] = COMBO(my_fp, KC_PERC),
-[JD_DOL] = COMBO(my_jd, KC_DLR),
-[FU_UNDER] = COMBO(my_fu, LSFT(KC_MINS)),
-[JA_AND] = COMBO(my_ja, KC_AMPR),
-[FH_HUSH] = COMBO(my_fh, KC_HASH),
-[JE_EXCL] = COMBO(my_je, KC_EXLM),
-[FN_NAMI] = COMBO(my_fn, KC_TILD),
-[JT_TASU] = COMBO(my_jt, KC_PLUS),
-[FY_YAMA] = COMBO(my_fy, KC_CIRC),
-[FK_KAKE] = COMBO(my_fk, LSFT(KC_8)),
-[UI_UP] = COMBO(my_ui, KC_UP),
-[MC_DOWN] = COMBO(my_mco, KC_DOWN),
-[JK_LEFT] = COMBO(my_jk, KC_LEFT),
-[KL_RIGHT] = COMBO(my_kl, KC_RGHT),
-[FD_LAYER] = COMBO(my_fd, MO(4)),
+
+[TQ_QUES] = COMBO(my_tq, KC_QUES),
+
+[OS_SING] = COMBO(my_os, KC_QUOT),
+
+[OW_DOUB] = COMBO(my_ow, KC_DQUO),
+
+[OB_BOU] = COMBO(my_ob, KC_PIPE),
+
+[OP_PER] = COMBO(my_op, KC_PERC),
+
+[OD_DOL] = COMBO(my_od, KC_DLR),
+
+[TU_UNDER] = COMBO(my_tu, LSFT(KC_MINS)),
+
+[TA_AND] = COMBO(my_ta, KC_AMPR),
+
+[OH_HUSH] = COMBO(my_oh, KC_HASH),
+
+[TE_EXCL] = COMBO(my_te, KC_EXLM),
+
+[ON_NAMI] = COMBO(my_on, KC_TILD),
+
+[OT_TASU] = COMBO(my_ot, KC_PLUS),
+
+[OY_YAMA] = COMBO(my_oy, KC_CIRC),
+
+[OK_KAKE] = COMBO(my_ok, LSFT(KC_8)),
+
+[WR_UP] = COMBO(my_wr, KC_UP),
+
+[DM_DOWN] = COMBO(my_dm, KC_DOWN),
+
+[TN_LEFT] = COMBO(my_tn, KC_LEFT),
+
+[NS_RIGHT] = COMBO(my_ns, KC_RGHT),
+
 };
+
 #endif
 
 
