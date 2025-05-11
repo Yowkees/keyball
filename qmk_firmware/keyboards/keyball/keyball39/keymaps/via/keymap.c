@@ -53,9 +53,48 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 };
 // clang-format on
 
+#ifdef RGBLIGHT_ENABLE
+bool cw_active = false;  // Caps Word用フラグ
+
+void caps_word_set_user(bool active) {
+    if (active) {  // Caps Wordが有効な場合
+        rgblight_sethsv(HSV_RED);
+        cw_active = true;
+    } else {
+        if (layer_state_is(6)) {
+            rgblight_sethsv(HSV_GREEN);
+        } else if (layer_state_is(5)) {
+            rgblight_sethsv(HSV_BLUE);
+        } else {
+            rgblight_sethsv(HSV_OFF); // それ以外の場合、LEDを消灯
+        }
+        cw_active = false;
+    }
+}
+#endif // RGBLIGHT_ENABLE
+
 layer_state_t layer_state_set_user(layer_state_t state) {
     // Auto enable scroll mode when the highest layer is 3
     keyball_set_scroll_mode(get_highest_layer(state) == 3);
+
+#ifdef RGBLIGHT_ENABLE
+    // レイヤーとLEDを連動させる
+    switch (get_highest_layer(state)) {
+        case 5:
+            rgblight_sethsv(HSV_BLUE);
+            break;
+        case 6:
+            rgblight_sethsv(HSV_GREEN);
+            break;
+        default:
+            if (cw_active) {
+                rgblight_sethsv(HSV_RED); // レイヤー5,6以外かつCaps Wordが有効な場合
+            } else {
+                rgblight_sethsv(HSV_OFF);
+            }
+    }
+#endif // RGBLIGHT_ENABLE
+    
     return state;
 }
 
