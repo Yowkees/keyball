@@ -77,3 +77,5 @@ combo_t key_combos[] = {
     COMBO(my_bs, KC_BSPC),
 };
 #endif
+
+#define DYNAMIC_KEYMAP_LAYER_COUNT 5 
