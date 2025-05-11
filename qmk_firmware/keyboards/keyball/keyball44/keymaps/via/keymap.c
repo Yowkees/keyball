@@ -1,4 +1,4 @@
-/*
+t/*
 Copyright 2022 @Yowkees
 Copyright 2022 MURAOKA Taro (aka KoRoN, @kaoriya)
 
@@ -160,7 +160,7 @@ combo_t key_combos[] = {
 
 [IA_LEFT] = COMBO(my_ia, KC_LEFT),
 
-[AO_RIGHT] = COMBO(my_ao, KC_RGHT),
+[AO_RIGHT] = COMBO(my_ao, KC_RIGHT),
 
 [TN_BTN1] = COMBO(my_tn, KC_BTN1),
 
