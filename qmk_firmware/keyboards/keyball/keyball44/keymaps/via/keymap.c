@@ -86,7 +86,7 @@ const uint16_t PROGMEM my_on[] = {KC_O, KC_N, COMBO_END};
 const uint16_t PROGMEM my_ot[] = {KC_O, KC_T, COMBO_END};
 const uint16_t PROGMEM my_oy[] = {KC_O, KC_Y, COMBO_END};
 const uint16_t PROGMEM my_ok[] = {KC_O, KC_K, COMBO_END};
-const uint16_t PROGMEM my_wr[] = {KC_U, KC_COMMA, COMBO_END};
+const uint16_t PROGMEM my_UCOMMA[] = {KC_U, KC_COMMA, COMBO_END};
 const uint16_t PROGMEM my_cv[] = {KC_C, KC_V, COMBO_END};
 const uint16_t PROGMEM my_ia[] = {KC_I, KC_A, COMBO_END};
 const uint16_t PROGMEM my_ao[] = {KC_A, KC_O, COMBO_END};
@@ -131,7 +131,7 @@ combo_t key_combos[] = {
 
 [OK_KAKE] = COMBO(my_ok, LSFT(KC_8)),
 
-[WR_UP] = COMBO(my_uCOMMA, KC_UP),
+[UCOMMA_UP] = COMBO(my_uCOMMA, KC_UP),
 
 [CV_DOWN] = COMBO(my_cv, KC_DOWN),
 
@@ -139,15 +139,15 @@ combo_t key_combos[] = {
 
 [NS_RIGHT] = COMBO(my_ao, KC_RGHT),
 
-[TN_**BTN1**] = COMBO(my_tn, KC_**BTN1**),
+[TN_BTN1] = COMBO(my_tn, KC_BTN1),
 
-[NS_**BTN2**] = COMBO(my_ns, KC_**BTN2**),
+[NS_BTN2] = COMBO(my_ns, KC_BTN2),
 
-[TN_**BTN4**] = COMBO(my_wr, KC_**BTN4**),
+[TN_BTN4] = COMBO(my_wr, KC_BTN4),
 
-[NS_**BTN5**] = COMBO(my_ry, KC_**BTN5**),
+[NS_BTN5] = COMBO(my_ry, KC_BTN5),
 
-[NS_**BTN3**] = COMBO(my_ts, KC_**BTN3**),
+[NS_BTN3] = COMBO(my_ts, KC_BTN3),
 
 };
 
