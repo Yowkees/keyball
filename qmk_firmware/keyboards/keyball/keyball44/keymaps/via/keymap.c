@@ -72,46 +72,6 @@ void oledkit_render_info_user(void) {
 
 #ifdef COMBO_ENABLE
 
-enum combos{
-
-TQ_QUES,
-
-OS_SING,
-
-OW_DOUB,
-
-OB_BOU,
-
-OP_PER,
-
-OD_DOL,
-
-TU_UNDER,
-
-TA_AND,
-
-OH_HUSH,
-
-TE_EXCL,
-
-ON_NAMI,
-
-OT_TASU,
-
-OY_YAMA,
-
-OK_KAKE,
-
-WR_UP,
-
-DM_DOWN,
-
-TN_LEFT,
-
-NS_RIGHT,
-
-};
-
 const uint16_t PROGMEM my_tq[] = {KC_T, KC_Q, COMBO_END};
 const uint16_t PROGMEM my_os[] = {KC_O, KC_S, COMBO_END};
 const uint16_t PROGMEM my_ow[] = {KC_O, KC_W, COMBO_END};
@@ -126,20 +86,20 @@ const uint16_t PROGMEM my_on[] = {KC_O, KC_N, COMBO_END};
 const uint16_t PROGMEM my_ot[] = {KC_O, KC_T, COMBO_END};
 const uint16_t PROGMEM my_oy[] = {KC_O, KC_Y, COMBO_END};
 const uint16_t PROGMEM my_ok[] = {KC_O, KC_K, COMBO_END};
-const uint16_t PROGMEM my_wr[] = {KC_u, KC_,, COMBO_END};
-const uint16_t PROGMEM my_dm[] = {KC_c, KC_v, COMBO_END};
-const uint16_t PROGMEM my_ia[] = {KC_i, KC_a, COMBO_END};
-const uint16_t PROGMEM my_ns[] = {KC_a, KC_o, COMBO_END};
+const uint16_t PROGMEM my_wr[] = {KC_U, KC_COMMA, COMBO_END};
+const uint16_t PROGMEM my_cv[] = {KC_C, KC_V, COMBO_END};
+const uint16_t PROGMEM my_ia[] = {KC_I, KC_A, COMBO_END};
+const uint16_t PROGMEM my_ao[] = {KC_A, KC_O, COMBO_END};
 
-const uint16_t PROGMEM my_tn[] = {KC_t, KC_n, COMBO_END};
+const uint16_t PROGMEM my_tn[] = {KC_T, KC_N, COMBO_END};
 
-const uint16_t PROGMEM my_ns[] = {KC_n, KC_s, COMBO_END};
+const uint16_t PROGMEM my_ns[] = {KC_N, KC_S, COMBO_END};
 
-const uint16_t PROGMEM my_wr[] = {KC_w, KC_r, COMBO_END};
+const uint16_t PROGMEM my_wr[] = {KC_W, KC_R, COMBO_END};
 
-const uint16_t PROGMEM my_ry[] = {KC_r, KC_y, COMBO_END};
+const uint16_t PROGMEM my_ry[] = {KC_R, KC_Y, COMBO_END};
 
-const uint16_t PROGMEM my_ts[] = {KC_t, KC_s, COMBO_END};
+const uint16_t PROGMEM my_ts[] = {KC_T, KC_S, COMBO_END};
 
 combo_t key_combos[] = {
 
@@ -171,9 +131,9 @@ combo_t key_combos[] = {
 
 [OK_KAKE] = COMBO(my_ok, LSFT(KC_8)),
 
-[WR_UP] = COMBO(my_u,, KC_UP),
+[WR_UP] = COMBO(my_uCOMMA, KC_UP),
 
-[DM_DOWN] = COMBO(my_cv, KC_DOWN),
+[CV_DOWN] = COMBO(my_cv, KC_DOWN),
 
 [IA_LEFT] = COMBO(my_ia, KC_LEFT),
 
@@ -191,6 +151,5 @@ combo_t key_combos[] = {
 
 };
 
-#endift
-
+#endif
 
