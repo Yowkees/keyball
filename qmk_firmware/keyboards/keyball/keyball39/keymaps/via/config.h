@@ -42,6 +42,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define HOLD_ON_OTHER_KEY_PRESS_PER_KEY
 #define TAPPING_TERM 250
 #define QUICK_TAP_TERM 120 
+#define AUTO_MOUSE_LAYER_KEEP_TIME 30000  // AML保持時間
 
 #ifdef COMBO_ENABLE
 #    define COMBO_TERM 80
