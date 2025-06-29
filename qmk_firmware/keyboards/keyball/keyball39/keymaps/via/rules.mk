@@ -1,6 +1,6 @@
 RGBLIGHT_ENABLE = no  # 約2800bytes
 
-OLED_ENABLE = yes
+OLED_ENABLE = yes  # 約4030bytes
 
 VIA_ENABLE = yes
 
