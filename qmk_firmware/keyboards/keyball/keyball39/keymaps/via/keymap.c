@@ -348,6 +348,53 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             }
             return false;
 #endif // POINTING_DEVICE_AUTO_MOUSE_ENABLE
+
+        case GRP_COL:
+            if (record->event.pressed) {
+                tap_code16(C(KC_SPC));
+                tap_code16(S(A(KC_RIGHT)));
+            }
+            return false;
+        case UNG_COL:
+            if (record->event.pressed) {
+                tap_code16(C(KC_SPC));
+                tap_code16(S(A(KC_LEFT)));
+            }
+            return false;
+
+        case TMS_MTG:
+            if (record->event.pressed) {
+                register_code(KC_LWIN);
+                tap_code(KC_4);
+                wait_ms(100);
+                tap_code(KC_4);
+                wait_ms(100);
+                unregister_code(KC_LWIN);
+                wait_ms(100);
+                tap_code16(C(S(KC_M)));
+            }
+            return false;
+
+        case EXL_FLT:
+            if (record->event.pressed) {
+                tap_code(KC_INT5);    // 無変換キー(IMEオフ)
+                tap_code(KC_LALT);
+                tap_code(KC_W);
+                tap_code(KC_F);
+                tap_code(KC_F);
+                tap_code(KC_UP);
+                tap_code16(S(KC_SPC));
+                tap_code16(C(S(KC_L)));
+                tap_code(KC_DOWN);
+            }
+            return false;
+            
+        case MHEN_CW:
+            if (record->event.pressed) {
+                tap_code(KC_INT5);    // 無変換キー(IMEオフ)
+                caps_word_on();       // Caps Wordを有効化
+            }
+            return false;
             
 #if KEYBALL_SCROLLSNAP_ENABLE == 2
         case TD_STSP:
