@@ -43,6 +43,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define TAPPING_TERM 250
 #define QUICK_TAP_TERM 120 
 #define AUTO_MOUSE_LAYER_KEEP_TIME 30000  // AML保持時間
+#define TAPPING_TERM_TD 300  // 擬似Tap Dance用のTapping Term
 
 #ifdef COMBO_ENABLE
 #    define COMBO_TERM 80

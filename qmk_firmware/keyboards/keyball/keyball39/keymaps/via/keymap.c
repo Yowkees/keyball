@@ -76,8 +76,11 @@ void caps_word_set_user(bool active) {
 #endif // RGBLIGHT_ENABLE
 
 layer_state_t layer_state_set_user(layer_state_t state) {
-    // Auto enable scroll mode when the highest layer is 3
-    keyball_set_scroll_mode(get_highest_layer(state) == 3);
+#if KEYBALL_SCROLLSNAP_ENABLE == 2
+    if (get_highest_layer(state) != AUTO_MOUSE_DEFAULT_LAYER) {
+        keyball_set_scrollsnap_mode(KEYBALL_SCROLLSNAP_MODE_VERTICAL);  // AML以外ではSSNP_VRTに固定
+    }
+#endif
 
 #ifdef RGBLIGHT_ENABLE
     // レイヤーとLEDを連動させる
@@ -225,6 +228,23 @@ bool process_combo_key_repress(uint16_t combo_index, combo_t *combo, uint8_t row
 //////////////////////////////
 /// カスタムキーコード。ここから ///
 //////////////////////////////
+// TD_STSP用
+#if KEYBALL_SCROLLSNAP_ENABLE == 2
+static uint16_t td_stsp_last_tap_time = 0;  // 最後のタップ時刻
+static uint8_t td_stsp_tap_count = 0;       // タップ回数（1～3）
+static void update_td_stsp_tap_count(uint16_t time) {  // タップ回数および時刻を記録
+    uint16_t time_diff = TIMER_DIFF_16(time, td_stsp_last_tap_time);
+    if (time_diff > TAPPING_TERM_TD) {
+        td_stsp_tap_count = 1;  // タップ間隔がTAPPING_TERM_TDを超えたらリセット
+    } else {
+        if (td_stsp_tap_count < 3) {
+            td_stsp_tap_count++;  // 最大3回までカウント
+        }
+    }
+    td_stsp_last_tap_time = time;  // 最後のタップ時刻を更新
+}
+#endif // KEYBALL_SCROLLSNAP_ENABLE == 2
+
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     switch (keycode) {
         // CMB_ALTTAB用
@@ -241,6 +261,29 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             }
             return true;  // Combo以外であれば通常のキー入力を行う
 #endif // COMBO_ENABLE
+            
+#if KEYBALL_SCROLLSNAP_ENABLE == 2
+        case TD_STSP:
+            if (record->event.pressed) {
+                update_td_stsp_tap_count(record->event.time);  // タップ回数を更新
+                keyball_set_scroll_mode(true);  // スクロールモードを有効化
+                // タップ回数に応じたスクロールスナップモードを設定
+                if (td_stsp_tap_count >= 3) {
+                    keyball_set_scrollsnap_mode(KEYBALL_SCROLLSNAP_MODE_FREE);
+                } else if (td_stsp_tap_count == 2) {
+                    keyball_set_scrollsnap_mode(KEYBALL_SCROLLSNAP_MODE_HORIZONTAL);
+                } else {
+                    keyball_set_scrollsnap_mode(KEYBALL_SCROLLSNAP_MODE_VERTICAL);
+                }
+            } else {
+                keyball_set_scroll_mode(false);  // スクロールモードを解除
+                // キーを離した時に、最後のタップからTAPPING_TERM_TDを超えていたらカウントをリセット
+                if (TIMER_DIFF_16(record->event.time, td_stsp_last_tap_time) > TAPPING_TERM_TD) {
+                    td_stsp_tap_count = 0;
+                }
+            }
+            return false;  // 他の処理をブロック
+#endif // KEYBALL_SCROLLSNAP_ENABLE == 2
     }
 }
 //////////////////////////////

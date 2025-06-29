@@ -723,9 +723,14 @@ static void pressing_keys_update(uint16_t keycode, keyrecord_t *record) {
 
 #ifdef POINTING_DEVICE_AUTO_MOUSE_ENABLE
 bool is_mouse_record_kb(uint16_t keycode, keyrecord_t* record) {
+    // 押下後もAML保持したいキーを定義
     switch (keycode) {
-        case SCRL_MO:
+#    if KEYBALL_SCROLLSNAP_ENABLE == 2
+        case TD_STSP:
             return true;
+#    endif
+        default:
+            return false;
     }
     return is_mouse_record_user(keycode, record);
 }
