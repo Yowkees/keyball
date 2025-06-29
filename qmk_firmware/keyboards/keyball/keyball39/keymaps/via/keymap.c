@@ -135,6 +135,7 @@ enum combo_events {
   SQUARE_BRACKETS,
   CURLY_BRACKETS,
   PASTE_VALUE,
+  CMB_ALTTAB,
   COMBO_COUNT  // Comboの数を自動計算
 };
 
@@ -142,16 +143,23 @@ const uint16_t PROGMEM paren_combo[] = {KC_G, KC_H, COMBO_END};
 const uint16_t PROGMEM sqbra_combo[] = {KC_T, KC_Y, COMBO_END};
 const uint16_t PROGMEM cubra_combo[] = {KC_B, KC_N, COMBO_END};
 const uint16_t PROGMEM paste_combo[] = {KC_C, KC_V, COMBO_END};
+const uint16_t PROGMEM combo_alttab[] = {KC_D, KC_F, COMBO_END};
 
 combo_t key_combos[COMBO_COUNT] = {
   [PARENTHESES] = COMBO_ACTION(paren_combo),
   [SQUARE_BRACKETS] = COMBO_ACTION(sqbra_combo),
   [CURLY_BRACKETS] = COMBO_ACTION(cubra_combo),
   [PASTE_VALUE] = COMBO_ACTION(paste_combo),
+  [CMB_ALTTAB] = COMBO(combo_alttab, KC_NO), // KC_NO to leave processing for process_combo_event
 };
 // COMBO_ACTION(x) is same as COMBO(x, KC_NO)
 
+// Comboの状態管理
+static bool combo_key_press_active[COMBO_COUNT] = { false };
+
 void process_combo_event(uint16_t combo_index, bool pressed) {
+  combo_key_press_active[combo_index] = pressed;  // Comboが押されている間はTRUE、離すとFALSE
+  
   switch(combo_index) {
     case PARENTHESES:
       if (pressed) {
@@ -176,6 +184,58 @@ void process_combo_event(uint16_t combo_index, bool pressed) {
         tap_code16(C(S(KC_V)));
       }
       break;
+    case CMB_ALTTAB:
+      if (pressed) {
+        register_mods(MOD_LALT);
+        tap_code(KC_TAB);
+      } else {
+        unregister_mods(MOD_LALT);
+      }
+      break;    
   }
 }
+
+bool process_combo_key_repress(uint16_t combo_index, combo_t *combo, uint8_t row, uint16_t keycode, keyrecord_t *record) {
+    if (!combo_key_press_active[combo_index]) {  // Comboが発動していなければ何もしない
+        return false;
+    }
+
+    if (record->event.pressed) {
+        if (combo_index == CMB_ALTTAB) {  
+            if (keycode == KC_S) {
+                tap_code16(S(KC_TAB)); // Shift + Tabを送信
+                return true;
+            } else if (keycode == KC_F) {
+                tap_code(KC_TAB); // Tabを送信
+                return true;
+            }
+        }
+    }
+    return false;
+}
 #endif  // COMBO_ENABLE
+
+//////////////////////////////
+/// カスタムキーコード。ここから ///
+//////////////////////////////
+bool process_record_user(uint16_t keycode, keyrecord_t *record) {
+    switch (keycode) {
+        // CMB_ALTTAB用
+#ifdef COMBO_ENABLE
+        case KC_S:
+        case KC_F:
+            if (record->event.pressed) {
+                // ComboのKey Repress処理
+                for (uint16_t i = 0; i < COMBO_COUNT; i++) {
+                    if (process_combo_key_repress(i, &key_combos[i], record->event.key.row, keycode, record)) {
+                        return false; // Comboが処理された場合、通常のキー入力をキャンセル
+                    }
+                }
+            }
+            return true;  // Combo以外であれば通常のキー入力を行う
+#endif // COMBO_ENABLE
+    }
+}
+//////////////////////////////
+/// カスタムキーコード。ここまで ///
+//////////////////////////////
