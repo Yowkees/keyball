@@ -18,7 +18,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "quantum.h"
 #ifdef SPLIT_KEYBOARD
 #    include "transactions.h"
-#endif
+#endif // SPLIT_KEYBOARD
 
 #include "keyball.h"
 #include "drivers/pmw3360/pmw3360.h"
@@ -122,7 +122,7 @@ static char to_1x(uint8_t x) {
     x &= 0x0f;
     return x < 10 ? x + '0' : x + 'a' - 10;
 }
-#endif
+#endif // OLED_ENABLE
 
 static void add_cpi(int8_t delta) {
     int16_t v = keyball_get_cpi() + delta;
@@ -377,7 +377,7 @@ static void rpc_set_cpi_invoke(void) {
     keyball.cpi_changed = false;
 }
 
-#endif
+#endif // SPLIT_KEYBOARD
 
 //////////////////////////////////////////////////////////////////////////////
 // OLED utility
@@ -393,7 +393,7 @@ const char PROGMEM code_to_name[] = {
     ',', '.', '/',
 };
 // clang-format on
-#endif
+#endif // OLED_ENABLE
 
 void keyball_oled_render_ballinfo(void) {
 #ifdef OLED_ENABLE
@@ -441,12 +441,12 @@ void keyball_oled_render_ballinfo(void) {
     // indicate scroll divider:
     oled_write_P(PSTR(" \xC0\xC1"), false);
     oled_write_char('0' + keyball_get_scroll_div(), false);
-#endif
+#endif // OLED_ENABLE
 }
 
 void keyball_oled_render_ballsubinfo(void) {
 #ifdef OLED_ENABLE
-#endif
+#endif // OLED_ENABLE
 }
 
 void keyball_oled_render_keyinfo(void) {
@@ -482,7 +482,7 @@ void keyball_oled_render_keyinfo(void) {
     // Pressing keys
     oled_write_P(PSTR("  "), false);
     oled_write(keyball.pressing_keys, false);
-#endif
+#endif // OLED_ENABLE
 }
 
 void keyball_oled_render_layerinfo(void) {
@@ -512,7 +512,7 @@ void keyball_oled_render_layerinfo(void) {
 #    else
     oled_write_P(PSTR("\xC2\xC3\xB4\xB5 ---"), false);
 #    endif
-#endif
+#endif // OLED_ENABLE
 }
 
 //////////////////////////////////////////////////////////////////////////////
@@ -577,7 +577,7 @@ void keyboard_post_init_kb(void) {
         transaction_register_rpc(KEYBALL_GET_MOTION, rpc_get_motion_handler);
         transaction_register_rpc(KEYBALL_SET_CPI, rpc_set_cpi_handler);
     }
-#endif
+#endif // SPLIT_KEYBOARD
 
     // read keyball configuration from EEPROM
     if (eeconfig_is_enabled()) {
@@ -587,7 +587,7 @@ void keyboard_post_init_kb(void) {
 #ifdef POINTING_DEVICE_AUTO_MOUSE_ENABLE
         set_auto_mouse_enable(c.amle);
         set_auto_mouse_timeout(c.amlto == 0 ? AUTO_MOUSE_TIME : (c.amlto + 1) * AML_TIMEOUT_QU);
-#endif
+#endif // POINTING_DEVICE_AUTO_MOUSE_ENABLE
 #if KEYBALL_SCROLLSNAP_ENABLE == 2
         keyball_set_scrollsnap_mode(c.ssnap);
 #endif
@@ -639,7 +639,7 @@ bool is_mouse_record_kb(uint16_t keycode, keyrecord_t* record) {
     }
     return is_mouse_record_user(keycode, record);
 }
-#endif
+#endif // POINTING_DEVICE_AUTO_MOUSE_ENABLE
 
 bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
     // store last keycode, row, and col for OLED
@@ -687,7 +687,7 @@ bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
 #ifdef POINTING_DEVICE_AUTO_MOUSE_ENABLE
                 set_auto_mouse_enable(false);
                 set_auto_mouse_timeout(AUTO_MOUSE_TIME);
-#endif
+#endif // POINTING_DEVICE_AUTO_MOUSE_ENABLE
                 break;
             case KBC_SAVE: {
                 keyball_config_t c = {
@@ -696,7 +696,7 @@ bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
 #ifdef POINTING_DEVICE_AUTO_MOUSE_ENABLE
                     .amle  = get_auto_mouse_enable(),
                     .amlto = (get_auto_mouse_timeout() / AML_TIMEOUT_QU) - 1,
-#endif
+#endif // POINTING_DEVICE_AUTO_MOUSE_ENABLE
 #if KEYBALL_SCROLLSNAP_ENABLE == 2
                     .ssnap = keyball_get_scrollsnap_mode(),
 #endif
@@ -755,7 +755,7 @@ bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
                     set_auto_mouse_timeout(MAX(v, AML_TIMEOUT_MIN));
                 }
                 break;
-#endif
+#endif // POINTING_DEVICE_AUTO_MOUSE_ENABLE
 
             default:
                 return true;
