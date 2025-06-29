@@ -120,6 +120,12 @@ enum keyball_keycodes {
     PR_SDIV  = QK_KB_17, // スクロール除数をタイピング出力
     PR_AMTO  = QK_KB_18, // オートマウスタイムアウト時間をタイピング出力
 
+    // AML専用キー
+    AML_ENT1 = QK_KB_21,
+    AML_TAB2 = QK_KB_22,
+    AML_DOT3 = QK_KB_23,
+    AML_ESC4 = QK_KB_24,
+
     // Hold中のみ指定のスクロールスナップモードを有効化
     TD_STSP  = QK_KB_31, // Tap Dance風にスクロールスナップモードを切り替え
     

@@ -228,6 +228,18 @@ bool process_combo_key_repress(uint16_t combo_index, combo_t *combo, uint8_t row
 //////////////////////////////
 /// カスタムキーコード。ここから ///
 //////////////////////////////
+// AML_**用。フラグとタイマーを初期化
+#ifdef POINTING_DEVICE_AUTO_MOUSE_ENABLE
+static bool pressed_other_key_ent1 = false;
+static bool pressed_other_key_tab2 = false;
+static bool pressed_other_key_dot3 = false;
+static bool pressed_other_key_esc4 = false;
+static uint16_t aml_ent1_timer;
+static uint16_t aml_tab2_timer;
+static uint16_t aml_dot3_timer;
+static uint16_t aml_esc4_timer;
+#endif
+
 // TD_STSP用
 #if KEYBALL_SCROLLSNAP_ENABLE == 2
 static uint16_t td_stsp_last_tap_time = 0;  // 最後のタップ時刻
@@ -261,6 +273,81 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             }
             return true;  // Combo以外であれば通常のキー入力を行う
 #endif // COMBO_ENABLE
+
+#ifdef POINTING_DEVICE_AUTO_MOUSE_ENABLE
+        case AML_ENT1:
+            if (record->event.pressed) {
+                // AML_ENT1が押された瞬間
+                pressed_other_key_ent1 = false;         // 他のキーが押されるまでフラグをリセット
+                aml_ent1_timer = timer_read();         // タイマーをスタート
+                layer_off(AUTO_MOUSE_DEFAULT_LAYER);   // Auto Mouse Layerを無効化
+                layer_on(1);                           // Layer1を有効化
+            } else {
+                // AML_ENT1が離された瞬間
+                // 他のキーが押されていない場合
+                if (!pressed_other_key_ent1) {
+                    // Tapping Term以内にリリースされた場合のみEnterを送信
+                    if (timer_elapsed(aml_ent1_timer) < TAPPING_TERM) {
+                        tap_code(KC_ENT);              // Enterキーを送信
+                    }
+                    // Tapping Termを超えている場合は何もしない
+                }
+                layer_off(1);                          // Layer1を無効化
+                layer_clear();                         // Layer0に戻る
+            }
+            return false;  // AML_ENT1に対して他の処理は行わない
+
+        case AML_TAB2:
+            if (record->event.pressed) {
+                pressed_other_key_tab2 = false;
+                aml_tab2_timer = timer_read();
+                layer_off(AUTO_MOUSE_DEFAULT_LAYER);
+                layer_on(2);
+            } else {
+                if (!pressed_other_key_tab2) {
+                    if (timer_elapsed(aml_tab2_timer) < TAPPING_TERM) {
+                        tap_code(KC_TAB);
+                    }
+                }
+                layer_off(2);
+                layer_clear();
+            }
+            return false;
+
+        case AML_DOT3:
+            if (record->event.pressed) {
+                pressed_other_key_dot3 = false;
+                aml_dot3_timer = timer_read();
+                layer_off(AUTO_MOUSE_DEFAULT_LAYER);
+                layer_on(3);
+            } else {
+                if (!pressed_other_key_dot3) {
+                    if (timer_elapsed(aml_dot3_timer) < TAPPING_TERM) {
+                        tap_code(KC_DOT);
+                    }
+                }
+                layer_off(3);
+                layer_clear();
+            }
+            return false;
+
+        case AML_ESC4:
+            if (record->event.pressed) {
+                pressed_other_key_esc4 = false;
+                aml_esc4_timer = timer_read();
+                layer_off(AUTO_MOUSE_DEFAULT_LAYER);
+                layer_on(4);
+            } else {
+                if (!pressed_other_key_esc4) {
+                    if (timer_elapsed(aml_esc4_timer) < TAPPING_TERM) {
+                        tap_code(KC_ESC);
+                    }
+                }
+                layer_off(4);
+                layer_clear();
+            }
+            return false;
+#endif // POINTING_DEVICE_AUTO_MOUSE_ENABLE
             
 #if KEYBALL_SCROLLSNAP_ENABLE == 2
         case TD_STSP:
@@ -284,6 +371,26 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             }
             return false;  // 他の処理をブロック
 #endif // KEYBALL_SCROLLSNAP_ENABLE == 2
+
+        default:
+#ifdef POINTING_DEVICE_AUTO_MOUSE_ENABLE
+            // 他のキーが押された場合にフラグを立てる
+            if (record->event.pressed) {
+                if (layer_state_is(1)) {
+                    pressed_other_key_ent1 = true;  // Layer1で他のキーが押されたことを記録
+                }
+                if (layer_state_is(2)) {
+                    pressed_other_key_tab2 = true;  // Layer2で他のキーが押されたことを記録
+                }
+                if (layer_state_is(3)) {
+                    pressed_other_key_dot3 = true;
+                }
+                if (layer_state_is(4)) {
+                    pressed_other_key_esc4 = true;
+                }
+            }
+#endif
+            return true;  // 通常のキー処理を続ける
     }
 }
 //////////////////////////////
