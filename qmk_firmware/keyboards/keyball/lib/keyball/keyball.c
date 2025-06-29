@@ -134,6 +134,11 @@ static void add_scroll_div(int8_t delta) {
     keyball_set_scroll_div(v < 1 ? 1 : v);
 }
 
+// マウスカーソル加速用
+static uint16_t movement_size_of(report_mouse_t *rep) {
+    return abs(rep->x) + abs(rep->y);
+}
+
 //////////////////////////////////////////////////////////////////////////////
 // Pointing device driver
 
@@ -170,6 +175,32 @@ void pointing_device_driver_set_cpi(uint16_t cpi) {
     keyball_set_cpi(cpi);
 }
 
+// マウスカーソル加速用。ここから
+static void adjust_mouse_speed(report_mouse_t *r) {
+    uint16_t movement_size = movement_size_of(r);
+
+    float speed_factor = 1.0;
+    if (movement_size > 60) {
+        speed_factor = 3.0;
+    } else if (movement_size > 30) {
+        speed_factor = 1.5;
+    } else if (movement_size > 5) {
+        speed_factor = 1.0;
+    } else if (movement_size > 4) {
+        speed_factor = 0.9;
+    } else if (movement_size > 3) {
+        speed_factor = 0.7;
+    } else if (movement_size > 2) {
+        speed_factor = 0.5;
+    } else if (movement_size > 1) {
+        speed_factor = 0.2;
+    }
+
+    r->x = clip2int8(r->x * speed_factor);
+    r->y = clip2int8(r->y * speed_factor);
+}
+// マウスカーソル加速用。ここまで
+
 __attribute__((weak)) void keyball_on_apply_motion_to_mouse_move(keyball_motion_t *m, report_mouse_t *r, bool is_left) {
 #if KEYBALL_MODEL == 61 || KEYBALL_MODEL == 39 || KEYBALL_MODEL == 147 || KEYBALL_MODEL == 44
     r->x = clip2int8(m->y);
@@ -184,6 +215,7 @@ __attribute__((weak)) void keyball_on_apply_motion_to_mouse_move(keyball_motion_
 #else
 #    error("unknown Keyball model")
 #endif
+    adjust_mouse_speed(r);  // マウスカーソル加速用
     // clear motion
     m->x = 0;
     m->y = 0;
