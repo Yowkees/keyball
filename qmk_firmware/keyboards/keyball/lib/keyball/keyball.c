@@ -838,6 +838,34 @@ bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
             case SCRL_DVD:
                 add_scroll_div(-1);
                 break;
+            
+            // プリント用キー
+            case PR_CPI: {
+                uint16_t v = keyball_get_cpi() * 100;  // keyball_get_cpi() の値を取得し、実際のCPI値を計算
+                char buf[6]; // 5桁 + NULL 終端
+                // 数値を文字列に変換。案1
+                char *p = buf + sizeof(buf) - 1;
+                *p = '\0'; // 文字列の終端
+                do {
+                    *--p = '0' + (v % 10); // 1の位を取得
+                    v /= 10;
+                } while (v);
+                send_string(p);  // 変換した文字列を送信
+                // 数値を文字列に変換。案2
+//                itoa(v, buf, 10);  // 10進数を文字列へ変換
+//                send_string(buf);  // 変換した文字列を送信
+            } break;
+            case PR_SDIV: {
+                uint8_t v = keyball_get_scroll_div();
+                char buf[2];
+                // 数値を文字列に変換。案1
+                buf[0] = '0' + v; // 数値を文字に変換
+                buf[1] = '\0'; // 文字列終端
+                send_string(buf);
+                // 数値を文字列に変換。案2
+//                itoa(v, buf, 10);
+//                send_string(buf);
+            } break;
 
 #if KEYBALL_SCROLLSNAP_ENABLE == 2
             case SSNP_HOR:
@@ -867,6 +895,22 @@ bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
                     keyball_set_auto_mouse_timeout(MAX(v, AML_TIMEOUT_MIN));
                 }
                 break;
+            // プリント用キー
+            case PR_AMTO: {
+                uint16_t v = keyball_get_auto_mouse_timeout();
+                char buf[5];
+                // 数値を文字列に変換。案1
+                char *p = buf + sizeof(buf) - 1;
+                *p = '\0';
+                do {
+                    *--p = '0' + (v % 10);
+                    v /= 10;
+                } while (v);
+                send_string(p);
+                // 数値を文字列に変換。案2
+//                itoa(v, buf, 10);
+//                send_string(buf);
+            } break;
 #endif // POINTING_DEVICE_AUTO_MOUSE_ENABLE
 
             default:
