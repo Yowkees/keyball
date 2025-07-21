@@ -176,5 +176,10 @@ combo_t key_combos[] = {
 
 };
 
+#ifdef VIA_ENABLE
+#    define DYNAMIC_KEYMAP_LAYER_COUNT 4
+#endif
+
+
 
 #endif
