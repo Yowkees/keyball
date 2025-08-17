@@ -72,3 +72,7 @@ void oledkit_render_info_user(void) {
     keyball_oled_render_layerinfo();
 }
 #endif
+
+#ifdef COMBO_ENABLE
+const combo_t key_combos[] = {};
+#endif
