@@ -1,0 +1,49 @@
+name: Build a firmware
+
+on:
+
+  workflow_call:
+    inputs:
+      qmk_version:
+        default: '0.22.14'
+        type: string
+        required: false
+      keyboard:
+        type: string
+        required: true
+      keymap:
+        type: string
+        required: true
+
+jobs:
+
+  build:
+
+    name: Build a firmware ${{ inputs.keyboard }}:${{ inputs.keymap }}
+
+    runs-on: ubuntu-22.04
+    container:
+      image: ghcr.io/qmk/qmk_cli:latest
+
+    steps:
+
+    - name: Checkout source
+      uses: actions/checkout@v4
+
+    - name: Checkout qmk_firmware
+      uses: ./.github/actions/checkout-qmk_firmware
+
+    - name: Install a link to own source
+      run: ln -s $(pwd)/qmk_firmware/keyboards/keyball __qmk__/keyboards/keyball
+
+    - name: Install missing python modules
+      run: /usr/bin/python3 -m pip install -r __qmk__/requirements.txt
+
+    - name: Compile and link
+      run: qmk compile -j 4 -kb keyball/${{ inputs.keyboard }} -km ${{ inputs.keymap }}
+
+    - name: Archive built firmware
+      uses: actions/upload-artifact@v4
+      with:
+        name: ${{ inputs.keyboard }}-${{ inputs.keymap }}-firmware
+        path: __qmk__/*.hex

@@ -1,0 +1,27 @@
+name: 'Checkout QMK firmware'
+
+inputs:
+  version:
+    default: '0.22.14'
+    type: string
+    required: false
+  path:
+    default: '__qmk__'
+    type: string
+    required: false
+
+runs:
+  using: 'composite'
+  steps:
+
+  - name: Checkout qmk_firmware
+    uses: actions/checkout@v4
+    with:
+      path: ${{ inputs.path }}
+      repository: qmk/qmk_firmware
+      submodules: recursive
+      ref: ${{ inputs.version }}
+
+  - name: Setup QMK
+    shell: bash
+    run: qmk setup --home ${{ inputs.path }} --yes

@@ -1,0 +1,30 @@
+name: Build a firmware on demand
+
+on:
+  workflow_dispatch:
+    inputs:
+      keyboard:
+        description: 'Keyboard'
+        required: true
+        type: choice
+        options:
+        - keyball39
+        - keyball44
+        - keyball61
+        - keyball46
+        - one47
+      keymap:
+        description: 'Keymap'
+        required: true
+        type: string
+        default: 'default'
+
+jobs:
+
+  build:
+
+    uses: ./.github/workflows/build-firmware.yml
+    with:
+      qmk_version: '0.22.14'
+      keyboard:    ${{ inputs.keyboard }}
+      keymap:      ${{ inputs.keymap }}

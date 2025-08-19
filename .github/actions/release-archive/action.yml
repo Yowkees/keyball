@@ -1,0 +1,31 @@
+name: Relase archive
+
+inputs:
+  name:
+    type: string
+    required: true
+  version:
+    default: ${{ github.ref_name }}
+    type: string
+    required: false
+
+runs:
+  using: 'composite'
+  steps:
+
+  - name: Download artifacts
+    uses: actions/download-artifact@v4
+    with:
+      pattern: ${{ inputs.name }}-*-firmware
+      merge-multiple: true
+
+  - name: Archive firmwares
+    shell: bash
+    run: |
+      zip -9 ${{ inputs.name }}-${{ inputs.version }}.zip keyball_${{ inputs.name }}_*.hex README.md
+      # Add README.md if available
+      if [ -f ${{ inputs.name }}/doc/firmware_README.md ] ; then
+        cp ${{ inputs.name }}/doc/firmware_README.md README.md
+        zip -9 ${{ inputs.name }}-${{ inputs.version }}.zip README.md
+        rm -f README.md
+      fi
