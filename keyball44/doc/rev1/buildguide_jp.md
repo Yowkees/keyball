@@ -624,7 +624,7 @@ M1.7のタッピングネジを付けます。
 
 Keyball44は[ReMAP](https://remap-keys.app/configure)に対応していますので特別なソフトをインストールしなくてもファームウェアの書き込みとキーマップの変更が可能です。Remapの使用方法については[自キ温泉ガイドのサリチル酸](https://salicylic-acid3.hatenablog.com/entry/remap-manual)の記事に詳しく掲載されています。  
 
-ReMAPを使用するために[REMAPカタログのKeyball44ファームウェアページ](https://remap-keys.app/catalog/k895xiCpsM5zlYZCPTEN/firmware)を開き、Keyball44_viaのファームウェアをFLASH（書き込み）してください。
+ReMAPを使用するために[REMAPカタログのKeyball44ファームウェアページ](https://remap-keys.app/catalog/tAJ9Htme4oNabUkx4832/firmware)を開き、Keyball44_viaのファームウェアをFLASH（書き込み）してください。
 
 
 
