@@ -38,6 +38,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define TAP_CODE_DELAY 5
 
 // --- チャタリング対策 ---
+#undef DEBOUNCE
 #define DEBOUNCE 10          // デフォルト5ms → 10msに延長
 
 // --- 自動マウス機能 ---不要なのでコメントアウト
