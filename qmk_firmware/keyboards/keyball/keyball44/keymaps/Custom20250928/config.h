@@ -48,3 +48,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define KEYBALL_CPI_DEFAULT 500 // マウス速度 (default: 500)
 #define KEYBALL_SCROLL_DIV_DEFAULT 5 // スクロール速度 (default: 4)
 
+// --- レイヤ追加 ---
+#define DYNAMIC_KEYMAP_LAYER_COUNT 6　//デフォルト 4
+
