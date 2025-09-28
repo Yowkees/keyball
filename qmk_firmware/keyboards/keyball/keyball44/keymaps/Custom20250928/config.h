@@ -38,16 +38,15 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define TAP_CODE_DELAY 5
 
 // --- チャタリング対策 ---
-#define DEBOUNCE 10 10   // デフォルト5ms → 10msに延
+#define DEBOUNCE 10          // デフォルト5ms → 10msに延長
 
 // --- 自動マウス機能 ---不要なのでコメントアウト
 // #define POINTING_DEVICE_AUTO_MOUSE_ENABLE
 // #define AUTO_MOUSE_DEFAULT_LAYER 1
 
 // --- マウス設定 ---
-#define KEYBALL_CPI_DEFAULT 500 // マウス速度 (default: 500)
-#define KEYBALL_SCROLL_DIV_DEFAULT 5 // スクロール速度 (default: 4)
+#define KEYBALL_CPI_DEFAULT 500         // マウス速度 (default: 500)
+#define KEYBALL_SCROLL_DIV_DEFAULT 5    // スクロール速度 (default: 4)
 
 // --- レイヤ追加 ---
-#define DYNAMIC_KEYMAP_LAYER_COUNT 6　//デフォルト 4
-
+#define DYNAMIC_KEYMAP_LAYER_COUNT 6    // デフォルト4 → 6に拡張
