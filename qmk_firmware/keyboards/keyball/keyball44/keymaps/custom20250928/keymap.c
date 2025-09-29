@@ -20,6 +20,53 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #include "quantum.h"
 
+// ---------------- コンボ設定 ----------------
+enum combo_events {
+    COMBO_JK,
+    COMBO_KL,
+    COMBO_JL,
+};
+
+const uint16_t PROGMEM jk_combo[] = {KC_J, KC_K, COMBO_END};
+const uint16_t PROGMEM kl_combo[] = {KC_K, KC_L, COMBO_END};
+const uint16_t PROGMEM jl_combo[] = {KC_J, KC_L, COMBO_END};
+
+combo_t key_combos[] = {
+    [COMBO_JK] = COMBO_ACTION(jk_combo),
+    [COMBO_KL] = COMBO_ACTION(kl_combo),
+    [COMBO_JL] = COMBO_ACTION(jl_combo),
+};
+
+void process_combo_event(uint16_t combo_index, bool pressed) {
+    switch(combo_index) {
+        case COMBO_JK:
+            if (pressed) {
+                register_code(KC_BTN1);   // 左クリック押下開始
+            } else {
+                unregister_code(KC_BTN1); // 左クリック解除
+            }
+            break;
+
+        case COMBO_KL:
+            if (pressed) {
+                register_code(KC_BTN2);   // 右クリック押下開始
+            } else {
+                unregister_code(KC_BTN2); // 右クリック解除
+            }
+            break;
+
+        case COMBO_JL:
+            if (pressed) {
+                keyball_set_scroll_mode(true);   // スクロールモードON
+            } else {
+                keyball_set_scroll_mode(false);  // スクロールモードOFF
+            }
+            break;
+    }
+}
+
+
+// ---------------- キーマップ定義 ----------------
 // clang-format off
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   // keymap for default (VIA)
@@ -69,6 +116,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 };
 // clang-format on
 
+// ---------------- レイヤ処理 ----------------
 layer_state_t layer_state_set_user(layer_state_t state) {
     // Auto enable scroll mode when the highest layer is 3
     keyball_set_scroll_mode(get_highest_layer(state) == 3);
