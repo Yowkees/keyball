@@ -25,16 +25,29 @@ enum combo_events {
     COMBO_JK,
     COMBO_KL,
     COMBO_JL,
+    // タップコンボ（新規追加）
+    COMBO_UI_TAP,
+    COMBO_IO_TAP,
+    COMBO_THUMB_EN,
+    COMBO_THUMB_KA,
 };
 
 const uint16_t PROGMEM jk_combo[] = {KC_J, KC_K, COMBO_END};
 const uint16_t PROGMEM kl_combo[] = {KC_K, KC_L, COMBO_END};
-const uint16_t PROGMEM jl_combo[] = {KC_J, KC_L, COMBO_END};
+const uint16_t PROGMEM jl_combo[] = {KC_J, KC_L, COMBO_END};ｊ
+const uint16_t PROGMEM ui_tap_combo[]        = {KC_U, KC_I, COMBO_END};
+const uint16_t PROGMEM io_tap_combo[]        = {KC_I, KC_O, COMBO_END};
+const uint16_t PROGMEM thumb_en_combo[]      = {LT(1,KC_SPC), LT(3,KC_LNG1), COMBO_END};
+const uint16_t PROGMEM thumb_ka_combo[]      = {KC_BSPC, LT(2,KC_ENT), COMBO_END};
 
 combo_t key_combos[] = {
-    [COMBO_JK] = COMBO_ACTION(jk_combo),
-    [COMBO_KL] = COMBO_ACTION(kl_combo),
-    [COMBO_JL] = COMBO_ACTION(jl_combo),
+    [COMBO_JK]       = COMBO_ACTION(jk_combo),
+    [COMBO_KL]       = COMBO_ACTION(kl_combo),
+    [COMBO_JL]       = COMBO_ACTION(jl_combo),
+    [COMBO_UI_TAP]   = COMBO_ACTION(ui_tap_combo),
+    [COMBO_IO_TAP]   = COMBO_ACTION(io_tap_combo),
+    [COMBO_THUMB_EN] = COMBO_ACTION(thumb_en_combo),
+    [COMBO_THUMB_KA] = COMBO_ACTION(thumb_ka_combo),
 };
 
 void process_combo_event(uint16_t combo_index, bool pressed) {
@@ -61,6 +74,31 @@ void process_combo_event(uint16_t combo_index, bool pressed) {
             } else {
                 keyball_set_scroll_mode(false);  // スクロールモードOFF
             }
+            break;
+        
+        // ---------------- 新規タップコンボ ----------------
+        case COMBO_UI_TAP:
+            if (pressed) {
+                register_mods(MOD_BIT(KC_LALT));
+                tap_code(KC_RIGHT);
+                unregister_mods(MOD_BIT(KC_LALT));
+            }
+            break;
+
+        case COMBO_IO_TAP:
+            if (pressed) {
+                register_mods(MOD_BIT(KC_LALT));
+                tap_code(KC_LEFT);
+                unregister_mods(MOD_BIT(KC_LALT));
+            }
+            break;
+
+        case COMBO_THUMB_EN:
+            if (pressed) tap_code(KC_LANG1); // 英数
+            break;
+
+        case COMBO_THUMB_KA:
+            if (pressed) tap_code(KC_LANG2); // かな
             break;
     }
 }
