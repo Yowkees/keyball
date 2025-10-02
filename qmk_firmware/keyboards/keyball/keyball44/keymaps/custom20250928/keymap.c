@@ -34,7 +34,7 @@ enum combo_events {
 
 const uint16_t PROGMEM jk_combo[] = {KC_J, KC_K, COMBO_END};
 const uint16_t PROGMEM kl_combo[] = {KC_K, KC_L, COMBO_END};
-const uint16_t PROGMEM jl_combo[] = {KC_J, KC_L, COMBO_END};ｊ
+const uint16_t PROGMEM jl_combo[] = {KC_J, KC_L, COMBO_END};
 const uint16_t PROGMEM ui_tap_combo[]        = {KC_U, KC_I, COMBO_END};
 const uint16_t PROGMEM io_tap_combo[]        = {KC_I, KC_O, COMBO_END};
 const uint16_t PROGMEM thumb_en_combo[]      = {LT(1,KC_SPC), LT(3,KC_LNG1), COMBO_END};
