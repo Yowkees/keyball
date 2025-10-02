@@ -34,7 +34,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #endif
 
 // --- タップ系設定 ---
-#define TAPPING_TERM 150     // 長押しとタップの判定時間 (ms)
+#define TAPPING_TERM 180     // 長押しとタップの判定時間 (ms)
 // #define IGNORE_MOD_TAP_INTERRUPT //長押し判定前に次の入力がきたら、タップ判定
 #define TAP_CODE_DELAY 5 //キー押下と離すの間のWait時間（デフォルト:０）
 
