@@ -1,0 +1,4 @@
+{
+    "name": "QMK Dev Container",
+    "image": "qmkfm/qmk_cli"
+}
