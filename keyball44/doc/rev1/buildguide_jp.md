@@ -389,7 +389,7 @@ LEDのはんだ付けを見送っている場合など、テスト用ファー�
 
 
 Keyball44のファームウェアは、トラックボールを左右どちら側に載せた場合でも共通です。  
-REMAPに登録してある[Keyball_test.hex](https://remap-keys.app/catalog/k895xiCpsM5zlYZCPTEN/firmware) を書き込み(FLASH)してください。  
+REMAPに登録してある[Keyball_test.hex](https://remap-keys.app/catalog/tAJ9Htme4oNabUkx4832/firmware) を書き込み(FLASH)してください。
 上記リンクにあるFLASHボタンを押すと、書き込み方法の説明が表示されます。  
 USBケーブルを接続しているのにキーボードが認識されない場合は、はんだ付けしたRESETスイッチを素早く2回押すと認識されると思います。  
 ※必ず左右両方のPro Microに同じhexファイルを書き込んでください。
