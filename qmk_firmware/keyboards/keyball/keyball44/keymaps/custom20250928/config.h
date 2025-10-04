@@ -36,7 +36,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 // --- タップ系設定 ---
 #define TAPPING_TERM 180     // 長押しとタップの判定時間 (ms)
 // #define IGNORE_MOD_TAP_INTERRUPT //長押し判定前に次の入力がきたら、タップ判定
-#define TAP_CODE_DELAY 5 //キー押下と離すの間のWait時間（デフォルト:０）
+#define TAP_CODE_DELAY 5 //キー押下と離すの間のWait時間（デフォルト:０）※tap_code() / SEND_STRING() / マクロ内の疑似キー入力にだけ影響
 
 // --- チャタリング対策 ---
 #undef DEBOUNCE
@@ -56,4 +56,4 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 
 // --- コンボ設定 ---
-#define COMBO_TERM 40   // J/K/Lの同時押し判定用（30〜40ms程度がおすすめ）
+#define COMBO_TERM 45   // J/K/Lの同時押し判定用（30〜40ms程度がおすすめ）
