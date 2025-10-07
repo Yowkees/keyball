@@ -34,8 +34,10 @@ const uint16_t AML_TIMEOUT_MAX = 1000;
 const uint16_t AML_TIMEOUT_QU  = 50;   // Quantization Unit
 
 static const char BL = '\xB0'; // Blank indicator character
+#ifdef OLED_ENABLE
 static const char LFSTR_ON[] PROGMEM = "\xB2\xB3";
 static const char LFSTR_OFF[] PROGMEM = "\xB4\xB5";
+#endif
 
 keyball_t keyball = {
     .this_have_ball = false,
@@ -605,6 +607,7 @@ void housekeeping_task_kb(void) {
 }
 #endif
 
+#if defined(OLED_ENABLE)
 static void pressing_keys_update(uint16_t keycode, keyrecord_t *record) {
     // Process only valid keycodes.
     if (keycode >= 4 && keycode < 57) {
@@ -624,6 +627,12 @@ static void pressing_keys_update(uint16_t keycode, keyrecord_t *record) {
         }
     }
 }
+#else
+// OLED無効時は何もしないスタブ
+static void pressing_keys_update(uint16_t keycode, keyrecord_t *record) {
+    (void)keycode; (void)record;
+}
+#endif
 
 #ifdef POINTING_DEVICE_AUTO_MOUSE_ENABLE
 bool is_mouse_record_kb(uint16_t keycode, keyrecord_t* record) {
