@@ -73,8 +73,6 @@ void oledkit_render_info_user(void) {
 // ================================================
 // 2025-10-06追加_スクロール、トラックボール低速
 // ================================================
-#include "keyball.h"
-
 #define HOLD_MS 150
 
 static bool init_done = false;
