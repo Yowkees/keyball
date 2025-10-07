@@ -69,3 +69,126 @@ void oledkit_render_info_user(void) {
     keyball_oled_render_layerinfo();
 }
 #endif
+
+// ================================================
+// 2025-10-06追加_スクロール、トラックボール低速
+// ================================================
+#include "keyball.h"
+
+#define HOLD_MS 150
+
+static bool init_done = false;
+static uint8_t base_scroll_div;  // 1..7
+static uint8_t base_cpi;         // 100cpi単位
+
+static bool v_active = false;
+static bool h_active = false;
+static bool fast_on  = false;
+static bool mouse_slow_on = false;
+
+static uint16_t q_t = 0, w_t = 0;
+
+static inline bool held_long(uint16_t t0) { return timer_elapsed(t0) > HOLD_MS; }
+
+static inline void ensure_init(void){
+    if (init_done) return;
+    // 既存値を基準として取得
+    base_scroll_div = keyball_get_scroll_div();        // 未設定なら内部でDEFAULT採用
+    if (base_scroll_div < 1) base_scroll_div = 1;
+    if (base_scroll_div > 7) base_scroll_div = 7;
+
+    base_cpi = keyball_get_cpi();                      // 例: 12 = 1200cpi
+    init_done = true;
+}
+
+bool process_record_user(uint16_t keycode, keyrecord_t *record) {
+    ensure_init();
+
+    switch (keycode) {
+        case KC_Q:  // 長押しで縦スクロール、一時ON
+            if (record->event.pressed) {
+                q_t = timer_read();
+            } else {
+                if (v_active) {
+                    v_active = false;
+                    // レイヤー3がONならそのまま、そうでなければOFF
+                    if (get_highest_layer(layer_state) != 3) {
+                        keyball_set_scroll_mode(false);
+                    }
+                } else {
+                    tap_code16(KC_Q);
+                }
+            }
+            return false;
+
+        case KC_W:  // 長押しで横スクロール、一時ON
+            if (record->event.pressed) {
+                w_t = timer_read();
+            } else {
+                if (h_active) {
+                    h_active = false;
+                    if (get_highest_layer(layer_state) != 3) {
+                        keyball_set_scroll_mode(false);
+                    }
+                } else {
+                    tap_code16(KC_W);
+                }
+            }
+            return false;
+
+        case KC_E:  // 押している間だけスクロール加速
+            if (record->event.pressed) {
+                fast_on = true;
+                if (v_active || h_active) {
+                    uint8_t faster = base_scroll_div > 1 ? (base_scroll_div - 1) : 1; // 1段だけ速く
+                    keyball_set_scroll_div(faster);
+                }
+            } else {
+                fast_on = false;
+                keyball_set_scroll_div(base_scroll_div);
+            }
+            return false;
+
+        case KC_R:  // 押している間だけカーソル低速（CPI下げ）
+            if (record->event.pressed) {
+                if (!mouse_slow_on) {
+                    mouse_slow_on = true;
+                    uint8_t slow = base_cpi > 4 ? (uint8_t)(base_cpi - 2) : base_cpi; // -200cpi
+                    keyball_set_cpi(slow);
+                }
+            } else {
+                if (mouse_slow_on) {
+                    mouse_slow_on = false;
+                    keyball_set_cpi(base_cpi);
+                }
+            }
+            return false;
+    }
+    return true;
+}
+
+void matrix_scan_user(void) {
+    ensure_init();
+
+    // 縦スクロール開始判定
+    if (!v_active && q_t && held_long(q_t)) {
+#if KEYBALL_SCROLLSNAP_ENABLE == 2
+        keyball_set_scrollsnap_mode(KEYBALL_SCROLLSNAP_MODE_VERTICAL);
+#endif
+        keyball_set_scroll_mode(true);
+        keyball_set_scroll_div(fast_on ? (base_scroll_div > 1 ? base_scroll_div - 1 : 1) : base_scroll_div);
+        v_active = true;
+        q_t = 0;
+    }
+
+    // 横スクロール開始判定
+    if (!h_active && w_t && held_long(w_t)) {
+#if KEYBALL_SCROLLSNAP_ENABLE == 2
+        keyball_set_scrollsnap_mode(KEYBALL_SCROLLSNAP_MODE_HORIZONTAL);
+#endif
+        keyball_set_scroll_mode(true);
+        keyball_set_scroll_div(fast_on ? (base_scroll_div > 1 ? base_scroll_div - 1 : 1) : base_scroll_div);
+        h_active = true;
+        w_t = 0;
+    }
+}
