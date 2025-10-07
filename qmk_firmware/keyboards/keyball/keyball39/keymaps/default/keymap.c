@@ -85,17 +85,17 @@ static bool fast_on  = false;
 static bool mouse_slow_on = false;
 
 static uint16_t q_t = 0, w_t = 0;
+static bool q_down = false, w_down = false;   // ← 追加：押下中フラグ
 
 static inline bool held_long(uint16_t t0) { return timer_elapsed(t0) > HOLD_MS; }
 
 static inline void ensure_init(void){
     if (init_done) return;
-    // 既存値を基準として取得
-    base_scroll_div = keyball_get_scroll_div();        // 未設定なら内部でDEFAULT採用
+    base_scroll_div = keyball_get_scroll_div();
     if (base_scroll_div < 1) base_scroll_div = 1;
     if (base_scroll_div > 7) base_scroll_div = 7;
 
-    base_cpi = keyball_get_cpi();                      // 例: 12 = 1200cpi
+    base_cpi = keyball_get_cpi();   // 例: 12 = 1200cpi
     init_done = true;
 }
 
@@ -103,42 +103,52 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     ensure_init();
 
     switch (keycode) {
-        case KC_Q:  // 長押しで縦スクロール、一時ON
+        // --- Q: 長押しで縦スクロール、短押しで 'q'
+        case KC_Q:
             if (record->event.pressed) {
+                q_down = true;                  // 押下開始
                 q_t = timer_read();
             } else {
+                q_down = false;                 // 離した
                 if (v_active) {
                     v_active = false;
-                    // レイヤー3がONならそのまま、そうでなければOFF
+                    // レイヤー3が最上位でないならスクロール解除
                     if (get_highest_layer(layer_state) != 3) {
                         keyball_set_scroll_mode(false);
                     }
                 } else {
+                    // 短押し判定：タイマーをクリアして後発の誤発火を抑止
+                    q_t = 0;
                     tap_code16(KC_Q);
                 }
             }
             return false;
 
-        case KC_W:  // 長押しで横スクロール、一時ON
+        // --- W: 長押しで横スクロール、短押しで 'w'
+        case KC_W:
             if (record->event.pressed) {
+                w_down = true;
                 w_t = timer_read();
             } else {
+                w_down = false;
                 if (h_active) {
                     h_active = false;
                     if (get_highest_layer(layer_state) != 3) {
                         keyball_set_scroll_mode(false);
                     }
                 } else {
+                    w_t = 0;                    // 短押し時はタイマー消去
                     tap_code16(KC_W);
                 }
             }
             return false;
 
-        case KC_E:  // 押している間だけスクロール加速
+        // --- E: 押している間だけスクロール加速
+        case KC_E:
             if (record->event.pressed) {
                 fast_on = true;
                 if (v_active || h_active) {
-                    uint8_t faster = base_scroll_div > 1 ? (base_scroll_div - 1) : 1; // 1段だけ速く
+                    uint8_t faster = base_scroll_div > 1 ? (base_scroll_div - 1) : 1;
                     keyball_set_scroll_div(faster);
                 }
             } else {
@@ -147,7 +157,8 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             }
             return false;
 
-        case KC_R:  // 押している間だけカーソル低速（CPI下げ）
+        // --- R: 押している間だけカーソル低速（CPI下げ）
+        case KC_R:
             if (record->event.pressed) {
                 if (!mouse_slow_on) {
                     mouse_slow_on = true;
@@ -168,19 +179,20 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 void matrix_scan_user(void) {
     ensure_init();
 
-    // 縦スクロール開始判定
-    if (!v_active && q_t && held_long(q_t)) {
+    // 縦スクロール開始判定（Qがまだ押下中で、しきい値超えたら）
+    if (!v_active && q_down && q_t && held_long(q_t)) {
 #if KEYBALL_SCROLLSNAP_ENABLE == 2
         keyball_set_scrollsnap_mode(KEYBALL_SCROLLSNAP_MODE_VERTICAL);
 #endif
         keyball_set_scroll_mode(true);
         keyball_set_scroll_div(fast_on ? (base_scroll_div > 1 ? base_scroll_div - 1 : 1) : base_scroll_div);
         v_active = true;
+        // 以降は長押し成立済みとしてタイマーを無効化
         q_t = 0;
     }
 
-    // 横スクロール開始判定
-    if (!h_active && w_t && held_long(w_t)) {
+    // 横スクロール開始判定（Wがまだ押下中で、しきい値超えたら）
+    if (!h_active && w_down && w_t && held_long(w_t)) {
 #if KEYBALL_SCROLLSNAP_ENABLE == 2
         keyball_set_scrollsnap_mode(KEYBALL_SCROLLSNAP_MODE_HORIZONTAL);
 #endif
