@@ -1,0 +1,16 @@
+Metadata-Version: 2.1
+Name: log-symbols
+Version: 0.0.14
+Summary: Colored symbols for various log levels for Python
+Home-page: https://github.com/manrajgrover/py-log-symbols
+Author: Manraj Singh
+Author-email: manrajsinghgrover@gmail.com
+License: MIT
+Keywords: log symbols,symbols,log
+Platform: UNKNOWN
+Requires-Dist: colorama (>=0.3.9)
+Requires-Dist: enum34 (==1.1.6) ; python_version < "3.4"
+
+Colored symbols for various log levels for Python. Find the documentation here: https://github.com/manrajgrover/py-log-symbols.
+
+

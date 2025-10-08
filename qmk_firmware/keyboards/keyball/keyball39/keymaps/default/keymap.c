@@ -76,8 +76,11 @@ void oledkit_render_info_user(void) {
 #define HOLD_MS 150
 
 static bool init_done = false;
-static uint8_t base_scroll_div;  // 1..7
-static uint8_t base_cpi;         // 100cpi単位
+static uint8_t base_scroll_div;    // 1..7
+static uint8_t base_cpi;           // 100cpi単位
+
+static uint8_t fast_scroll_div;    // ← 2倍速用: ceil(base_div/2)
+static uint8_t half_cpi;           // ← 1/2倍用: floor(base_cpi/2), 最低1
 
 static bool v_active = false;
 static bool h_active = false;
@@ -85,7 +88,7 @@ static bool h_active = false;
 static uint16_t q_t = 0, w_t = 0;
 static bool q_down = false, w_down = false;
 
-// ---- 追加: E/R 用 ----
+// ---- E/R 用 ----
 static uint16_t e_t = 0, r_t = 0;
 static bool e_down = false, r_down = false;
 static bool e_used = false;   // Eが“加速用途”に使われたか
@@ -95,11 +98,23 @@ static inline bool held_long(uint16_t t0) { return timer_elapsed(t0) > HOLD_MS; 
 
 static inline void ensure_init(void){
     if (init_done) return;
+
     base_scroll_div = keyball_get_scroll_div();
     if (base_scroll_div < 1) base_scroll_div = 1;
     if (base_scroll_div > 7) base_scroll_div = 7;
 
-    base_cpi = keyball_get_cpi();   // 例: 12 = 1200cpi
+    base_cpi = keyball_get_cpi();           // 例: 12 = 1200cpi
+
+    // --- 2倍速/1/2倍の目標値を算出 ---
+    // 高速は「切り上げ」：ceil(div/2) = (div + 1) / 2
+    fast_scroll_div = (base_scroll_div + 1) / 2;
+    if (fast_scroll_div < 1) fast_scroll_div = 1;      // 安全弁
+    if (fast_scroll_div > 7) fast_scroll_div = 7;
+
+    // 低速は「切り下げ」：floor(cpi/2)
+    half_cpi = base_cpi / 2;
+    if (half_cpi < 1) half_cpi = 1;                    // 100cpi未満は避ける
+
     init_done = true;
 }
 
@@ -116,6 +131,8 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                 if (v_active) {
                     v_active = false;
                     if (get_highest_layer(layer_state) != 3) keyball_set_scroll_mode(false);
+                    // スクロール解除時は速度も通常へ
+                    keyball_set_scroll_div(base_scroll_div);
                 } else {
                     q_t = 0; tap_code16(KC_Q);
                 }
@@ -131,48 +148,41 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                 if (h_active) {
                     h_active = false;
                     if (get_highest_layer(layer_state) != 3) keyball_set_scroll_mode(false);
+                    keyball_set_scroll_div(base_scroll_div);
                 } else {
                     w_t = 0; tap_code16(KC_W);
                 }
             }
             return false;
 
-        // --- E: スクロール中だけ加速（ホールド）/ 'e'（タップ）
+        // --- E: スクロール中だけ「2倍速」（ホールド）/ 'e'（タップ）
         case KC_E:
             if (record->event.pressed) {
                 e_down = true; e_t = timer_read(); e_used = false;
-                // すでにスクロール中なら即加速・“使った”扱い
                 if (v_active || h_active) {
-                    uint8_t faster = base_scroll_div > 1 ? (base_scroll_div - 1) : 1;
-                    keyball_set_scroll_div(faster);
+                    keyball_set_scroll_div(fast_scroll_div);
                     e_used = true;
                 }
             } else {
-                // Eを離した
                 if (e_used) {
-                    // 加速に使っていた → 通常速度へ戻す
-                    keyball_set_scroll_div(base_scroll_div);
+                    keyball_set_scroll_div(base_scroll_div);   // 通常へ戻す
                 } else {
-                    // タップとみなす（ホールド未成立＆スクロール未使用）
-                    if (!held_long(e_t)) tap_code16(KC_E);
+                    if (!held_long(e_t)) tap_code16(KC_E);     // タップ入力
                 }
                 e_down = false; e_t = 0; e_used = false;
             }
             return false;
 
-        // --- R: 長押しでCPI低下（低速）/ 'r'（タップ）
+        // --- R: 長押しで「1/2倍CPI」（低速）/ 'r'（タップ）
         case KC_R:
             if (record->event.pressed) {
                 r_down = true; r_t = timer_read(); r_used = false;
-                // 低速は“長押し成立後”に適用（matrix_scan_userで実行）
+                // 適用は長押し成立後（matrix_scan_user）
             } else {
-                // Rを離した
                 if (r_used) {
-                    // 低速にしていた → 元のCPIに戻す
-                    keyball_set_cpi(base_cpi);
+                    keyball_set_cpi(base_cpi);                 // 通常CPIへ戻す
                 } else {
-                    // タップ扱い（低速を有効化していない）
-                    if (!held_long(r_t)) tap_code16(KC_R);
+                    if (!held_long(r_t)) tap_code16(KC_R);     // タップ入力
                 }
                 r_down = false; r_t = 0; r_used = false;
             }
@@ -190,10 +200,8 @@ void matrix_scan_user(void) {
         keyball_set_scrollsnap_mode(KEYBALL_SCROLLSNAP_MODE_VERTICAL);
 #endif
         keyball_set_scroll_mode(true);
-        // Eが押下済みで未使用なら、ここで初めて“加速に使った”扱いにして反映
-        if (e_down && !e_used) {
-            uint8_t faster = base_scroll_div > 1 ? (base_scroll_div - 1) : 1;
-            keyball_set_scroll_div(faster);
+        if (e_down && !e_used) {                 // 先押しEに追従
+            keyball_set_scroll_div(fast_scroll_div);
             e_used = true;
         } else {
             keyball_set_scroll_div(base_scroll_div);
@@ -209,8 +217,7 @@ void matrix_scan_user(void) {
 #endif
         keyball_set_scroll_mode(true);
         if (e_down && !e_used) {
-            uint8_t faster = base_scroll_div > 1 ? (base_scroll_div - 1) : 1;
-            keyball_set_scroll_div(faster);
+            keyball_set_scroll_div(fast_scroll_div);
             e_used = true;
         } else {
             keyball_set_scroll_div(base_scroll_div);
@@ -219,10 +226,9 @@ void matrix_scan_user(void) {
         w_t = 0;
     }
 
-    // R 長押し成立で低CPIを適用（押してすぐは適用しない → タップ入力が生きる）
+    // R 長押し成立 → 1/2CPI を適用
     if (r_down && !r_used && held_long(r_t)) {
-        uint8_t slow = base_cpi > 4 ? (uint8_t)(base_cpi - 2) : base_cpi; // 200cpiダウン
-        keyball_set_cpi(slow);
+        keyball_set_cpi(half_cpi);
         r_used = true;
     }
 }

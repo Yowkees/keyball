@@ -1,0 +1,9 @@
+dotty_dict-1.3.1.dist-info/INSTALLER,sha256=zuuue4knoyJ-UwPPXg8fezS7VCrXJQrAP7zeNuwvFQg,4
+dotty_dict-1.3.1.dist-info/LICENSE,sha256=IAn0pX-Vzoqna3ZCG7faZnnqzmfVwQEY7caS7MQdxis,1072
+dotty_dict-1.3.1.dist-info/METADATA,sha256=Ga-fuUtKETxadOPGfI--ihEihkKLpevSW8WAonPTuBQ,5306
+dotty_dict-1.3.1.dist-info/RECORD,,
+dotty_dict-1.3.1.dist-info/WHEEL,sha256=DA86_h4QwwzGeRoz62o1svYt5kGEXpoUTuTtwzoTb30,83
+dotty_dict/__init__.py,sha256=4skFj_sdo33SWqTefV1JBAvZiT4MY_pB5yaRL5DMNVs,240
+dotty_dict/__pycache__/__init__.cpython-310.pyc,,
+dotty_dict/__pycache__/dotty_dict.cpython-310.pyc,,
+dotty_dict/dotty_dict.py,sha256=5EJB4jOqM_4OJV2Z_HOSBK8ZQvcQtvrwcKco9BcFMuQ,12113
