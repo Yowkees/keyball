@@ -81,11 +81,15 @@ static uint8_t base_cpi;         // 100cpi単位
 
 static bool v_active = false;
 static bool h_active = false;
-static bool fast_on  = false;
-static bool mouse_slow_on = false;
 
 static uint16_t q_t = 0, w_t = 0;
-static bool q_down = false, w_down = false;   // ← 追加：押下中フラグ
+static bool q_down = false, w_down = false;
+
+// ---- 追加: E/R 用 ----
+static uint16_t e_t = 0, r_t = 0;
+static bool e_down = false, r_down = false;
+static bool e_used = false;   // Eが“加速用途”に使われたか
+static bool r_used = false;   // Rが“低速用途”に使われたか
 
 static inline bool held_long(uint16_t t0) { return timer_elapsed(t0) > HOLD_MS; }
 
@@ -103,73 +107,74 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     ensure_init();
 
     switch (keycode) {
-        // --- Q: 長押しで縦スクロール、短押しで 'q'
+        // --- Q: 縦スクロール（長押し）/ 'q'（タップ）
         case KC_Q:
             if (record->event.pressed) {
-                q_down = true;                  // 押下開始
-                q_t = timer_read();
+                q_down = true; q_t = timer_read();
             } else {
-                q_down = false;                 // 離した
+                q_down = false;
                 if (v_active) {
                     v_active = false;
-                    // レイヤー3が最上位でないならスクロール解除
-                    if (get_highest_layer(layer_state) != 3) {
-                        keyball_set_scroll_mode(false);
-                    }
+                    if (get_highest_layer(layer_state) != 3) keyball_set_scroll_mode(false);
                 } else {
-                    // 短押し判定：タイマーをクリアして後発の誤発火を抑止
-                    q_t = 0;
-                    tap_code16(KC_Q);
+                    q_t = 0; tap_code16(KC_Q);
                 }
             }
             return false;
 
-        // --- W: 長押しで横スクロール、短押しで 'w'
+        // --- W: 横スクロール（長押し）/ 'w'（タップ）
         case KC_W:
             if (record->event.pressed) {
-                w_down = true;
-                w_t = timer_read();
+                w_down = true; w_t = timer_read();
             } else {
                 w_down = false;
                 if (h_active) {
                     h_active = false;
-                    if (get_highest_layer(layer_state) != 3) {
-                        keyball_set_scroll_mode(false);
-                    }
+                    if (get_highest_layer(layer_state) != 3) keyball_set_scroll_mode(false);
                 } else {
-                    w_t = 0;                    // 短押し時はタイマー消去
-                    tap_code16(KC_W);
+                    w_t = 0; tap_code16(KC_W);
                 }
             }
             return false;
 
-        // --- E: 押している間だけスクロール加速
+        // --- E: スクロール中だけ加速（ホールド）/ 'e'（タップ）
         case KC_E:
             if (record->event.pressed) {
-                fast_on = true;
+                e_down = true; e_t = timer_read(); e_used = false;
+                // すでにスクロール中なら即加速・“使った”扱い
                 if (v_active || h_active) {
                     uint8_t faster = base_scroll_div > 1 ? (base_scroll_div - 1) : 1;
                     keyball_set_scroll_div(faster);
+                    e_used = true;
                 }
             } else {
-                fast_on = false;
-                keyball_set_scroll_div(base_scroll_div);
+                // Eを離した
+                if (e_used) {
+                    // 加速に使っていた → 通常速度へ戻す
+                    keyball_set_scroll_div(base_scroll_div);
+                } else {
+                    // タップとみなす（ホールド未成立＆スクロール未使用）
+                    if (!held_long(e_t)) tap_code16(KC_E);
+                }
+                e_down = false; e_t = 0; e_used = false;
             }
             return false;
 
-        // --- R: 押している間だけカーソル低速（CPI下げ）
+        // --- R: 長押しでCPI低下（低速）/ 'r'（タップ）
         case KC_R:
             if (record->event.pressed) {
-                if (!mouse_slow_on) {
-                    mouse_slow_on = true;
-                    uint8_t slow = base_cpi > 4 ? (uint8_t)(base_cpi - 2) : base_cpi; // -200cpi
-                    keyball_set_cpi(slow);
-                }
+                r_down = true; r_t = timer_read(); r_used = false;
+                // 低速は“長押し成立後”に適用（matrix_scan_userで実行）
             } else {
-                if (mouse_slow_on) {
-                    mouse_slow_on = false;
+                // Rを離した
+                if (r_used) {
+                    // 低速にしていた → 元のCPIに戻す
                     keyball_set_cpi(base_cpi);
+                } else {
+                    // タップ扱い（低速を有効化していない）
+                    if (!held_long(r_t)) tap_code16(KC_R);
                 }
+                r_down = false; r_t = 0; r_used = false;
             }
             return false;
     }
@@ -179,26 +184,45 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 void matrix_scan_user(void) {
     ensure_init();
 
-    // 縦スクロール開始判定（Qがまだ押下中で、しきい値超えたら）
+    // 縦スクロール開始（Q長押し）
     if (!v_active && q_down && q_t && held_long(q_t)) {
 #if KEYBALL_SCROLLSNAP_ENABLE == 2
         keyball_set_scrollsnap_mode(KEYBALL_SCROLLSNAP_MODE_VERTICAL);
 #endif
         keyball_set_scroll_mode(true);
-        keyball_set_scroll_div(fast_on ? (base_scroll_div > 1 ? base_scroll_div - 1 : 1) : base_scroll_div);
+        // Eが押下済みで未使用なら、ここで初めて“加速に使った”扱いにして反映
+        if (e_down && !e_used) {
+            uint8_t faster = base_scroll_div > 1 ? (base_scroll_div - 1) : 1;
+            keyball_set_scroll_div(faster);
+            e_used = true;
+        } else {
+            keyball_set_scroll_div(base_scroll_div);
+        }
         v_active = true;
-        // 以降は長押し成立済みとしてタイマーを無効化
         q_t = 0;
     }
 
-    // 横スクロール開始判定（Wがまだ押下中で、しきい値超えたら）
+    // 横スクロール開始（W長押し）
     if (!h_active && w_down && w_t && held_long(w_t)) {
 #if KEYBALL_SCROLLSNAP_ENABLE == 2
         keyball_set_scrollsnap_mode(KEYBALL_SCROLLSNAP_MODE_HORIZONTAL);
 #endif
         keyball_set_scroll_mode(true);
-        keyball_set_scroll_div(fast_on ? (base_scroll_div > 1 ? base_scroll_div - 1 : 1) : base_scroll_div);
+        if (e_down && !e_used) {
+            uint8_t faster = base_scroll_div > 1 ? (base_scroll_div - 1) : 1;
+            keyball_set_scroll_div(faster);
+            e_used = true;
+        } else {
+            keyball_set_scroll_div(base_scroll_div);
+        }
         h_active = true;
         w_t = 0;
+    }
+
+    // R 長押し成立で低CPIを適用（押してすぐは適用しない → タップ入力が生きる）
+    if (r_down && !r_used && held_long(r_t)) {
+        uint8_t slow = base_cpi > 4 ? (uint8_t)(base_cpi - 2) : base_cpi; // 200cpiダウン
+        keyball_set_cpi(slow);
+        r_used = true;
     }
 }
