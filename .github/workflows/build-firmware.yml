@@ -43,7 +43,7 @@ jobs:
       run: qmk compile -j 4 -kb keyball/${{ inputs.keyboard }} -km ${{ inputs.keymap }}
 
     - name: Archive built firmware
-      uses: actions/upload-artifact@v4
+      uses: actions/upload-artifact@v5
       with:
         name: ${{ inputs.keyboard }}-${{ inputs.keymap }}-firmware
         path: __qmk__/*.hex
