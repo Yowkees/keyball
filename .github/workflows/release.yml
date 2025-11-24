@@ -20,7 +20,7 @@ jobs:
     steps:
 
     - name: Checkout source
-      uses: actions/checkout@v4
+      uses: actions/checkout@v6
 
     - name: Archive Keyball39 firmwares
       uses: ./.github/actions/release-archive
