@@ -20,6 +20,11 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #pragma once
 
+#define TAPPING_TERM 175
+#define AUTO_SHIFT_TIMEOUT 170
+#define NO_AUTO_SHIFT_SPECIAL
+#define NO_ACTION_ONESHOT
+
 #ifdef RGBLIGHT_ENABLE
 //#    define RGBLIGHT_EFFECT_BREATHING
 //#    define RGBLIGHT_EFFECT_RAINBOW_MOOD
@@ -36,4 +41,4 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define TAP_CODE_DELAY 5
 
 #define POINTING_DEVICE_AUTO_MOUSE_ENABLE
-#define AUTO_MOUSE_DEFAULT_LAYER 1
+#define AUTO_MOUSE_DEFAULT_LAYER 2
