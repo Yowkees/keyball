@@ -177,6 +177,10 @@ typedef struct {
     keypos_t       last_pos;
     report_mouse_t last_mouse;
 
+    uint16_t auto_mouse_layer_timeout;
+    layer_state_t last_layer_state;
+    uint16_t total_mouse_movement;
+
     // Buffer to indicate pressing keys.
     char pressing_keys[KEYBALL_OLED_MAX_PRESSING_KEYCODES + 1];
 } keyball_t;
@@ -270,3 +274,7 @@ uint8_t keyball_get_cpi(void);
 /// In addition, if you do not upload SROM, the maximum value will be limited
 /// to 35 (3500CPI).
 void keyball_set_cpi(uint8_t cpi);
+
+#ifdef POINTING_DEVICE_AUTO_MOUSE_ENABLE
+void keyball_handle_auto_mouse_layer_change(layer_state_t state);
+#endif
