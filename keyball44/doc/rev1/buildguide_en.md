@@ -388,7 +388,7 @@ If you're skipping LED soldering, etc., and don't need test firmware, you can wr
 
 
 Keyball44 firmware is common regardless of which side the trackball is mounted on.  
-Please write (FLASH) the [Keyball_test.hex](https://remap-keys.app/catalog/k895xiCpsM5zlYZCPTEN/firmware) registered in REMAP.  
+Please write (FLASH) the [Keyball_test.hex](https://remap-keys.app/catalog/tAJ9Htme4oNabUkx4832/firmware) registered in REMAP.
 Clicking the FLASH button in the link above will display instructions for the writing method.  
 If the keyboard is not recognized even with the USB cable connected, try pressing the soldered RESET switch quickly twice.  
 ※Be sure to write the same hex file to both left and right Pro Micros.
@@ -623,7 +623,7 @@ Now let's write the official firmware to ProMicro as the final step.
 
 Keyball44 is compatible with [ReMAP](https://remap-keys.app/configure), so firmware writing and keymap changes are possible without installing special software. For instructions on using Remap, please refer to the article by [Salicylic Acid's Self-Key Onsen Guide](https://salicylic-acid3.hatenablog.com/entry/remap-manual) for detailed information.  
 
-To use ReMAP, open the [REMAP catalog Keyball44 firmware page](https://remap-keys.app/catalog/k895xiCpsM5zlYZCPTEN/firmware) and FLASH (write) the Keyball44_via firmware.
+To use ReMAP, open the [REMAP catalog Keyball44 firmware page](https://remap-keys.app/catalog/tAJ9Htme4oNabUkx4832/firmware) and FLASH (write) the Keyball44_via firmware.
 
 
 
