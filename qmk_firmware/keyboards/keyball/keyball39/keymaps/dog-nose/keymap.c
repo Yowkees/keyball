@@ -82,7 +82,7 @@ void oledkit_render_info_user(void) {
 enum combos {
     JK_MB1,
     KL_MB2,
-}
+};
 
 const uint16_t PROGMEM jk_mb1_combo[] = {KC_J, KC_K, COMBO_END};
 const uint16_t PROGMEM kl_mb2_combo[] = {KC_K, KC_L, COMBO_END};
