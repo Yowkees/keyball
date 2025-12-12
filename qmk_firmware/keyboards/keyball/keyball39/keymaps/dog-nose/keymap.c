@@ -76,3 +76,19 @@ void oledkit_render_info_user(void) {
     keyball_oled_render_layerinfo();
 }
 #endif
+
+
+#ifdef COMBO_ENABLE
+enum combos {
+    JK_MB1,
+    KL_MB2,
+}
+
+const uint16_t PROGMEM jk_mb1_combo[] = {KC_J, KC_K, COMBO_END};
+const uint16_t PROGMEM kl_mb2_combo[] = {KC_K, KC_L, COMBO_END};
+combo_t keyball_combos[] = {
+    [JK_MB1] = COMBO(jk_mb1_combo, KC_BTN1),
+    [KL_MB2] = COMBO(kl_mb2_combo, KC_BTN2),
+};
+
+#endif
