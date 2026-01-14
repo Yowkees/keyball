@@ -39,3 +39,4 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define AUTO_MOUSE_DEFAULT_LAYER 1
 
 #define DYNAMIC_KEYMAP_LAYER_COUNT 7
+#define AUTO_MOUSE_LAYER_KEEP_TIME 30000
