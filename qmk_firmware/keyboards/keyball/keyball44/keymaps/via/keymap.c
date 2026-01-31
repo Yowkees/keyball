@@ -37,58 +37,59 @@ tap_dance_action_t tap_dance_actions[] = {
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   // Default (VIA) Keymap
   [0] = LAYOUT_universal(
-    XXXXXXX   , KC_Q         , KC_W         , KC_E         , KC_R         , KC_T         ,                KC_Y         , KC_U         , KC_I         , KC_O         , KC_P         , TO(1)       ,
-    XXXXXXX   , KC_A         , KC_S         , LT(5,KC_D)   , GUI_T(KC_F)  , KC_G         ,                KC_H         , KC_J         , LT(4,KC_K)   , KC_L         , KC_MINS      , TO(0)       ,
-    XXXXXXX   , KC_Z         , KC_X         , KC_C         , KC_V         , KC_B         ,                KC_N         , KC_M         , KC_COMM      , KC_DOT       , KC_SLSH      , TO(3)       ,
-                KC_LCTL      , KC_LALT      , SFT_T(KC_SPC), LT(1,KC_LNG2), LT(2,KC_LNG1), LT(3,KC_BSPC), GUI_T(KC_ENT), XXXXXXX      , XXXXXXX      , PS_SELECT
+    XXXXXXX   , KC_Q         , KC_W         , KC_E         , KC_R         , KC_T         ,                               KC_Y         , KC_U         , KC_I         , KC_O         , KC_P         , TO(1)       ,
+    XXXXXXX   , KC_A         , KC_S         , LT(4,KC_D)   , GUI_T(KC_F)  , KC_G         ,                               KC_H         , KC_J         , KC_K         , KC_L         , KC_MINS      , TO(0)       ,
+    XXXXXXX   , KC_Z         , KC_X         , LT(3,KC_C)   , KC_V         , KC_B         ,                               KC_N         , KC_M         , KC_COMM      , KC_DOT       , KC_SLSH      , TO(3)       ,
+                               KC_LCTL      , KC_LALT      , LT(2,KC_LNG1), SFT_T(KC_SPC), LT(1,KC_LNG2), LT(3,KC_BSPC), GUI_T(KC_ENT),                XXXXXXX      , XXXXXXX      , PS_SELECT
   ),
 
   // Special Key Layer
   [1] = LAYOUT_universal(
-    _______   , XXXXXXX      , S(KC_1)      , S(KC_2)      , S(KC_3)      , S(KC_4)      ,                S(KC_5)      , S(KC_6)      , S(KC_7)      , S(KC_8)      , XXXXXXX     , TO(2)       ,
-    _______   , XXXXXXX      , KC_LBRC      , S(KC_LBRC)   , S(KC_9)      , KC_QUOT      ,                KC_BSLS      , KC_EQL       , KC_SCLN      , KC_QUOT      , XXXXXXX     , _______     ,
-    _______   , XXXXXXX      , KC_RBRC      , S(KC_RBRC)   , S(KC_0)      , S(KC_QUOT)   ,                S(KC_BSLS)   , S(KC_EQL)    , S(KC_SCLN)   , S(KC_QUOT)   , XXXXXXX     , _______     ,
-                _______      , _______      , _______      , _______      , _______      , _______      , _______      , XXXXXXX      , XXXXXXX      , _______
+    _______   , XXXXXXX      , S(KC_1)      , S(KC_2)      , S(KC_3)      , S(KC_4)      ,                               S(KC_5)      , S(KC_6)      , S(KC_7)      , S(KC_8)      , XXXXXXX      , TO(2)       ,
+    _______   , XXXXXXX      , KC_LBRC      , S(KC_LBRC)   , S(KC_9)      , KC_QUOT      ,                               KC_BSLS      , KC_EQL       , KC_SCLN      , KC_QUOT      , XXXXXXX      , _______     ,
+    _______   , XXXXXXX      , KC_RBRC      , S(KC_RBRC)   , S(KC_0)      , S(KC_QUOT)   ,                               S(KC_BSLS)   , S(KC_EQL)    , S(KC_SCLN)   , S(KC_QUOT)   , XXXXXXX      , _______     ,
+                               _______      , _______      , _______      , _______      , _______      , _______      , _______      ,                XXXXXXX      , XXXXXXX      , _______
   ),
 
   // Number Key Layer
   [2] = LAYOUT_universal(
-    _______   , KC_F1        , KC_F2        , KC_F3        , KC_F4       , KC_F5         ,                KC_F6        , KC_F7        , KC_F8        , KC_F9        , KC_F10      , TO(3)       ,
-    _______   , KC_1         , KC_2         , KC_3         , KC_4        , KC_5          ,                KC_6         , KC_7         , KC_8         , KC_9         , KC_0        , _______     ,
-    _______   , KC_F11       , KC_F12       , XXXXXXX      , XXXXXXX     , XXXXXXX       ,                XXXXXXX      , XXXXXXX      , KC_COMM      , KC_DOT       , XXXXXXX     , _______     ,
-                _______      , _______      , _______      , _______     , _______       , _______      , _______      , XXXXXXX      , XXXXXXX      , _______
+    _______   , KC_F1        , KC_F2        , KC_F3        , KC_F4       , KC_F5         ,                               KC_F6        , KC_F7        , KC_F8        , KC_F9        , KC_F10       , TO(3)       ,
+    _______   , KC_1         , KC_2         , KC_3         , KC_4        , KC_5          ,                               KC_6         , KC_7         , KC_8         , KC_9         , KC_0         , _______     ,
+    _______   , KC_F11       , KC_F12       , XXXXXXX      , XXXXXXX     , XXXXXXX       ,                               XXXXXXX      , XXXXXXX      , KC_COMM      , KC_DOT       , KC_SLSH      , _______     ,
+                               _______      , _______      , _______      , _______      , _______      , _______      , _______      ,                XXXXXXX      , XXXXXXX      , _______
   ),
 
   // Arrow Key and Window Control Key Layer
   [3] = LAYOUT_universal(
-    _______   , XXXXXXX      , C(A(KC_LEFT)), C(A(KC_ENT)), C(A(KC_RGHT)), XXXXXXX       ,                XXXXXXX      , XXXXXXX      , KC_UP        , XXXXXXX      , XXXXXXX     , TO(4)       ,
-    _______   , XXXXXXX      , G(KC_LBRC)   , XXXXXXX     , G(KC_RBRC)   , XXXXXXX       ,                XXXXXXX      , KC_LEFT      , KC_DOWN      , KC_RGHT      , XXXXXXX     , _______     ,
-    _______   , XXXXXXX      , C(KC_LEFT)   , C(KC_UP)    , C(KC_RGHT)   , XXXXXXX       ,                XXXXXXX      , KC_TAB       , KC_ESC       , S(KC_TAB)    , XXXXXXX     , _______     ,
-                _______      , _______      , _______     , _______      , _______       , _______      , _______      , XXXXXXX      , XXXXXXX      , _______
+    _______   , XXXXXXX      , C(A(KC_LEFT)), C(A(KC_ENT)) , C(A(KC_RGHT)), XXXXXXX      ,                               XXXXXXX      , XXXXXXX      , KC_UP        , XXXXXXX      , XXXXXXX      , TO(4)       ,
+    _______   , XXXXXXX      , G(KC_LBRC)   , XXXXXXX      , G(KC_RBRC)   , XXXXXXX      ,                               XXXXXXX      , KC_LEFT      , KC_DOWN      , KC_RGHT      , XXXXXXX      , _______     ,
+    _______   , XXXXXXX      , C(KC_LEFT)   , C(KC_UP)     , C(KC_RGHT)   , XXXXXXX      ,                               XXXXXXX      , KC_TAB       , KC_ESC       , S(KC_TAB)    , XXXXXXX      , _______     ,
+                               _______      , _______      , _______      , _______      , _______      , _______      , _______      ,                XXXXXXX      , XXXXXXX      , _______
   ),
 
   // Programming Key Layer
   [4] = LAYOUT_universal(
-    _______   , XXXXXXX      , S(G(KC_P))   , C(KC_R)     , KC_F2       , XXXXXXX       ,                 XXXXXXX      , XXXXXXX      , XXXXXXX      , XXXXXXX      , XXXXXXX     , TO(5)       ,
-    _______   , XXXXXXX      , C(KC_MINS)   , C(KC_GRV)   , KC_F12      , S(G(KC_V))    ,                 XXXXXXX      , XXXXXXX      , XXXXXXX      , XXXXXXX      , XXXXXXX     , _______     ,
-    _______   , XXXXXXX      , C(KC_A)      , C(KC_C)     , C(KC_E)     , C(KC_L)       ,                 XXXXXXX      , XXXXXXX      , XXXXXXX      , XXXXXXX      , XXXXXXX     , _______     ,
-                _______      , _______      , _______     , _______     , _______       , _______       , _______      , XXXXXXX      , XXXXXXX      , _______
+    _______   , XXXXXXX      , S(G(KC_P))   , C(KC_R)      , KC_F2        , XXXXXXX      ,                                XXXXXXX     , XXXXXXX      , XXXXXXX      , XXXXXXX      , XXXXXXX      , TO(5)       ,
+    _______   , XXXXXXX      , C(KC_MINS)   , C(KC_GRV)    , KC_F12       , S(G(KC_V))   ,                                XXXXXXX     , XXXXXXX      , XXXXXXX      , XXXXXXX      , XXXXXXX      , _______     ,
+    _______   , XXXXXXX      , C(KC_A)      , C(KC_C)      , C(KC_E)      , C(KC_L)      ,                                XXXXXXX     , XXXXXXX      , XXXXXXX      , XXXXXXX      , XXXXXXX      , _______     ,
+                               _______      , _______      , _______      , _______      , _______      , _______      , _______      ,                XXXXXXX      , XXXXXXX      , _______
+
   ),
 
   // Keyball Key Layer
   [5] = LAYOUT_universal(
-    _______   , XXXXXXX      , XXXXXXX      , XXXXXXX     , XXXXXXX     , XXXXXXX       ,                 XXXXXXX      , XXXXXXX      , XXXXXXX      , XXXXXXX      , XXXXXXX     , _______     ,
-    _______   , XXXXXXX      , XXXXXXX      , XXXXXXX     , XXXXXXX     , XXXXXXX       ,                 XXXXXXX      , XXXXXXX      , XXXXXXX      , XXXXXXX      , XXXXXXX     , _______     ,
-    _______   , XXXXXXX      , XXXXXXX      , XXXXXXX     , XXXXXXX     , XXXXXXX       ,                 XXXXXXX      , XXXXXXX      , XXXXXXX      , XXXXXXX      , XXXXXXX     , _______     ,
-                _______      , _______      , _______     , _______     , _______       , _______       , _______      , XXXXXXX      , XXXXXXX      , _______
+    _______   , XXXXXXX      , XXXXXXX      , XXXXXXX      , XXXXXXX      , XXXXXXX      ,                                XXXXXXX     , XXXXXXX      , XXXXXXX      , XXXXXXX      , XXXXXXX      , _______     ,
+    _______   , XXXXXXX      , XXXXXXX      , XXXXXXX      , XXXXXXX      , XXXXXXX      ,                                XXXXXXX     , XXXXXXX      , XXXXXXX      , XXXXXXX      , XXXXXXX      , _______     ,
+    _______   , XXXXXXX      , XXXXXXX      , XXXXXXX      , XXXXXXX      , XXXXXXX      ,                                XXXXXXX     , XXXXXXX      , XXXXXXX      , XXXXXXX      , XXXXXXX      , _______     ,
+                               _______      , _______      , _______      , _______      , _______      , _______      , _______      ,                XXXXXXX      , XXXXXXX      , _______
   ),
 
   // Mouse Key Layer
   [6] = LAYOUT_universal(
-    _______   , _______      , _______      , _______     , _______     , _______       ,                 XXXXXXX      , XXXXXXX      , XXXXXXX      , XXXXXXX      , XXXXXXX     , _______     ,
-    _______   , _______      , _______      , _______     , _______     , _______       ,                 XXXXXXX      , KC_MS_BTN1   , SCRL_MO      , KC_MS_BTN2   , XXXXXXX     , _______     ,
-    _______   , _______      , _______      , _______     , _______     , _______       ,                 XXXXXXX      , XXXXXXX      , XXXXXXX      , XXXXXXX      , XXXXXXX     , _______     ,
-                _______      , _______      , _______     , _______     , _______       , _______       , _______      , XXXXXXX      , XXXXXXX      , _______
+    _______   , _______      , _______      , _______      , _______      , _______      ,                                XXXXXXX     , XXXXXXX      , XXXXXXX      , XXXXXXX     , XXXXXXX      , _______     ,
+    _______   , _______      , _______      , _______      , _______      , _______      ,                                XXXXXXX     , KC_MS_BTN1   , SCRL_MO      , KC_MS_BTN2  , XXXXXXX      , _______     ,
+    _______   , _______      , _______      , _______      , _______      , _______      ,                                XXXXXXX     , XXXXXXX      , XXXXXXX      , XXXXXXX     , XXXXXXX      , _______     ,
+                               _______      , _______      , _______      , _______      , _______      , _______      , _______      ,                XXXXXXX      , XXXXXXX      , _______
   ),
 };
 
