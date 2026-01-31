@@ -8,6 +8,7 @@ on:
         required: true
         type: choice
         options:
+          - keyball39
           - keyball44
       keymap:
         description: "Keymap"
