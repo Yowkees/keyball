@@ -49,6 +49,11 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #    define KEYBALL_SCROLLSNAP_TENSION_THRESHOLD 12
 #endif
 
+/// Threshold of mouse movement before layer change occurs
+#ifndef KEYBALL_AUTO_MOUSE_THRESHOLD
+#    define KEYBALL_AUTO_MOUSE_THRESHOLD 2
+#endif
+
 /// Specify SROM ID to be uploaded PMW3360DW (optical sensor).  It will be
 /// enabled high CPI setting or so.  Valid valus are 0x04 or 0x81.  Define this
 /// in your config.h to be enable.  Please note that using this option will
@@ -158,6 +163,7 @@ typedef struct {
 
     keyball_motion_t this_motion;
     keyball_motion_t that_motion;
+    keyball_motion_t total_motion;
 
     uint8_t cpi_value;
     bool    cpi_changed;
