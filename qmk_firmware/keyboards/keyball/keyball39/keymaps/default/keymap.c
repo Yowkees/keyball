@@ -20,42 +20,148 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #include "quantum.h"
 
+// ================================================
+// レイヤー定義
+// ================================================
+#define _BASE   0
+#define _LOWER  1
+#define _RAISE  2
+#define _BALL   3
+#define _VSCRL  4  // Q長押し: 縦スクロール
+#define _HSCRL  5  // W長押し: 横スクロール
+#define _FAST   6  // E長押し: スクロール2倍速
+#define _SLOW   7  // R長押し: CPI 1/2倍（低速）
+
 // clang-format off
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   // keymap for default
-  [0] = LAYOUT_universal(
-    KC_Q     , KC_W     , KC_E     , KC_R     , KC_T     ,                            KC_Y     , KC_U     , KC_I     , KC_O     , KC_P     ,
+  [_BASE] = LAYOUT_universal(
+    LT(_VSCRL,KC_Q), LT(_HSCRL,KC_W), LT(_FAST,KC_E), LT(_SLOW,KC_R), KC_T,                  KC_Y     , KC_U     , KC_I     , KC_O     , KC_P     ,
     KC_A     , KC_S     , KC_D     , KC_F     , KC_G     ,                            KC_H     , KC_J     , KC_K     , KC_L     , KC_MINS  ,
     KC_Z     , KC_X     , KC_C     , KC_V     , KC_B     ,                            KC_N     , KC_M     , KC_COMM  , KC_DOT   , KC_SLSH  ,
     KC_LCTL  , KC_LGUI  , KC_LALT  ,LSFT_T(KC_LNG2),LT(1,KC_SPC),LT(3,KC_LNG1),KC_BSPC,LT(2,KC_ENT),LSFT_T(KC_LNG2),KC_RALT,KC_RGUI, KC_RSFT
   ),
 
-  [1] = LAYOUT_universal(
+  [_LOWER] = LAYOUT_universal(
     KC_F1    , KC_F2    , KC_F3    , KC_F4    , KC_RBRC  ,                            KC_F6    , KC_F7    , KC_F8    , KC_F9    , KC_F10   ,
     KC_F5    , KC_EXLM  , S(KC_6)  ,S(KC_INT3), S(KC_8)  ,                           S(KC_INT1), KC_BTN1  , KC_PGUP  , KC_BTN2  , KC_SCLN  ,
     S(KC_EQL),S(KC_LBRC),S(KC_7)   , S(KC_2)  ,S(KC_RBRC),                            KC_LBRC  , KC_DLR   , KC_PGDN  , KC_BTN3  , KC_F11   ,
     KC_INT1  , KC_EQL   , S(KC_3)  , _______  , _______  , _______  ,      TO(2)    , TO(0)    , _______  , KC_RALT  , KC_RGUI  , KC_F12
   ),
 
-  [2] = LAYOUT_universal(
+  [_RAISE] = LAYOUT_universal(
     KC_TAB   , KC_7     , KC_8     , KC_9     , KC_MINS  ,                            KC_NUHS  , _______  , KC_BTN3  , _______  , KC_BSPC  ,
    S(KC_QUOT), KC_4     , KC_5     , KC_6     ,S(KC_SCLN),                            S(KC_9)  , KC_BTN1  , KC_UP    , KC_BTN2  , KC_QUOT  ,
     KC_SLSH  , KC_1     , KC_2     , KC_3     ,S(KC_MINS),                           S(KC_NUHS), KC_LEFT  , KC_DOWN  , KC_RGHT  , _______  ,
     KC_ESC   , KC_0     , KC_DOT   , KC_DEL   , KC_ENT   , KC_BSPC  ,      _______  , _______  , _______  , _______  , _______  , _______
   ),
 
-  [3] = LAYOUT_universal(
+  [_BALL] = LAYOUT_universal(
     RGB_TOG  , AML_TO   , AML_I50  , AML_D50  , _______  ,                            _______  , _______  , SSNP_HOR , SSNP_VRT , SSNP_FRE ,
     RGB_MOD  , RGB_HUI  , RGB_SAI  , RGB_VAI  , SCRL_DVI ,                            _______  , _______  , _______  , _______  , _______  ,
     RGB_RMOD , RGB_HUD  , RGB_SAD  , RGB_VAD  , SCRL_DVD ,                            CPI_D1K  , CPI_D100 , CPI_I100 , CPI_I1K  , KBC_SAVE ,
     QK_BOOT  , KBC_RST  , _______  , _______  , _______  , _______  ,      _______  , _______  , _______  , _______  , KBC_RST  , QK_BOOT
   ),
+
+  // Q長押し: 縦スクロール
+  [_VSCRL] = LAYOUT_universal(
+    _______  , _______  , _______  , _______  , _______  ,                            _______  , _______  , _______  , _______  , _______  ,
+    _______  , _______  , _______  , _______  , _______  ,                            _______  , _______  , _______  , _______  , _______  ,
+    _______  , _______  , _______  , _______  , _______  ,                            _______  , _______  , _______  , _______  , _______  ,
+    _______  , _______  , _______  , _______  , _______  , _______  ,      _______  , _______  , _______  , _______  , _______  , _______
+  ),
+
+  // W長押し: 横スクロール
+  [_HSCRL] = LAYOUT_universal(
+    _______  , _______  , _______  , _______  , _______  ,                            _______  , _______  , _______  , _______  , _______  ,
+    _______  , _______  , _______  , _______  , _______  ,                            _______  , _______  , _______  , _______  , _______  ,
+    _______  , _______  , _______  , _______  , _______  ,                            _______  , _______  , _______  , _______  , _______  ,
+    _______  , _______  , _______  , _______  , _______  , _______  ,      _______  , _______  , _______  , _______  , _______  , _______
+  ),
+
+  // E長押し: スクロール2倍速
+  [_FAST] = LAYOUT_universal(
+    _______  , _______  , _______  , _______  , _______  ,                            _______  , _______  , _______  , _______  , _______  ,
+    _______  , _______  , _______  , _______  , _______  ,                            _______  , _______  , _______  , _______  , _______  ,
+    _______  , _______  , _______  , _______  , _______  ,                            _______  , _______  , _______  , _______  , _______  ,
+    _______  , _______  , _______  , _______  , _______  , _______  ,      _______  , _______  , _______  , _______  , _______  , _______
+  ),
+
+  // R長押し: CPI 1/2倍（低速カーソル）
+  [_SLOW] = LAYOUT_universal(
+    _______  , _______  , _______  , _______  , _______  ,                            _______  , _______  , _______  , _______  , _______  ,
+    _______  , _______  , _______  , _______  , _______  ,                            _______  , _______  , _______  , _______  , _______  ,
+    _______  , _______  , _______  , _______  , _______  ,                            _______  , _______  , _______  , _______  , _______  ,
+    _______  , _______  , _______  , _______  , _______  , _______  ,      _______  , _______  , _______  , _______  , _______  , _______
+  ),
 };
 // clang-format on
 
+// ================================================
+// スクロール・CPI 制御（LT による layer_state_set_user で管理）
+// ================================================
+static bool init_done = false;
+static uint8_t base_scroll_div;    // 1..7
+static uint8_t base_cpi;           // 100cpi単位
+static uint8_t fast_scroll_div;    // 2倍速用: ceil(base_div/2)
+static uint8_t half_cpi;           // 1/2倍用: floor(base_cpi/2), 最低1
+
+static void ensure_init(void) {
+    if (init_done) return;
+
+    base_scroll_div = keyball_get_scroll_div();
+    if (base_scroll_div < 1) base_scroll_div = 1;
+    if (base_scroll_div > 7) base_scroll_div = 7;
+
+    base_cpi = keyball_get_cpi();
+
+    fast_scroll_div = (base_scroll_div + 1) / 2;
+    if (fast_scroll_div < 1) fast_scroll_div = 1;
+    if (fast_scroll_div > 7) fast_scroll_div = 7;
+
+    half_cpi = base_cpi / 2;
+    if (half_cpi < 1) half_cpi = 1;
+
+    init_done = true;
+}
+
 layer_state_t layer_state_set_user(layer_state_t state) {
-    // Auto enable scroll mode when the highest layer is 3
-    keyball_set_scroll_mode(get_highest_layer(state) == 3);
+    ensure_init();
+
+    bool vscrl = layer_state_cmp(state, _VSCRL);
+    bool hscrl = layer_state_cmp(state, _HSCRL);
+    bool fast  = layer_state_cmp(state, _FAST);
+    bool slow  = layer_state_cmp(state, _SLOW);
+    bool ball  = layer_state_cmp(state, _BALL);
+
+    bool scrolling = vscrl || hscrl || ball;
+
+    // スクロールモード
+    keyball_set_scroll_mode(scrolling);
+
+    // スクロール方向スナップ
+#if KEYBALL_SCROLLSNAP_ENABLE == 2
+    if (vscrl) {
+        keyball_set_scrollsnap_mode(KEYBALL_SCROLLSNAP_MODE_VERTICAL);
+    } else if (hscrl) {
+        keyball_set_scrollsnap_mode(KEYBALL_SCROLLSNAP_MODE_HORIZONTAL);
+    }
+#endif
+
+    // スクロール速度（E長押しで2倍速）
+    if (scrolling && fast) {
+        keyball_set_scroll_div(fast_scroll_div);
+    } else {
+        keyball_set_scroll_div(base_scroll_div);
+    }
+
+    // CPI（R長押しで1/2倍）
+    if (slow) {
+        keyball_set_cpi(half_cpi);
+    } else {
+        keyball_set_cpi(base_cpi);
+    }
+
     return state;
 }
 
@@ -69,166 +175,3 @@ void oledkit_render_info_user(void) {
     keyball_oled_render_layerinfo();
 }
 #endif
-
-// ================================================
-// 2025-10-06追加_スクロール、トラックボール低速
-// ================================================
-#define HOLD_MS 150
-
-static bool init_done = false;
-static uint8_t base_scroll_div;    // 1..7
-static uint8_t base_cpi;           // 100cpi単位
-
-static uint8_t fast_scroll_div;    // ← 2倍速用: ceil(base_div/2)
-static uint8_t half_cpi;           // ← 1/2倍用: floor(base_cpi/2), 最低1
-
-static bool v_active = false;
-static bool h_active = false;
-
-static uint16_t q_t = 0, w_t = 0;
-static bool q_down = false, w_down = false;
-
-// ---- E/R 用 ----
-static uint16_t e_t = 0, r_t = 0;
-static bool e_down = false, r_down = false;
-static bool e_used = false;   // Eが“加速用途”に使われたか
-static bool r_used = false;   // Rが“低速用途”に使われたか
-
-static inline bool held_long(uint16_t t0) { return timer_elapsed(t0) > HOLD_MS; }
-
-static inline void ensure_init(void){
-    if (init_done) return;
-
-    base_scroll_div = keyball_get_scroll_div();
-    if (base_scroll_div < 1) base_scroll_div = 1;
-    if (base_scroll_div > 7) base_scroll_div = 7;
-
-    base_cpi = keyball_get_cpi();           // 例: 12 = 1200cpi
-
-    // --- 2倍速/1/2倍の目標値を算出 ---
-    // 高速は「切り上げ」：ceil(div/2) = (div + 1) / 2
-    fast_scroll_div = (base_scroll_div + 1) / 2;
-    if (fast_scroll_div < 1) fast_scroll_div = 1;      // 安全弁
-    if (fast_scroll_div > 7) fast_scroll_div = 7;
-
-    // 低速は「切り下げ」：floor(cpi/2)
-    half_cpi = base_cpi / 2;
-    if (half_cpi < 1) half_cpi = 1;                    // 100cpi未満は避ける
-
-    init_done = true;
-}
-
-bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-    ensure_init();
-
-    switch (keycode) {
-        // --- Q: 縦スクロール（長押し）/ 'q'（タップ）
-        case KC_Q:
-            if (record->event.pressed) {
-                q_down = true; q_t = timer_read();
-            } else {
-                q_down = false;
-                if (v_active) {
-                    v_active = false;
-                    if (get_highest_layer(layer_state) != 3) keyball_set_scroll_mode(false);
-                    // スクロール解除時は速度も通常へ
-                    keyball_set_scroll_div(base_scroll_div);
-                } else {
-                    q_t = 0; tap_code16(KC_Q);
-                }
-            }
-            return false;
-
-        // --- W: 横スクロール（長押し）/ 'w'（タップ）
-        case KC_W:
-            if (record->event.pressed) {
-                w_down = true; w_t = timer_read();
-            } else {
-                w_down = false;
-                if (h_active) {
-                    h_active = false;
-                    if (get_highest_layer(layer_state) != 3) keyball_set_scroll_mode(false);
-                    keyball_set_scroll_div(base_scroll_div);
-                } else {
-                    w_t = 0; tap_code16(KC_W);
-                }
-            }
-            return false;
-
-        // --- E: スクロール中だけ「2倍速」（ホールド）/ 'e'（タップ）
-        case KC_E:
-            if (record->event.pressed) {
-                e_down = true; e_t = timer_read(); e_used = false;
-                if (v_active || h_active) {
-                    keyball_set_scroll_div(fast_scroll_div);
-                    e_used = true;
-                }
-            } else {
-                if (e_used) {
-                    keyball_set_scroll_div(base_scroll_div);   // 通常へ戻す
-                } else {
-                    if (!held_long(e_t)) tap_code16(KC_E);     // タップ入力
-                }
-                e_down = false; e_t = 0; e_used = false;
-            }
-            return false;
-
-        // --- R: 長押しで「1/2倍CPI」（低速）/ 'r'（タップ）
-        case KC_R:
-            if (record->event.pressed) {
-                r_down = true; r_t = timer_read(); r_used = false;
-                // 適用は長押し成立後（matrix_scan_user）
-            } else {
-                if (r_used) {
-                    keyball_set_cpi(base_cpi);                 // 通常CPIへ戻す
-                } else {
-                    if (!held_long(r_t)) tap_code16(KC_R);     // タップ入力
-                }
-                r_down = false; r_t = 0; r_used = false;
-            }
-            return false;
-    }
-    return true;
-}
-
-void matrix_scan_user(void) {
-    ensure_init();
-
-    // 縦スクロール開始（Q長押し）
-    if (!v_active && q_down && q_t && held_long(q_t)) {
-#if KEYBALL_SCROLLSNAP_ENABLE == 2
-        keyball_set_scrollsnap_mode(KEYBALL_SCROLLSNAP_MODE_VERTICAL);
-#endif
-        keyball_set_scroll_mode(true);
-        if (e_down && !e_used) {                 // 先押しEに追従
-            keyball_set_scroll_div(fast_scroll_div);
-            e_used = true;
-        } else {
-            keyball_set_scroll_div(base_scroll_div);
-        }
-        v_active = true;
-        q_t = 0;
-    }
-
-    // 横スクロール開始（W長押し）
-    if (!h_active && w_down && w_t && held_long(w_t)) {
-#if KEYBALL_SCROLLSNAP_ENABLE == 2
-        keyball_set_scrollsnap_mode(KEYBALL_SCROLLSNAP_MODE_HORIZONTAL);
-#endif
-        keyball_set_scroll_mode(true);
-        if (e_down && !e_used) {
-            keyball_set_scroll_div(fast_scroll_div);
-            e_used = true;
-        } else {
-            keyball_set_scroll_div(base_scroll_div);
-        }
-        h_active = true;
-        w_t = 0;
-    }
-
-    // R 長押し成立 → 1/2CPI を適用
-    if (r_down && !r_used && held_long(r_t)) {
-        keyball_set_cpi(half_cpi);
-        r_used = true;
-    }
-}
