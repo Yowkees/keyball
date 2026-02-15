@@ -154,7 +154,7 @@ void pointing_device_driver_init(void) {
 #        error Invalid value for KEYBALL_PMW3360_UPLOAD_SROM_ID. Please choose 0x04 or 0x81 or disable it.
 #    endif
 #endif
-        pmw3310_cpi_set(CPI_DEFAULT - 1);
+        pmw3610_cpi_set(CPI_DEFAULT - 1);
     }
 }
 
@@ -267,8 +267,8 @@ static inline bool should_report(void) {
 report_mouse_t pointing_device_driver_get_report(report_mouse_t rep) {
     // fetch from optical sensor.
     if (keyball.this_have_ball) {
-        pmw3310_motion_t d = {0};
-        if (pmw3310_motion_burst(&d)) {
+        pmw3610_motion_t d = {0};
+        if (pmw3610_motion_read(&d)) {
             ATOMIC_BLOCK_FORCEON {
                 keyball.this_motion.x = add16(keyball.this_motion.x, d.x);
                 keyball.this_motion.y = add16(keyball.this_motion.y, d.y);
@@ -277,7 +277,7 @@ report_mouse_t pointing_device_driver_get_report(report_mouse_t rep) {
     }
     // report mouse event, if keyboard is primary.
     if (is_keyboard_master() && should_report()) {
-        // modify mouse report by PMW3310 motion.
+        // modify mouse report by PMW3610 motion.
         motion_to_mouse(&keyball.this_motion, &rep, is_keyboard_left(), keyball.scroll_mode);
         motion_to_mouse(&keyball.that_motion, &rep, !is_keyboard_left(), keyball.scroll_mode ^ keyball.this_have_ball);
         // store mouse report for OLED.
@@ -558,7 +558,7 @@ void keyball_set_cpi(uint8_t cpi) {
     keyball.cpi_value   = cpi;
     keyball.cpi_changed = true;
     if (keyball.this_have_ball) {
-        pmw3310_cpi_set(cpi == 0 ? CPI_DEFAULT - 1 : cpi - 1);
+        pmw3610_cpi_set(cpi == 0 ? CPI_DEFAULT - 1 : cpi - 1);
     }
 }
 
