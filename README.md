@@ -26,18 +26,13 @@ Keyboards in the family are:
 
 *   Keyball39:
     [English/英語](/keyball39/doc/rev1/buildguide_en.md),
-    [日本語/Japanese (ピンヘッダ版)](./keyball39/doc/rev1/buildguide_jp.md),
-    [日本語/Japanese (コンスルー版)](./keyball39/doc/rev1/buildguide_jp_conth.md)
-*   Keyball44: ~~English/英語~~ (Sorry, unavailable),
-    [日本語/Japanese (ピンヘッダ版)](./keyball44/doc/rev1/buildguide_jp.md),
-    [日本語/Japanese (コンスルー版)](./keyball44/doc/rev1/buildguide_jp_conth.md)
-*   Keyball46:
-    [English/英語](./keyball46/doc/rev1/buildguide_en.md),
-    [日本語/Japanese](./keyball46/doc/rev1/buildguide_jp.md)
+    [日本語/Japanese](./keyball39/doc/rev1/buildguide_jp.md)
+*   Keyball44:
+    [English/英語](./keyball44/doc/rev1/buildguide_en.md),
+    [日本語/Japanese](./keyball44/doc/rev1/buildguide_jp.md)
 *   Keyball61:
     [English/英語](./keyball61/doc/rev1/buildguide_en.md),
-    [日本語/Japanese (ピンヘッダ版)](./keyball61/doc/rev1/buildguide_jp.md),
-    [日本語/Japanese (コンスルー版)](./keyball61/doc/rev1/buildguide_jp_conth.md)
+    [日本語/Japanese](./keyball61/doc/rev1/buildguide_jp.md)
 
 ## Firmware
 
