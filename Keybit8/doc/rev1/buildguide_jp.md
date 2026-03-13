@@ -302,8 +302,8 @@ Keybit8の最新ファームウェアは[Githubのリポジトリ](https://githu
       // キー対応LED 9個　LED[0]～LED[7]が赤、LED[8]が緑
       const int LED[9] = {1, 0, 8, 16, 14, 15, 18, 19, 9};
       
-      // 圧電スピーカー
-      const int buzzerPin = 10;
+      // 圧電スピーカー　ピン番号設定
+      const int BUZZER = 10;
       
       void setup() {
         pinMode(LED[0], OUTPUT);  // LED1を出力に設定
