@@ -322,6 +322,26 @@ Keybit8の最新ファームウェアは[Githubのリポジトリ](https://githu
       }
       // delay(500) の数字を変えると点滅の速さが変わるので試してみてください。
       ```
+   - Keybit8の回路のピン配置は下記のようになっています。緑色発光ダイオード(LED9)と圧電スピーカーはPWM機能対応ピンに接続させているので、パルス幅変調信号を印可することで光の明るさを買えたり、音の高さを変えることができます。
+      ```
+             ┌───┬───┬───┐
+             │      │ USB  │      │
+             │      └───┘      │
+LED1 ── 1─│1/TX               RAW│─24──×
+LED2 ── 2─│0/RX               GND│─23── GND
+ GND ── 3─│GND   Pro Micro    RST│─22── RESET SW
+ GND ── 4─│GND   ATmega32U4   VCC│─21── 5V
+Qwiic── 5─│2/SDA            A3/21│─20── ROW0
+Qwiic── 6─│3~/SCL           A2/20│─19── ROW1
+COL0 ── 7─│4/A6             A1/19│─18── LED8
+COL1 ── 8─│5~               A0/18│─17── LED7
+COL2 ── 9─│6~/A7          SCLK/15│─16── LED6
+COL3 ──10─│7              MISO/14│─15── LED5
+LED3 ──11─│8/A8           MOSI/16│─14── LED4
+LED9 ──12─│9~/A9          A10/10~│─13── BUZZER
+             └───────────┘
+              ~マークがあるピンがPWM対応
+      ```
 
 以上でKeybit8のビルドガイドは終了です。  
 Keybit8についてのご質問や不具合等についてはShiroganeLabオンラインショップの[お問い合わせ](https://shiroganelab.com/pages/contact)からお気軽にご連絡下さい。
