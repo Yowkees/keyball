@@ -304,7 +304,6 @@ Keybit8の最新ファームウェアは[Githubのリポジトリ](https://githu
       
       // 圧電スピーカー
       const int buzzerPin = 10;
-      int X = 0;
       
       void setup() {
         pinMode(LED[0], OUTPUT);  // LED1を出力に設定
