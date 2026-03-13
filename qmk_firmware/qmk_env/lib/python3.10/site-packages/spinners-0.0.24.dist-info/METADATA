@@ -1,0 +1,15 @@
+Metadata-Version: 2.1
+Name: spinners
+Version: 0.0.24
+Summary: Spinners for terminals
+Home-page: https://github.com/manrajgrover/py-spinners
+Author: Manraj Singh
+Author-email: manrajsinghgrover@gmail.com
+License: MIT
+Keywords: cli,spinner,spinners,terminal,term,console,ascii,unicode,loading,indicator,progress,busy,wait,idle,json
+Platform: UNKNOWN
+Requires-Dist: enum34 (==1.1.6) ; python_version < "3.4"
+
+More than 60 spinners for terminal, this is python port of amazing node library cli-spinners. Find the documentation here: https://github.com/manrajgrover/py-spinners.
+
+

@@ -1,0 +1,106 @@
+Metadata-Version: 2.1
+Name: hid
+Version: 1.0.8
+Summary: ctypes bindings for hidapi
+Home-page: https://github.com/apmorton/pyhidapi
+Author: Austin Morton
+Author-email: amorton@juvsoft.com
+License: MIT
+Classifier: Intended Audience :: Developers
+Classifier: License :: OSI Approved :: MIT License
+Classifier: Operating System :: OS Independent
+Classifier: Programming Language :: Python
+Classifier: Programming Language :: Python :: 3
+Description-Content-Type: text/markdown
+License-File: LICENSE
+
+# Installing pyhidapi
+pyhidapi is available on [PyPI](https://pypi.org/project/hid/) and can be installed using pip.
+```
+pip install hid
+```
+
+pyhidapi is dependant upon the [hidapi library](https://github.com/libusb/hidapi), which must be installed separately.
+
+# Installing hidapi
+
+## Linux
+Installation procedures vary depending on your distribution.
+
+### Arch Linux
+Binary distributions are available in the community repository.
+
+1. Enable the community repository in `/etc/pacman.conf`
+```
+[community]
+Include = /etc/pacman.d/mirrorlist
+```
+2. Install hidapi
+```
+pacman -Sy hidapi
+```
+
+### CentOS/RHEL
+Binary distributions are available through [EPEL](https://fedoraproject.org/wiki/EPEL).
+```
+yum install hidapi
+```
+
+### Fedora
+Binary distributions are available.
+```
+dnf install hidapi
+```
+
+### Ubuntu/Debian
+Binary distributions are available.
+
+```
+apt install libhidapi-hidraw0
+```
+or
+```
+apt install libhidapi-libusb0
+```
+
+### Others
+Binary distributions may be available in your package repositories. If not, you can build from source as described [in the libusb/hidapi README](https://github.com/libusb/hidapi#build-instructions).
+
+## Windows
+Installation procedure for Windows is described [in the libusb/hidapi README](https://github.com/libusb/hidapi#building-on-windows)
+
+Binary distributions are provided by [libusb/hidapi](https://github.com/libusb/hidapi/releases)
+
+## OSX
+There are currently no official binary distributions for Mac, so you must build hidapi yourself.
+
+Installation instructions are described [in the libusb/hidapi README](https://github.com/libusb/hidapi#mac)
+
+You can also use brew:
+```
+brew install hidapi
+```
+
+## FreeBSD
+Binary distributions are available.
+
+```
+pkg install -g 'py3*-hid'
+```
+
+# Sample usage code
+
+The details about a HID device can be printed with following code:
+
+```python
+import hid
+
+vid = 0x046d	# Change it for your device
+pid = 0xc534	# Change it for your device
+
+with hid.Device(vid, pid) as h:
+	print(f'Device manufacturer: {h.manufacturer}')
+	print(f'Product: {h.product}')
+	print(f'Serial Number: {h.serial}')
+```
+
