@@ -307,9 +307,9 @@ Keybit8の最新ファームウェアは[Githubのリポジトリ](https://githu
       
       void setup() {
         pinMode(LED[0], OUTPUT);  // LED1を出力に設定
-        pinMode(ROW[0], OUTPUT);  // ROW1を出力に設定
-        pinMode(COL[0], INPUT_PULLUP);  // COL1を入力に設定
-        digitalWrite(ROW[0], LOW);  //ROW1をLOW(GND)にする
+        pinMode(ROW[0], OUTPUT);  // ROW0を出力に設定
+        pinMode(COL[0], INPUT_PULLUP);  // COL0を入力に設定
+        digitalWrite(ROW[0], LOW);  //ROW0をLOW(GND)にする
       }
       
       void loop() {
