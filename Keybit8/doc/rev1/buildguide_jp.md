@@ -329,16 +329,16 @@ Keybit8の最新ファームウェアは[Githubのリポジトリ](https://githu
                  │       └──────┘       │  
        LED1 ───1─│1/TX               RAW│─24──×  
        LED2 ───2─│0/RX               GND│─23── GND  
-        GND ───3─│GND   Pro Micro    RST│─22── RESET SW                             Switches
-        GND ───4─│GND   ATmega32U4   VCC│─21── 5V                      ┌───────┬───────┬───────┬───────┐
-       Qwiic───5─│2/SDA            A3/21│─20── ROW0                    │       │       │       │       │
-       Qwiic───6─│3~/SCL           A2/20│─19── ROW1                    │  SW1  │  SW3  │  SW5  │  SW7  │
-       COL0 ───7─│4/A6             A1/19│─18── LED8                    │       │       │       │       │            LEDs
-       COL1 ───8─│5~               A0/18│─17── LED7                    ├───────┼───────┼───────┼───────┤      Red Red Red Red
-       COL2 ───9─│6~/A7          SCLK/15│─16── LED6                    │       │       │       │       │      (1) (3) (5) (7) Green
-       COL3 ──10─│7              MISO/14│─15── LED5                    │  SW2  │  SW4  │  SW6  │  SW8  │      (2) (4) (6) (8) (9)
-       LED3 ──11─│8/A8           MOSI/16│─14── LED4                    │       │       │       │       │ 
-       LED9 ──12─│9~/A9          A10/10~│─13── BUZZER                  └───────┴───────┴───────┴───────┘
+        GND ───3─│GND   Pro Micro    RST│─22── RESET SW                         Switches
+        GND ───4─│GND   ATmega32U4   VCC│─21── 5V                  ┌───────┬───────┬───────┬───────┐
+       Qwiic───5─│2/SDA            A3/21│─20── ROW0                │   1   │   3   │   5   │   7   │
+       Qwiic───6─│3~/SCL           A2/20│─19── ROW1                │ ROW0  │ ROW1  │ ROW0  │  ROW0 │
+       COL0 ───7─│4/A6             A1/19│─18── LED8                │ COL0  │ COL1  │ COL2  │  COL3 │
+       COL1 ───8─│5~               A0/18│─17── LED7                ├───────┼───────┼───────┼───────┤             LEDs
+       COL2 ───9─│6~/A7          SCLK/15│─16── LED6                │   2   │   4   │   6   │   8   │      Red Red Red Red
+       COL3 ──10─│7              MISO/14│─15── LED5                │ ROW1  │ ROW1  │ ROW1  │ ROW1  │      (1) (3) (5) (7) Green
+       LED3 ──11─│8/A8           MOSI/16│─14── LED4                │ COL0  │ COL1  │ COL2  │ COL3  │      (2) (4) (6) (8) (9)
+       LED9 ──12─│9~/A9          A10/10~│─13── BUZZER              └───────┴───────┴───────┴───────┘
                  └──────────────────────┘  
                 ~マークがあるピンがPWM対応 
       ```
