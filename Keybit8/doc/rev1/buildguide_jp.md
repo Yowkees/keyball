@@ -1,6 +1,7 @@
 # Build Guide for Keybit8
 
-このガイドでは、Keybit8の組み立て手順から使い方まで詳しく説明します。   
+このガイドでは、Keybit8の組み立て手順から使い方まで詳しく説明します。 
+Keybit8キットのご購入は[こちら](https://shiroganelab.com/products/keybit8)から。
 
 ![01](images/_MG_8434-2.jpg)
 
