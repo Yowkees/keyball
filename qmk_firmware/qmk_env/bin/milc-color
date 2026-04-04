@@ -1,0 +1,32 @@
+#!/Users/haraguchidaichi/Desktop/work/keyball/keyball/qmk_firmware/qmk_env/bin/python3
+"""Show all the colors available to us.
+
+PYTHON_ARGCOMPLETE_OK
+"""
+from milc import cli
+
+colors = ('black', 'blue', 'cyan', 'green', 'magenta', 'red', 'white', 'yellow')
+
+
+@cli.entrypoint('Show all the colors available to us.')
+def main(cli):
+    cli.echo('|Normal  |   FG   | ExtFG  |   BG   | ExtBG  |')
+
+    for color in colors:
+        cli.echo(f'|{color:8}|{{fg_{color}}}xxxxxxxx{{fg_reset}}|{{fg_light{color}_ex}}xxxxxxxx{{fg_reset}}|{{bg_{color}}}xxxxxxxx{{bg_reset}}|{{bg_light{color}_ex}}xxxxxxxx{{bg_reset}}|')
+
+    print()
+    cli.echo('|Bright  |   FG   | ExtFG  |   BG   | ExtBG  |')
+
+    for color in colors:
+        cli.echo(f'|{color:8}|{{style_bright}}{{fg_{color}}}xxxxxxxx{{style_reset_all}}|{{style_bright}}{{fg_light{color}_ex}}xxxxxxxx{{style_reset_all}}|{{style_bright}}{{bg_{color}}}xxxxxxxx{{style_reset_all}}|{{style_bright}}{{bg_light{color}_ex}}xxxxxxxx{{style_reset_all}}|')
+
+    print()
+    cli.echo('|Dim     |   FG   | ExtFG  |   BG   | ExtBG  |')
+
+    for color in colors:
+        cli.echo(f'|{color:8}|{{style_dim}}{{fg_{color}}}xxxxxxxx{{style_reset_all}}|{{style_dim}}{{fg_light{color}_ex}}xxxxxxxx{{style_reset_all}}|{{style_dim}}{{bg_{color}}}xxxxxxxx{{style_reset_all}}|{{style_dim}}{{bg_light{color}_ex}}xxxxxxxx{{style_reset_all}}|')
+
+
+if __name__ == '__main__':
+    cli()
