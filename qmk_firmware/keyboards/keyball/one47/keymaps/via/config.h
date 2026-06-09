@@ -33,4 +33,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #    define RGBLIGHT_EFFECT_TWINKLE
 #endif
 
+#define DYNAMIC_KEYMAP_LAYER_COUNT 15
+
 #define TAP_CODE_DELAY 5
