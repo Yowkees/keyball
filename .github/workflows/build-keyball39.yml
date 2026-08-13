@@ -1,0 +1,45 @@
+name: Build Keyball39
+
+# 手動実行と、キーマップを変更した push のときだけビルドする
+on:
+  workflow_dispatch:
+  push:
+    paths:
+      - 'qmk_firmware/keyboards/keyball/keyball39/keymaps/vimac/**'
+      - '.github/workflows/build-keyball39.yml'
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    container: qmkfm/qmk_cli
+
+    steps:
+      - name: Checkout keyball (this fork)
+        uses: actions/checkout@v4
+        with:
+          path: keyball
+
+      - name: Checkout QMK 0.22.14
+        uses: actions/checkout@v4
+        with:
+          repository: qmk/qmk_firmware
+          ref: 0.22.14
+          submodules: recursive
+          path: qmk
+
+      - name: Fix git ownership
+        run: git config --global --add safe.directory '*'
+
+      - name: Link keyball into QMK
+        run: ln -s "$GITHUB_WORKSPACE/keyball/qmk_firmware/keyboards/keyball" "$GITHUB_WORKSPACE/qmk/keyboards/keyball"
+
+      - name: Build
+        working-directory: qmk
+        run: make SKIP_GIT=yes keyball/keyball39:vimac
+
+      - name: Upload hex
+        uses: actions/upload-artifact@v4
+        with:
+          name: keyball39_vimac
+          path: qmk/*.hex
+          if-no-files-found: error
