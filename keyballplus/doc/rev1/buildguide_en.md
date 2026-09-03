@@ -15,6 +15,7 @@ Keyball+ is a split keyboard kit with a thumb trackball (39 keys). Based on Keyb
 **both** MX switches and low-profile (Kailh Choc) switches; the kit includes PCB sockets and spacers
 for each. You can build it with either type (or mix them per key). The key count and key layout are
 identical to Keyball39, and most of the assembly procedure is shared with Keyball39.
+You can also separate one right-hand thumb key and build it as a **38-key** board (see [Chapter 6](#anchor6)).
 
 **日本語版のKeyball+ビルドガイドは[こちら](buildguide_jp.md)です。**
 
@@ -47,7 +48,7 @@ identical to Keyball39, and most of the assembly procedure is shared with Keybal
    - [4-1. Soldering the Sensor](#anchor4-1)
    - [4-2. Soldering the L-shaped Connector](#anchor4-2)
  - [5. Soldering the Left-Right Detection Jumper on the Left Side](#anchor5)
- - [6. Cutting the Top Plate (Mixed builds only)](#anchor6)
+ - [6. Cutting the Top Plate (Optional)](#anchor6)
 
 > **Assembly**
  - [7. Assembly](#anchor7)
@@ -119,8 +120,8 @@ The following parts are not included in the kit and need to be purchased separat
 | Part Name | Quantity | Notes |
 |:-------|:----:|:-----|
 | ProMicro | 2 pieces | You can choose inexpensive ones or USB Type-C compatible ones |
-| Key Switches | 39 pieces | MX compatible or low-profile (Kailh Choc). Mixing is fine |
-| Keycaps | 39 pieces | 1u. Match the switch type you use (MX / Choc) |
+| Key Switches | 39 pieces | MX compatible or low-profile (Kailh Choc). Mixing is fine. 38 pieces if you separate one right-hand thumb key ([Chapter 6](#anchor6)) |
+| Keycaps | 39 pieces | 1u. Match the switch type you use (MX / Choc). 38 pieces if you separate the right-hand thumb key |
 | 34mm Diameter Trackball | 1 piece | Required when using trackball |
 | TRS Cable | 1 piece | For left/right connection. TRRS (4-pole) cable is also acceptable |
 | USB Cable | 1 piece | For connecting to a PC. Compatible with the ProMicro you purchased |
@@ -234,6 +235,7 @@ Install a total of 45 diodes on both sides.
 ### 3-3. Soldering Key Sockets
 Key sockets are soldered on the **back side** like diodes.
 The kit includes both **MX switch sockets** and **Choc switch sockets**. Solder whichever type matches your key switches: **39 pieces** in total for both sides (you can also mix them per key).
+If you separate one right-hand thumb key to make a 38-key board (see [Chapter 6](#anchor6)), the socket at that position is unused even if soldered, so 38 pieces is fine.
 Set them to match the silk mark and shape for soldering.
 
 >**⚡️Warning**: If they protrude from the silk, the orientation is wrong.
@@ -259,7 +261,7 @@ Based on experience, this method is least likely to cause "tempura" (poor connec
 
 Rotate the board 180 degrees and solder the other terminal.
 
-Solder a total of 39 pieces on both sides.
+Solder a total of 39 pieces on both sides (38 if you separated the right-hand thumb key).
 
 ![89](images/kb39_081.jpg)
 
@@ -474,13 +476,23 @@ As a side note, before turning off the soldering iron, apply plenty of solder to
 ![100](images/kb39_096.jpg)
 
 <a id="anchor6"></a>
-## 6. Cutting the Top Plate (Mixed builds only)
+## 6. Cutting the Top Plate (Optional)
 
-The thumb key section of the top plate can be separated along a perforation.
-**If you build with all MX or all Choc switches, you do not need to cut it** — proceed to the next step.
+The top plate has sections that can be separated along a perforation only if you need to.
+When cutting, use a cutter to score the perforation on both the front and back sides, then fold to separate, and polish the cut edge with about 150 grit sandpaper.
+Neither cut is required. If you do not need them, proceed to the next step.
+
+### ① Remove one right-hand thumb key (make it a 38-key board)
+
+<!-- TODO: add a Keyball+ photo showing where the right-hand thumb key is separated -->
+You can separate the **thumb key closest to the trackball** on the right-hand side.
+This is an option for people whose thumb hits this key while operating the trackball.
+After separating it, the board has **38 keys**. In that case you only need **38** key switches and **38** keycaps. The key socket at that position is unused even if soldered, so you may skip it.
+
+### ② Mixing MX and Choc switches
 
 If you use a different switch type for the thumb keys only (mixing MX and Choc), the thumb section needs a different top-plate height (spacer length) from the rest, so separate it along the perforation.
-Use a cutter to make cuts in the perforated sections on both front and back sides, then fold and separate.
+**If you build with all MX or all Choc switches, this cut is not needed.**
 
 ![101](images/kb39_100.jpg)
 
