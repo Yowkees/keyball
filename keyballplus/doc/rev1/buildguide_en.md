@@ -136,7 +136,7 @@ The following parts are optional and can be installed even after assembly.
 
 | Part Name | Quantity | Notes |
 |:-------|:----:|:-----|
-| Full-color LED (YS-SK6812MINI-E) | 55 pieces | Under each key + underglow. 29 on the left / 26 on the right ※SK6812MINI cannot be used |
+| Full-color LED (YS-SK6812MINI-E) | 55 pieces | Under each key + underglow. 29 on the left / 26 on the right. 54 pieces if you separate the right-hand thumb key ([Chapter 6](#anchor6)) ※SK6812MINI cannot be used |
 
 <!-- TODO: replace with a photo for Keyball+ -->
 ![04](images/kb39_004.jpg)
@@ -269,6 +269,7 @@ Solder a total of 39 pieces on both sides (38 if you separated the right-hand th
 ### 3-4. Soldering LEDs (Optional)
 LEDs (YS-SK6812MINI-E) are optional.
 On Keyball+, LEDs are placed under each key plus underglow: **29 on the left side and 26 on the right side (55 total)**. Note that the count differs between left and right (the side with the trackball has 26, the side without has 29).
+If you separate the right-hand thumb key to make a 38-key board (see [Chapter 6](#anchor6)), the LED at that position is also removed, so the trackball side has 25 and the total is 54.
 However, LEDs are very sensitive to heat, so please adjust the iron tip temperature to **220°C to 280°C**.
 Since the iron tip temperature is low, heat may not transfer to the pad, making it easy for solder to become "tempura" (poor connection).
 The keyboard can be used without LEDs, and lighting all LEDs is quite difficult.
@@ -487,11 +488,13 @@ Neither cut is required. If you do not need them, proceed to the next step.
 <!-- TODO: add a Keyball+ photo showing where the right-hand thumb key is separated -->
 You can separate the **thumb key closest to the trackball** on the right-hand side.
 This is an option for people whose thumb hits this key while operating the trackball.
-After separating it, the board has **38 keys**. In that case you only need **38** key switches and **38** keycaps. The key socket at that position is unused even if soldered, so you may skip it.
+After separating it, the board has **38 keys**. The LED at that position is separated together with the key, so if you install LEDs the trackball side has one fewer, for **54 in total**.
+In that case you only need **38** key switches and **38** keycaps. The key socket at that position is unused even if soldered, so you may skip it.
 
-### ② Mixing MX and Choc switches
+### ② Choc thumb section with MX everywhere else
 
-If you use a different switch type for the thumb keys only (mixing MX and Choc), the thumb section needs a different top-plate height (spacer length) from the rest, so separate it along the perforation.
+You can build the thumb section with Choc switches and the rest with MX switches (this is the only practical mix).
+In that case the thumb section (Choc = 4mm spacer) and the rest (MX = 7mm spacer) end up at different top-plate heights, so separate the thumb section along the perforation.
 **If you build with all MX or all Choc switches, this cut is not needed.**
 
 ![101](images/kb39_100.jpg)
