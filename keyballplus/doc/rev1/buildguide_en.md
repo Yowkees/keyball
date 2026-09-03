@@ -1,18 +1,21 @@
 <!--
   This build guide is a DRAFT written by adapting the Keyball39 build guide
   (keyball39/doc/rev1/buildguide_en.md) for Keyball+.
+  - The kit contents list (chapter 1) reflects the Keyball+ instruction sheet.
   - The images under images/ are provisional copies of Keyball39's photos.
     Replace them in place (same file names) with Keyball+ photos once available.
-  - Every "TODO" comment marks a spot that needs to be updated with confirmed
-    information (actual kit contents, spacer lengths, plate construction, etc.).
+  - Every "TODO" comment marks a spot that still needs to be checked against the
+    real hardware (plate construction, spacer choice, whether the top plate is cut, etc.).
 -->
 
 # Build Guide for Keyball+
 
 This guide provides detailed instructions for assembling the Keyball+.
 
-Keyball+ is a split keyboard based on Keyball39, adapted for low-profile switches (Kailh Choc V1/V2).
-The key count and key layout are identical to Keyball39 (39 keys + trackball), and most of the assembly procedure is shared with Keyball39.
+Keyball+ is a split keyboard kit with a thumb trackball (39 keys). Based on Keyball39, it supports
+**both** MX switches and low-profile (Kailh Choc) switches; the kit includes PCB sockets and spacers
+for each. You can build it with either type (or mix them per key). The key count and key layout are
+identical to Keyball39, and most of the assembly procedure is shared with Keyball39.
 
 **日本語版のKeyball+ビルドガイドは[こちら](buildguide_jp.md)です。**
 
@@ -76,39 +79,35 @@ Single-hand kits are also available for dual-ball specifications with trackballs
 
 If you purchased a single-hand set or dual-ball set, please check the included parts list in your kit for the contents.
 
-<!--
-  TODO: The table below is a provisional list based on the Keyball39 standard kit.
-  Replace it with the actual Keyball+ kit contents (quantities, spacer lengths, plate names, etc.).
-  Because all Keyball+ keys are low profile (Kailh Choc), the key sockets are choc-type only.
--->
-
-**Keyball+ Standard Kit Contents (provisional)**
+**Keyball+ Kit Contents**
 | Part Name | Quantity | Notes |
 |:-------|:----:|:-----|
 | Middle PCB (Left/Right) | 1 set | Main board |
-| Top PCB Plate (Left/Right) | 1 set | For key switch mounting |
-| Middle Acrylic Plate (Left/Right)| 1 set | For key switch mounting |
+| Top PCB (Left/Right) | 1 set | For key switch mounting |
+| Middle Acrylic Plate (Left/Right) | 1 set | Includes the thumb section |
 | Bottom Acrylic Plate (Left/Right) | 1 set | Bottom cover |
 | ProMicro Protection Plate | 2 pieces | For board protection |
-| Trackball Holding Case (Top/Bottom) | 1 set | For ball mounting |
-| Φ2 Ceramic Ball | 1 piece | Spare |
+| 34mm Trackball Holding Case (Top/Bottom) | 1 set | For ball mounting |
 | Trackball Reading Board | 1 piece | Sensor board |
 | L-shaped Connector Pin (7-pin) | 1 piece | For sensor connection |
-| Trackball Reading IC | 1 piece | PMW3360 |
-| Reading IC Lens | 1 piece | Optical lens |
-| Flat Head Tapping Screw M1.7 | 2 pieces | For trackball case mounting |
-| Small Head Tapping Screw M1.7 | 2 pieces | For trackball case assembly |
+| Trackball Reading IC + Lens | 1 set | PMW3360 + optical lens |
+| Flat Head Screw M1.7 | 2 pieces | For trackball case mounting |
+| Small Head Screw M1.7 | 2 pieces | For trackball case assembly |
 | TRRS Jack | 2 pieces | For left/right connection |
 | Tactile Switch | 2 pieces | For reset |
-| Straight Connector Pin (12-pin) | 4 pieces | For ProMicro connection |
-| Diode (SMD type) | 45+ pieces | For key matrix error prevention |
-| Kailh PCB Socket choc compatible | 39+ pieces | For key switches (all keys low profile) |
+| Connector Pin (12-pin) | 4 pieces | For ProMicro connection |
+| Diode (chip type) | 48 pieces | For key matrix error prevention (45 are mounted across both sides, the rest are spares) |
 | OLED Module | 2 pieces | Display |
-| 4-pin Header | 2 pieces | For OLED connection |
-| 4-pin Socket | 2 pieces | For OLED connection |
-| Spacers (assorted) | — | <!-- TODO: spacer lengths / quantities for the Keyball+ plate stack --> |
-| Screw M2 3.5mm | 34+ pieces | For plate mounting |
-| Cushion Rubber | 4 pieces | For bottom anti-slip |
+| OLED Pin Socket + Pin Header | 2 sets | For OLED connection |
+| PCB Socket for MX switches | 40 pieces | Use when building with MX switches (39 mounted + 1 spare) |
+| PCB Socket for Choc switches | 40 pieces | Use when building with low-profile switches (39 mounted + 1 spare) |
+| Spacer M2 9mm | 4 pieces | For the ProMicro protection plate |
+| Spacer M2 7mm | 12 pieces | For the top plate in the MX build |
+| Spacer M2 4mm | 12 pieces | For the top plate in the low-profile build |
+| Screw M2 3.5mm | 32 pieces | For plate mounting |
+| Cushion Rubber | 8 pieces | For bottom anti-slip |
+
+> You only use one of the two socket types (MX or Choc); they can also be mixed per key. Likewise, use the 7mm spacers for an MX build and the 4mm spacers for a low-profile build.
 
 <!-- TODO: replace with a photo of the Keyball+ kit contents -->
 ![02](images/kb39_007.jpg)
@@ -121,10 +120,11 @@ The following parts are not included in the kit and need to be purchased separat
 | Part Name | Quantity | Notes |
 |:-------|:----:|:-----|
 | ProMicro | 2 pieces | You can choose inexpensive ones or USB Type-C compatible ones |
-| Low Profile Key Switches (Kailh Choc V1/V2) | 39 pieces | All keys are low profile |
+| Key Switches | 39 pieces | MX compatible or low-profile (Kailh Choc). Mixing is fine |
+| Keycaps | 39 pieces | 1u. Match the switch type you use (MX / Choc) |
 | 34mm Diameter Trackball | 1 piece | Required when using trackball |
-| TRS (3-pole) Cable | 1 piece | TRRS (4-pole) cable is also acceptable |
-| Micro USB Cable | 1 piece | Compatible with the ProMicro you purchased |
+| TRS Cable | 1 piece | For left/right connection. TRRS (4-pole) cable is also acceptable |
+| USB Cable | 1 piece | For connecting to a PC. Compatible with the ProMicro you purchased |
 
 <!-- TODO: replace with a photo for Keyball+ -->
 ![03](images/kb39_003.jpg)
@@ -132,12 +132,11 @@ The following parts are not included in the kit and need to be purchased separat
 <a id="anchor1-3"></a>
 ### 1-3. Parts and Options That Can Be Installed After Assembly
 
-The following parts can be installed after assembly and can be customized according to your preferences.
+The following parts are optional and can be installed even after assembly.
 
 | Part Name | Quantity | Notes |
 |:-------|:----:|:-----|
-| Low Profile Keycaps | 39 pieces | 1u 39 pieces |
-| YS-SK6812MINI-E | 55 pieces | 29 on the left / 26 on the right ※SK6812MINI cannot be used |
+| Full-color LED (YS-SK6812MINI-E) | 55 pieces | Under each key + underglow. 29 on the left / 26 on the right ※SK6812MINI cannot be used |
 
 <!-- TODO: replace with a photo for Keyball+ -->
 ![04](images/kb39_004.jpg)
@@ -235,15 +234,19 @@ Install a total of 45 diodes on both sides.
 <a id="anchor3-3"></a>
 ### 3-3. Soldering Key Sockets
 Key sockets are soldered on the **back side** like diodes.
-Because all Keyball+ keys are low profile, solder Kailh choc sockets: **39 pieces** in total for both sides.
+The kit includes both **MX switch sockets** and **Choc switch sockets**. Solder whichever type matches your key switches: **39 pieces** in total for both sides (you can also mix them per key).
 Set them to match the silk mark and shape for soldering.
 
 >**⚡️Warning**: If they protrude from the silk, the orientation is wrong.
 >Please check the correct orientation in the photo below.
 
-As shown in the photo below, place the terminal with the black resin part in an octagonal shape near the center of the switch.
+**For MX switch sockets**
 
-<!-- TODO: replace with a photo of the Keyball+ key sockets (all choc) -->
+![85](images/kb39_075.jpg)
+
+**For Choc switch sockets**
+Choc sockets also have an orientation. As shown in the photo below, place the terminal with the black resin part in an octagonal shape near the center of the switch.
+
 ![85](images/kb39_077.jpg)
 
 For soldering, apply solder to one side of the socket pad as shown in the blue circle.
@@ -492,9 +495,7 @@ Polish the cut surface with about 150 grit sandpaper.
 ### 7-1. Installing the Protection Plate
 
 Install the ProMicro protection plate on the middle board.
-First, screw the spacer.
-
-<!-- TODO: confirm the protection-plate spacer length for Keyball+ -->
+First, screw the 9mm spacer.
 
 ![110](images/kb39_104.jpg)
 
@@ -507,8 +508,8 @@ The protection plate shape is common for both trackball and non-trackball sides.
 <a id="anchor7-2"></a>
 ### 7-2. Assembling the Top Plate
 
-<!-- TODO: because all Keyball+ keys are low profile, confirm the top-plate spacer length and stack construction -->
 Screw the spacer to the **back side** of the top plate.
+Use the **7mm** spacers for an MX build, or the **4mm** spacers for a low-profile (Choc) build (12 pieces total for both sides).
 
 ![112](images/kb39_107.jpg)
 
@@ -603,7 +604,7 @@ At this time, hold the ball holding case with your finger to prevent it from rot
 <a id="anchor9"></a>
 ## 9. Final Assembly
 
-Almost complete! Insert your preferred low-profile key switches and keycaps.
+Almost complete! Insert your preferred key switches (MX or Choc) and keycaps.
 
 Finally, push the 34mm trackball into the case to complete!
 Thank you for your hard work.
