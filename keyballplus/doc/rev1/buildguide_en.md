@@ -4,8 +4,7 @@
   - The kit contents list (chapter 1) reflects the Keyball+ instruction sheet.
   - The images under images/ are provisional copies of Keyball39's photos.
     Replace them in place (same file names) with Keyball+ photos once available.
-  - Every "TODO" comment marks a spot that still needs to be checked against the
-    real hardware (plate construction, spacer choice, whether the top plate is cut, etc.).
+  - The remaining "TODO" comments are all placeholders waiting for real Keyball+ photos.
 -->
 
 # Build Guide for Keyball+
@@ -48,7 +47,7 @@ identical to Keyball39, and most of the assembly procedure is shared with Keybal
    - [4-1. Soldering the Sensor](#anchor4-1)
    - [4-2. Soldering the L-shaped Connector](#anchor4-2)
  - [5. Soldering the Left-Right Detection Jumper on the Left Side](#anchor5)
- - [6. Cutting the Top Plate (Optional)](#anchor6)
+ - [6. Cutting the Top Plate (Mixed builds only)](#anchor6)
 
 > **Assembly**
  - [7. Assembly](#anchor7)
@@ -166,7 +165,7 @@ To operate Keyball+, firmware needs to be written to the ProMicro you purchased.
 
 Keyball+ firmware is written using **[Keyball Link](https://keyball-link.shiroganelab.com/)**, a web tool that lets you edit keymaps and flash firmware directly from your browser. No special software installation is required (a WebHID/WebSerial capable browser such as Google Chrome is needed).
 
-Writing is explained in detail in [Chapter 3-8](#anchor3-8) for test firmware writing and [Chapter 10](#anchor10) for production firmware writing.
+There is no test-only firmware like Keyball39 has; both [Chapter 3-8](#anchor3-8) and [Chapter 10](#anchor10) write the production firmware. The writing procedure is explained in detail in those chapters.
 
 <a id="anchor3"></a>
 ## 3. Implementation
@@ -366,16 +365,15 @@ Once the position is determined, solder the remaining 3 pins.
 
 <a id="anchor3-8"></a>
 ### 3-8. ProMicro Programming and Operation Check
-Let's write test firmware to ProMicro.
-The test firmware has a keymap layout that's easy to verify operation, and LEDs light up in red→green→blue sequence, making it easy to find problematic areas.
-If you're skipping LED soldering, etc., and don't need test firmware, you can write the official firmware from [Chapter 10](#anchor10) here.
+Writing the firmware once at this stage and checking operation makes it much easier to isolate problems later.
 
+Keyball+ has no test-only firmware like Keyball39. You write the production firmware from [Keyball Link](https://keyball-link.shiroganelab.com/).
+There are two versions, a **standard version** and an **LED version**: choose the **LED version if you soldered the LEDs, or the standard version if you did not** — this lets you use more features.
 Keyball+ firmware is common regardless of which side the trackball is mounted on.
 
-<!-- TODO: confirm and document how to obtain the test firmware in Keyball Link -->
-Open [Keyball Link](https://keyball-link.shiroganelab.com/), connect Keyball+ to your PC with a USB cable, and write (FLASH) the test firmware.
+Open Keyball Link, connect Keyball+ to your PC with a USB cable, and follow the on-screen instructions to write (FLASH) the firmware.
 If the keyboard is not recognized even with the USB cable connected, try pressing the soldered RESET switch quickly twice.
-※Be sure to write the same firmware to both left and right Pro Micros.
+※Be sure to write the same firmware version to both left and right Pro Micros.
 
 If you want to directly edit Keyball+ firmware and build it yourself, source files are available in the [keyball-plus-firmware repository](https://github.com/ineno771/keyball-plus-firmware), so please download and use them.
 
@@ -476,10 +474,12 @@ As a side note, before turning off the soldering iron, apply plenty of solder to
 ![100](images/kb39_096.jpg)
 
 <a id="anchor6"></a>
-## 6. Cutting the Top Plate (Optional)
+## 6. Cutting the Top Plate (Mixed builds only)
 
-<!-- TODO: confirm whether the Keyball+ top plate uses a perforated cut or a dedicated shape (no cut needed), and adjust this section -->
-Keyball+ requires cutting the perforated thumb key section of the top plate for assembly.
+The thumb key section of the top plate can be separated along a perforation.
+**If you build with all MX or all Choc switches, you do not need to cut it** — proceed to the next step.
+
+If you use a different switch type for the thumb keys only (mixing MX and Choc), the thumb section needs a different top-plate height (spacer length) from the rest, so separate it along the perforation.
 Use a cutter to make cuts in the perforated sections on both front and back sides, then fold and separate.
 
 ![101](images/kb39_100.jpg)
@@ -529,6 +529,8 @@ Next, also match the screw holes of the soldered middle board, and stack while c
 
 <a id="anchor7-3"></a>
 ### 7-3. Assembling the Bottom Plate
+
+>**⚡️Recommended**: Once the bottom plate is attached, you can no longer reach the ProMicro, the LEDs, or the back of the boards. Before attaching it, make sure that **the LEDs light up and every key registers input correctly** (see [Chapter 3-8](#anchor3-8) for how to check). Fix any soldering problems at this point.
 
 Peel off the protective sheet of the acrylic bottom plate, place it on the back of the main body, and screw it.
 Next, attach cushion rubber to the four corners of the keyboard back.
@@ -621,12 +623,13 @@ Now let's write the official firmware to ProMicro as the final step.
 
 Keyball+ firmware is written using **[Keyball Link](https://keyball-link.shiroganelab.com/)**, the dedicated web keymap tool for Keyball. No special software installation is required; you can flash firmware and change keymaps directly from your browser.
 
+There are a **standard version** and an **LED version** of the firmware.
+Choose the **LED version if you soldered the LEDs, or the standard version if you did not**. This lets you use more features (if you flash the LED version without any LEDs installed, capacity is spent on unused LED control and some features available in the standard version are dropped).
+
 Open Keyball Link, connect Keyball+ to your PC with a USB cable, and follow the on-screen instructions to write (FLASH) the firmware.
 If the keyboard is not recognized even with the USB cable connected, try pressing the soldered RESET switch quickly twice.
 
->**⚡️Warning**: Be sure to write the same firmware to both left and right Pro Micros.
-
-<!-- TODO: add how to choose between the standard version and the LED version in Keyball Link -->
+>**⚡️Warning**: Be sure to write the same firmware version to both left and right Pro Micros.
 
 **If you want to build firmware yourself**
 The latest Keyball+ firmware is published in the [keyball-plus-firmware repository](https://github.com/ineno771/keyball-plus-firmware).
