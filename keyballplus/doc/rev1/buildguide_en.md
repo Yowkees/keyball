@@ -507,9 +507,11 @@ In that case you only need **38** key switches and **38** keycaps. The key socke
 
 ### ② Choc thumb section with MX everywhere else
 
-You can build the thumb section with Choc switches and the rest with MX switches (this is the only practical mix).
+You can build the thumb section with Choc switches and the rest with MX switches (this is the only practical switch mix).
 In that case the thumb section (Choc = 4mm spacer) and the rest (MX = 7mm spacer) end up at different top-plate heights, so separate the thumb section along the perforation.
 **If you build with all MX or all Choc switches, this cut is not needed.**
+
+Since every key position has a fixed switch type in this build, you can use **"Choc + LED" for the thumb keys and "MX + LED" for the rest** to fit an under-key LED at every position (55 total; see the combinations in [Chapter 3-3](#anchor3-3)).
 
 ![101](images/kb39_100.jpg)
 
