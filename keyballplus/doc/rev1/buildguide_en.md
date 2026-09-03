@@ -120,7 +120,7 @@ The following parts are not included in the kit and need to be purchased separat
 | Part Name | Quantity | Notes |
 |:-------|:----:|:-----|
 | ProMicro | 2 pieces | You can choose inexpensive ones or USB Type-C compatible ones |
-| Key Switches | 39 pieces | MX compatible or low-profile (Kailh Choc). Mixing is fine. 38 pieces if you separate one right-hand thumb key ([Chapter 6](#anchor6)) |
+| Key Switches | 39 pieces | MX compatible or low-profile (Kailh Choc). See [Chapter 3-3](#anchor3-3) for how MX/Choc are used. 38 pieces if you separate one right-hand thumb key ([Chapter 6](#anchor6)) |
 | Keycaps | 39 pieces | 1u. Match the switch type you use (MX / Choc). 38 pieces if you separate the right-hand thumb key |
 | 34mm Diameter Trackball | 1 piece | Required when using trackball |
 | TRS Cable | 1 piece | For left/right connection. TRRS (4-pole) cable is also acceptable |
@@ -234,8 +234,20 @@ Install 21 diodes on the trackball side and 24 on the non-trackball side, for a 
 <a id="anchor3-3"></a>
 ### 3-3. Soldering Key Sockets
 Key sockets are soldered on the **back side** like diodes.
-The kit includes both **MX switch sockets** and **Choc switch sockets**. Solder whichever type matches your key switches: **39 pieces** in total for both sides (you can also mix them per key).
-If you separate one right-hand thumb key to make a 38-key board (see [Chapter 6](#anchor6)), the socket at that position is unused even if soldered, so 38 pieces is fine.
+The kit includes both **MX switch sockets** and **Choc switch sockets**.
+
+For each key position, choose **one of the three combinations** below and solder that (you can choose per key).
+
+| Combination | Usable switches | LED at this position |
+|:--|:--|:--:|
+| **MX socket + Choc socket** | Both MX and Choc (swap the switch to change type) | Not possible |
+| **MX socket + LED** | MX only | Possible |
+| **Choc socket + LED** | Choc only | Possible |
+
+> A position where you want to swap between MX and Choc gets no LED; a position where you want an LED is fixed to either MX or Choc. LED soldering is done in [Chapter 3-4](#anchor3-4).
+
+The number of sockets you solder depends on the combinations you chose: a position with both MX and Choc uses 2 sockets (MX + Choc), a position with an LED uses 1.
+If you separate one right-hand thumb key to make a 38-key board (see [Chapter 6](#anchor6)), the socket at that position can be omitted.
 Set them to match the silk mark and shape for soldering.
 
 >**⚡️Warning**: If they protrude from the silk, the orientation is wrong.
@@ -261,7 +273,7 @@ Based on experience, this method is least likely to cause "tempura" (poor connec
 
 Rotate the board 180 degrees and solder the other terminal.
 
-Solder a total of 39 pieces on both sides (38 if you separated the right-hand thumb key).
+Solder the chosen socket(s) at all 39 key positions (38 if you separated the right-hand thumb key).
 
 ![89](images/kb39_081.jpg)
 
@@ -270,6 +282,8 @@ Solder a total of 39 pieces on both sides (38 if you separated the right-hand th
 LEDs (YS-SK6812MINI-E) are optional.
 On Keyball+, LEDs are placed under each key plus underglow: **29 on the left side and 26 on the right side (55 total)**. Note that the count differs between left and right (the side with the trackball has 26, the side without has 29).
 If you separate the right-hand thumb key to make a 38-key board (see [Chapter 6](#anchor6)), the LED at that position is also removed, so the trackball side has 25 and the total is 54.
+
+>**⚡️Warning**: A per-key (under-key) LED can only be fitted at a position where the key socket in [Chapter 3-3](#anchor3-3) is **MX only or Choc only**. A position with both MX and Choc sockets cannot have its under-key LED (underglow LEDs are unaffected).
 However, LEDs are very sensitive to heat, so please adjust the iron tip temperature to **220°C to 280°C**.
 Since the iron tip temperature is low, heat may not transfer to the pad, making it easy for solder to become "tempura" (poor connection).
 The keyboard can be used without LEDs, and lighting all LEDs is quite difficult.
