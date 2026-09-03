@@ -96,7 +96,7 @@ If you purchased a single-hand set or dual-ball set, please check the included p
 | TRRS Jack | 2 pieces | For left/right connection |
 | Tactile Switch | 2 pieces | For reset |
 | Connector Pin (12-pin) | 4 pieces | For ProMicro connection |
-| Diode (chip type) | 48 pieces | For key matrix error prevention (45 are mounted across both sides, the rest are spares) |
+| Diode (chip type) | 48 pieces | For key matrix error prevention (21 mounted on the trackball side + 24 on the non-trackball side = 45; the rest are spares) |
 | OLED Module | 2 pieces | Display |
 | OLED Pin Socket + Pin Header | 2 sets | For OLED connection |
 | PCB Socket for MX switches | 40 pieces | Use when building with MX switches (39 mounted + 1 spare) |
@@ -200,7 +200,7 @@ The soldering iron tip should be shaped like a bamboo spear tip, which makes it 
 Now let's solder the diodes in order.
 All diodes are soldered on the **back side**.
 
-The diode silk marks are the marks shown by the arrows in the photo below, with a total of 45 pieces on both sides.
+The diode silk marks are the marks shown by the arrows in the photo below: **21 on the trackball side and 24 on the non-trackball side (45 pieces total for both sides)**.
 > **⚡️Warning**: Diodes have polarity, so please install them in the correct orientation.
 The orientation is where the straight line on the component matches the straight line at the tip of the arrow in the silk mark.
 > Please check the orientation carefully by looking at the photo below.
@@ -227,7 +227,7 @@ Finally, touch both legs with the iron tip, and if the diode doesn't fall off, b
 
 ![Solder the other leg](images/kb39_029.jpg)
 
-Install a total of 45 diodes on both sides.
+Install 21 diodes on the trackball side and 24 on the non-trackball side, for a total of 45 on both sides.
 
 ![37](images/kb39_030.jpg)
 
