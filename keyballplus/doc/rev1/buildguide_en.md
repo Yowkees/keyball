@@ -21,7 +21,7 @@ You can also separate one right-hand thumb key and build it as a **38-key** boar
 
 
 <!-- TODO: replace with a photo of Keyball+ -->
-![01](images/kb39_001.jpg)
+![01](images/kbp_001.jpg)
 
 ## 【Table of Contents】
 
@@ -75,9 +75,9 @@ Please check that all kit contents are included when your kit arrives.
 
 The standard set can accommodate one thumb trackball on either the left or right side.
 
-Single-hand kits are also available for dual-ball specifications with trackballs on both sides, or for assembly without trackballs on either side.
+<!-- Single-hand kits are also available for dual-ball specifications with trackballs on both sides, or for assembly without trackballs on either side. -->
 
-If you purchased a single-hand set or dual-ball set, please check the included parts list in your kit for the contents.
+<!-- If you purchased a single-hand set or dual-ball set, please check the included parts list in your kit for the contents. -->
 
 **Keyball+ Kit Contents**
 | Part Name | Quantity | Notes |
@@ -93,8 +93,8 @@ If you purchased a single-hand set or dual-ball set, please check the included p
 | Trackball Reading IC + Lens | 1 set | PMW3360 + optical lens |
 | Flat Head Screw M1.7 | 2 pieces | For trackball case mounting |
 | Small Head Screw M1.7 | 2 pieces | For trackball case assembly |
-| TRRS Jack | 2 pieces | For left/right connection |
-| Tactile Switch | 2 pieces | For reset |
+| TRRS Jack | 2 pieces | For TRRS cable connection |
+| Tactile Switch | 2 pieces | For ProMicro reset |
 | Connector Pin (12-pin) | 4 pieces | For ProMicro connection |
 | Diode (chip type) | 48 pieces | For key matrix error prevention (21 mounted on the trackball side + 24 on the non-trackball side = 45; the rest are spares) |
 | OLED Module | 2 pieces | Display |
@@ -110,7 +110,7 @@ If you purchased a single-hand set or dual-ball set, please check the included p
 > You only use one of the two socket types (MX or Choc); they can also be mixed per key. Likewise, use the 7mm spacers for an MX build and the 4mm spacers for a low-profile build.
 
 <!-- TODO: replace with a photo of the Keyball+ kit contents -->
-![02](images/kb39_007.jpg)
+![02](images/kbp_007.jpg)
 
 <a id="anchor1-2"></a>
 ### 1-2. Parts You Need to Prepare Yourself Before Assembly
@@ -127,7 +127,7 @@ The following parts are not included in the kit and need to be purchased separat
 | USB Cable | 1 piece | For connecting to a PC. Compatible with the ProMicro you purchased |
 
 <!-- TODO: replace with a photo for Keyball+ -->
-![03](images/kb39_003.jpg)
+![03](images/kbp_003.jpg)
 
 <a id="anchor1-3"></a>
 ### 1-3. Parts and Options That Can Be Installed After Assembly
@@ -139,7 +139,7 @@ The following parts are optional and can be installed even after assembly.
 | Full-color LED (YS-SK6812MINI-E) | 55 pieces | Under each key + underglow. 29 on the left / 26 on the right. 54 pieces if you separate the right-hand thumb key ([Chapter 6](#anchor6)) ※SK6812MINI cannot be used |
 
 <!-- TODO: replace with a photo for Keyball+ -->
-![04](images/kb39_004.jpg)
+![04](images/kbp_004.jpg)
 
 <a id="anchor2"></a>
 ## 2. Preparation
@@ -157,7 +157,7 @@ The following tools are required for assembling Keyball+. Please check that you 
 | Tweezers | For handling parts |
 | 150 grit sandpaper | For polishing when cutting plates |
 
-![05](images/kb39_005.jpg)
+![05](images/kbp_005.jpg)
 
 <a id="anchor2-2"></a>
 ### 2-2. Firmware
@@ -165,8 +165,6 @@ The following tools are required for assembling Keyball+. Please check that you 
 To operate Keyball+, firmware needs to be written to the ProMicro you purchased.
 
 Keyball+ firmware is written using **[Keyball Link](https://keyball-link.shiroganelab.com/)**, a web tool that lets you edit keymaps and flash firmware directly from your browser. No special software installation is required (a WebHID/WebSerial capable browser such as Google Chrome is needed).
-
-There is no test-only firmware like Keyball39 has; both [Chapter 3-8](#anchor3-8) and [Chapter 10](#anchor10) write the production firmware. The writing procedure is explained in detail in those chapters.
 
 <a id="anchor3"></a>
 ## 3. Implementation
@@ -177,23 +175,23 @@ The PCB is reversible, so first decide which side will be left/right hand.
 When operating the trackball with your right thumb, the trackball will be attached to the area where the PCB is cut, as shown in the red circle in the photo below.
 
 <!-- TODO: replace with a photo of the Keyball+ PCB -->
-![20](images/kb39_010.jpg)
+![20](images/kbp_010.jpg)
 
 When operating the trackball with your left thumb, the layout is as shown in the photo below.
 
-![21](images/kb39_011.jpg)
+![21](images/kbp_011.jpg)
 
 This build guide explains the specification with the trackball on the right hand.
 >**⚡️ Warning**: If you solder the wrong side, rework will be very difficult.
 >Please mark the front side with masking tape or similar as shown in the photo below to prevent mistakes.
 
-![22](images/kb39_012.jpg)
+![22](images/kbp_012.jpg)
 
 <a id="anchor3-1"></a>
 ### 3-1. Before Soldering
 The soldering iron tip should be shaped like a bamboo spear tip, which makes it easier to place solder on flat surfaces and "scoop up" excess solder.
 
-![27](images/kb39_027.jpg)
+![27](images/kbp_027.jpg)
 
 <a id="anchor3-2"></a>
 ### 3-2. Installing Diodes
@@ -207,29 +205,29 @@ The orientation is where the straight line on the component matches the straight
 > All diodes on the same board are arranged in the same orientation.
 Please check that the orientation matches the surrounding diodes as you proceed with soldering.
 
-![25](images/kb39_014.jpg)
+![25](images/kbp_014.jpg)
 
 The diode silk has black dots as shown in red in the photo below, so you can verify polarity after soldering the diodes.
 
-![26](images/kb39_015.jpg)
+![26](images/kbp_015.jpg)
 
 Let's start soldering.
 First, apply solder to one side of the diode pad.
 
-![28](images/kb39_020.jpg)
+![28](images/kbp_020.jpg)
 
 Grab the diode with tweezers and fix it while melting the pre-applied solder.
 
-![30](images/kb39_028.jpg)
+![30](images/kbp_028.jpg)
 
 Rotate the board 180 degrees and flow solder to the other leg of the diode.
 Finally, touch both legs with the iron tip, and if the diode doesn't fall off, both legs are soldered.
 
-![Solder the other leg](images/kb39_029.jpg)
+![Solder the other leg](images/kbp_029.jpg)
 
 Install 21 diodes on the trackball side and 24 on the non-trackball side, for a total of 45 on both sides.
 
-![37](images/kb39_030.jpg)
+![37](images/kbp_030.jpg)
 
 <a id="anchor3-3"></a>
 ### 3-3. Soldering Key Sockets
@@ -255,27 +253,27 @@ Set them to match the silk mark and shape for soldering.
 
 **For MX switch sockets**
 
-![85](images/kb39_075.jpg)
+![85](images/kbp_075.jpg)
 
 **For Choc switch sockets**
 Choc sockets also have an orientation. As shown in the photo below, place the terminal with the black resin part in an octagonal shape near the center of the switch.
 
-![85](images/kb39_077.jpg)
+![85](images/kbp_077.jpg)
 
 For soldering, apply solder to one side of the socket pad as shown in the blue circle.
 
-![86](images/kb39_078.jpg)
+![86](images/kbp_078.jpg)
 
 Fit the socket and press down with tweezers from above, then touch the iron tip with a little solder from the side of the terminal, and the solder will melt and the socket will sink.
 Based on experience, this method is least likely to cause "tempura" (poor connection).
 
-![87](images/kb39_079.jpg)
+![87](images/kbp_079.jpg)
 
 Rotate the board 180 degrees and solder the other terminal.
 
 Solder the chosen socket(s) at all 39 key positions (38 if you separated the right-hand thumb key).
 
-![89](images/kb39_081.jpg)
+![89](images/kbp_081.jpg)
 
 <a id="anchor3-4"></a>
 ### 3-4. Soldering LEDs (Optional)
@@ -300,7 +298,7 @@ For this reason, place about 10 LEDs at once, and move to the next LED soldering
 This prevents continuously heating one LED.
 
 <!-- TODO: replace with a photo of the Keyball+ LED layout (asymmetric, 55 total) -->
-![80](images/kb39_070.jpg)
+![80](images/kbp_070.jpg)
 
 After all LED soldering is complete, proceed to the next step.
 LED lighting check will be performed later.
@@ -313,15 +311,15 @@ Jumpers need to be shorted to operate the OLED module.
 There are "Back Side Only" markings, with [4 pieces each] on the left and right boards.
 Warm the pad with the iron tip, then melt solder to create a bridge.
 
-![41](images/kb39_036.jpg)
+![41](images/kbp_036.jpg)
 
 If you're not confident in soldering or not good at bridge work, try applying solder to the 8 pads first as shown in the photo below.
 
-![40b](images/kb61_037.jpg)
+![40b](images/kbp_037.jpg)
 
 Adding solder here should make bridging easier.
 
-![40b](images/kb61_038.jpg)
+![40b](images/kbp_038.jpg)
 
 If the solder freshness deteriorates (heated multiple times), surface tension decreases and bridging becomes difficult.
 Scrape off the solder once and add solder or flux to try again.
@@ -335,15 +333,15 @@ There are other jumpers, but these will be explained later, so please solder onl
 Solder the parts shown in the photo below.
 >**⚡️Warning**: This time all are installed **only on the front side**, so please be careful.
 
-![51](images/kb39_040.jpg)
+![51](images/kbp_040.jpg)
 
 If you're worried about parts floating, fix them with masking tape or similar for soldering.
 
-![52](images/kb39_041.jpg)
+![52](images/kbp_041.jpg)
 
 When all are installed, it should look like the photo below.
 
-![53](images/kb39_042.jpg)
+![53](images/kbp_042.jpg)
 
 
 <a id="anchor3-7"></a>
@@ -351,23 +349,23 @@ When all are installed, it should look like the photo below.
 ProMicro is soldered using the connector pins shown in the photo below, which makes replacement easier when ProMicro fails.
 Connector pins have installation direction, so please look at the photo carefully for the work.
 
-![60](images/kb39_050.jpg)
+![60](images/kbp_050.jpg)
 
 First, insert the connector pin into the board [front side].
 
-![61](images/kb39_055.jpg)
+![61](images/kbp_055.jpg)
 
 Insert the connector to match the **square silk frame**.
 If the black silk frame is misaligned with the connector, the insertion hole is wrong.
 
-![61](images/kb39_056.jpg)
+![61](images/kbp_056.jpg)
 
 Insert ProMicro into the inserted connector pin.
 Solder **only the ProMicro side** in a state where it's firmly inserted to the end.
 Soldering while inserted into the board prevents the connector pin from being installed at an angle.
 >**⚡️Warning**: If you solder the connector pin to the middle PCB side as well, replacement will be very difficult when ProMicro fails.
 
-![63](images/kb39_057.jpg)
+![63](images/kbp_057.jpg)
 
 OLED can be installed on both left and right boards as standard.
 Insert a 4-pin header into the 4-pin socket and place the OLED module.
@@ -378,7 +376,7 @@ Also, adjusting it to be parallel with ProMicro will look better.
 
 Once the position is determined, solder the remaining 3 pins.
 
-![70](images/kb39_062.jpg)
+![70](images/kbp_062.jpg)
 
 <a id="anchor3-8"></a>
 ### 3-8. ProMicro Programming and Operation Check
@@ -408,9 +406,9 @@ If it still doesn't improve, LED failure is suspected, so please replace LED num
 
 Repeat the lighting check and soldering correction until all LEDs light up.
 
-![82](images/kb39_073.jpg)
+![82](images/kbp_073.jpg)
 
-![75](images/kb39_067.jpg)
+![75](images/kbp_067.jpg)
 
 <a id="anchor4"></a>
 ## 4. Assembling the Trackball Reading Board
@@ -419,7 +417,7 @@ Prepare the board shown in the photo below (hereinafter, ball board) and optical
 ※For quality confirmation of sensors and boards, pre-soldered ball boards may arrive.
 In that case, skip this step and proceed to L-shaped connector soldering in [Chapter 4-2](#anchor4-2).
 
-![90](images/kb39_090.jpg)
+![90](images/kbp_090.jpg)
 
 <a id="anchor4-1"></a>
 ### 4-1. Soldering the Sensor
@@ -429,26 +427,26 @@ The sensor IC is inserted from the back side where no components are mounted on 
 Please carefully confirm that it's inserted in the correct orientation and from the correct direction before soldering!
 Match the notch indicating pin 1 of the IC with the [1pin] silk on the board.
 
-![91](images/kb39_091.jpg)
+![91](images/kbp_091.jpg)
 
 The IC looks like this from the back.
 Solder all pins from the front side where SMD components are mounted (the side without the Keyball logo).
 
-![92](images/kb39_092.jpg)
+![92](images/kbp_092.jpg)
 
 Use tweezers to peel off the protective seals [2 pieces].
 
-![93](images/kb39_093.jpg)
+![93](images/kbp_093.jpg)
 
 Attach the sensor lens to the side where the protective seals were peeled off.
 The lens has direction, and if the direction is wrong, the two thin pins of the lens may break, so please check the direction carefully.
 There's a protrusion like the arrow in the photo below at the front of the lens, and this should be on the top side when mounting.
 
-![95](images/kb39_095.jpg)
+![95](images/kbp_095.jpg)
 
 If the lens and IC directions match, the two pins of the lens should insert into the IC without force. Please insert slowly.
 
-![94](images/kb39_094.jpg)
+![94](images/kbp_094.jpg)
 
 <a id="anchor4-2"></a>
 ### 4-2. Soldering the L-shaped Connector
@@ -456,16 +454,16 @@ Next, install the L-shaped connector pin on the **front side** of the board wher
 The L-shaped connector also has direction.
 Insert the side where the pins are not U-shaped into the middle board for soldering.
 
-![96](images/kb39_083.jpg)
+![96](images/kbp_083.jpg)
 
 Apply masking tape or similar to prevent parts from floating and solder from the back side.
 
-![97](images/kb39_084.jpg)
+![97](images/kbp_084.jpg)
 
 Next, solder the 4 jumpers for optical sensor signal lines.
 >**⚡️Warning**: There are jumpers near the soldered connector, so apply solder to **only the back side** and short them as shown in the photo below.
 
-![97](images/kb39_085.jpg)
+![97](images/kbp_085.jpg)
 
 <a id="anchor5"></a>
 ## 5. Soldering the Left-Right Detection Jumper on the Left Side
@@ -476,19 +474,19 @@ For detection, solder a jumper at **one location only on the left side board**.
 When looking at the left side board from the back, there's a **LEFT** silk as shown in the red circle in the photo below.
 Please solder the jumper next to this to short it.
 
-![140](images/kb39_086.jpg)
+![140](images/kbp_086.jpg)
 
 If mounting the trackball on the left side, the position is slightly different, and the LEFT jumper will be at the position shown in the photo below.
 
 >**⚡️Warning**: Be sure to jumper **only the left side board**.
 
-![141](images/kb39_087.jpg)
+![141](images/kbp_087.jpg)
 
 The soldering work is now complete.
 
 As a side note, before turning off the soldering iron, apply plenty of solder to the tip. When you use it next time, if you remove this solder, you can resume work with a shiny tip!
 
-![100](images/kb39_096.jpg)
+![100](images/kbp_096.jpg)
 
 <a id="anchor6"></a>
 ## 6. Cutting the Top Plate (Optional)
@@ -513,11 +511,11 @@ In that case the thumb section (Choc = 4mm spacer) and the rest (MX = 7mm spacer
 
 Since every key position has a fixed switch type in this build, you can use **"Choc + LED" for the thumb keys and "MX + LED" for the rest** to fit an under-key LED at every position (55 total; see the combinations in [Chapter 3-3](#anchor3-3)).
 
-![101](images/kb39_100.jpg)
+![101](images/kbp_100.jpg)
 
 Polish the cut surface with about 150 grit sandpaper.
 
-![102](images/kb39_102.jpg)
+![102](images/kbp_102.jpg)
 
 <a id="anchor7"></a>
 ## 7. Assembly
@@ -528,13 +526,13 @@ Polish the cut surface with about 150 grit sandpaper.
 Install the ProMicro protection plate on the middle board.
 First, screw the 9mm spacer.
 
-![110](images/kb39_104.jpg)
+![110](images/kbp_104.jpg)
 
 Screw the acrylic protection plate to the spacer.
 
 The protection plate shape is common for both trackball and non-trackball sides. There's no front/back.
 
-![111](images/kb39_105.jpg)
+![111](images/kbp_105.jpg)
 
 <a id="anchor7-2"></a>
 ### 7-2. Assembling the Top Plate
@@ -542,21 +540,21 @@ The protection plate shape is common for both trackball and non-trackball sides.
 Screw the spacer to the **back side** of the top plate.
 Use the **7mm** spacers for an MX build, or the **4mm** spacers for a low-profile (Choc) build (12 pieces total for both sides).
 
-![112](images/kb39_107.jpg)
+![112](images/kbp_107.jpg)
 
 Insert key switches into the four corners of the top plate.
 
 This improves the positioning accuracy between plates.
 
-![113](images/kb39_108.jpg)
+![113](images/kbp_108.jpg)
 
 Match the screw holes of the top plate and middle acrylic plate, and stack the plates.
 
-![114](images/kb39_110.jpg)
+![114](images/kbp_110.jpg)
 
 Next, also match the screw holes of the soldered middle board, and stack while confirming that the key switch terminals fit firmly into the key sockets.
 
-![114](images/kb39_112.jpg)
+![114](images/kbp_112.jpg)
 
 <a id="anchor7-3"></a>
 ### 7-3. Assembling the Bottom Plate
@@ -575,11 +573,11 @@ Next, attach cushion rubber to the four corners of the keyboard back.
 Insert the assembled trackball reading board into the 7-pin connector.
 It's shown at an angle for clarity, but insert the board vertically.
 
-![120](images/kb39_114.jpg)
+![120](images/kbp_114.jpg)
 
 The ball board is now standing vertically.
 
-![121](images/kb39_115.jpg)
+![121](images/kbp_115.jpg)
 
 <a id="anchor8-2"></a>
 ### 8-2. Assembling the Trackball Case
@@ -590,22 +588,22 @@ Please keep the spare ceramic ball for future use in case you lose the ball.
 
 Shake the case to check that the ceramic balls don't fall off.
 
-![122](images/kb39_122.jpg)
+![122](images/kbp_122.jpg)
 
 The two pins on the case top can be inserted into the hole in the case bottom.
 Apply force slowly from top and bottom to combine. (It doesn't need to fit perfectly as it will stick together with the subsequent screw tightening.)
 
-![123](images/kb39_123.jpg)
+![123](images/kbp_123.jpg)
 
 Attach M1.7 tapping screws.
 The kit includes **small head screws** and **flat head screws**, but use the **small head screws**.
 
-![124](images/kb39_124.jpg)
+![124](images/kbp_124.jpg)
 
 From the back of the case, screw these 2 locations.
 >**⚡️Warning**: Be careful not to overtighten.
 
-![125](images/kb39_125.jpg)
+![125](images/kbp_125.jpg)
 
 <a id="anchor8-3"></a>
 ### 8-3. Installing the Trackball Case
@@ -617,22 +615,22 @@ If there's resistance, don't force it in, but pull it out once and try inserting
 
 It should go all the way in without much force.
 
-![126](images/kb39_127.jpg)
+![126](images/kbp_127.jpg)
 
 When checking from the back of the main body, there may be a gap as shown by the arrow between the main board and ball board.
 
-![128](images/kb39_129.jpg)
+![128](images/kbp_129.jpg)
 
 In that case, gently push from the front of the case (in the direction of the finger mark).
 Applying too much force may damage the L-shaped connector, so push gently.
 When the gap disappears as shown in the photo below, the screw holes in the blue circle should match.
 
-![129](images/kb39_130.jpg)
+![129](images/kbp_130.jpg)
 
 Tighten the **flat head screws** 2 pieces of M1.7 torx screws included in the kit from the back of the main body.
 At this time, hold the ball holding case with your finger to prevent it from rotating while tightening the screws.
 
-![130](images/kb39_132.jpg)
+![130](images/kbp_132.jpg)
 
 <a id="anchor9"></a>
 ## 9. Final Assembly
@@ -642,10 +640,10 @@ Almost complete! Insert your preferred key switches (MX or Choc) and keycaps.
 Finally, push the 34mm trackball into the case to complete!
 Thank you for your hard work.
 
-![132](images/kb39_135.jpg)
+![132](images/kbp_135.jpg)
 
 <!-- TODO: replace with a photo of the completed Keyball+ -->
-![Keyball+ completed](images/kb39_136.jpg)
+![Keyball+ completed](images/kbp_136.jpg)
 
 <a id="anchor10"></a>
 ## 10. Writing the Official Firmware
