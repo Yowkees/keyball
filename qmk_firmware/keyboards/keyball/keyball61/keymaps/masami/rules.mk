@@ -1,0 +1,5 @@
+RGBLIGHT_ENABLE = no
+
+COMBO_ENABLE = yes
+
+OLED_ENABLE = no
