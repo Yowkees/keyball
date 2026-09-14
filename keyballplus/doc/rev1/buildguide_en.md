@@ -236,6 +236,8 @@ The kit includes both **MX switch sockets** and **Choc switch sockets**.
 
 For each key position, choose **one of the three combinations** below and solder that (you can choose per key).
 
+**This build guide proceeds with the Choc + LED combination.**
+
 | Combination | Usable switches | LED at this position |
 |:--|:--|:--:|
 | **MX socket + Choc socket** | Both MX and Choc (swap the switch to change type) | Not possible |
@@ -243,6 +245,12 @@ For each key position, choose **one of the three combinations** below and solder
 | **Choc socket + LED** | Choc only | Possible |
 
 > A position where you want to swap between MX and Choc gets no LED; a position where you want an LED is fixed to either MX or Choc. LED soldering is done in [Chapter 3-4](#anchor3-4).
+
+![85](images/kbp_077-3.jpg)
+
+![85](images/kbp_077-1.jpg)
+
+![85](images/kbp_077-2.jpg)
 
 The number of sockets you solder depends on the combinations you chose: a position with both MX and Choc uses 2 sockets (MX + Choc), a position with an LED uses 1.
 If you separate one right-hand thumb key to make a 38-key board (see [Chapter 6](#anchor6)), the socket at that position can be omitted.
@@ -253,12 +261,16 @@ Set them to match the silk mark and shape for soldering.
 
 **For MX switch sockets**
 
-![85](images/kbp_075.jpg)
+![85](images/kbp_077.jpg)
 
 **For Choc switch sockets**
 Choc sockets also have an orientation. As shown in the photo below, place the terminal with the black resin part in an octagonal shape near the center of the switch.
 
-![85](images/kbp_077.jpg)
+![85](images/kbp_075.jpg)
+
+Bend both tabs at the ends of the socket with tweezers or similar, as shown in the photo, before soldering.
+
+![85](images/kbp_075-1.jpg)
 
 For soldering, apply solder to one side of the socket pad as shown in the blue circle.
 
@@ -267,7 +279,11 @@ For soldering, apply solder to one side of the socket pad as shown in the blue c
 Fit the socket and press down with tweezers from above, then touch the iron tip with a little solder from the side of the terminal, and the solder will melt and the socket will sink.
 Based on experience, this method is least likely to cause "tempura" (poor connection).
 
+Choc sockets tend to shift position when soldered, so adjust the position as you attach it.
+
 ![87](images/kbp_079.jpg)
+
+![87](images/kbp_079-1.jpg)
 
 Rotate the board 180 degrees and solder the other terminal.
 
@@ -351,21 +367,22 @@ Connector pins have installation direction, so please look at the photo carefull
 
 ![60](images/kbp_050.jpg)
 
-First, insert the connector pin into the board [front side].
-
-![61](images/kbp_055.jpg)
+First, insert the connector pin into the board [front side] loosely. (It does not need to be fully seated yet.)
 
 Insert the connector to match the **square silk frame**.
 If the black silk frame is misaligned with the connector, the insertion hole is wrong.
 
-![61](images/kbp_056.jpg)
+![61](images/kbp_055.jpg)
 
-Insert ProMicro into the inserted connector pin.
+Rest ProMicro loosely on the inserted connector pin, then press ProMicro down — this also seats the connector pin firmly.
+
+![63](images/kbp_057.jpg)
+
 Solder **only the ProMicro side** in a state where it's firmly inserted to the end.
 Soldering while inserted into the board prevents the connector pin from being installed at an angle.
 >**⚡️Warning**: If you solder the connector pin to the middle PCB side as well, replacement will be very difficult when ProMicro fails.
 
-![63](images/kbp_057.jpg)
+![63](images/kbp_057-1.jpg)
 
 OLED can be installed on both left and right boards as standard.
 Insert a 4-pin header into the 4-pin socket and place the OLED module.
@@ -463,20 +480,20 @@ As a side note, before turning off the soldering iron, apply plenty of solder to
 ## 6. Cutting the Top Plate (Optional)
 
 The top plate has sections that can be separated along a perforation only if you need to.
+If you are combining MX and Choc switches, cut along the perforation.
 When cutting, use a cutter to score the perforation on both the front and back sides, then fold to separate, and polish the cut edge with about 150 grit sandpaper.
-Neither cut is required. If you do not need them, proceed to the next step.
 
 ### ① Remove one right-hand thumb key (make it a 38-key board)
 
 <!-- TODO: add a Keyball+ photo showing where the right-hand thumb key is separated -->
-You can separate the **thumb key closest to the trackball** on the right-hand side.
+You can separate the **thumb key closest to the trackball**, on the trackball side.
 This is an option for people whose thumb hits this key while operating the trackball.
 After separating it, the board has **38 keys**. The LED at that position is separated together with the key, so if you install LEDs the trackball side has one fewer, for **54 in total**.
 In that case you only need **38** key switches and **38** keycaps. The key socket at that position is unused even if soldered, so you may skip it.
 
 ### ② Choc thumb section with MX everywhere else
 
-You can build the thumb section with Choc switches and the rest with MX switches (this is the only practical switch mix).
+You can build the thumb section with Choc switches and the rest with MX switches (the reverse combination is also possible, but this is the only practical switch mix).
 In that case the thumb section (Choc = 4mm spacer) and the rest (MX = 7mm spacer) end up at different top-plate heights, so separate the thumb section along the perforation.
 **If you build with all MX or all Choc switches, this cut is not needed.**
 
@@ -495,15 +512,12 @@ Polish the cut surface with about 150 grit sandpaper.
 ### 7-1. Installing the Protection Plate
 
 Install the ProMicro protection plate on the middle board.
-First, screw the 9mm spacer.
 
-![110](images/kbp_104.jpg)
-
-Screw the acrylic protection plate to the spacer.
+First screw the 9mm spacer, then screw the acrylic protection plate to it.
 
 The protection plate shape is common for both trackball and non-trackball sides. There's no front/back.
 
-![111](images/kbp_105.jpg)
+![111](images/kbp_104.jpg)
 
 <a id="anchor7-2"></a>
 ### 7-2. Assembling the Top Plate
@@ -515,23 +529,21 @@ Use the **7mm** spacers for an MX build, or the **4mm** spacers for a low-profil
 
 First, insert key switches into the four corners of the top plate. This improves the positioning accuracy between plates.
 
+For an MX build, match the screw holes of the top plate and middle acrylic plate, and stack the plates.
+
 ![113](images/kbp_108.jpg)
-
-Match the screw holes of the top plate and middle acrylic plate, and stack the plates.
-
-![114](images/kbp_110.jpg)
 
 Next, also match the screw holes of the soldered middle board, and stack while confirming that the key switch terminals fit firmly into the key sockets.
 
 ![114](images/kbp_112.jpg)
 
-Once the plates are stacked and screwed together, **install all the remaining key switches** (38 for a 38-key build). Push each switch straight down from the top-plate side so the terminals don't bend, and check on the back of the middle board that both terminals came through. You need every switch installed at this stage so you can check key input in [Chapter 7-3](#anchor7-3).
+Once the plates are stacked, **install all the remaining key switches** (38 for a 38-key build). Push each switch straight down from the top-plate side, checking that the terminals don't bend, and confirm on the back of the middle board that both terminals came out of the socket. You need every switch installed at this stage so you can check key input in [Chapter 7-3](#anchor7-3).
 
 <a id="anchor7-3"></a>
 ### 7-3. Writing the Firmware and Checking Operation
 
 Now that the key switches are installed, write the firmware and check key input and LED operation.
-**Once the bottom plate is attached you can no longer reach the ProMicro, LEDs, or the back of the boards, so be sure to check at this stage.**
+**Once the bottom plate is attached you can no longer reach the ProMicro, LEDs, or the back of the boards, so check at this stage.**
 
 Keyball+ has no test-only firmware like Keyball39. You write the production firmware from [Keyball Link](https://keyball-link.shiroganelab.com/).
 There are two versions, a **standard version** and an **LED version**: choose the **LED version if you installed LEDs, or the standard version if you did not** (the standard version does not light LEDs but lets you use more features).
@@ -551,8 +563,6 @@ LEDs are wired in series, so it's easy to identify a problem area if only some l
 For example, if LEDs up to number 12 light up but number 13 onward do not, the soldering of [LED 12 or 13] is likely at fault, so redo those. If that does not help, replace LED 13.
 Repeat the lighting check and soldering correction until all LEDs light up.
 
-![75](images/kbp_067.jpg)
-
 If you want to directly edit Keyball+ firmware and build it yourself, use the [keyball-plus-firmware repository](https://github.com/ineno771/keyball-plus-firmware) (see [Chapter 10](#anchor10)).
 
 <a id="anchor7-4"></a>
@@ -568,13 +578,9 @@ Next, attach cushion rubber to the four corners of the keyboard back.
 ### 8-1. Inserting the Ball Reading Board
 
 Insert the assembled trackball reading board into the 7-pin connector.
-It's shown at an angle for clarity, but insert the board vertically.
+Insert the board vertically.
 
 ![120](images/kbp_114.jpg)
-
-The ball board is now standing vertically.
-
-![121](images/kbp_115.jpg)
 
 <a id="anchor8-2"></a>
 ### 8-2. Assembling the Trackball Case
@@ -627,14 +633,10 @@ When the gap disappears as shown in the photo below, the screw holes in the blue
 Tighten the **flat head screws** 2 pieces of M1.7 torx screws included in the kit from the back of the main body.
 At this time, hold the ball holding case with your finger to prevent it from rotating while tightening the screws.
 
-![130](images/kbp_132.jpg)
-
 <a id="anchor9"></a>
 ## 9. Final Assembly
 
-Almost complete! Fit your preferred keycaps.
-
-Finally, push the 34mm trackball into the case to complete!
+Almost complete! Finish by pushing in the 34mm trackball and fitting your keycaps!
 Thank you for your hard work.
 
 ![132](images/kbp_135.jpg)
@@ -656,7 +658,7 @@ Choose the **LED version if you soldered the LEDs, or the standard version if yo
 
 **If you want to build firmware yourself**
 The latest Keyball+ firmware is published in the [keyball-plus-firmware repository](https://github.com/ineno771/keyball-plus-firmware).
-Copy the `keyboards/keyball` folder from the repository to your QMK Firmware `keyboards` directory and freely edit keymaps etc. to build. See the repository README for detailed build instructions.
+Copy the `keyboards/keyball` folder from the repository to your QMK Firmware `keyboards` directory and freely edit keymaps etc. to build.
 
 <a id="anchor11"></a>
 ## 11. How to Use Keyball+♪
