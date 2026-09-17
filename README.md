@@ -10,6 +10,7 @@ Keyboards in the family are:
     * Keyball39: split + 39 keys + a track ball
     * Keyball44: split + 44 keys + a track ball
     * Keyball61: split + 61 keys + a track ball
+    * Keyball+ : split + 38 or 39 keys + a track ball
 * Unavailable
     * Keyball46 (first one!)
     * One47
@@ -33,7 +34,10 @@ Keyboards in the family are:
 *   Keyball61:
     [English/英語](./keyball61/doc/rev1/buildguide_en.md),
     [日本語/Japanese](./keyball61/doc/rev1/buildguide_jp.md)
-
+*   Keyball+:
+    [English/英語](./keyballplus/doc/rev1/buildguide_en.md),
+    [日本語/Japanese](./keyballplus/doc/rev1/buildguide_jp.md)
+    
 ## Firmware
 
 See [document for firmware source code](./qmk_firmware/keyboards/keyball/readme.md).
