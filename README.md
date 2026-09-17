@@ -22,7 +22,7 @@ Keyboards in the family are:
 |Keyball39  |<https://shiroganelab.com/products/keyball39> |<https://shop.yushakobo.jp/products/5357>  |
 |Keyball44  |<https://shiroganelab.com/products/keyball44> |<https://shop.yushakobo.jp/products/8337>  |
 |Keyball61  |<https://shiroganelab.com/products/keyball61> |<https://shop.yushakobo.jp/products/5358>  |
-|Keyball+  |[TOKYO KEYBOARD EXPO 2026]((https://tkx.yushakobo.jp/tkx2026/)|[TOKYO KEYBOARD EXPO 2026]((https://tkx.yushakobo.jp/tkx2026/)|
+|Keyball+  |[TOKYO KEYBOARD EXPO 2026](https://tkx.yushakobo.jp/tkx2026/)|[TOKYO KEYBOARD EXPO 2026](https://tkx.yushakobo.jp/tkx2026/)|
 
 ## Build Guide
 
