@@ -607,6 +607,7 @@ void housekeeping_task_kb(void) {
 }
 #endif
 
+#if defined(OLED_ENABLE)
 static void pressing_keys_update(uint16_t keycode, keyrecord_t *record) {
 #ifdef OLED_ENABLE
     // Process only valid keycodes.
@@ -628,6 +629,12 @@ static void pressing_keys_update(uint16_t keycode, keyrecord_t *record) {
     }
 #endif
 }
+#else
+// OLED無効時は何もしないスタブ
+static void pressing_keys_update(uint16_t keycode, keyrecord_t *record) {
+    (void)keycode; (void)record;
+}
+#endif
 
 #ifdef POINTING_DEVICE_AUTO_MOUSE_ENABLE
 bool is_mouse_record_kb(uint16_t keycode, keyrecord_t* record) {

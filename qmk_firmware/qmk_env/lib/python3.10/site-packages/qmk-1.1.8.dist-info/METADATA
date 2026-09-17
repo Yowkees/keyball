@@ -1,0 +1,95 @@
+Metadata-Version: 2.4
+Name: qmk
+Version: 1.1.8
+Summary: A program to help users work with QMK Firmware.
+Author: skullydazed
+Author-email: skullydazed@gmail.com
+License: MIT License
+Project-URL: Bug Tracker, https://github.com/qmk/qmk_cli/issues
+Project-URL: Documentation, https://docs.qmk.fm/#/cli
+Project-URL: Homepage, https://qmk.fm/
+Project-URL: Source, https://github.com/qmk/qmk_cli/
+Classifier: Development Status :: 3 - Alpha
+Classifier: Environment :: Console
+Classifier: Intended Audience :: Developers
+Classifier: Intended Audience :: System Administrators
+Classifier: Intended Audience :: End Users/Desktop
+Classifier: License :: OSI Approved :: MIT License
+Classifier: Natural Language :: English
+Classifier: Programming Language :: Python :: 3 :: Only
+Classifier: Topic :: Scientific/Engineering
+Classifier: Topic :: Software Development
+Classifier: Topic :: Utilities
+Requires-Python: >=3.9
+Description-Content-Type: text/markdown
+License-File: LICENSE
+Requires-Dist: hid
+Requires-Dist: milc>=1.9.0
+Requires-Dist: pyusb
+Requires-Dist: dotty-dict
+Requires-Dist: hjson
+Requires-Dist: jsonschema>=4
+Requires-Dist: pillow
+Requires-Dist: pygments
+Requires-Dist: pyserial
+Dynamic: license-file
+
+# QMK CLI
+[![CLI Setup](https://github.com/qmk/qmk_cli/actions/workflows/cli_setup.yml/badge.svg)](https://github.com/qmk/qmk_cli/actions/workflows/cli_setup.yml)
+
+A program to help users work with [QMK Firmware](https://qmk.fm/).
+
+# Features
+
+* Interact with your qmk_firmware tree from any location
+* Use `qmk clone` to pull down anyone's `qmk_firmware` fork
+* Setup your build environment with `qmk setup`
+* Use `qmk console` to get debugging information from your keyboard(s)
+* Check that your environment is correctly setup with `qmk doctor`
+* Integrates with qmk_firmware for additional functionality:
+    * `qmk compile`
+    * `qmk info`
+    * `qmk flash`
+    * `qmk lint`
+    * ...and many more!
+
+# Packages
+
+We provide "install and go" packages for many Operating Systems.
+
+## Linux
+
+Packages for several distributions available here: https://github.com/qmk/qmk_fpm
+
+## macOS
+
+Using [Homebrew](https://brew.sh):
+
+    brew install qmk/qmk/qmk
+
+## Windows
+
+Download our custom MSYS2 installer here: https://msys.qmk.fm/
+
+# Quickstart
+
+* `python3 -m pip install qmk`
+* `qmk setup`
+
+# Building
+
+We follow PEP517, you can install using [build](https://pypi.org/project/build/):
+
+Setup:
+
+    python3 -m pip install build
+
+Build:
+
+    python3 -m build
+
+You can read more about working with PEP517 packages in the [Python Packaging User Guide](https://packaging.python.org/guides/distributing-packages-using-setuptools/#packaging-your-project).
+
+# Documentation
+
+Full documentation: <https://docs.qmk.fm/#/tutorial>
