@@ -660,7 +660,7 @@ Keyball+ のキーマップは、Keyball専用のWebツール **[Keyball Link](h
 >**⚡️注意**:必ず左右両方のPro Microに同じ版のファームウェアを書き込んでください。キーマップはUSBケーブルを差した側のProMicroへ書き込まれます。
 
 **ご自身でファームウェアをビルドする場合**
-Keyball+ の最新ファームウェアは [keyball-plus-firmware リポジトリ](https://github.com/Yowkees/keyball/tree/main/qmk_firmware/keyboards/keyball/keyballplus) にて公開しています。
+Keyball+ の最新ファームウェアは [keyballplus-firmware リポジトリ](https://github.com/Yowkees/keyball/tree/main/qmk_firmware/keyboards/keyball/keyballplus) にて公開しています。
 リポジトリ内の `keyboards/keyball` フォルダをお手持ちの QMK Firmware の `keyboards` へコピーして、自由にキーマップ等を編集してビルドしてください。
 
 <a id="anchor11"></a>
