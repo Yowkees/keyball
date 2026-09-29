@@ -657,7 +657,7 @@ Choose the **LED version if you soldered the LEDs, or the standard version if yo
 >**⚡️Warning**: Be sure to write the same firmware version to both left and right Pro Micros. The keymap is written to the ProMicro on the side where the USB cable is connected.
 
 **If you want to build firmware yourself**
-The latest Keyball+ firmware is published in the [keyball-plus-firmware repository](https://github.com/ineno771/keyball-plus-firmware).
+The latest Keyball+ firmware is published in the [keyballplus-firmware repository](https://github.com/Yowkees/keyball/tree/main/qmk_firmware/keyboards/keyball/keyballplus).
 Copy the `keyboards/keyball` folder from the repository to your QMK Firmware `keyboards` directory and freely edit keymaps etc. to build.
 
 <a id="anchor11"></a>
