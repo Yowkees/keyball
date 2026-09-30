@@ -24,9 +24,6 @@ static int32_t gesture_x;
 static int32_t gesture_y;
 static uint32_t gesture_last_motion;
 static bool gesture_triggered;
-static uint16_t kl_combo_timer;
-static bool kl_combo_active;
-static bool kl_combo_layer;
 
 static int8_t masami_clip2int8(int16_t value) {
   return value < -127 ? -127 : value > 127 ? 127 : (int8_t)value;
@@ -96,106 +93,80 @@ void keyball_on_apply_motion_to_mouse_move(keyball_motion_t *motion, report_mous
 
 enum combo_events {
   JK_LEFT_CLICK,
-  KL_RIGHT_CLICK_OR_LAYER,
+  KL_RIGHT_CLICK,
   JL_MIDDLE_CLICK,
-  NUM_Q_F1,
-  NUM_W_F2,
-  NUM_E_F3,
-  NUM_R_F4,
-  NUM_T_F5,
-  NUM_Y_F6,
-  NUM_U_F7,
-  NUM_I_F8,
-  NUM_O_F9,
-  NUM_P_F10,
+  NUM1_Q_F1,
+  NUM2_W_F2,
+  NUM3_E_F3,
+  NUM4_R_F4,
+  NUM5_T_F5,
+  NUM6_Y_F6,
+  NUM7_U_F7,
+  NUM8_I_F8,
+  NUM9_O_F9,
+  NUM0_P_F10,
   GRV_EQL_F11,
-  NUM_1_2_F12,
+  NUM0_EQL_F12,
 };
 
 const uint16_t PROGMEM jk_combo[] = {KC_J, KC_K, COMBO_END};
 const uint16_t PROGMEM kl_combo[] = {KC_K, KC_L, COMBO_END};
 const uint16_t PROGMEM jl_combo[] = {KC_J, KC_L, COMBO_END};
-const uint16_t PROGMEM num_q_combo[] = {KC_1, KC_Q, COMBO_END};
-const uint16_t PROGMEM num_w_combo[] = {KC_2, KC_W, COMBO_END};
-const uint16_t PROGMEM num_e_combo[] = {KC_3, KC_E, COMBO_END};
-const uint16_t PROGMEM num_r_combo[] = {KC_4, KC_R, COMBO_END};
-const uint16_t PROGMEM num_t_combo[] = {KC_5, KC_T, COMBO_END};
-const uint16_t PROGMEM num_y_combo[] = {KC_6, KC_Y, COMBO_END};
-const uint16_t PROGMEM num_u_combo[] = {KC_7, KC_U, COMBO_END};
-const uint16_t PROGMEM num_i_combo[] = {KC_8, LT(3, KC_I), COMBO_END};
-const uint16_t PROGMEM num_o_combo[] = {KC_9, KC_O, COMBO_END};
-const uint16_t PROGMEM num_p_combo[] = {KC_0, KC_P, COMBO_END};
+const uint16_t PROGMEM num1_q_combo[] = {KC_1, KC_Q, COMBO_END};
+const uint16_t PROGMEM num2_w_combo[] = {KC_2, KC_W, COMBO_END};
+const uint16_t PROGMEM num3_e_combo[] = {KC_3, KC_E, COMBO_END};
+const uint16_t PROGMEM num4_r_combo[] = {KC_4, KC_R, COMBO_END};
+const uint16_t PROGMEM num5_t_combo[] = {KC_5, KC_T, COMBO_END};
+const uint16_t PROGMEM num6_y_combo[] = {KC_6, KC_Y, COMBO_END};
+const uint16_t PROGMEM num7_u_combo[] = {KC_7, KC_U, COMBO_END};
+const uint16_t PROGMEM num8_i_combo[] = {KC_8, LT(3, KC_I), COMBO_END};
+const uint16_t PROGMEM num9_o_combo[] = {KC_9, KC_O, COMBO_END};
+const uint16_t PROGMEM num0_p_combo[] = {KC_0, KC_P, COMBO_END};
 const uint16_t PROGMEM grv_eql_combo[] = {KC_GRV, KC_EQL, COMBO_END};
-const uint16_t PROGMEM num_1_2_combo[] = {KC_1, KC_2, COMBO_END};
+const uint16_t PROGMEM num0_eql_combo[] = {KC_0, KC_EQL, COMBO_END};
 
 combo_t key_combos[] = {
   [JK_LEFT_CLICK] = COMBO(jk_combo, KC_BTN1),
-  [KL_RIGHT_CLICK_OR_LAYER] = COMBO_ACTION(kl_combo),
+  [KL_RIGHT_CLICK] = COMBO(kl_combo, KC_BTN2),
   [JL_MIDDLE_CLICK] = COMBO(jl_combo, KC_BTN3),
-  [NUM_Q_F1] = COMBO(num_q_combo, KC_F1),
-  [NUM_W_F2] = COMBO(num_w_combo, KC_F2),
-  [NUM_E_F3] = COMBO(num_e_combo, KC_F3),
-  [NUM_R_F4] = COMBO(num_r_combo, KC_F4),
-  [NUM_T_F5] = COMBO(num_t_combo, KC_F5),
-  [NUM_Y_F6] = COMBO(num_y_combo, KC_F6),
-  [NUM_U_F7] = COMBO(num_u_combo, KC_F7),
-  [NUM_I_F8] = COMBO(num_i_combo, KC_F8),
-  [NUM_O_F9] = COMBO(num_o_combo, KC_F9),
-  [NUM_P_F10] = COMBO(num_p_combo, KC_F10),
+  [NUM1_Q_F1] = COMBO(num1_q_combo, KC_F1),
+  [NUM2_W_F2] = COMBO(num2_w_combo, KC_F2),
+  [NUM3_E_F3] = COMBO(num3_e_combo, KC_F3),
+  [NUM4_R_F4] = COMBO(num4_r_combo, KC_F4),
+  [NUM5_T_F5] = COMBO(num5_t_combo, KC_F5),
+  [NUM6_Y_F6] = COMBO(num6_y_combo, KC_F6),
+  [NUM7_U_F7] = COMBO(num7_u_combo, KC_F7),
+  [NUM8_I_F8] = COMBO(num8_i_combo, KC_F8),
+  [NUM9_O_F9] = COMBO(num9_o_combo, KC_F9),
+  [NUM0_P_F10] = COMBO(num0_p_combo, KC_F10),
   [GRV_EQL_F11] = COMBO(grv_eql_combo, KC_F11),
-  [NUM_1_2_F12] = COMBO(num_1_2_combo, KC_F12),
+  [NUM0_EQL_F12] = COMBO(num0_eql_combo, KC_F12),
 };
-
-void process_combo_event(uint16_t combo_index, bool pressed) {
-  if (combo_index != KL_RIGHT_CLICK_OR_LAYER) {
-    return;
-  }
-
-  if (pressed) {
-    kl_combo_timer = timer_read();
-    kl_combo_active = true;
-    kl_combo_layer = false;
-  } else if (kl_combo_active) {
-    if (!kl_combo_layer) {
-      tap_code(KC_BTN2);
-    }
-    layer_off(4);
-    kl_combo_active = false;
-    kl_combo_layer = false;
-  }
-}
-
-void matrix_scan_user(void) {
-  if (kl_combo_active && !kl_combo_layer && timer_elapsed(kl_combo_timer) >= TAPPING_TERM) {
-    layer_on(4);
-    kl_combo_layer = true;
-  }
-}
 
 // clang-format off
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [0] = LAYOUT_universal(
-    KC_ESC       , KC_1     , KC_2     , KC_3     , KC_4           , KC_5           ,                             KC_6   , KC_7 , KC_8      , KC_9  , KC_0         , KC_EQL ,
-    KC_TAB       , KC_Q     , KC_W     , KC_E     , KC_R           , KC_T           ,                             KC_Y   , KC_U , LT(3,KC_I), KC_O  , KC_P         , KC_GRV ,
-    MEH_T(KC_ENT), KC_A     , KC_S     , KC_D     , KC_F           , KC_G           ,                             KC_H   , KC_J , KC_K      , KC_L  , LT(2,KC_SCLN), KC_QUOT,
-    KC_LSFT      , KC_Z     , KC_X     , KC_C     , KC_V           , KC_B           , LSG(KC_S)   , KC_MINS     , KC_N   , KC_M , KC_COMM   , KC_DOT, KC_SLSH      , KC_BSLS,
-    KC_LCTL      , KC_LGUI  , KC_LALT  , KC_DEL   , LSFT_T(KC_LNG2), LCTL_T(KC_LNG1), LT(1,KC_SPC), LT(1,KC_ENT), KC_BSPC, KC_NO, KC_NO     , KC_NO , KC_LBRC      , KC_RBRC
+    KC_ESC       , KC_1     , KC_2     , KC_3     , KC_4           , KC_5           ,                             KC_6   , KC_7 , KC_8      , KC_9      , KC_0         , KC_EQL ,
+    KC_TAB       , KC_Q     , KC_W     , KC_E     , KC_R           , KC_T           ,                             KC_Y   , KC_U , LT(3,KC_I), LT(4,KC_O), KC_P         , KC_GRV ,
+    MEH_T(KC_ENT), KC_A     , KC_S     , KC_D     , KC_F           , KC_G           ,                             KC_H   , KC_J , KC_K      , KC_L      , LT(2,KC_SCLN), KC_QUOT,
+    KC_LSFT      , KC_Z     , KC_X     , KC_C     , KC_V           , KC_B           , LSG(KC_S)   , KC_MINS     , KC_N   , KC_M , KC_COMM   , KC_DOT    , KC_SLSH      , KC_BSLS,
+    KC_LCTL      , KC_LGUI  , KC_LALT  , KC_DEL   , LSFT_T(KC_LNG2), LCTL_T(KC_LNG1), LT(1,KC_SPC), LT(1,KC_ENT), KC_BSPC, KC_NO, KC_NO     , KC_NO     , KC_LBRC      , KC_RBRC
   ),
 
   [1] = LAYOUT_universal(
-    KC_TRNS  , KC_F1      , KC_F2    , KC_F3    , KC_F4    , KC_F5     ,                                 KC_F6  , KC_7  , KC_8   , KC_9   , KC_TRNS, KC_TRNS,
-    KC_TRNS  , KC_PGUP    , KC_HOME  , KC_UP    , KC_END   , KC_PGDN   ,                                 KC_F2  , KC_4  , KC_5   , KC_6   , KC_PLUS, KC_TRNS,
-    KC_TRNS  , C(KC_LEFT) , KC_LEFT  , KC_DOWN  , KC_RGHT  , C(KC_RGHT),                                 KC_DQUO, KC_1  , KC_2   , KC_3   , KC_TRNS, KC_TRNS,
-    KC_TRNS  , RCS(KC_TAB), S(KC_TAB), KC_ESC   , KC_TAB   , C(KC_TAB) , KC_TRNS  ,           KC_TRNS  , KC_UNDS, KC_0  , KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
-    KC_TRNS  , KC_TRNS    , KC_TRNS  , KC_TRNS  , KC_TRNS  , KC_TRNS   , KC_TRNS  ,           KC_TRNS  , KC_TRNS, KC_NO , KC_NO  , KC_NO  , KC_TRNS, KC_TRNS
+    KC_TRNS  , KC_F1      , KC_F2    , KC_F3    , KC_F4    , KC_F5     ,                                   KC_F6  , KC_7  , KC_8   , KC_9   , KC_TRNS, KC_TRNS,
+    KC_TRNS  , KC_PGUP    , KC_HOME  , KC_UP    , KC_END   , KC_PGDN   ,                                   KC_F2  , KC_4  , KC_5   , KC_6   , KC_PLUS, KC_TRNS,
+    KC_TRNS  , C(KC_LEFT) , KC_LEFT  , KC_DOWN  , KC_RGHT  , C(KC_RGHT),                                   KC_DQUO, KC_1  , KC_2   , KC_3   , KC_TRNS, KC_TRNS,
+    KC_TRNS  , RCS(KC_TAB), S(KC_TAB), KC_ESC   , KC_TAB   , C(KC_TAB) , A(KC_PSCR) ,           KC_TRNS  , KC_UNDS, KC_0  , KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
+    KC_TRNS  , KC_TRNS    , KC_TRNS  , KC_TRNS  , KC_TRNS  , KC_TRNS   , KC_TRNS    ,           KC_TRNS  , KC_TRNS, KC_NO , KC_NO  , KC_NO  , KC_TRNS, KC_TRNS
   ),
 
   [2] = LAYOUT_universal(
-    KC_TRNS  , KC_TRNS  , KC_TRNS  , KC_TRNS  , KC_TRNS  , KC_TRNS  ,                                 KC_NO  , KC_NO   , KC_NO   , KC_NO   , KC_NO  , KC_NO,
-    KC_TRNS  , KC_TRNS  , KC_TRNS  , KC_TRNS  , KC_TRNS  , KC_TRNS  ,                                 KC_NO  , KC_BTN4 , MO(3)   , KC_BTN5 , KC_NO  , KC_NO,
-    KC_TRNS  , KC_TRNS  , KC_TRNS  , KC_TRNS  , KC_TRNS  , KC_TRNS  ,                                 KC_NO  , KC_BTN1 , KC_BTN3 , KC_BTN2 , KC_NO  , KC_NO,
-    KC_TRNS  , KC_TRNS  , KC_TRNS  , KC_TRNS  , KC_TRNS  , KC_TRNS  , KC_TRNS  ,           KC_NO    , KC_NO  , KC_WH_L , KC_NO   , KC_WH_R , KC_NO  , KC_NO,
-    KC_TRNS  , KC_TRNS  , KC_TRNS  , KC_TRNS  , KC_TRNS  , KC_TRNS  , KC_TRNS  ,           KC_TRNS  , KC_TRNS, KC_NO   , KC_NO   , KC_NO   , KC_NO  , KC_NO
+    KC_TRNS  , KC_TRNS  , KC_TRNS  , KC_TRNS  , KC_TRNS  , KC_TRNS  ,                                 KC_NO  , KC_NO   , KC_NO   , KC_NO         , KC_NO  , KC_NO,
+    KC_TRNS  , KC_TRNS  , KC_TRNS  , KC_TRNS  , KC_TRNS  , KC_TRNS  ,                                 KC_NO  , KC_BTN4 , MO(3)   , LT(4,KC_BTN5) , KC_NO  , KC_NO,
+    KC_TRNS  , KC_TRNS  , KC_TRNS  , KC_TRNS  , KC_TRNS  , KC_TRNS  ,                                 KC_NO  , KC_BTN1 , KC_BTN3 , KC_BTN2       , KC_NO  , KC_NO,
+    KC_TRNS  , KC_TRNS  , KC_TRNS  , KC_TRNS  , KC_TRNS  , KC_TRNS  , KC_TRNS  ,           KC_NO    , KC_NO  , KC_WH_L , KC_NO   , KC_WH_R       , KC_NO  , KC_NO,
+    KC_TRNS  , KC_TRNS  , KC_TRNS  , KC_TRNS  , KC_TRNS  , KC_TRNS  , KC_TRNS  ,           KC_TRNS  , KC_TRNS, KC_NO   , KC_NO   , KC_NO         , KC_NO  , KC_NO
   ),
 
   [3] = LAYOUT_universal(
