@@ -160,7 +160,11 @@ The following tools are required for assembling Keyball+. Please check that you 
 
 To operate Keyball+, firmware needs to be written to the ProMicro you purchased.
 
-Keyball+ firmware is written using **[Keyball Link](https://keyball-link.shiroganelab.com/)**, a web tool that lets you edit keymaps and flash firmware directly from your browser. No special software installation is required (a WebHID/WebSerial capable browser such as Google Chrome is needed).
+Pre-built firmware can be easily written using [REMAP](https://remap-keys.app/), a web-based keyboard management tool.
+
+You can also use the dedicated Keyball+ web tool **[Keyball Link](https://keyball-link.shiroganelab.com/)**, which lets you edit keymaps and flash firmware directly from your browser. No special software installation is required (a WebHID/WebSerial capable browser such as Google Chrome is needed).
+
+Writing is explained in detail in [Chapter 7-3](#anchor7-3).
 
 <a id="anchor3"></a>
 ## 3. Implementation
@@ -541,13 +545,18 @@ Once the plates are stacked, **install all the remaining key switches** (38 for 
 Now that the key switches are installed, write the firmware and check key input and LED operation.
 **Once the bottom plate is attached you can no longer reach the ProMicro, LEDs, or the back of the boards, so check at this stage.**
 
-Keyball+ has no test-only firmware like Keyball39. You write the production firmware from [Keyball Link](https://keyball-link.shiroganelab.com/).
-There are two versions, a **standard version** and an **LED version**: choose the **LED version if you installed LEDs, or the standard version if you did not** (the standard version does not light LEDs but lets you use more features).
+Keyball+ has no test-only firmware like Keyball39. You write the production firmware from either **REMAP** or **Keyball Link**.
 Keyball+ firmware is common regardless of which side the trackball is mounted on.
 
-Open Keyball Link, connect Keyball+ to your PC with a USB cable, and follow the on-screen instructions to write (FLASH) the firmware.
+**Using REMAP**
+Open the [REMAP catalog Keyball+ firmware page](https://remap-keys.app/catalog/bhT8v2TXGBIb1XdqrKgy/firmware) and FLASH (write) it. Clicking the FLASH button will display instructions for the writing method.
+
+**Using Keyball Link**
+Open [Keyball Link](https://keyball-link.shiroganelab.com/), connect Keyball+ to your PC with a USB cable, and follow the on-screen instructions to write (FLASH) the firmware.
+There are two versions, a **standard version** and an **LED version**: choose the **LED version if you installed LEDs, or the standard version if you did not** (the standard version does not light LEDs but lets you use more features).
+
 If the keyboard is not recognized even with the USB cable connected, try pressing the soldered RESET switch quickly twice.
-※Be sure to write the same firmware version to both left and right Pro Micros.
+※Be sure to write the same firmware to both left and right Pro Micros.
 
 When writing is done, open a text editor and **press every key one by one to confirm it registers correctly**.
 If left and right are reversed, re-check the left-right detection jumper in [Chapter 5](#anchor5). If a key does not respond, redo the soldering of that key's socket and diode.
@@ -645,16 +654,25 @@ Thank you for your hard work.
 
 The firmware was already written in [Chapter 7-3](#anchor7-3). This chapter is for reference when you later change the keymap or re-flash the firmware to a newer version.
 
-The Keyball+ keymap can be changed and flashed from your browser with the dedicated web tool **[Keyball Link](https://keyball-link.shiroganelab.com/)**. No special software installation is required.
+Keyball+ is compatible with [ReMAP](https://remap-keys.app/configure), so firmware writing and keymap changes are possible without installing special software. For instructions on using Remap, please refer to the article by [Salicylic Acid's Self-Key Onsen Guide](https://salicylic-acid3.hatenablog.com/entry/remap-manual) for detailed information.
 
-If you re-flash the firmware, mind the **standard version** vs **LED version**.
-Choose the **LED version if you soldered the LEDs, or the standard version if you did not** (if you flash the LED version without any LEDs installed, capacity is spent on unused LED control and some features available in the standard version are dropped).
+To use ReMAP, open the [REMAP catalog Keyball+ firmware page](https://remap-keys.app/catalog/bhT8v2TXGBIb1XdqrKgy/firmware) and FLASH (write) the firmware.
 
->**⚡️Warning**: Be sure to write the same firmware version to both left and right Pro Micros. The keymap is written to the ProMicro on the side where the USB cable is connected.
+As written in [Chapter 7-3](#anchor7-3), clicking the FLASH button will display instructions for the writing method.
+If the keyboard is not recognized even with the USB cable connected, try pressing the soldered RESET switch quickly twice.
+
+>**⚡️Warning**: Be sure to write the same firmware to both left and right Pro Micros. The keymap is written to the ProMicro on the side where the USB cable is connected.
 
 **If you want to build firmware yourself**
 The latest Keyball+ firmware is published in the [keyballplus-firmware repository](https://github.com/Yowkees/keyball/tree/main/qmk_firmware/keyboards/keyball/keyballplus).
 Copy the `keyboards/keyball` folder from the repository to your QMK Firmware `keyboards` directory and freely edit keymaps etc. to build.
+
+■Keyball's Dedicated Keymap Editor "Keyball Link"
+By flashing dedicated firmware from Keyball Link, you can easily use features newly added beyond what the standard firmware offers.
+There are a **standard version** and an **LED version**: choose the **LED version if you soldered the LEDs, or the standard version if you did not** (if you flash the LED version without any LEDs installed, capacity is spent on unused LED control and some features available in the standard version are dropped).
+
+Keyball Link is here:
+https://keyball-link.shiroganelab.com/
 
 <a id="anchor11"></a>
 ## 11. How to Use Keyball+♪
