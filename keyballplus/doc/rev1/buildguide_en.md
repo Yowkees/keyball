@@ -553,7 +553,8 @@ Open the [REMAP catalog Keyball+ firmware page](https://remap-keys.app/catalog/b
 
 **Using Keyball Link**
 Open [Keyball Link](https://keyball-link.shiroganelab.com/), connect Keyball+ to your PC with a USB cable, and follow the on-screen instructions to write (FLASH) the firmware.
-There are two versions, a **standard version** and an **LED version**: choose the **LED version if you installed LEDs, or the standard version if you did not** (the standard version does not light LEDs but lets you use more features).
+The ProMicro firmware comes in two versions, a **standard version** and an **LED version**: choose the **LED version if you installed LEDs, or the standard version if you did not** (the standard version does not light LEDs but lets you use more features).
+The RP2040 ProMicro firmware has more flash capacity, so it supports even more features than the ProMicro firmware.
 
 If the keyboard is not recognized even with the USB cable connected, try pressing the soldered RESET switch quickly twice.
 ※Be sure to write the same firmware to both left and right Pro Micros.
