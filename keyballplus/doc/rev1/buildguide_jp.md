@@ -161,7 +161,11 @@ Keyball+ の組み立てには下記の工具が必要です。すべて揃っ�
 
 Keyball+ を動作させるには、ご購入いただいたProMicroへのファームウェアの書き込みが必要です。
 
-Keyball+ のファームウェアは、ブラウザから直接キーマップの編集・書き込みができるWebツール **[Keyball Link](https://keyball-link.shiroganelab.com/)** から書き込みます。特別なソフトのインストールは不要です（Google Chrome など WebHID/WebSerial に対応したブラウザが必要です）。
+すでにビルド済みのファームウェアを、[REMAP](https://remap-keys.app/)というウェブ上のキーボード管理ソフトにて簡単に書き込みができます。
+
+Keyball+ 専用のWebツール **[Keyball Link](https://keyball-link.shiroganelab.com/)** でも、ブラウザから直接キーマップの編集・書き込みができます。特別なソフトのインストールは不要です（Google Chrome など WebHID/WebSerial に対応したブラウザが必要です）。
+
+書き込みについては[7-3章](#anchor7-3)で詳しく説明しています。
 
 
 <a id="anchor3"></a>
@@ -545,13 +549,19 @@ MXスイッチを取り付ける場合はトッププレートとミドルアク
 キースイッチを取り付けたこの段階で、ファームウェアを書き込み、キー入力とLEDの動作を確認します。
 **ボトムプレートを取り付けると ProMicro・LED・基板裏面に手が届かなくなるため、この段階で確認してください。**
 
-Keyball+ には Keyball39 のようなテスト専用ファームウェアはありません。[Keyball Link](https://keyball-link.shiroganelab.com/) から製品版ファームウェアを書き込みます。
-ファームウェアには **通常版** と **LED版** の2種類があり、**LEDを実装した場合は「LED版」、実装していない場合は「通常版」** を選びます（「通常版」はLEDが点灯しない代わりに、より多くの機能が使えます）。
+Keyball+ には Keyball39 のようなテスト専用ファームウェアはありません。**REMAP** または **Keyball Link** のどちらかから製品版ファームウェアを書き込みます。
 Keyball+ のファームウェアは、トラックボールを左右どちら側に載せた場合でも共通です。
 
-Keyball Link を開き、Keyball+ をUSBケーブルでPCに接続してから、画面の案内にしたがってファームウェアを書き込み（FLASH）してください。
+**REMAPを使用する場合**
+[REMAPカタログのKeyball+ファームウェアページ](https://remap-keys.app/catalog/bhT8v2TXGBIb1XdqrKgy/firmware)を開き、FLASH（書き込み）してください。FLASHボタンを押すと、書き込み方法の説明が表示されます。
+
+**Keyball Linkを使用する場合**
+[Keyball Link](https://keyball-link.shiroganelab.com/) を開き、Keyball+ をUSBケーブルでPCに接続してから、画面の案内にしたがってファームウェアを書き込み（FLASH）してください。
+Pro Micro版ファームウェアには **通常版** と **LED版** の2種類があり、**LEDを実装した場合は「LED版」、実装していない場合は「通常版」** を選びます（「通常版」はLEDが点灯しない代わりに、より多くの機能が使えます）。
+RP2040 Pro Micro専用のファームウェアは容量が大きいのでPro Micro版ファームウェアに比べて、よりたくさんの機能を使用できます。
+
 USBケーブルを接続しているのにキーボードが認識されない場合は、はんだ付けしたRESETスイッチを素早く2回押すと認識されると思います。
-※必ず左右両方の Pro Micro に同じ版のファームウェアを書き込んでください。
+※必ず左右両方の Pro Micro に同じファームウェアを書き込んでください。
 
 書き込みが完了したら、テキストエディタなどを開いて **すべてのキーを1つずつ押し、正しく入力されるか** を確認します。
 左右が反転している場合は [5章](#anchor5) の左右判定ジャンパを見直してください。反応しないキーがあれば、そのキーのソケットとダイオードのはんだ付けをやり直します。
@@ -650,16 +660,25 @@ M1.7のタッピングネジを付けます。
 
 ファームウェアの書き込みは [7-3章](#anchor7-3) で完了しています。この章は、あとからキーマップを変更したり、ファームウェアを新しい版に入れ直したりするときの参考です。
 
-Keyball+ のキーマップは、Keyball専用のWebツール **[Keyball Link](https://keyball-link.shiroganelab.com/)** からブラウザで変更・書き込みできます。特別なソフトのインストールは不要です。
+Keyball+ は [REMAP](https://remap-keys.app/configure) に対応していますので特別なソフトをインストールしなくてもファームウェアの書き込みとキーマップの変更が可能です。Remapの使用方法については [自キ温泉ガイドのサリチル酸](https://salicylic-acid3.hatenablog.com/entry/remap-manual) の記事に詳しく掲載されています。
 
-ファームウェアを入れ直す場合は **通常版** と **LED版** に注意してください。
-**LEDをはんだ付けした場合は「LED版」、はんだ付けしていない場合は「通常版」** を選びます（LEDを載せていないのにLED版を書き込むと、使わないLED制御に容量が取られ、通常版で使える一部の機能が省かれます）。
+ReMAPを使用するために[REMAPカタログのKeyball+ファームウェアページ](https://remap-keys.app/catalog/bhT8v2TXGBIb1XdqrKgy/firmware)を開き、ファームウェアをFLASH（書き込み）してください。
 
->**⚡️注意**:必ず左右両方のPro Microに同じ版のファームウェアを書き込んでください。キーマップはUSBケーブルを差した側のProMicroへ書き込まれます。
+書き込みは[7-3章](#anchor7-3)でも書いた通り、FLASHボタンを押すと、書き込み方法の説明が表示されます。
+USBケーブルを接続しているのにキーボードが認識されない場合は、はんだ付けしたRESETスイッチを素早く2回押すと認識されると思います。
+
+>**⚡️注意**:必ず左右両方のPro Microに同じファームウェアを書き込んでください。キーマップはUSBケーブルを差した側のProMicroへ書き込まれます。
 
 **ご自身でファームウェアをビルドする場合**
 Keyball+ の最新ファームウェアは [keyballplus-firmware リポジトリ](https://github.com/Yowkees/keyball/tree/main/qmk_firmware/keyboards/keyball/keyballplus) にて公開しています。
 リポジトリ内の `keyboards/keyball` フォルダをお手持ちの QMK Firmware の `keyboards` へコピーして、自由にキーマップ等を編集してビルドしてください。
+
+■Keyball専用キーマップエディター「Keyball Link」
+Keyball Linkから専用のファームウェアを書き込むことで、既存のファームウェアで使用できた機能の他に新しく追加された機能を簡単に使用できます。
+ファームウェアには **通常版** と **LED版** があり、**LEDをはんだ付けした場合は「LED版」、はんだ付けしていない場合は「通常版」** を選びます（LEDを載せていないのにLED版を書き込むと、使わないLED制御に容量が取られ、通常版で使える一部の機能が省かれます）。
+
+Keyball Linkはこちら
+https://keyball-link.shiroganelab.com/
 
 <a id="anchor11"></a>
 ## 11. Keyball+の使い方♪
