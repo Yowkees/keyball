@@ -565,15 +565,21 @@ MXスイッチを取り付ける場合はトッププレートとミドルアク
 Keyball+ には Keyball39 のようなテスト専用ファームウェアはありません。**REMAP** または **Keyball Link** のどちらかから製品版ファームウェアを書き込みます。
 Keyball+ のファームウェアは、トラックボールを左右どちら側に載せた場合でも共通です。
 
-書き込み方法はProMicroの種類によって異なります。**AVR Pro Micro** は REMAP の正規ファームウェア、または Keyball Link のAVR版ファームウェア（通常版／LED版）のどちらかで書き込めます。**RP2040 Pro Micro** は Keyball Link からのみ書き込めます（REMAPには対応していません）。
+書き込み方法はProMicroの種類によって異なります。
+
+| ProMicro | 使えるツール | ファームウェアの版 |
+|:--|:--|:--|
+| AVR Pro Micro | REMAP／Keyball Link どちらも可 | 通常版／LED版（Keyball Link使用時） |
+| RP2040 Pro Micro | Keyball Link のみ | 1種類のみ（容量に余裕があり区別不要） |
 
 **REMAPを使用する場合（AVR Pro Microのみ）**
-[REMAPカタログのKeyball+ファームウェアページ](https://remap-keys.app/catalog/bhT8v2TXGBIb1XdqrKgy/firmware)を開き、FLASH（書き込み）してください。FLASHボタンを押すと、書き込み方法の説明が表示されます。
+[REMAPカタログのKeyball+ファームウェアページ](https://remap-keys.app/catalog/bhT8v2TXGBIb1XdqrKgy/firmware)を開き、FLASH（書き込み）してください。
+FLASHボタンを押すと、書き込み方法の説明が表示されます。
 
 **Keyball Linkを使用する場合**
 [Keyball Link](https://keyball-link.shiroganelab.com/) を開き、Keyball+ をUSBケーブルでPCに接続してから、画面の案内にしたがってファームウェアを書き込み（FLASH）してください。
-AVR Pro Micro版ファームウェアには **通常版** と **LED版** の2種類があり、**LEDを実装した場合は「LED版」、実装していない場合は「通常版」** を選びます（「通常版」はLEDが点灯しない代わりに、より多くの機能が使えます）。
-RP2040 Pro Micro版ファームウェアは容量が大きいので、通常版／LED版の区別なく1つのファームウェアでより多くの機能を使用できます。
+AVR Pro Microの場合は、**LEDを実装したら「LED版」、していなければ「通常版」** を選んでください。
+（通常版はLEDが点灯しない代わりに、より多くの機能が使えます）
 
 USBケーブルを接続しているのにキーボードが認識されない場合は、はんだ付けしたRESETスイッチを素早く2回押すと認識されると思います。
 ※必ず左右両方の Pro Micro に同じファームウェアを書き込んでください。
@@ -675,7 +681,12 @@ M1.7のタッピングネジを付けます。
 
 ファームウェアの書き込みは [7-3章](#anchor7-3) で完了しています。この章は、あとからキーマップを変更したり、ファームウェアを新しい版に入れ直したりするときの参考です。
 
-書き込み方法はProMicroの種類によって異なります。**AVR Pro Micro** は REMAP の正規ファームウェア、または Keyball Link のAVR版ファームウェア（通常版／LED版）のどちらかで書き込めます。**RP2040 Pro Micro** は Keyball Link からのみ書き込めます（REMAPには対応していません）。
+書き込み方法はProMicroの種類によって異なります。
+
+| ProMicro | 使えるツール | ファームウェアの版 |
+|:--|:--|:--|
+| AVR Pro Micro | REMAP／Keyball Link どちらも可 | 通常版／LED版（Keyball Link使用時） |
+| RP2040 Pro Micro | Keyball Link のみ | 1種類のみ（容量に余裕があり区別不要） |
 
 **REMAPを使用する場合（AVR Pro Microのみ）**
 Keyball+ は [REMAP](https://remap-keys.app/configure) に対応していますので特別なソフトをインストールしなくてもファームウェアの書き込みとキーマップの変更が可能です。Remapの使用方法については [自キ温泉ガイドのサリチル酸](https://salicylic-acid3.hatenablog.com/entry/remap-manual) の記事に詳しく掲載されています。
@@ -693,8 +704,10 @@ Keyball+ の最新ファームウェアは [keyballplus-firmware リポジトリ
 
 ■Keyball専用キーマップエディター「Keyball Link」
 Keyball Linkから専用のファームウェアを書き込むことで、既存のファームウェアで使用できた機能の他に新しく追加された機能を簡単に使用できます。
-**AVR Pro Micro** の場合、ファームウェアには **通常版** と **LED版** があり、**LEDをはんだ付けした場合は「LED版」、はんだ付けしていない場合は「通常版」** を選びます（LEDを載せていないのにLED版を書き込むと、使わないLED制御に容量が取られ、通常版で使える一部の機能が省かれます）。
-**RP2040 Pro Micro** はKeyball Linkからのみ書き込み可能で、容量に余裕があるため通常版／LED版の区別なく1つのファームウェアでより多くの機能を使用できます。
+
+AVR Pro Microの場合は、**LEDをはんだ付けしたら「LED版」、していなければ「通常版」** を選んでください。
+（LEDを載せていないのにLED版を書き込むと、使わないLED制御に容量が取られ、通常版で使える一部の機能が省かれます）
+
 Keyball Link対応ファームウェアは現在テスト版のため、十分な動作確認を行なっていますが動作が不安定になる場合があります。
 
 Keyball Linkはこちら
