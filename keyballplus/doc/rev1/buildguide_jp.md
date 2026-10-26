@@ -14,14 +14,13 @@
 Keyball+ はトラックボール付きの左右分割キーボードキット（39キー）です。Keyball39 をベースに、
 MX スイッチとロープロファイル（Kailh Choc）スイッチの**両方**に対応しており、キットには MX 用・
 Choc 用それぞれの PCB ソケットとスペーサーが同梱されています。お好みでどちらか一方（または混在）で
-組み立てられます。キー数・キー配置は Keyball39 と同一で、組み立て手順の多くは Keyball39 と共通です。
-なお、右手側の親指キーを1つ切り離して 38キー で組むこともできます（[6章](#anchor6)）。
+組み立てられます。
+右手側の親指キーを1つ切り離して 38キー で組むこともできます（[6章](#anchor6)）。
 
 **English build guide for Keyball+ is [here](buildguide_en.md).**
 
 
-<!-- TODO: Keyball+ の外観写真に差し替え -->
-![01](images/kbp_001.jpg)
+![01](images/kbp_136.jpg)
 
 ## 【目次】
 
@@ -109,8 +108,6 @@ Choc 用それぞれの PCB ソケットとスペーサーが同梱されてい�
 
 > MX スイッチ用ソケットと Choc スイッチ用ソケットは、実際に使うのはどちらか一方です（キー単位で混在させることもできます）。スペーサーも同様に、MX 仕様なら 7mm、ロープロ仕様なら 4mm を使用します。
 
-<!-- TODO: Keyball+ の同梱品写真に差し替え -->
-![02](images/kbp_007.jpg)
 
 <a id="anchor1-2"></a>
 ### 1-2. 組立前にお客様自身で準備いただく部品
@@ -566,7 +563,7 @@ LEDは直列に配線されているので、途中までしか光らない場�
 例えば12番のLEDまでは点灯したが13番以降が点灯しない場合、【12番か13番】のLEDのはんだ付けに問題がある可能性が高いので、それらをやり直してください。改善しない場合は13番のLEDを交換します。
 点灯確認とはんだ付け修正を繰り返して、すべてのLEDが点灯するようにします。
 
-Keyball+ のファームウェアを直接編集してご自身でビルドしたい場合は、[keyball-plus-firmware リポジトリ](https://github.com/ineno771/keyball-plus-firmware) をご活用ください（詳しくは [10章](#anchor10)）。
+Keyball+ のファームウェアを直接編集してご自身でビルドしたい場合は、[keyballplus-firmware リポジトリ](https://github.com/Yowkees/keyball/tree/main/qmk_firmware/keyboards/keyball/keyballplus) をご活用ください（詳しくは [10章](#anchor10)）。
 
 <a id="anchor7-4"></a>
 ### 7-4. ボトムプレートの組み立て
@@ -661,7 +658,7 @@ Keyball+ のキーマップは、Keyball専用のWebツール **[Keyball Link](h
 >**⚡️注意**:必ず左右両方のPro Microに同じ版のファームウェアを書き込んでください。キーマップはUSBケーブルを差した側のProMicroへ書き込まれます。
 
 **ご自身でファームウェアをビルドする場合**
-Keyball+ の最新ファームウェアは [keyball-plus-firmware リポジトリ](https://github.com/ineno771/keyball-plus-firmware) にて公開しています。
+Keyball+ の最新ファームウェアは [keyballplus-firmware リポジトリ](https://github.com/Yowkees/keyball/tree/main/qmk_firmware/keyboards/keyball/keyballplus) にて公開しています。
 リポジトリ内の `keyboards/keyball` フォルダをお手持ちの QMK Firmware の `keyboards` へコピーして、自由にキーマップ等を編集してビルドしてください。
 
 <a id="anchor11"></a>
