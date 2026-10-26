@@ -364,6 +364,19 @@ When all are installed, it should look like the photo below.
 ### 3-7. Soldering ProMicro
 ProMicro is soldered using the connector pins shown in the photo below, which makes replacement easier when ProMicro fails.
 Connector pins have installation direction, so please look at the photo carefully for the work.
+>**⚡️Warning**: On RP2040 ProMicro boards, the reset button is on the back of the board, which makes it hard to flash firmware after assembly. Please flash the firmware before assembling.
+
+**How to flash firmware on RP2040 ProMicro**
+
+1. Connect the RP2040 ProMicro with a USB cable.
+2. Press and hold the reset button on the left side of the board.
+3. While holding the reset button, unplug and replug the USB cable once.
+4. Release the reset button while the USB cable is still connected.
+
+Following these steps makes the RP2040 ProMicro recognized as a flashing target, so you can write the firmware.
+After the first flash, you can enter flashing mode again using Keyball's reset switch.
+
+![59](images/kbp_137.jpg)
 
 ![60](images/kbp_050.jpg)
 
