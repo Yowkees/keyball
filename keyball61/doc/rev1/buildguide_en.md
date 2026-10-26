@@ -301,6 +301,8 @@ The ProMicro can be replaced by soldering with the spring-loaded (Conthrough) pi
 Following these steps makes the RP2040 ProMicro recognized as a flashing target, so you can write the firmware.
 After the first flash, you can enter flashing mode again using Keyball's reset switch.
 
+![RP2040 ProMicro reset button](images/kb61_rp2040.jpg)
+
 ![60](images/kb61_050.jpg)
 
 First, insert the Conthrough pin headers on【TOP FACE】 of board.

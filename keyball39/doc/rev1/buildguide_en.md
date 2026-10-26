@@ -341,6 +341,8 @@ Connector pins have installation direction, so please look at the photo carefull
 Following these steps makes the RP2040 ProMicro recognized as a flashing target, so you can write the firmware.
 After the first flash, you can enter flashing mode again using Keyball's reset switch.
 
+![RP2040 ProMicro reset button](images/kb39_rp2040.jpg)
+
 ![60](images/kb39_050.jpg)
 
 First, insert the connector pin into the board [front side].
