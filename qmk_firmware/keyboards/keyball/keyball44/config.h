@@ -42,6 +42,15 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #define SPLIT_TRANSACTION_IDS_KB KEYBALL_GET_INFO, KEYBALL_GET_MOTION, KEYBALL_SET_CPI
 
+// RP2040 controller conversion needs the Pro Micro SPI pins used by the sensor.
+#ifdef MCU_RP
+#    define SPI_DRIVER SPID0
+#    define SPI_SCK_PIN B1
+#    define SPI_MOSI_PIN B2
+#    define SPI_MISO_PIN B3
+#    define SPLIT_HAND_MATRIX_GRID_LOW_IS_LEFT
+#endif
+
 // RGB LED settings
 #define WS2812_DI_PIN       D3
 #ifdef RGBLIGHT_ENABLE

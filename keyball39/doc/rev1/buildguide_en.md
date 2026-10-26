@@ -24,8 +24,8 @@ Sections that require special attention for black PCB sets are marked with ⚫�
  - [3. Implementation](#anchor3)
    - [3-1. Before Soldering](#anchor3-1)
    - [3-2. Installing Diodes](#anchor3-2)
-   - [3-3. Soldering LEDs (Optional)](#anchor3-3)
-   - [3-4. Soldering Key Sockets](#anchor3-4)
+   - [3-3. Soldering Key Sockets](#anchor3-3)
+   - [3-4. Soldering LEDs (Optional)](#anchor3-4)
    - [3-5. Soldering Jumpers](#anchor3-5)
    - [3-6. TRRS Socket, Tactile Switch, and 4-pin Socket](#anchor3-6)
    - [3-7. Soldering ProMicro](#anchor3-7)
@@ -155,7 +155,7 @@ To operate Keyball39, firmware needs to be written to the ProMicro you purchased
 
  Pre-built firmware can be easily written using [REMAP](https://remap-keys.app/), a web-based keyboard management software.
  
- Writing is explained in detail in [Chapter 3-7](#anchor3-7) for test firmware writing and [Chapter 10](#anchor10) for production firmware writing.
+ Writing is explained in detail in [Chapter 3-8](#anchor3-8) for test firmware writing and [Chapter 10](#anchor10) for production firmware writing.
 
 <a id="anchor3"></a>
 ## 3. Implementation
@@ -224,39 +224,7 @@ Install a total of 45 diodes on both sides.
 ![37](images/kb39_030.jpg)
 
 <a id="anchor3-3"></a>
-### 3-3. Soldering LEDs (Optional)
-LEDs (YS-SK6812MINI-E) are optional.  
-A total of 46 pieces can be installed on both sides.  
-However, LEDs are very sensitive to heat, so please adjust the iron tip temperature to **220°C to 280°C**.  
-Since the iron tip temperature is low, heat may not transfer to the pad, making it easy for solder to become "tempura" (poor connection).  
-The keyboard can be used without LEDs, and lighting all LEDs is quite difficult.  
-We recommend completing it without LEDs first. LEDs can be added later.
-
-All LEDs are soldered on the **back side**. 
-  
-Match the leg with the notch on the YS-SK6812MINI-E 4-pin with the marked pad and place the LED for soldering.
-
-LEDs are mixed with upward and downward facing ones, but if you match the pin notch with the marking as shown in the photo below, the up/down orientation will automatically match.
-
-Soldering all 4 pins at once can cause the component temperature to rise and damage it, so please solder 2 pins at a time with intervals.  
-For this reason, place about 10 LEDs at once, and move to the next LED soldering after applying solder once.  
-This prevents continuously heating one LED.
-
-![80](images/kb39_070.jpg)
-
-After soldering is complete, connect the USB cable and check the lighting. 
-
-LEDs are wired in series, so it's easy to identify the problematic area if only some light up.
-
-For example, if LEDs up to number 12 light up but LEDs from number 13 onwards don't light up, there's likely a problem with the soldering of [LED number 12 or 13], so please redo the soldering of those LEDs.  
-If it still doesn't improve, LED failure is suspected, so please replace LED number 13.
-
-Repeat the lighting check and soldering correction until all LEDs light up.
-
-![82](images/kb39_073.jpg)
-
-<a id="anchor3-4"></a>
-### 3-4. Soldering Key Sockets
+### 3-3. Soldering Key Sockets
 Key sockets are soldered on the **back side** like diodes.  
 Set them to match the silk mark and shape for soldering.  
 
@@ -288,6 +256,31 @@ For thumb key PCB sockets, either CherryMX compatible sockets or low profile soc
 ※Both are installed in the photo.
 
 ![89](images/kb39_081.jpg)
+
+<a id="anchor3-4"></a>
+### 3-4. Soldering LEDs (Optional)
+LEDs (YS-SK6812MINI-E) are optional.  
+A total of 46 pieces can be installed on both sides.  
+However, LEDs are very sensitive to heat, so please adjust the iron tip temperature to **220°C to 280°C**.  
+Since the iron tip temperature is low, heat may not transfer to the pad, making it easy for solder to become "tempura" (poor connection).  
+The keyboard can be used without LEDs, and lighting all LEDs is quite difficult.  
+We recommend completing it without LEDs first. LEDs can be added later.
+
+All LEDs are soldered on the **back side**. 
+  
+Match the leg with the notch on the YS-SK6812MINI-E 4-pin with the marked pad and place the LED for soldering.
+
+LEDs are mixed with upward and downward facing ones, but if you match the pin notch with the marking as shown in the photo below, the up/down orientation will automatically match.
+
+Soldering all 4 pins at once can cause the component temperature to rise and damage it, so please solder 2 pins at a time with intervals.  
+For this reason, place about 10 LEDs at once, and move to the next LED soldering after applying solder once.  
+This prevents continuously heating one LED.
+
+![80](images/kb39_070.jpg)
+
+After all LED soldering is complete, proceed to the next step.  
+LED lighting check will be performed later.
+
 <a id="anchor3-5"></a>
 ### 3-5. Soldering Jumpers
 Jumpers need to be shorted to operate the OLED module.
@@ -389,6 +382,16 @@ The keyboard left and right may be reversed, but that's not a problem for now.
 Please just check that some characters are input and ProMicro is working.  
 You don't need to test all keys yet, but checking operation early makes problem isolation easier.  
 ※Firmware writing must be done for both left and right Pro Micros.
+
+At this timing, also perform LED lighting check.  
+LEDs are wired in series, so it's easy to identify the problematic area if only some light up.
+
+For example, if LEDs up to number 12 light up but LEDs from number 13 onwards don't light up, there's likely a problem with the soldering of [LED number 12 or 13], so please redo the soldering of those LEDs.  
+If it still doesn't improve, LED failure is suspected, so please replace LED number 13.
+
+Repeat the lighting check and soldering correction until all LEDs light up.
+
+![82](images/kb39_073.jpg)
 
 ![75](images/kb39_067.jpg)
 
@@ -623,7 +626,7 @@ To use ReMAP, open the [REMAP catalog Keyball39 firmware page](https://remap-key
 
 
 
-As written in [Chapter 3-7](#anchor3-7), clicking the FLASH button will display instructions for the writing method.
+As written in [Chapter 3-8](#anchor3-8), clicking the FLASH button will display instructions for the writing method.
 If the keyboard is not recognized even with the USB cable connected, try pressing the soldered RESET switch quickly twice.
 
 >**⚡️Warning**: Be sure to write the same hex file to both left and right Pro Micros.
@@ -631,6 +634,12 @@ If the keyboard is not recognized even with the USB cable connected, try pressin
 **If you want to build firmware yourself**   
 The latest Keyball39 firmware is published in the [Github repository](https://github.com/Yowkees/keyball/tree/main/qmk_firmware/keyboards/keyball).  
 Copy this keyball folder to your QMK_Firmware/keyboards and freely edit keymaps etc. to make.  
+
+■Keyball's Dedicated Keymap Editor "Keyball Link"
+By flashing dedicated firmware from Keyball Link, you can easily use not only the features available in the existing firmware, but also newly added features and features that previously required building your own firmware to enable.
+
+Keyball Link is here:
+https://keyball-link.shiroganelab.com/
 
 
 <a id="anchor11"></a>

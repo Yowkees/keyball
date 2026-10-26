@@ -15,7 +15,7 @@ runs:
   steps:
 
   - name: Checkout qmk_firmware
-    uses: actions/checkout@v4
+    uses: actions/checkout@v6
     with:
       path: ${{ inputs.path }}
       repository: qmk/qmk_firmware
