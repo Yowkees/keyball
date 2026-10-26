@@ -302,6 +302,18 @@ ProMicroは下記写真のコンスルーピンを使用してはんだ付けす
 
 もし12Pコンスルーの代わりにProMicro用ピンヘッダ＋ピンソケットが同梱されていた場合には、[【こちら】](https://github.com/Yowkees/keyball/blob/main/keyball61/doc/rev1/buildguide_jp_pinheader.md#3-6promicro%E3%81%AE%E3%81%AF%E3%82%93%E3%81%A0%E4%BB%98%E3%81%91)のビルドガイドをご利用ください。
 
+>**⚡️注意**:RP2040 Pro Microを使用する場合はリセットボタンが基板裏面にあり、組み立ててからファームウェアを書き込むことが難しいので、ファームウェアを書き込んでから組み立ててください。
+
+**RP2040 Pro Microのファームウェアの書き込み方**
+
+1. RP2040 Pro MicroにUSBケーブルを接続する。
+2. 基板左側のリセットボタンを長押しする。
+3. リセットボタンを押した状態でUSBケーブルを一度抜き差しする。
+4. USBケーブルを差した状態でリセットボタンを離す。
+
+以上の手順を行うことで、RP2040 Pro Microが書き込み先として認識されるので書き込みを行なってください。
+一度書き込んだ後は、Keyballのリセットスイッチで書き込みモードに入ることができます。
+
 ![60](images/kb61_050.jpg)
 
 まずコンスルーピンを基板【表面】に差し込みます。
@@ -355,6 +367,8 @@ USBケーブルを接続しているのにキーボードが認識されない�
 早い段階で動作確認をすることで問題の切り分けが楽になります。
 
 ※ファームウェアの書き込みは必ず左右両方のPro Microに対して行ってください。
+
+>**⚡️注意**:このテスト用ファームウェアはAVR Pro Micro専用です。RP2040 Pro Microをお使いの場合はREMAPのテスト用ファームウェアが無いため、この工程は飛ばして[１０章](#１０正規ファームウェアの書き込み)のKeyball Linkから正規ファームウェアを書き込んでください。
 
 このタイミングでLEDの点灯確認も行います。  
 LEDは直列に配線されているので、途中までしか光らない場合は修正が必要です。
@@ -581,6 +595,9 @@ M1.7のタッピングねじをつけます。キットにはねじ頭が【小�
 
 それでは最後に正規のファームウェアをProMicroに書き込みましょう。
 
+書き込み方法はProMicroの種類によって異なります。**AVR Pro Micro** は REMAP または Keyball Link のどちらかで書き込めます。**RP2040 Pro Micro** は Keyball Link からのみ書き込めます（REMAPには対応していません）。
+
+**REMAPを使用する場合（AVR Pro Microのみ）**
 Keyball61は[REMAP](https://remap-keys.app/configure)に対応していますのでと特別なソフトをインストールしなくてもファームウェアの書き込みとキーマップの変更が可能です。REMAPの使用方法については[自キ温泉ガイドのサリチル酸](https://salicylic-acid3.hatenablog.com/entry/remap-manual)の記事に詳しく掲載されています。  
 
 REMAPを使用するために下記のVIA対応ファームウェアを書き込んでください
@@ -596,8 +613,10 @@ USBケーブルを接続しているのにキーボードが認識されない�
 ■ご自身でファームウェアをビルドする場合  
 Keyball61の最新ファームウェアは[Githubのリポジトリ](https://github.com/Yowkees/keyball/tree/main/qmk_firmware/keyboards/keyball)にて公開しています。このkeyballフォルダをお手持ちのQMK_Firmware/keyboardsへコピーして自由にキーマップ等を編集してmakeしてください。  
 
+**Keyball Linkを使用する場合**
 ■Keyball専用キーマップエディター「Keyball Link」  
 Keyball Linkから専用のファームウェアを書き込むことで既存のファームウェアで使用できた機能の他に新しく追加された機能や、有効化するためにご自身でファームウェアをビルドする必要があった機能を簡単に使用できるようなりました。
+**RP2040 Pro Micro** はKeyball Linkからのみ書き込み可能です（REMAPには対応していません）。
 
 Keyball Linkはこちら
 https://keyball-link.shiroganelab.com/
