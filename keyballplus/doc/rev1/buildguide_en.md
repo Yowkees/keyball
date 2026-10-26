@@ -20,8 +20,7 @@ You can also separate one right-hand thumb key and build it as a **38-key** boar
 **日本語版のKeyball+ビルドガイドは[こちら](buildguide_jp.md)です。**
 
 
-<!-- TODO: replace with a photo of Keyball+ -->
-![01](images/kbp_001.jpg)
+![01](images/kbp_136.jpg)
 
 ## 【Table of Contents】
 
@@ -108,9 +107,6 @@ The standard set can accommodate one thumb trackball on either the left or right
 | Cushion Rubber | 8 pieces | For bottom anti-slip |
 
 > You only use one of the two socket types (MX or Choc); they can also be mixed per key. Likewise, use the 7mm spacers for an MX build and the 4mm spacers for a low-profile build.
-
-<!-- TODO: replace with a photo of the Keyball+ kit contents -->
-![02](images/kbp_007.jpg)
 
 <a id="anchor1-2"></a>
 ### 1-2. Parts You Need to Prepare Yourself Before Assembly
@@ -563,7 +559,7 @@ LEDs are wired in series, so it's easy to identify a problem area if only some l
 For example, if LEDs up to number 12 light up but number 13 onward do not, the soldering of [LED 12 or 13] is likely at fault, so redo those. If that does not help, replace LED 13.
 Repeat the lighting check and soldering correction until all LEDs light up.
 
-If you want to directly edit Keyball+ firmware and build it yourself, use the [keyball-plus-firmware repository](https://github.com/ineno771/keyball-plus-firmware) (see [Chapter 10](#anchor10)).
+If you want to directly edit Keyball+ firmware and build it yourself, use the [keyballplus-firmware repository](https://github.com/Yowkees/keyball/tree/main/qmk_firmware/keyboards/keyball/keyballplus) (see [Chapter 10](#anchor10)).
 
 <a id="anchor7-4"></a>
 ### 7-4. Assembling the Bottom Plate

@@ -20,7 +20,6 @@ Choc 用それぞれの PCB ソケットとスペーサーが同梱されてい�
 **English build guide for Keyball+ is [here](buildguide_en.md).**
 
 
-<!-- TODO: Keyball+ の外観写真に差し替え -->
 ![01](images/kbp_136.jpg)
 
 ## 【目次】
@@ -108,7 +107,6 @@ Choc 用それぞれの PCB ソケットとスペーサーが同梱されてい�
 | クッションゴム | 8個 | 底面の滑り止め用 |
 
 > MX スイッチ用ソケットと Choc スイッチ用ソケットは、実際に使うのはどちらか一方です（キー単位で混在させることもできます）。スペーサーも同様に、MX 仕様なら 7mm、ロープロ仕様なら 4mm を使用します。
-
 
 
 <a id="anchor1-2"></a>
@@ -565,7 +563,7 @@ LEDは直列に配線されているので、途中までしか光らない場�
 例えば12番のLEDまでは点灯したが13番以降が点灯しない場合、【12番か13番】のLEDのはんだ付けに問題がある可能性が高いので、それらをやり直してください。改善しない場合は13番のLEDを交換します。
 点灯確認とはんだ付け修正を繰り返して、すべてのLEDが点灯するようにします。
 
-Keyball+ のファームウェアを直接編集してご自身でビルドしたい場合は、[keyball-plus-firmware リポジトリ](https://github.com/ineno771/keyball-plus-firmware) をご活用ください（詳しくは [10章](#anchor10)）。
+Keyball+ のファームウェアを直接編集してご自身でビルドしたい場合は、[keyballplus-firmware リポジトリ](https://github.com/Yowkees/keyball/tree/main/qmk_firmware/keyboards/keyball/keyballplus) をご活用ください（詳しくは [10章](#anchor10)）。
 
 <a id="anchor7-4"></a>
 ### 7-4. ボトムプレートの組み立て
