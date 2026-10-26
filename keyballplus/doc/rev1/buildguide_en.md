@@ -62,6 +62,8 @@ You can also separate one right-hand thumb key and build it as a **38-key** boar
 > **Finishing**
  - [9. Final Assembly](#anchor9)
  - [10. Changing the Keymap / Updating the Firmware](#anchor10)
+   - [10-1. AVR ProMicro](#anchor10-1)
+   - [10-2. RP2040 ProMicro](#anchor10-2)
  - [11. How to Use Keyball+♪](#anchor11)
 
 <a id="anchor1"></a>
@@ -683,25 +685,37 @@ The flashing method depends on the type of ProMicro.
 | AVR ProMicro | Either REMAP or Keyball Link | Standard / LED version (with Keyball Link) |
 | RP2040 ProMicro | Keyball Link only | A single version (no split needed, thanks to more flash capacity) |
 
-**Using REMAP (AVR ProMicro only)**
+>**⚡️Warning**: Be sure to write the same firmware to both left and right Pro Micros. The keymap is written to the ProMicro on the side where the USB cable is connected.
+
+<a id="anchor10-1"></a>
+### 10-1. AVR ProMicro
+
+**Using REMAP**
 Keyball+ is compatible with [ReMAP](https://remap-keys.app/configure), so firmware writing and keymap changes are possible without installing special software. For instructions on using Remap, please refer to the article by [Salicylic Acid's Self-Key Onsen Guide](https://salicylic-acid3.hatenablog.com/entry/remap-manual) for detailed information.
 
-To use ReMAP, open the [REMAP catalog Keyball+ firmware page](https://remap-keys.app/catalog/bhT8v2TXGBIb1XdqrKgy/firmware) and FLASH (write) the firmware.
-
+Open the [REMAP catalog Keyball+ firmware page](https://remap-keys.app/catalog/bhT8v2TXGBIb1XdqrKgy/firmware) and FLASH (write) the firmware.
 As written in [Chapter 7-3](#anchor7-3), clicking the FLASH button will display instructions for the writing method.
 If the keyboard is not recognized even with the USB cable connected, try pressing the soldered RESET switch quickly twice.
 
->**⚡️Warning**: Be sure to write the same firmware to both left and right Pro Micros. The keymap is written to the ProMicro on the side where the USB cable is connected.
+**Using Keyball Link**
+Open [Keyball Link](https://keyball-link.shiroganelab.com/), connect Keyball+ to your PC with a USB cable, and follow the on-screen instructions to write (FLASH) the firmware.
+Choose the **LED version if you soldered the LEDs, or the standard version if you did not**.
+(You can also flash the standard version even with LEDs installed — the LEDs just won't light, but the standard version's features still work.)
+
+<a id="anchor10-2"></a>
+### 10-2. RP2040 ProMicro
+
+The RP2040 ProMicro can only be flashed from [Keyball Link](https://keyball-link.shiroganelab.com/) (REMAP is not supported).
+Thanks to its larger flash capacity, a single firmware covers more features without the standard/LED split.
+
+Open Keyball Link, connect Keyball+ to your PC with a USB cable, and follow the on-screen instructions to write (FLASH) the firmware.
+See [Chapter 7-3](#anchor7-3) for how to enter flashing mode (the reset-button procedure).
+
+---
 
 **If you want to build firmware yourself**
 The latest Keyball+ firmware is published in the [keyballplus-firmware repository](https://github.com/Yowkees/keyball/tree/main/qmk_firmware/keyboards/keyball/keyballplus).
 Copy the `keyboards/keyball` folder from the repository to your QMK Firmware `keyboards` directory and freely edit keymaps etc. to build.
-
-■Keyball's Dedicated Keymap Editor "Keyball Link"
-By flashing dedicated firmware from Keyball Link, you can easily use features newly added beyond what the standard firmware offers.
-
-For an AVR ProMicro, choose the **LED version if you soldered the LEDs, or the standard version if you did not**.
-(If you flash the LED version without any LEDs installed, capacity is spent on unused LED control and some features available in the standard version are dropped.)
 
 The Keyball Link firmware is currently a test release; while it has been thoroughly checked, it may behave unstably in some cases.
 
