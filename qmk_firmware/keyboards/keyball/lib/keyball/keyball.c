@@ -288,6 +288,7 @@ report_mouse_t pointing_device_driver_get_report(report_mouse_t rep) {
     return rep;
 }
 
+#ifdef POINTING_DEVICE_AUTO_MOUSE_ENABLE
 bool auto_mouse_activation(report_mouse_t mouse_report) {
     static uint16_t last_motion;
     if (timer_elapsed(last_motion) > get_auto_mouse_timeout()) {
@@ -301,6 +302,7 @@ bool auto_mouse_activation(report_mouse_t mouse_report) {
     keyball.total_motion.y += mouse_report.y;
     return abs(keyball.total_motion.x) > KEYBALL_AUTO_MOUSE_THRESHOLD || abs(keyball.total_motion.y) > KEYBALL_AUTO_MOUSE_THRESHOLD || mouse_report.buttons;
 }
+#endif
 
 //////////////////////////////////////////////////////////////////////////////
 // Split RPC
