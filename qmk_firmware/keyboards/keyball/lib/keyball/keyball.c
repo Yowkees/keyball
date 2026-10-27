@@ -300,7 +300,12 @@ bool auto_mouse_activation(report_mouse_t mouse_report) {
     }
     keyball.total_motion.x += mouse_report.x;
     keyball.total_motion.y += mouse_report.y;
-    return abs(keyball.total_motion.x) > KEYBALL_AUTO_MOUSE_THRESHOLD || abs(keyball.total_motion.y) > KEYBALL_AUTO_MOUSE_THRESHOLD || mouse_report.buttons;
+    if (abs(keyball.total_motion.x) > KEYBALL_AUTO_MOUSE_THRESHOLD || abs(keyball.total_motion.y) > KEYBALL_AUTO_MOUSE_THRESHOLD) {
+        keyball.total_motion.x = 0;
+        keyball.total_motion.y = 0;
+        return true;
+    }
+    return mouse_report.buttons;
 }
 #endif
 
