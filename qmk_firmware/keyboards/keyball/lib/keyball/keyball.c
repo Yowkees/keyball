@@ -288,6 +288,27 @@ report_mouse_t pointing_device_driver_get_report(report_mouse_t rep) {
     return rep;
 }
 
+#ifdef POINTING_DEVICE_AUTO_MOUSE_ENABLE
+bool auto_mouse_activation(report_mouse_t mouse_report) {
+    static uint16_t last_motion;
+    if (timer_elapsed(last_motion) > get_auto_mouse_timeout()) {
+        keyball.total_motion.x = 0;
+        keyball.total_motion.y = 0;
+    }
+    if (mouse_report.x || mouse_report.y) {
+        last_motion = timer_read();
+    }
+    keyball.total_motion.x += mouse_report.x;
+    keyball.total_motion.y += mouse_report.y;
+    if (abs(keyball.total_motion.x) > KEYBALL_AUTO_MOUSE_THRESHOLD || abs(keyball.total_motion.y) > KEYBALL_AUTO_MOUSE_THRESHOLD) {
+        keyball.total_motion.x = 0;
+        keyball.total_motion.y = 0;
+        return true;
+    }
+    return mouse_report.buttons;
+}
+#endif
+
 //////////////////////////////////////////////////////////////////////////////
 // Split RPC
 
