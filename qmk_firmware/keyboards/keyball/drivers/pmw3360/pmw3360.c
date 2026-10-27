@@ -23,8 +23,15 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "srom_0x81.c"
 
 #define PMW3360_SPI_MODE 3
-#define PMW3360_SPI_DIVISOR (F_CPU / PMW3360_CLOCKS)
 #define PMW3360_CLOCKS 2000000
+
+#ifndef PMW3360_SPI_DIVISOR
+#    ifdef __AVR__
+#        define PMW3360_SPI_DIVISOR (F_CPU / PMW3360_CLOCKS)
+#    else
+#        define PMW3360_SPI_DIVISOR 64
+#    endif
+#endif
 
 static bool motion_bursting = false;
 
@@ -133,7 +140,6 @@ bool pmw3360_init(void) {
     spi_init();
     setPinOutput(PMW3360_NCS_PIN);
     // reboot
-    pmw3360_spi_start();
     pmw3360_reg_write(pmw3360_Power_Up_Reset, 0x5a);
     wait_ms(50);
     // read five registers of motion and discard those values
@@ -147,7 +153,6 @@ bool pmw3360_init(void) {
     // check product ID and revision ID
     uint8_t pid = pmw3360_reg_read(pmw3360_Product_ID);
     uint8_t rev = pmw3360_reg_read(pmw3360_Revision_ID);
-    spi_stop();
     return pid == 0x42 && rev == 0x01;
 }
 

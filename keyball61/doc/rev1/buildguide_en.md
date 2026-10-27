@@ -20,11 +20,11 @@ Keyball61 is a 60% split keyboard with integrated 100% useful thumb trackball.
     - [3-1. Before Soldering](#3-1)
     - [3-2. Soldering the Diodes](#3-2)
     - [3-3. Soldering the key socket](#3-3)
-    - [3-4. Soldering Jumpers](#3-4)
-    - [3-5. 4 pin sockets, TRRS socket, tact switch](#3-5)
-    - [3-6. Soldering ProMicro](#3-6)
-    - [3-7. Writing and operation check of ProMicro](#3-7)
-    - [3-8. Soldering LEDs (option)](#3-8)
+    - [3-4. Soldering LEDs (option)](#3-4)
+    - [3-5. Soldering Jumpers](#3-5)
+    - [3-6. 4 pin sockets, TRRS socket, tact switch](#3-6)
+    - [3-7. Soldering ProMicro](#3-7)
+    - [3-8. Writing and operation check of ProMicro](#3-8)
   - [4. Assemble the ball reader board](#4)
     - [4-1. Soldering the sensor](#4-1)
     - [4-2. Soldering the L-shaped spring-loaded pin headers](#4-2)
@@ -228,7 +228,29 @@ The PCB socket for the thumb keys can be just either a CherryMX compatible socke
 ![89](images/kb61_081.jpg)
 
 <a id="3-4"></a>
-### 3-4．Soldering the jumpers
+### 3-4．Soldering the LEDs (optional)
+
+Please note that all LEDs are soldered on the 【BACK SIDE】!!
+
+LEDs (YS-SK6812MINI-E) are option. A total of 71 LEDs can be installed on both sides.
+  
+However, LEDs are very sensitive to heat, so adjust the soldering iron temperature from 220°C to 280°C, before soldering.  
+Since the tip temperature is low, the heat will not be transferred to the pad and it is easy to be failure soldering.  
+The keyboard can be used without LEDs. I recommend to complete the project without LEDs first. You can add LEDs later.  
+
+Place the LED on the YS-SK6812MINI-E and solder by aligning the notched leg of the four pins of the YS-SK6812MINI-E with the marked pad.
+
+Some LED faces up and some LED faces down, but as long as the notches and markings on the pins are aligned as shown in the photo below, the top and bottom will automatically align.
+
+Soldering all four pins at once will cause the component to overheat and break easily, so solder two pins at a time. To do this, put about 10 LEDs on the board at a time, and once the solder is applied, move on to soldering the next LED. This way you can avoid continually applying heat to one LED.
+
+![80](images/kb61_070.jpg)
+
+After all LED soldering is complete, proceed to the next step.  
+LED lighting check will be performed later.
+
+<a id="3-5"></a>
+### 3-5．Soldering the jumpers
 You need to short the jumpers to control the OLED module and trackball sensor.
 
 The jumper is soldered on __【Back Side Only】__.  
@@ -247,8 +269,8 @@ If successfully bridged 12 pads, it will look like the photo below.
 
 ![42](images/kb61_034.jpg)
 
-<a id="3-5"></a>
-### 3-5．4-pin Socket, TRRS Socket, Tact Switch
+<a id="3-6"></a>
+### 3-6．4-pin Socket, TRRS Socket, Tact Switch
 Solder the components shown in the photo below.  
 Mount all of them on the __【TOP SURFACE】__.  
 
@@ -263,8 +285,8 @@ When all are installed, it will look like the photo below.
 ![53](images/kb61_042.jpg)
 
 
-<a id="3-6"></a>
-### 3-6．Soldering the ProMicro
+<a id="3-7"></a>
+### 3-7．Soldering the ProMicro
 The ProMicro can be replaced by soldering with the spring-loaded (Conthrough) pin headers pins shown in the photo below. The spring-loaded pin headers pins have mounting directions, so please look at the photo carefully.
 
 ![60](images/kb61_050.jpg)
@@ -297,12 +319,12 @@ Once the position is set, solder the remaining 3 pins.
 
 ![72](images/kb61_064.jpg)
 
-<a id="3-7"></a>
-### 3-7．Writing firmware to ProMicro and Electric checking
+<a id="3-8"></a>
+### 3-8．Writing firmware to ProMicro and Electric checking
 OK, let's write the test firmware to the ProMicro.
 
 The test firmware has a concise keymap for easy operation checks, and the RGB LEDs light red, green, and blue in that order, making it easy to detect solder defects.
-If you think you do not need the test firmware, for example, if you are forgoing LED soldering this time, you can use the regular firmware in [Chapter 10](#10 Writing Regular Firmware) You may write it here.
+If you think you do not need the test firmware, for example, if you are forgoing LED soldering this time, you can use the regular firmware in [Chapter 10](#10). You may write it here.
 
 The firmware for the Keyball61 is the same whether the trackball is placed in the right or left hand.
 Please write (FLASH) [Keyball61_test.hex](https://remap-keys.app/catalog/RZSU1CrvEW4lns0ww5BM/firmware) that is registered in REMAP.
@@ -320,28 +342,7 @@ The earlier you check the operation, the easier it will be to isolate the proble
 
 *Be sure to write the same hex file to both the left and right ProMicro.
 
-![75](images/kb61_067.jpg)
-
-<a id="3-8"></a>
-### 3-8．Soldering the LEDs (optional)
-
-Please note that all LEDs are soldered on the 【BACK SIDE】!!
-
-LEDs (YS-SK6812MINI-E) are option. A total of 71 LEDs can be installed on both sides.
-  
-However, LEDs are very sensitive to heat, so adjust the soldering iron temperature from 220°C to 280°C, before soldering.  
-Since the tip temperature is low, the heat will not be transferred to the pad and it is easy to be failure soldering.  
-The keyboard can be used without LEDs. I recommend to complete the project without LEDs first. You can add LEDs later.  
-
-Place the LED on the YS-SK6812MINI-E and solder by aligning the notched leg of the four pins of the YS-SK6812MINI-E with the marked pad.
-
-Some LED faces up and some LED faces down, but as long as the notches and markings on the pins are aligned as shown in the photo below, the top and bottom will automatically align.
-
-Soldering all four pins at once will cause the component to overheat and break easily, so solder two pins at a time. To do this, put about 10 LEDs on the board at a time, and once the solder is applied, move on to soldering the next LED. This way you can avoid continually applying heat to one LED.
-
-![80](images/kb61_070.jpg)
-
-After the soldering is complete, check the lighting.  
+At this timing, also perform LED lighting check.  
 The LEDs are wired in series, so if the light only comes on halfway, fix it by soldering the LED and the LED next to it, or by replacing the LED.
 
 See the photo below as an example.
@@ -351,6 +352,8 @@ Looking at the LED numbers on the silk, we see that up to LED 12 is lighting, bu
 Repeat the lighting check and soldering correction to ensure that all LEDs are lighting.
 
 ![82](images/kb61_073.jpg)
+
+![75](images/kb61_067.jpg)
 
 <a id="4"></a>
 ## 4. Assemble the ball-reading board
@@ -561,13 +564,19 @@ To use REMAP, please write the following VIA-supported firmware
 
    - Keyball61 VIA-supported firmware [Keyball61 firmware page in the REMAP catalog](https://remap-keys.app/catalog/RZSU1CrvEW4lns0ww5BM/firmware), open the Keyball61_via and FLASH the firmware.
 
-For writing, as written in [Chapter 3-7](#3-7), press the FLASH button and instructions on how to write will appear.
+For writing, as written in [Chapter 3-8](#3-8), press the FLASH button and instructions on how to write will appear.
 If the keyboard is not recognized even though the USB cable is connected, press the soldered RESET switch twice quickly and it will be recognized.
 
 *Be sure to write the same hex file to both left and right Pro Micro.
 
 ■If you want to build the firmware by yourself  
 The latest firmware for Keyball61 is available at [Github repository](https://github.com/Yowkees/keyball/tree/main/qmk_firmware/keyboards/keyball). Copy this keyball folder to your QMK_Firmware/keyboards and edit the keymap etc. freely and build.  
+
+■Keyball's Dedicated Keymap Editor "Keyball Link"  
+By flashing dedicated firmware from Keyball Link, you can easily use not only the features available in the existing firmware, but also newly added features and features that previously required building your own firmware to enable.
+
+Keyball Link is here:
+https://keyball-link.shiroganelab.com/
 
 
 <a id="11"></a>

@@ -13,6 +13,10 @@ Make example for this keyboard (after setting up your build environment):
 
     make keyball/keyball44:default
 
+For RP2040 Community Edition controllers such as Sea-Picro EXT, build with QMK conversion:
+
+    make keyball/keyball44:default CONVERT_TO=rp2040_ce
+
 See the [build environment setup](https://docs.qmk.fm/#/getting_started_build_tools) and the [make instructions](https://docs.qmk.fm/#/getting_started_make_guide) for more information. Brand new to QMK? Start with our [Complete Newbs Guide](https://docs.qmk.fm/#/newbs).
 
 ## Special keycodes
