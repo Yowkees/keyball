@@ -329,6 +329,20 @@ Connector pins have installation direction, so please look at the photo carefull
 
 >⚠️ If ProMicro pin headers + pin sockets are included instead of 12P connectors, please use the [build guide here](https://github.com/Yowkees/keyball/blob/main/keyball39/doc/rev1/buildguide_jp_pinheader.md#3-6promicro%E3%81%AE%E3%81%AF%E3%82%93%E3%81%A0%E4%BB%98%E3%81%91).
 
+>**⚡️Warning**: On RP2040 ProMicro boards, the reset button is on the back of the board, which makes it hard to flash firmware after assembly. Please flash the firmware before assembling.
+
+**How to flash firmware on RP2040 ProMicro**
+
+1. Connect the RP2040 ProMicro with a USB cable.
+2. Press and hold the reset button on the left side of the board.
+3. While holding the reset button, unplug and replug the USB cable once.
+4. Release the reset button while the USB cable is still connected.
+
+Following these steps makes the RP2040 ProMicro recognized as a flashing target, so you can write the firmware.
+After the first flash, you can enter flashing mode again using Keyball's reset switch.
+
+![RP2040 ProMicro reset button](images/kb39_rp2040.jpg)
+
 ![60](images/kb39_050.jpg)
 
 First, insert the connector pin into the board [front side].
@@ -373,6 +387,8 @@ Please write (FLASH) the [Keyball_test.hex](https://remap-keys.app/catalog/k895x
 Clicking the FLASH button in the link above will display instructions for the writing method.  
 If the keyboard is not recognized even with the USB cable connected, try pressing the soldered RESET switch quickly twice.  
 ※Be sure to write the same hex file to both left and right Pro Micros.
+
+>**⚡️Warning**: This test firmware is for AVR ProMicro only. If you are using an RP2040 ProMicro, there is no REMAP test firmware, so skip this step and write the production firmware from [Chapter 10](#anchor10) using Keyball Link instead.
 
   If you want to directly edit Keyball39 firmware and build it yourself, source files are available in [this repository](https://github.com/Yowkees/keyball/tree/main/qmk_firmware/keyboards/keyball), so please download and use them.
 
@@ -619,6 +635,9 @@ Thank you for your hard work.
 
 Now let's write the official firmware to ProMicro as the final step.
 
+The flashing method depends on the type of ProMicro. An **AVR ProMicro** can be flashed with either REMAP or Keyball Link. An **RP2040 ProMicro** can only be flashed from Keyball Link (REMAP is not supported).
+
+**Using REMAP (AVR ProMicro only)**
 Keyball39 is compatible with [ReMAP](https://remap-keys.app/configure), so firmware writing and keymap changes are possible without installing special software. For instructions on using Remap, please refer to the article by [Salicylic Acid's Self-Key Onsen Guide](https://salicylic-acid3.hatenablog.com/entry/remap-manual) for detailed information.  
 
 To use ReMAP, open the [REMAP catalog Keyball39 firmware page](https://remap-keys.app/catalog/k895xiCpsM5zlYZCPTEN/firmware) and FLASH (write) the Keyball39_via firmware.
@@ -635,8 +654,10 @@ If the keyboard is not recognized even with the USB cable connected, try pressin
 The latest Keyball39 firmware is published in the [Github repository](https://github.com/Yowkees/keyball/tree/main/qmk_firmware/keyboards/keyball).  
 Copy this keyball folder to your QMK_Firmware/keyboards and freely edit keymaps etc. to make.  
 
+**Using Keyball Link**
 ■Keyball's Dedicated Keymap Editor "Keyball Link"
 By flashing dedicated firmware from Keyball Link, you can easily use not only the features available in the existing firmware, but also newly added features and features that previously required building your own firmware to enable.
+An **RP2040 ProMicro** can only be flashed from Keyball Link (REMAP is not supported).
 
 Keyball Link is here:
 https://keyball-link.shiroganelab.com/
