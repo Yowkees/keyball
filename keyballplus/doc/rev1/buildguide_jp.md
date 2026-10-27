@@ -62,6 +62,8 @@ Choc 用それぞれの PCB ソケットとスペーサーが同梱されてい�
 > **仕上げ編**
  - [9. 総仕上げ](#anchor9)
  - [10. キーマップの変更・ファームウェアの更新](#anchor10)
+   - [10-1. AVR Pro Microの場合](#anchor10-1)
+   - [10-2. RP2040 Pro Microの場合](#anchor10-2)
  - [11. Keyball+の使い方♪](#anchor11)
 
 <a id="anchor1"></a>
@@ -367,6 +369,19 @@ OLEDモジュールを動作させるためにジャンパをショートさせ�
 ### 3-7. ProMicroのはんだ付け
 ProMicroは下記写真のコンスルーピンを使用してはんだ付けすることで、ProMicroの故障時に交換が容易になります。
 コンスルーピンには取付け方向がありますので写真をよく見て作業してください。
+>**⚡️注意**:RP2040 Pro Microを使用する場合はリセットボタンが基板裏面にあり、組み立ててからファームウェアを書き込むことが難しいので、ファームウェアを書き込んでから組み立ててください。
+
+**RP2040 Pro Microのファームウェアの書き込み方**
+
+1. RP2040 Pro MicroにUSBケーブルを接続する。
+2. 基板左側のリセットボタンを長押しする。
+3. リセットボタンを押した状態でUSBケーブルを一度抜き差しする。
+4. USBケーブルを差した状態でリセットボタンを離す。
+
+以上の手順を行うことで、RP2040 Pro Microが書き込み先として認識されるので書き込みを行なってください。
+一度書き込んだ後は、Keyballのリセットスイッチで書き込みモードに入ることができます。
+
+![59](images/kbp_137.jpg)
 
 ![60](images/kbp_050.jpg)
 
@@ -552,13 +567,21 @@ MXスイッチを取り付ける場合はトッププレートとミドルアク
 Keyball+ には Keyball39 のようなテスト専用ファームウェアはありません。**REMAP** または **Keyball Link** のどちらかから製品版ファームウェアを書き込みます。
 Keyball+ のファームウェアは、トラックボールを左右どちら側に載せた場合でも共通です。
 
-**REMAPを使用する場合**
-[REMAPカタログのKeyball+ファームウェアページ](https://remap-keys.app/catalog/bhT8v2TXGBIb1XdqrKgy/firmware)を開き、FLASH（書き込み）してください。FLASHボタンを押すと、書き込み方法の説明が表示されます。
+書き込み方法はProMicroの種類によって異なります。
+
+| ProMicro | 使えるツール | ファームウェアの版 |
+|:--|:--|:--|
+| AVR Pro Micro | REMAP／Keyball Link どちらも可 | 通常版／LED版（Keyball Link使用時） |
+| RP2040 Pro Micro | Keyball Link のみ | 1種類のみ（容量に余裕があり区別不要） |
+
+**REMAPを使用する場合（AVR Pro Microのみ）**
+[REMAPカタログのKeyball+ファームウェアページ](https://remap-keys.app/catalog/bhT8v2TXGBIb1XdqrKgy/firmware)を開き、FLASH（書き込み）してください。
+FLASHボタンを押すと、書き込み方法の説明が表示されます。
 
 **Keyball Linkを使用する場合**
 [Keyball Link](https://keyball-link.shiroganelab.com/) を開き、Keyball+ をUSBケーブルでPCに接続してから、画面の案内にしたがってファームウェアを書き込み（FLASH）してください。
-Pro Micro版ファームウェアには **通常版** と **LED版** の2種類があり、**LEDを実装した場合は「LED版」、実装していない場合は「通常版」** を選びます（「通常版」はLEDが点灯しない代わりに、より多くの機能が使えます）。
-RP2040 Pro Micro専用のファームウェアは容量が大きいのでPro Micro版ファームウェアに比べて、よりたくさんの機能を使用できます。
+AVR Pro Microの場合は、**LEDを実装したら「LED版」、していなければ「通常版」** を選んでください。
+（通常版はLEDが点灯しない代わりに、より多くの機能が使えます）
 
 USBケーブルを接続しているのにキーボードが認識されない場合は、はんだ付けしたRESETスイッチを素早く2回押すと認識されると思います。
 ※必ず左右両方の Pro Micro に同じファームウェアを書き込んでください。
@@ -660,22 +683,46 @@ M1.7のタッピングネジを付けます。
 
 ファームウェアの書き込みは [7-3章](#anchor7-3) で完了しています。この章は、あとからキーマップを変更したり、ファームウェアを新しい版に入れ直したりするときの参考です。
 
+書き込み方法はProMicroの種類によって異なります。
+
+| ProMicro | 使えるツール | ファームウェアの版 |
+|:--|:--|:--|
+| AVR Pro Micro | REMAP／Keyball Link どちらも可 | 通常版／LED版（Keyball Link使用時） |
+| RP2040 Pro Micro | Keyball Link のみ | 1種類のみ（容量に余裕があり区別不要） |
+
+>**⚡️注意**:必ず左右両方のPro Microに同じファームウェアを書き込んでください。キーマップはUSBケーブルを差した側のProMicroへ書き込まれます。
+
+<a id="anchor10-1"></a>
+### 10-1. AVR Pro Microの場合
+
+**REMAPを使用する場合**
 Keyball+ は [REMAP](https://remap-keys.app/configure) に対応していますので特別なソフトをインストールしなくてもファームウェアの書き込みとキーマップの変更が可能です。Remapの使用方法については [自キ温泉ガイドのサリチル酸](https://salicylic-acid3.hatenablog.com/entry/remap-manual) の記事に詳しく掲載されています。
 
-ReMAPを使用するために[REMAPカタログのKeyball+ファームウェアページ](https://remap-keys.app/catalog/bhT8v2TXGBIb1XdqrKgy/firmware)を開き、ファームウェアをFLASH（書き込み）してください。
-
+[REMAPカタログのKeyball+ファームウェアページ](https://remap-keys.app/catalog/bhT8v2TXGBIb1XdqrKgy/firmware)を開き、ファームウェアをFLASH（書き込み）してください。
 書き込みは[7-3章](#anchor7-3)でも書いた通り、FLASHボタンを押すと、書き込み方法の説明が表示されます。
 USBケーブルを接続しているのにキーボードが認識されない場合は、はんだ付けしたRESETスイッチを素早く2回押すと認識されると思います。
 
->**⚡️注意**:必ず左右両方のPro Microに同じファームウェアを書き込んでください。キーマップはUSBケーブルを差した側のProMicroへ書き込まれます。
+**Keyball Linkを使用する場合**
+[Keyball Link](https://keyball-link.shiroganelab.com/) を開き、Keyball+ をUSBケーブルでPCに接続してから、画面の案内にしたがってファームウェアを書き込み（FLASH）してください。
+**LEDをはんだ付けしたら「LED版」、していなければ「通常版」** を選んでください。
+（LEDを実装しているのに通常版を書き込むことも可能です。LEDは光りませんが通常版の機能は使用できます）
+
+<a id="anchor10-2"></a>
+### 10-2. RP2040 Pro Microの場合
+
+RP2040 Pro Microは [Keyball Link](https://keyball-link.shiroganelab.com/) からのみ書き込めます（REMAPには対応していません）。
+容量に余裕があるため、通常版／LED版の区別なく1種類のファームウェアでより多くの機能を使用できます。
+
+Keyball Linkを開き、Keyball+ をUSBケーブルでPCに接続してから、画面の案内にしたがってファームウェアを書き込み（FLASH）してください。
+書き込みモードへの入り方（リセットボタンの操作）は [7-3章](#anchor7-3) を参照してください。
+
+---
 
 **ご自身でファームウェアをビルドする場合**
 Keyball+ の最新ファームウェアは [keyballplus-firmware リポジトリ](https://github.com/Yowkees/keyball/tree/main/qmk_firmware/keyboards/keyball/keyballplus) にて公開しています。
 リポジトリ内の `keyboards/keyball` フォルダをお手持ちの QMK Firmware の `keyboards` へコピーして、自由にキーマップ等を編集してビルドしてください。
 
-■Keyball専用キーマップエディター「Keyball Link」
-Keyball Linkから専用のファームウェアを書き込むことで、既存のファームウェアで使用できた機能の他に新しく追加された機能を簡単に使用できます。
-ファームウェアには **通常版** と **LED版** があり、**LEDをはんだ付けした場合は「LED版」、はんだ付けしていない場合は「通常版」** を選びます（LEDを載せていないのにLED版を書き込むと、使わないLED制御に容量が取られ、通常版で使える一部の機能が省かれます）。
+Keyball Link対応ファームウェアは現在テスト版のため、十分な動作確認を行なっていますが動作が不安定になる場合があります。
 
 Keyball Linkはこちら
 https://keyball-link.shiroganelab.com/
@@ -684,7 +731,7 @@ https://keyball-link.shiroganelab.com/
 ## 11. Keyball+の使い方♪
    - トラックボールはスクロールレイヤーに切り替わっている間は上下左右スクロールに変わります。
 
-   - [Keyball Link](https://keyball-link.shiroganelab.com/) で簡単にキーマップの確認・変更・書込みが可能です。
+   -  [REMAP](https://remap-keys.app/configure)または[Keyball Link](https://keyball-link.shiroganelab.com/)で簡単にキーマップの確認・変更・書込みが可能です。
 
    - USBケーブルは左右どちらに差しても使用できます。
    ただしキーマップはUSBケーブルを差した側のProMicroへ書き込まれるため、初めて差し替えた場合はキーマップを見直してください。
