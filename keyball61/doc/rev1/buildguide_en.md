@@ -319,6 +319,10 @@ Keep this state, and Solder ONLY the ProMicro side.
 
 ![63](images/kb61_057.jpg)
 
+>**⚡️Warning**: When using an RP2040 ProMicro, insert and solder it as shown in the photo below. (The red-circled areas in the photo are not used.)
+
+![64](images/kb61_rp2040_insert.jpg)
+
 The top of ProMicro can be equipped with an OLED.  
 Insert a 4-pin header into the 4-pin socket and place the OLED module on it.
 And solder only one pin of 4 pins.  

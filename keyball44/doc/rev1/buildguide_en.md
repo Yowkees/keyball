@@ -380,6 +380,10 @@ Soldering while inserted into the board prevents the connector pin from being in
 
 ![63](images/kb44_060.jpg)
 
+>**⚡️Warning**: When using an RP2040 ProMicro, insert and solder it as shown in the photo below. (The red-circled areas in the photo are not used.)
+
+![64](images/kb44_rp2040_insert.jpg)
+
 OLED can be installed on both left and right boards as standard.  
 Insert a 4-pin header into the 4-pin socket and place the OLED module.
 Then solder **only one** of the 4 pins.  
