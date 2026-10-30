@@ -48,6 +48,8 @@
 > **仕上げ編**
  - [8. 総仕上げ](#anchor8)
  - [9. 正規ファームウェアの書き込み](#anchor9)
+   - [9-1. AVR Pro Microの場合](#anchor9-1)
+   - [9-2. RP2040 Pro Microの場合](#anchor9-2)
  - [10. Keyballの使い方♪](#anchor10)
 
 <a id="anchor1"></a>
@@ -642,32 +644,38 @@ M1.7のタッピングネジを付けます。
 
 それでは最後に正規のファームウェアをProMicroに書き込みましょう。
 
-書き込み方法はProMicroの種類によって異なります。**AVR Pro Micro** は REMAP または Keyball Link のどちらかで書き込めます。**RP2040 Pro Micro** は Keyball Link からのみ書き込めます（REMAPには対応していません）。
+書き込み方法はProMicroの種類によって異なります。
 
-**REMAPを使用する場合（AVR Pro Microのみ）**
+>**⚡️注意**:必ず左右両方のPro Microに同じファームウェアを書き込んでください。
+
+<a id="anchor9-1"></a>
+### 9-1. AVR Pro Microの場合
+
+**REMAPを使用する場合**
 Keyball44は[ReMAP](https://remap-keys.app/configure)に対応していますので特別なソフトをインストールしなくてもファームウェアの書き込みとキーマップの変更が可能です。Remapの使用方法については[自キ温泉ガイドのサリチル酸](https://salicylic-acid3.hatenablog.com/entry/remap-manual)の記事に詳しく掲載されています。  
 
 ReMAPを使用するために[REMAPカタログのKeyball44ファームウェアページ](https://remap-keys.app/catalog/tAJ9Htme4oNabUkx4832/firmware)を開き、Keyball44_viaのファームウェアをFLASH（書き込み）してください。
-
-
-
-
 書き込みは[3-8章](#anchor3-8)でも書いた通り、FLASHボタンを押すと、書き込み方法の説明が表示されます。
 USBケーブルを接続しているのにキーボードが認識されない場合は、はんだ付けしたRESETスイッチを素早く2回押すと認識されると思います。
-
->**⚡️注意**:必ず左右両方のPro Microに同じhexファイルを書き込んでください。
-
-**ご自身でファームウェアをビルドする場合**   
-Keyball44の最新ファームウェアは[Githubのリポジトリ](https://github.com/Yowkees/keyball/tree/main/qmk_firmware/keyboards/keyball)にて公開しています。  
-このkeyballフォルダをお手持ちのQMK_Firmware/keyboardsへコピーして自由にキーマップ等を編集してmakeしてください。  
 
 **Keyball Linkを使用する場合**
 ■Keyball専用キーマップエディター「Keyball Link」
 Keyball Linkから専用のファームウェアを書き込むことで既存のファームウェアで使用できた機能の他に新しく追加された機能や、有効化するためにご自身でファームウェアをビルドする必要があった機能を簡単に使用できるようなりました。
-**RP2040 Pro Micro** はKeyball Linkからのみ書き込み可能です（REMAPには対応していません）。
 
 Keyball Linkはこちら
 https://keyball-link.shiroganelab.com/
+
+<a id="anchor9-2"></a>
+### 9-2. RP2040 Pro Microの場合
+
+RP2040 Pro Microは [Keyball Link](https://keyball-link.shiroganelab.com/) からのみ書き込み可能です（REMAPには対応していません）。
+書き込みモードへの入り方（リセットボタンの操作）は[3-7章](#anchor3-7)を参照してください。
+
+---
+
+**ご自身でファームウェアをビルドする場合**   
+Keyball44の最新ファームウェアは[Githubのリポジトリ](https://github.com/Yowkees/keyball/tree/main/qmk_firmware/keyboards/keyball)にて公開しています。  
+このkeyballフォルダをお手持ちのQMK_Firmware/keyboardsへコピーして自由にキーマップ等を編集してmakeしてください。  
 
 
 <a id="anchor10"></a>

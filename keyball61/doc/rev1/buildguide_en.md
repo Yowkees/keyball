@@ -40,6 +40,8 @@ Keyball61 is a 60% split keyboard with integrated 100% useful thumb trackball.
     - [8-3. Trackball Case Installation](#8-3)
   - [9. Finishing](#9)
   - [10. Write the official firmware](#10)
+    - [10-1. For an AVR ProMicro](#10-1)
+    - [10-2. For an RP2040 ProMicro](#10-2)
   - [11. How to use Keyball](#11)
 
 <a id="1"></a>
@@ -578,9 +580,14 @@ Thank you for your hard working.
 
 Finally, let's write the firmware to ProMicro.
 
-The flashing method depends on the type of ProMicro. An **AVR ProMicro** can be flashed with either REMAP or Keyball Link. An **RP2040 ProMicro** can only be flashed from Keyball Link (REMAP is not supported).
+The flashing method depends on the type of ProMicro.
 
-**Using REMAP (AVR ProMicro only)**
+*Be sure to write the same firmware to both left and right Pro Micro.
+
+<a id="10-1"></a>
+### 10-1. For an AVR ProMicro
+
+**Using REMAP**
 Keyball61 supports [REMAP](https://remap-keys.app/configure), so you can write firmware and change the keymap without installing any special software. 
 
 To use REMAP, please write the following VIA-supported firmware
@@ -590,18 +597,23 @@ To use REMAP, please write the following VIA-supported firmware
 For writing, as written in [Chapter 3-8](#3-8), press the FLASH button and instructions on how to write will appear.
 If the keyboard is not recognized even though the USB cable is connected, press the soldered RESET switch twice quickly and it will be recognized.
 
-*Be sure to write the same hex file to both left and right Pro Micro.
-
-■If you want to build the firmware by yourself  
-The latest firmware for Keyball61 is available at [Github repository](https://github.com/Yowkees/keyball/tree/main/qmk_firmware/keyboards/keyball). Copy this keyball folder to your QMK_Firmware/keyboards and edit the keymap etc. freely and build.  
-
 **Using Keyball Link**
 ■Keyball's Dedicated Keymap Editor "Keyball Link"  
 By flashing dedicated firmware from Keyball Link, you can easily use not only the features available in the existing firmware, but also newly added features and features that previously required building your own firmware to enable.
-An **RP2040 ProMicro** can only be flashed from Keyball Link (REMAP is not supported).
 
 Keyball Link is here:
 https://keyball-link.shiroganelab.com/
+
+<a id="10-2"></a>
+### 10-2. For an RP2040 ProMicro
+
+An RP2040 ProMicro can only be flashed from [Keyball Link](https://keyball-link.shiroganelab.com/) (REMAP is not supported).
+See [Chapter 3-7](#3-7) for how to enter flashing mode (the reset-button procedure).
+
+---
+
+■If you want to build the firmware by yourself  
+The latest firmware for Keyball61 is available at [Github repository](https://github.com/Yowkees/keyball/tree/main/qmk_firmware/keyboards/keyball). Copy this keyball folder to your QMK_Firmware/keyboards and edit the keymap etc. freely and build.  
 
 
 <a id="11"></a>
