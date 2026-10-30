@@ -555,8 +555,6 @@ If it still doesn't improve, LED failure is suspected, so please replace LED num
 
 Repeat the lighting check and soldering correction until all LEDs light up.
 
-![75](images/kb44_067.jpg)
-
 <a id="anchor6-4"></a>
 ### 6-4. Assembling the Bottom Plate
 

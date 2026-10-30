@@ -400,8 +400,6 @@ The LEDs are wired in series and assigned numbers. If LEDs 1 through 12 light up
 
 *Be sure to write the same hex file to both the left and right ProMicro.
 
-![75](images/kb44_067.jpg)
-
 <a id="4"></a>
 ## ４．Assemble the ball-reading board
 Prepare the board shown in the photo below (hereinafter referred to as the "ball board") and the sensor.

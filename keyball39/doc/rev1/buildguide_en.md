@@ -552,8 +552,6 @@ Repeat the lighting check and soldering correction until all LEDs light up.
 
 ![82](images/kb39_073.jpg)
 
-![75](images/kb39_067.jpg)
-
 <a id="anchor7-4"></a>
 ### 7-4. Assembling the Bottom Plate
 
