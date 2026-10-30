@@ -24,7 +24,6 @@ Keyball61 is a 60% split keyboard with integrated 100% useful thumb trackball.
     - [3-5. Soldering Jumpers](#3-5)
     - [3-6. 4 pin sockets, TRRS socket, tact switch](#3-6)
     - [3-7. Soldering ProMicro](#3-7)
-    - [3-8. Writing and operation check of ProMicro](#3-8)
   - [4. Assemble the ball reader board](#4)
     - [4-1. Soldering the sensor](#4-1)
     - [4-2. Soldering the L-shaped spring-loaded pin headers](#4-2)
@@ -33,7 +32,8 @@ Keyball61 is a 60% split keyboard with integrated 100% useful thumb trackball.
   - [7. Assembly](#7)
     - [7-1. Install the protection plate](#7-1)
     - [7-2. Assemble the Top Plate](#7-2)
-    - [7-3. Assemble the Bottom Plate](#7-3)
+    - [7-3. Writing the Firmware and Checking Operation](#7-3)
+    - [7-4. Assemble the Bottom Plate](#7-4)
   - [8. Trackball Installation](#8)
     - [8-1. Insert ball reader board](#8-1)
     - [8-2. Assemble the trackball case](#8-2)
@@ -339,44 +339,6 @@ Once the position is set, solder the remaining 3 pins.
 
 ![72](images/kb61_064.jpg)
 
-<a id="3-8"></a>
-### 3-8．Writing firmware to ProMicro and Electric checking
-OK, let's write the test firmware to the ProMicro.
-
-The test firmware has a concise keymap for easy operation checks, and the RGB LEDs light red, green, and blue in that order, making it easy to detect solder defects.
-If you think you do not need the test firmware, for example, if you are forgoing LED soldering this time, you can use the regular firmware in [Chapter 10](#10). You may write it here.
-
-The firmware for the Keyball61 is the same whether the trackball is placed in the right or left hand.
-Please write (FLASH) [Keyball61_test.hex](https://remap-keys.app/catalog/RZSU1CrvEW4lns0ww5BM/firmware) that is registered in REMAP.
-Press the FLASH button in the above link to see the instructions on how to write.
-
-If the keyboard is not recognized even though the USB cable is connected, it will be recognized when the soldered RESET switch is pressed twice quickly.
-
-*Be sure to write the same hex file to both the left and right ProMicro.
-
->**⚡️Warning**: This test firmware is for AVR ProMicro only. If you are using an RP2040 ProMicro, there is no REMAP test firmware, so skip this step and write the production firmware from [Chapter 10](#10) using Keyball Link instead.
-
-If you want to edit the Keyball61 firmware directly and build it yourself, you can find the source in [this repository](https://github.com/Yowkees/keyball/tree/main/qmk_firmware/keyboards/keyball). Source code is available for download.
-
-After the writing is completed, short the key switch pad with tweezers as shown in the picture below to check the operation.  
-sides of the keyboard may be reversed, but this is no problem right now. Please just check that some characters are entered and that ProMicro is working. It is not necessary to try all keys yet.
-The earlier you check the operation, the easier it will be to isolate the problem.
-
-*Be sure to write the same hex file to both the left and right ProMicro.
-
-At this timing, also perform LED lighting check.  
-The LEDs are wired in series, so if the light only comes on halfway, fix it by soldering the LED and the LED next to it, or by replacing the LED.
-
-See the photo below as an example.
-Looking at the LED numbers on the silk, we see that up to LED 12 is lighting, but LEDs 13 and after are not lighting. In this case, there is a high possibility that there is a problem with the soldering of LEDs 【No.12 or 13】, so please check and re-solder those LEDs.
-![82](images/kb61_071.jpg)
-
-Repeat the lighting check and soldering correction to ensure that all LEDs are lighting.
-
-![82](images/kb61_073.jpg)
-
-![75](images/kb61_067.jpg)
-
 <a id="4"></a>
 ## 4. Assemble the ball-reading board
 Prepare the board shown in the photo below (hereinafter referred to as the "ball board") and the sensor.
@@ -499,10 +461,57 @@ Next, the soldered middle board is also stacked, making sure that the screw hole
 
 ![114](images/kb61_112.jpg)
 
-<a id="7-3"></a>
-### 7-3. Assembling the bottom plates 
+Once the plates are stacked, **install all the remaining key switches**. Push each switch straight down from the top-plate side, checking that the terminals don't bend, and confirm on the back of the middle board that both terminals came out of the socket. You need every switch installed at this stage so you can check key input in [Chapter 7-3](#7-3).
 
-Overlap the acrylic bottom plate from the back side and screw it in place.
+<a id="7-3"></a>
+### 7-3. Writing the Firmware and Checking Operation
+
+Now that the key switches are installed, write the firmware and check key input and LED operation.
+**Once the bottom plate is attached you can no longer reach the ProMicro, LEDs, or the back of the boards, so check at this stage.**
+
+The flashing method depends on the type of ProMicro.
+
+| ProMicro | Tools you can use |
+|:--|:--|
+| AVR ProMicro | REMAP or Keyball Link |
+| RP2040 ProMicro | Keyball Link only (REMAP is not supported) |
+
+*Be sure to write the same firmware to both left and right Pro Micro.
+
+**Using REMAP (AVR ProMicro only)**
+Keyball61 supports [REMAP](https://remap-keys.app/configure), so you can write firmware and change the keymap without installing any special software. 
+
+To use REMAP, please write the following VIA-supported firmware
+
+   - Keyball61 VIA-supported firmware [Keyball61 firmware page in the REMAP catalog](https://remap-keys.app/catalog/RZSU1CrvEW4lns0ww5BM/firmware), open the Keyball61_via and FLASH the firmware.
+
+Press the FLASH button and instructions on how to write will appear.
+
+**Using Keyball Link**
+Open [Keyball Link](https://keyball-link.shiroganelab.com/), connect Keyball to your PC with a USB cable, and follow the on-screen instructions to write (FLASH) the firmware.
+
+If the keyboard is not recognized even though the USB cable is connected, press the soldered RESET switch twice quickly and it will be recognized.
+
+When writing is done, open a text editor and **press every key one by one to confirm it registers correctly**.
+If left and right are reversed, re-check the left-right detection jumper in [Chapter 5](#5). If a key does not respond, redo the soldering of that key's socket and diode.
+
+If you installed LEDs, also check that they light up.
+The LEDs are wired in series, so if the light only comes on halfway, fix it by soldering the LED and the LED next to it, or by replacing the LED.
+
+See the photo below as an example.
+Looking at the LED numbers on the silk, we see that up to LED 12 is lighting, but LEDs 13 and after are not lighting. In this case, there is a high possibility that there is a problem with the soldering of LEDs 【No.12 or 13】, so please check and re-solder those LEDs.
+![82](images/kb61_071.jpg)
+
+Repeat the lighting check and soldering correction to ensure that all LEDs are lighting.
+
+![82](images/kb61_073.jpg)
+
+![75](images/kb61_067.jpg)
+
+<a id="7-4"></a>
+### 7-4. Assembling the bottom plates 
+
+Once the operation check is done, overlap the acrylic bottom plate from the back side and screw it in place.
 Next, attach the cushion rubbers to the four corners of the keyboard.
 
 <a id="8"></a>
@@ -568,7 +577,7 @@ Tighten the two M1.7 Torx screws with __【wide flat heads】__ from the back of
 <a id="9"></a>
 ## 9. Total finish 
 
-We are nearing completion! Fit the key switches of your choice.
+We are nearing completion!
 
 Finally, push the 34mm trackball into the case and Keyball61 Building have done! 
 Thank you for your hard working.  
@@ -578,9 +587,14 @@ Thank you for your hard working.
 <a id="10"></a>
 ## 10. Write the regular firmware
 
-Finally, let's write the firmware to ProMicro.
+The firmware was already written in [Chapter 7-3](#7-3). This chapter is for reference when you later change the keymap or re-flash the firmware to a newer version.
 
 The flashing method depends on the type of ProMicro.
+
+| ProMicro | Tools you can use |
+|:--|:--|
+| AVR ProMicro | REMAP or Keyball Link |
+| RP2040 ProMicro | Keyball Link only (REMAP is not supported) |
 
 *Be sure to write the same firmware to both left and right Pro Micro.
 
@@ -594,7 +608,7 @@ To use REMAP, please write the following VIA-supported firmware
 
    - Keyball61 VIA-supported firmware [Keyball61 firmware page in the REMAP catalog](https://remap-keys.app/catalog/RZSU1CrvEW4lns0ww5BM/firmware), open the Keyball61_via and FLASH the firmware.
 
-For writing, as written in [Chapter 3-8](#3-8), press the FLASH button and instructions on how to write will appear.
+For writing, as written in [Chapter 7-3](#7-3), press the FLASH button and instructions on how to write will appear.
 If the keyboard is not recognized even though the USB cable is connected, press the soldered RESET switch twice quickly and it will be recognized.
 
 **Using Keyball Link**
