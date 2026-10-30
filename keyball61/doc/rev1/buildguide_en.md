@@ -99,7 +99,7 @@ The following are the parts you need to prepare before assembly.
 
 | Name | Number | Note |
 |:-|:-|:-|
-| ProMicro | 2 pcs | You can choose from inexpensive ones or USB Type-C supported ones. |
+| ProMicro or RP2040 ProMicro | 2 pcs | You can choose from inexpensive ones or USB Type-C supported ones. |
 | CherryMX Compatible Key Switches | 61 pcs | 56 pcs for Thumb low-profile |
 | Low-profile choc Key Switches | 5 pcs | For Thumb low-profile |
 | Trackball (34mm diameter) | 1 pc | Used to check operation |

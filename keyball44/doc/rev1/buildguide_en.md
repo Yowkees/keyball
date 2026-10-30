@@ -109,7 +109,7 @@ The following parts are not included in the kit and need to be purchased separat
 
 | Part Name | Quantity | Notes |
 |:-------|:----:|:-----|
-| ProMicro | 2 pieces | You can choose inexpensive ones or USB Type-C compatible ones |
+| ProMicro or RP2040 ProMicro | 2 pieces | You can choose inexpensive ones or USB Type-C compatible ones |
 | CherryMX Compatible Key Switches | 44 pieces | 39 pieces if using thumb low profile specification |
 | Low Profile Key Switches | 5 pieces | Only if using thumb low profile specification |
 | 34mm Diameter Trackball | 1 piece | Required when using trackball |
