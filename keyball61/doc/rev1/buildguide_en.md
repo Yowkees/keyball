@@ -506,8 +506,6 @@ Repeat the lighting check and soldering correction to ensure that all LEDs are l
 
 ![82](images/kb61_073.jpg)
 
-![75](images/kb61_067.jpg)
-
 <a id="7-4"></a>
 ### 7-4. Assembling the bottom plates 
 
