@@ -29,7 +29,6 @@ Sections that require special attention for black PCB sets are marked with ⚫�
    - [3-5. Soldering Jumpers](#anchor3-5)
    - [3-6. TRRS Socket, Tactile Switch, and 4-pin Socket](#anchor3-6)
    - [3-7. Soldering ProMicro](#anchor3-7)
-   - [3-8. ProMicro Programming and Operation Check](#anchor3-8)
  - [4. Assembling the Trackball Reading Board](#anchor4)
    - [4-1. Soldering the Sensor](#anchor4-1)
    - [4-2. Soldering the L-shaped Connector](#anchor4-2)
@@ -39,7 +38,8 @@ Sections that require special attention for black PCB sets are marked with ⚫�
  - [6. Assembly](#anchor6)
    - [6-1. Installing the Protection Plate](#anchor6-1)
    - [6-2. Assembling the Top Plate](#anchor6-2)
-   - [6-3. Assembling the Bottom Plate](#anchor6-3)
+   - [6-3. Writing the Firmware and Checking Operation](#anchor6-3)
+   - [6-4. Assembling the Bottom Plate](#anchor6-4)
  - [7. Installing the Trackball](#anchor7)
    - [7-1. Inserting the Ball Reading Board](#anchor7-1)
    - [7-2. Assembling the Trackball Case](#anchor7-2)
@@ -48,6 +48,8 @@ Sections that require special attention for black PCB sets are marked with ⚫�
 > **Finishing**
  - [8. Final Assembly](#anchor8)
  - [9. Writing the Official Firmware](#anchor9)
+   - [9-1. For an AVR ProMicro](#anchor9-1)
+   - [9-2. For an RP2040 ProMicro](#anchor9-2)
  - [10. How to Use Keyball♪](#anchor10)
 
 <a id="anchor1"></a>
@@ -107,7 +109,7 @@ The following parts are not included in the kit and need to be purchased separat
 
 | Part Name | Quantity | Notes |
 |:-------|:----:|:-----|
-| ProMicro | 2 pieces | You can choose inexpensive ones or USB Type-C compatible ones |
+| ProMicro or RP2040 ProMicro | 2 pieces | You can choose inexpensive ones or USB Type-C compatible ones |
 | CherryMX Compatible Key Switches | 44 pieces | 39 pieces if using thumb low profile specification |
 | Low Profile Key Switches | 5 pieces | Only if using thumb low profile specification |
 | 34mm Diameter Trackball | 1 piece | Required when using trackball |
@@ -155,7 +157,7 @@ To operate Keyball44, firmware needs to be written to the ProMicro you purchased
 
  Pre-built firmware can be easily written using [REMAP](https://remap-keys.app/), a web-based keyboard management software.
  
- Writing is explained in detail in [Chapter 3-8](#anchor3-8) for test firmware writing and [Chapter 9](#anchor9) for production firmware writing.
+ Writing is explained in detail in [Chapter 6-3](#anchor6-3).
 
 <a id="anchor3"></a>
 ## 3. Implementation
@@ -380,6 +382,10 @@ Soldering while inserted into the board prevents the connector pin from being in
 
 ![63](images/kb44_060.jpg)
 
+>**⚡️Warning**: When using an RP2040 ProMicro, insert and solder it as shown in the photo below. (The red-circled areas in the photo are not used.)
+
+![64](images/kb44_rp2040_insert.jpg)
+
 OLED can be installed on both left and right boards as standard.  
 Insert a 4-pin header into the 4-pin socket and place the OLED module.
 Then solder **only one** of the 4 pins.  
@@ -393,40 +399,6 @@ Once the position is determined, solder the remaining 3 pins.
 
 
 
-
-<a id="anchor3-8"></a>
-### 3-8. ProMicro Programming and Operation Check
-Let's write test firmware to ProMicro.   
-The test firmware has a keymap layout that's easy to verify operation, and LEDs light up in red→green→blue sequence, making it easy to find problematic areas.  
-If you're skipping LED soldering, etc., and don't need test firmware, you can write the official firmware from [Chapter 9](#anchor9) here.
-
-
-Keyball44 firmware is common regardless of which side the trackball is mounted on.  
-Please write (FLASH) the [Keyball_test.hex](https://remap-keys.app/catalog/tAJ9Htme4oNabUkx4832/firmware) registered in REMAP.
-Clicking the FLASH button in the link above will display instructions for the writing method.  
-If the keyboard is not recognized even with the USB cable connected, try pressing the soldered RESET switch quickly twice.  
-※Be sure to write the same hex file to both left and right Pro Micros.
-
->**⚡️Warning**: This test firmware is for AVR ProMicro only. If you are using an RP2040 ProMicro, there is no REMAP test firmware, so skip this step and write the production firmware from [Chapter 9](#anchor9) using Keyball Link instead.
-
-  If you want to directly edit Keyball44 firmware and build it yourself, source files are available in [this repository](https://github.com/Yowkees/keyball/tree/main/qmk_firmware/keyboards/keyball), so please download and use them.
-
-
-After writing is complete, check that characters are input to a text editor by shorting the key switch pad with tweezers as shown in the photo below. 
-The keyboard left and right may be reversed, but that's not a problem for now.  
-Please just check that some characters are input and ProMicro is working.  
-You don't need to test all keys yet, but checking operation early makes problem isolation easier.  
-※Firmware writing must be done for both left and right Pro Micros.  
-
-At this timing, also perform LED lighting check.  
-LEDs are wired in series, so it's easy to identify the problematic area if only some light up.
-
-For example, if LEDs up to number 12 light up but LEDs from number 13 onwards don't light up, there's likely a problem with the soldering of [LED number 12 or 13], so please redo the soldering of those LEDs.  
-If it still doesn't improve, LED failure is suspected, so please replace LED number 13.
-
-Repeat the lighting check and soldering correction until all LEDs light up.
-
-![75](images/kb44_067.jpg)
 
 <a id="anchor4"></a>
 ## 4. Assembling the Trackball Reading Board
@@ -544,10 +516,49 @@ Next, also match the screw holes of the soldered middle board, and stack while c
 
 ![114](images/kb44_112.jpg)
 
-<a id="anchor6-3"></a>
-### 6-3. Assembling the Bottom Plate
+Once the plates are stacked, **install all the remaining key switches**. Push each switch straight down from the top-plate side, checking that the terminals don't bend, and confirm on the back of the middle board that both terminals came out of the socket. You need every switch installed at this stage so you can check key input in [Chapter 6-3](#anchor6-3).
 
-Peel off the protective sheet of the acrylic bottom plate, place it on the back of the main body, and screw it.  
+<a id="anchor6-3"></a>
+### 6-3. Writing the Firmware and Checking Operation
+
+Now that the key switches are installed, write the firmware and check key input and LED operation.
+**Once the bottom plate is attached you can no longer reach the ProMicro, LEDs, or the back of the boards, so check at this stage.**
+
+The flashing method depends on the type of ProMicro.
+
+| ProMicro | Tools you can use |
+|:--|:--|
+| AVR ProMicro | REMAP or Keyball Link |
+| RP2040 ProMicro | Keyball Link only (REMAP is not supported) |
+
+>**⚡️Warning**: Be sure to write the same firmware to both left and right Pro Micros.
+
+**Using REMAP (AVR ProMicro only)**
+Keyball44 is compatible with [ReMAP](https://remap-keys.app/configure), so firmware writing and keymap changes are possible without installing special software. For instructions on using Remap, please refer to the article by [Salicylic Acid's Self-Key Onsen Guide](https://salicylic-acid3.hatenablog.com/entry/remap-manual) for detailed information.
+
+Open the [REMAP catalog Keyball44 firmware page](https://remap-keys.app/catalog/tAJ9Htme4oNabUkx4832/firmware) and FLASH (write) the Keyball44_via firmware.
+Clicking the FLASH button will display instructions for the writing method.
+
+**Using Keyball Link**
+Open [Keyball Link](https://keyball-link.shiroganelab.com/), connect Keyball to your PC with a USB cable, and follow the on-screen instructions to write (FLASH) the firmware.
+
+If the keyboard is not recognized even with the USB cable connected, try pressing the soldered RESET switch quickly twice.
+
+When writing is done, open a text editor and **press every key one by one to confirm it registers correctly**.
+The keyboard left and right may be reversed, but that's not a problem for now. If a key does not respond, redo the soldering of that key's socket and diode.
+
+If you installed LEDs, also check that they light up.
+LEDs are wired in series, so it's easy to identify a problem area if only some light up.
+
+For example, if LEDs up to number 12 light up but LEDs from number 13 onwards don't light up, there's likely a problem with the soldering of [LED number 12 or 13], so please redo the soldering of those LEDs.
+If it still doesn't improve, LED failure is suspected, so please replace LED number 13.
+
+Repeat the lighting check and soldering correction until all LEDs light up.
+
+<a id="anchor6-4"></a>
+### 6-4. Assembling the Bottom Plate
+
+Once the operation check is done, peel off the protective sheet of the acrylic bottom plate, place it on the back of the main body, and screw it.  
 Next, attach cushion rubber to the four corners of the keyboard back.
 
 ![114](images/kb44_116.jpg)
@@ -623,7 +634,7 @@ At this time, hold the ball holding case with your finger to prevent it from rot
 <a id="anchor8"></a>
 ## 8. Final Assembly 
 
-Almost complete! Insert your preferred key switches and keycaps.
+Almost complete! Insert your preferred keycaps.
 
 Finally, push the 34mm trackball into the case to complete!  
 Thank you for your hard work.  
@@ -635,34 +646,45 @@ Thank you for your hard work.
 <a id="anchor9"></a>
 ## 9. Writing the Official Firmware 
 
-Now let's write the official firmware to ProMicro as the final step.
+The firmware was already written in [Chapter 6-3](#anchor6-3). This chapter is for reference when you later change the keymap or re-flash the firmware to a newer version.
 
-The flashing method depends on the type of ProMicro. An **AVR ProMicro** can be flashed with either REMAP or Keyball Link. An **RP2040 ProMicro** can only be flashed from Keyball Link (REMAP is not supported).
+The flashing method depends on the type of ProMicro.
 
-**Using REMAP (AVR ProMicro only)**
+| ProMicro | Tools you can use |
+|:--|:--|
+| AVR ProMicro | REMAP or Keyball Link |
+| RP2040 ProMicro | Keyball Link only (REMAP is not supported) |
+
+>**⚡️Warning**: Be sure to write the same firmware to both left and right Pro Micros.
+
+<a id="anchor9-1"></a>
+### 9-1. For an AVR ProMicro
+
+**Using REMAP**
 Keyball44 is compatible with [ReMAP](https://remap-keys.app/configure), so firmware writing and keymap changes are possible without installing special software. For instructions on using Remap, please refer to the article by [Salicylic Acid's Self-Key Onsen Guide](https://salicylic-acid3.hatenablog.com/entry/remap-manual) for detailed information.  
 
 To use ReMAP, open the [REMAP catalog Keyball44 firmware page](https://remap-keys.app/catalog/tAJ9Htme4oNabUkx4832/firmware) and FLASH (write) the Keyball44_via firmware.
-
-
-
-
-As written in [Chapter 3-8](#anchor3-8), clicking the FLASH button will display instructions for the writing method.
+As written in [Chapter 6-3](#anchor6-3), clicking the FLASH button will display instructions for the writing method.
 If the keyboard is not recognized even with the USB cable connected, try pressing the soldered RESET switch quickly twice.
-
->**⚡️Warning**: Be sure to write the same hex file to both left and right Pro Micros.
-
-**If you want to build firmware yourself**   
-The latest Keyball44 firmware is published in the [Github repository](https://github.com/Yowkees/keyball/tree/main/qmk_firmware/keyboards/keyball).  
-Copy this keyball folder to your QMK_Firmware/keyboards and freely edit keymaps etc. to make.  
 
 **Using Keyball Link**
 ■Keyball's Dedicated Keymap Editor "Keyball Link"
 By flashing dedicated firmware from Keyball Link, you can easily use not only the features available in the existing firmware, but also newly added features and features that previously required building your own firmware to enable.
-An **RP2040 ProMicro** can only be flashed from Keyball Link (REMAP is not supported).
 
 Keyball Link is here:
 https://keyball-link.shiroganelab.com/
+
+<a id="anchor9-2"></a>
+### 9-2. For an RP2040 ProMicro
+
+An RP2040 ProMicro can only be flashed from [Keyball Link](https://keyball-link.shiroganelab.com/) (REMAP is not supported).
+See [Chapter 3-7](#anchor3-7) for how to enter flashing mode (the reset-button procedure).
+
+---
+
+**If you want to build firmware yourself**   
+The latest Keyball44 firmware is published in the [Github repository](https://github.com/Yowkees/keyball/tree/main/qmk_firmware/keyboards/keyball).  
+Copy this keyball folder to your QMK_Firmware/keyboards and freely edit keymaps etc. to make.  
 
 
 <a id="anchor10"></a>
